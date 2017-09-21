@@ -1,0 +1,63 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<h1 class="text-center">Editar equipo</h1>
+			<form class="form-horizontal" name="editForm" ng-submit="vm.editTeam()">
+	    		<div class="form-group">
+	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+	    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre del equipo</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="nombre" ng-model="vm.teamData.team_name"  placeholder="P.ej.: Pablo" class="form-control" required>
+					    </div>
+	    			</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="apat" class=" col-xs-12 ">Nombre del proyecto</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="apat" ng-model="vm.teamData.project_name" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
+					    </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="apat" class=" col-xs-12 ">Descripción del proyecto</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <textarea rows="7" id="apat" ng-model="vm.teamData.project_desc" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required></textarea>
+					    </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Ciudad</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.teamData.cityId" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
+						</div>	
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">División</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.teamData.divisionId" class="form-control" ng-options="division.id as division.label for division in vm.divisions"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Categoría</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.teamData.categoryId" class="form-control" ng-options="category.id as category.label for category in vm.categories"></select>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					<div class="alert alert-danger msg-alert" ng-if="vm.isSubmited.state"><strong><i class="mdi mdi-exclamation" style="font-size:15px;"></i> {{vm.isSubmited.msg}}</strong></div>
+			        <button type="submit" class="btn btn-success btn-lg pull-right" ng-disabled="vm.isSubmited.isLoading"><i ng-class="!vm.isSubmited.isLoading ? 'fa fa-refresh' : 'fa fa-circle-o-notch fa-spin'"></i> Actualizar datos</button>
+			        <button class="btn btn-default btn-lg pull-right" ui-sref="user.team-profile({id: vm.teamData.id})"><i class="fa fa-arrow-left"></i> Volver</button>
+				</div>
+		      </form>
+		</div>
+	</div>
+</div>
+<p style="padding:20px;"></p>

@@ -1,0 +1,50 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<img ng-if="!vm.studentData.image" src="/app/images/users/default-user.png" style="margin:auto;" alt="">
+							<img ng-if="vm.studentData.image" ng-src="/app/images/users/{{vm.studentData.image.name}}" style="margin:auto;" alt="">
+						</div>
+						<div class="col-xs-12">
+						<p style="padding:5px;"></p>
+							<div ng-if="vm.studentData.has_team">
+								<div class="alert alert-warning text-center"><strong>El estudiante ya pertenece a un equipo</strong></div>
+							</div>
+							<div ng-if="!vm.studentData.has_team && !vm.isMemberInvited">
+								<div class="alert alert-success text-center"><strong>El estudiante no pertenece a un equipo, invítalo</strong></div>
+								<button class="btn btn-info btn-block pull-right" ng-click="vm.inviteToTeam(vm.studentData.id)" ng-disabled="vm.uploadInvitation.isLoading"><i ng-class="!vm.uploadInvitation.isLoading ? '' : 'fa fa-circle-o-notch fa-spin'"></i> Invitar a equipo</button>
+							</div>
+							<div ng-if="vm.isMemberInvited && !vm.studentData.has_team">
+								<div class="alert alert-success text-center"><strong>Ya enviaste una invitación al usuario</strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h1>{{ vm.studentData.names + ' ' + vm.studentData.lastnames }}</h1>
+						<p ng-if="vm.studentData.bio"> {{ vm.studentData.bio.name }} </p>
+						<div class="col-xs-12 col-sm-6">
+							<p>Correo electrónico: {{ vm.studentData.email }}</p>
+							<p>Celular: {{ vm.studentData.cellphone }}</p>
+							<p>Fecha de nacimiento: {{ vm.studentData.birth_date }}</p>
+							<p>Género: {{ vm.studentData.genre.descripcion }}</p>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<p>Ciudad: {{ vm.studentData.city.nombre }}</p>
+							<p>Zona: {{ vm.studentData.zone.nombre }}</p>
+							<p ng-if="vm.userCreds.role == 1">Colegio: {{ vm.studentData.student.school.nombre }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

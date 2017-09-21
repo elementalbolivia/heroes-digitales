@@ -1,0 +1,160 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<h1 class="text-center">Regístrate como {{ vm.typeParams.title }}</h1>
+			<form class="form-horizontal" name="registerForm" ng-submit="vm.sendRegistration()">
+	    		<div class="form-group">
+	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+	    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre(s)</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="nombre" ng-model="vm.dataRegister.names"  placeholder="P.ej.: Pablo" class="form-control" required>
+					    </div>
+	    			</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="apat" class=" col-xs-12 ">Apellido(s)</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="apat" ng-model="vm.dataRegister.lastnames" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
+					    </div>
+					</div>
+				</div>
+	    		<div class="form-group">
+	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+		    			<label for="birthDate" class="col-xs-12 ">
+		    				Fecha de nacimiento
+		    			</label>
+	                    <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
+	                      <select id="dia" class="form-control" ng-options="day for day in vm.dates.days" ng-model="vm.dataRegister.birthDate.day" required></select>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
+	                      <select id="mes" ng-model="vm.dataRegister.birthDate.month" class="form-control">
+	                            <option ng-repeat="month in vm.dates.months">{{ month }}</option>
+	                      </select>
+	                    </div>
+	                    <div class="col-xs-12 col-sm-4" style="margin-top:10px;">
+	                      <select id="mes" ng-model="vm.dataRegister.birthDate.year" class="form-control">
+	                            <option ng-repeat="year in vm.dates.years">{{ year }}</option>
+	                      </select>
+	                    </div>
+	    			</div>
+            	</div> 
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12 ">Número celular</label>
+						<div class="col-xs-12 col-sm-6">
+							<input type="number" id="correo" class="form-control" ng-model="vm.dataRegister.cellphone" p required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Ciudad</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.cityId" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
+						</div>	
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Zona</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.zoneId" class="form-control" ng-options="zone.id as zone.label for zone in vm.zones"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-if="vm.typeReg == 'student'">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Colegio</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.schoolId" class="form-control" ng-options="school.id as school.label for school in vm.schools"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="sex" class=" col-xs-12">Género</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.genreId" class="form-control" ng-options="genre.id as genre.label for genre in vm.genres"></select>
+						</div>
+					</div>
+				</div>
+				<!-- Fields only available for menthors, judges, experts -->
+				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'mentor' || vm.typeReg == 'expert'">
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="org" class=" col-xs-12">Organización de trabajo</label>
+						<div class="col-xs-12">
+							<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Puesto de trabajo</label>
+						<div class="col-xs-12">
+							<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job" placeholder="P.ej.: tuemail@gmail.com" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Profesión</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.professionId" class="form-control" ng-options="profession.id as profession.label for profession in vm.professions"></select>
+						</div>
+					</div>
+				</div>	
+				</div>
+				
+				<!-- Field available only for judges and experts -->
+				<div class="form-group"  ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="cv" class=" col-xs-12">Curriculum vitae</label>
+						<div class="col-xs-12">
+							<button type="button" ngf-select id="cv" class="btn btn-primary btn-lg" ng-model="vm.dataRegister.cv" ngf-pattern="'.pdf,.docx'" ngf-accept="'.pdf,.docx'" ><i class="fa fa-file-pdf-o"></i> Subir curriculum</button>
+							<p style="padding:3px;"></p>
+							<p>{{ vm.dataRegister.cv.name }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Correo electrónico</label>
+						<div class="col-xs-12">
+							<input type="email" id="correo" class="form-control" ng-model="vm.dataRegister.email" placeholder="P.ej.: tuemail@gmail.com" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="pass" class=" col-xs-12">Escriba su contraseña</label>
+						<div class="col-xs-12">
+							<input type="password" id="pass" class="form-control" ng-model="vm.dataRegister.password" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="pass" class=" col-xs-12 col-sm-12">Escriba nuevamente su contraseña</label>
+						<div class="col-xs-12">
+							<input type="password" id="pass" class="form-control" ng-model="vm.dataRegister.retype" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					<div class="alert alert-danger msg-alert" ng-if="vm.isNotRegistered.state"><strong><i class="mdi mdi-exclamation" style="font-size:15px;"></i> {{vm.isNotRegistered.msg}}</strong></div>
+			        <button type="submit" class="btn btn-success btn-lg pull-right" ng-disabled="registerForm.$invalid || vm.isNotRegistered.isLoading"><i ng-class="!vm.isNotRegistered.isLoading ? 'fa fa-check-circle-o' : 'fa fa-circle-o-notch fa-spin'"></i> Crear cuenta</button>
+			        <button class="btn btn-default btn-lg pull-right" ui-sref="home"><i class="fa fa-arrow-left"></i>Volver al inicio</button>
+				</div>
+		      </form>
+		</div>
+	</div>
+</div>
+<p style="padding:20px;"></p>

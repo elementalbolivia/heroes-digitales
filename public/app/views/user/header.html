@@ -1,0 +1,34 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#heroesNavBar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">Héroes Digitales</a>
+    </div>
+    <div class="collapse navbar-collapse" id="heroesNavBar" >
+      <ul class="nav navbar-nav">
+        <li class="active"><a ui-sref="user">Dashboard</a></li>
+        <li><a ui-sref="user.teams" ng-disabled="!vm.hasMinFields" >Equipos</a></li>
+        <li><a ui-sref="user.students" ng-disabled="!vm.hasMinFields">Estudiantes</a></li>
+        <li><a ui-sref="user.mentors" ng-disabled="!vm.hasMinFields">Mentores</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a class="dropdown-toggle"  data-toggle="dropdown">{{ vm.userCreds.username }}
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a ui-sref="user.my-profile">Mi perfil</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Cambiar de contraseña</a></li>
+          </ul>
+        </li>
+          
+        <li><a ui-sref="user.team-profile({id: vm.userCreds.teamId})" ng-if="vm.userCreds.hasTeam" ng-disabled="!vm.hasMinFields">Mi equipo</a></li>
+        <li><a ng-click="vm.logout()">Cerrar sesión</a></li> 
+      </ul>
+    </div>
+  </div>
+</nav>

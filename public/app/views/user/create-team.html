@@ -1,0 +1,84 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<h1 class="text-center">Crea un equipo</h1>
+			<form class="form-horizontal" name="registerForm" ng-submit="vm.sendRegistration()">
+	    		<div class="form-group">
+	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+	    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre del equipo</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="nombre" ng-model="vm.dataRegister.teamName"  placeholder="P.ej.: Pablo" class="form-control" required>
+					    </div>
+	    			</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="apat" class=" col-xs-12 ">Nombre del proyecto</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="apat" ng-model="vm.dataRegister.projectName" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
+					    </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="apat" class=" col-xs-12 ">Descripción del proyecto</label>
+					    <div class="col-xs-12 col-sm-12">
+					      <textarea rows="7" id="apat" ng-model="vm.dataRegister.desc" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required></textarea>
+					    </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Ciudad</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.cityId" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
+						</div>	
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">División</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.divisionId" class="form-control" ng-options="division.id as division.label for division in vm.divisions"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Categoría</label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.categoryId" class="form-control" ng-options="category.id as category.label for category in vm.categories"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" >
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="cv" class=" col-xs-12">Imagen del equipo</label>
+						<div class="col-xs-12">
+							<button type="button" ngf-select id="cv" class="btn btn-primary btn-lg" ng-model="vm.dataRegister.img" ngf-pattern="'.jpg,.png'" ngf-accept="'.jpg,.png'" ><i class="fa fa-file-image-o"></i> Subir imagen</button>
+							<p style="padding:3px;"></p>
+							<p>{{ vm.dataRegister.img.name }}</p>
+						</div>
+					</div>
+				</div>
+				<!-- 
+				TODO: LIST ON KEY UP, TO FIND OTHER MEMBERS AND SEND THEM INVITATION TO BECOME PART OF THE TEAM
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="correo" class=" col-xs-12">Correo electrónico</label>
+						<div class="col-xs-12">
+							<input type="email" id="correo" class="form-control" ng-model="vm.dataRegister.email" placeholder="P.ej.: tuemail@gmail.com" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div> -->
+				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					<div class="alert alert-danger msg-alert" ng-if="vm.isNotRegistered.state"><strong><i class="mdi mdi-exclamation" style="font-size:15px;"></i> {{vm.isNotRegistered.msg}}</strong></div>
+			        <button type="submit" class="btn btn-success btn-lg pull-right" ng-disabled="registerForm.$invalid || vm.isNotRegistered.isLoading"><i ng-class="!vm.isNotRegistered.isLoading ? 'fa fa-users' : 'fa fa-circle-o-notch fa-spin'"></i> Crear equipo</button>
+			        <button class="btn btn-default btn-lg pull-right" ui-sref="user"><i class="fa fa-arrow-left"></i> Volver al inicio</button>
+				</div>
+		      </form>
+		</div>
+	</div>
+</div>
+<p style="padding:20px;"></p>

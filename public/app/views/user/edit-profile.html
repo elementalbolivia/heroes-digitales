@@ -1,0 +1,151 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h1>Editar perfil de {{ vm.userData.names + ' ' + vm.userData.lastnames }}</h1>
+					</div>
+					<div class="panel-body">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+				    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+				    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre(s)</label>
+								    <div class="col-xs-12 col-sm-12">
+								      <input type="text" id="nombre" ng-model="vm.userData.names"  placeholder="P.ej.: Pablo" class="form-control" required>
+								    </div>
+				    			</div>
+							</div>
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label for="apat" class=" col-xs-12 ">Apellido(s)</label>
+								    <div class="col-xs-12 col-sm-12">
+								      <input type="text" id="apat" ng-model="vm.userData.lastnames" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
+								    </div>
+								</div>
+							</div>
+				    		<!-- <div class="form-group">
+				    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					    			<label for="birthDate" class="col-xs-12 ">
+					    				Fecha de nacimiento
+					    			</label>
+				                    <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
+				                      <select id="dia" class="form-control" ng-options="day for day in vm.dates.days" ng-model="vm.dataRegister.birthDate.day" required></select>
+				                    </div>
+				                    <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
+				                      <select id="mes" ng-model="vm.dataRegister.birthDate.month" class="form-control">
+				                      		<option value="">Mes</option>
+				                            <option ng-repeat="month in vm.dates.months">{{ month }}</option>
+				                      </select>
+				                    </div>
+				                    <div class="col-xs-12 col-sm-4" style="margin-top:10px;">
+				                      <select id="mes" ng-model="vm.dataRegister.birthDate.year" class="form-control">
+				                      		<option value="">Año</option>
+				                            <option ng-repeat="year in vm.dates.years">{{ year }}</option>
+				                      </select>
+				                    </div>
+				    			</div>
+			            	</div>  -->
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Número celular</label>
+									<div class="col-xs-12">
+										<input type="number" id="correo" class="form-control" ng-model="vm.userData.cellphone" p required>
+										<p style="padding:3px;"></p>
+									</div>
+								</div>
+							</div>
+				
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Ciudad</label>
+									<div class="col-xs-12">
+										<select ng-model="vm.userData.city.id" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
+									</div>	
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Zona</label>
+									<div class="col-xs-12">
+										<select ng-model="vm.userData.zone.id" class="form-control" ng-options="zone.id as zone.label for zone in vm.zones"></select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" ng-if="vm.userCreds.role == 1">
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Colegio</label>
+									<div class="col-xs-12">
+										<select ng-model="vm.userData.student.school.id" class="form-control" ng-options="school.id as school.label for school in vm.schools"></select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" ng-if="vm.userCreds.role == 2">
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Profesión</label>
+									<div class="col-xs-12">
+										<select ng-model="vm.userData.mentor.profession.id" class="form-control" ng-options="profession.id as profession.label for profession in vm.professions"></select>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Trabajo</label>
+									<div class="col-xs-12">
+										<input ng-model="vm.userData.mentor.job" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+									<label id="correo" class=" col-xs-12">Lugar de trabajo</label>
+									<div class="col-xs-12">
+										<input ng-model="vm.userData.mentor.work_place" class="form-control"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="form-group">
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+								<label id="correo" class=" col-xs-12">Escribe una breve biografía sobre ti</label>
+								<div class="col-xs-12">
+									<textarea rows="5" ng-model="vm.userData.bio" class="form-control"></textarea>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12" ng-if="vm.userCreds.role == 2">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2>Escoge tus habilidades</h2>
+					</div>
+					<div class="panel-body">
+						<div class="form-group" ng-if="vm.userCreds.role == 2">
+							<div class="col-xs-12 col-sm-4 col-sm-offset-2" ng-repeat="skill in vm.skills track by $index">
+								<label id="correo" class=" col-xs-12">{{skill.label}}</label>
+								<div class="col-xs-12">
+									<select ng-model="vm.skillsUser[$index].expertise.id" class="form-control" ng-options="expertise.id as expertise.label for expertise in vm.expertises"></select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<button ng-click="vm.update()" class="btn btn-info btn-lg pull-right">Realizar cambios</button>
+			<button ui-sref="user.my-profile" class="btn btn-default btn-lg pull-right"><i class="fa fa-arrow-left"></i> Volver</button>
+		</div>
+	</div>
+</div>
+<p style="padding:20px;"></p>

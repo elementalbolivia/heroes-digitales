@@ -1,0 +1,43 @@
+<div class="container" >
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			        <h2 class="text-center">Inicia sesión como administrador de Heroes Digitales</h2>
+		      </div>
+		      <div class="panel-body">
+				<form class="form-horizontal" name="sesion">
+			      <div class="modal-body">
+				    <div class="row">  
+				    	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<div class="form-group">
+								<label id="correo" class="label-control col-xs-12 col-sm-4">Escriba su correo electrónico:</label>
+								<div class="col-xs-12 col-sm-8">
+									<input type="email" id="correo" class="form-control" ng-model="vm.creds.email" placeholder="P.ej.: male@gmail.com" required>
+									<p style="padding:3px;"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label id="pass" class="label-control col-xs-12 col-sm-4">Escriba su contraseña:</label>
+								<div class="col-xs-12 col-sm-8">
+									<input type="password" id="pass" class="form-control" ng-model="vm.creds.password" required>
+									<p style="padding:3px;"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-10 col-sm-offset-1" ng-if="vm.loginAdminState.isNotLogged">
+							<span class="alert alert-danger msg-alert" ><strong><i class="fa fa-warning"></i> {{vm.loginAdminState.msg}}</strong></span>
+						</div>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			      	<lx-button class="flat" lx-color="blue" ui-sref="home"><i class="mdi mdi-arrow-left"></i> Volver a la página de inicio</lx-button>
+			        <lx-button type="submit" class="raised" lx-color="green" ng-disabled="sesion.$invalid" ng-click="vm.loginAdmin()"><i class="mdi mdi-login"></i> Entrar</lx-button>
+			      </div>
+			      </form>			      
+		      </div>
+		</div>
+	</div>
+</div>
+
+

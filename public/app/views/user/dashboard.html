@@ -1,0 +1,139 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel panel-default">
+			  <div class="panel-body" ng-if="!vm.userCreds.hasTeam">
+			  	<h2>MI EQUIPO</h2>
+				<p>Aún no registraste un equipo. Crea uno! </p>				
+			  	<div class="col-xs-12" ng-if="!vm.userCreds.hasTeam">
+			  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.create-team"> Crear equipo</button>
+			  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.teams"> Únete a un equipo</button>
+			  	</div>
+			  	<p style="padding:85px;"></p>
+			  </div>
+			  <div class="panel-body" ng-if="vm.userCreds.hasTeam">
+			  	<h2><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }} </a></h2>
+			  	<h4>Miembros</h4>
+			  	<div class="table-responsive">
+			  		<table class="table table-striped">
+				  		<thead>
+				  			<tr>
+					  			<th>Nombre(s)</th>
+					  			<th>Apellido(s)</th>
+					  			<th>Tipo</th>
+					  			<th>Perfil</th>
+				  			</tr>
+				  		</thead>
+				  		<tbody>
+				  			<tr ng-repeat="member in vm.userData.team.members">
+				  				<td>{{ member.names }}</td>
+				  				<td>{{ member.lastnames }}</td>
+				  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
+				  				<td ng-if="!member.is_student"> Mentor (líder)</td>
+				  				<td ng-if="member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.student-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
+				  				<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
+				  			</tr>
+				  		</tbody>
+				  	</table>	
+			  	</div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			  	<h2>BIENVENIDO</h2>
+				<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
+				<ol style="padding:5px;">
+					<!-- Código de honor -->
+					<li ng-if="!vm.userData.terms_use"><a ui-sref="user.terms-use">Leer y firmar el código de honor para participantes. <i class="fa fa-times-circle-o text-danger fa-1x"></i></a></li>
+					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para participantes <i class="fa fa-check-circle-o"></i></li>
+					<!-- Autorización -->
+					<div ng-if="vm.userCreds.role == 1">
+						<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
+						<i class="fa fa-times-circle-o text-danger fa-1x"></i></li>	
+						<li ng-if="vm.userData.student.authorization" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
+						<i class="fa fa-check-circle-o"></i></li>	
+					</div>
+					<li ui-sref="user.my-profile" ng-if="!(vm.userData.image && vm.userData.bio)">
+					<a>Subir una foto y biografía corta a tu perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
+					</li>
+					<li class="text-success" ng-if="vm.userData.image && vm.userData.bio">
+					Subir una foto y biografía corta a tu perfil. <i class="fa fa-times-check-o text-danger "></i>
+					</li>
+				</ol>
+			  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
+			  		<p>
+			  			<strong>Atención:</strong>
+			  			Todavía no has completado todos los pasos para habilitarte en el concurso.
+			  		</p>
+			  	</div>
+			  	<div ng-if="vm.userData.min_fields" class="alert alert-success">
+			  		<p>
+			  			<strong>FELICITACIONES:</strong>
+			  			Has completado los pasos para poder concursar.
+			  		</p>
+			  	</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6" ng-if="!vm.userData.team.is_full">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			  	<h2>SOLICITUDES</h2>
+				<p>En esta sección recibirás información sobre las solicitudes de otros participantes/mentores para ser parte de tu equipo. </p>
+			  	<div class="alert alert-warning" ng-if="!vm.userData.team.requests">
+			  		<strong>No tienes solicitudes</strong>
+			  	</div>
+			  	<div class="table-responsive">
+			  		<table class="table table-striped">
+				  		<tbody>
+				  			<tr ng-repeat="member in vm.userData.team.requests">
+				  				<td>{{ member.names }}</td>
+				  				<td>{{ member.lastnames }}</td>
+				  				<td ng-if="member.is_student"> Estudiante </td>
+				  				<td ng-if="!member.is_student"> Mentor</td>
+				  				<td>{{ member.created_at | date:'dd-mm-YYYY' }}</td> 
+				  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmRequest(member.request_id, true)" ng-disabled="!vm.userCreds.isLeader">Aprobar</button> </td>
+				  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmRequest(member.request_id, false)" ng-disabled="!vm.userCreds.isLeader">Rechazar</button> </td>
+				  			</tr>
+				  		</tbody>
+				  	</table>	
+			  	</div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6" ng-if="!vm.userCreds.hasTeam" >
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			  	<h2>INVITACIONES</h2>
+				<p>Aquí recibirás información sobre las invitaciones para formar parte de un equipo.</p>
+			  	<div ng-if="!vm.userData.invitations" class="alert alert-info">
+			  		<p>
+			  			<strong>No tienes invitaciones</strong>
+			  		</p>
+			  	</div>
+			  	<div class="table-responsive" ng-if="vm.userData.invitations">
+			  		<table class="table table-striped">
+				  		<tbody>
+				  			<tr ng-repeat="invitation in vm.userData.invitations">
+				  				<td>{{ invitation.team_name }}</td>
+				  				<td>{{ invitation.created_at | date:'dd-mm-YYYY' }}</td> 
+				  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, true)" ng-disabled="!vm.userData.min_fields">Unirme</button> </td>
+				  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, false)" ng-disabled="!vm.userData.min_fields">Rechazar</button> </td>
+				  			</tr>
+				  		</tbody>
+				  	</table>	
+			  	</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>CRONOGRAMA</h1>
+		</div>
+	</div>
+</div>

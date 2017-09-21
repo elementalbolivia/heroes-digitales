@@ -1,0 +1,74 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<img ng-if="!vm.mentorData.image" src="/app/images/users/default-user.png" style="margin:auto;" alt="">
+							<img ng-if="vm.mentorData.image" ng-src="/app/images/users/{{vm.mentorData.image.name}}" style="margin:auto;" alt="">
+						</div>
+						<div class="col-xs-12">
+						<p style="padding:5px;"></p>
+							<div ng-if="vm.mentorData.has_team">
+								<div class="alert alert-warning text-center"><strong>El mentor ya pertenece a un equipo</strong></div>
+							</div>
+							<div ng-if="!vm.mentorData.has_team && !vm.isMemberInvited && vm.authParams.role == 1">
+								<div class="alert alert-success text-center"><strong>El mentor no pertenece a un equipo, invítalo</strong></div>
+								<button class="btn btn-info btn-block pull-right" ng-click="vm.inviteToTeam(vm.mentorData.id)" ng-disabled="vm.uploadInvitation.isLoading"><i ng-class="!vm.uploadInvitation.isLoading ? '' : 'fa fa-circle-o-notch fa-spin'"></i> Invitar a equipo</button>
+							</div>
+							<div ng-if="vm.authParams.hasTeam && vm.authParams.role == 2">
+								<div class="alert alert-success text-center"><strong>Ya eres mentor de un equipo</strong></div>
+							</div>
+							<div ng-if="vm.isMemberInvited && !vm.mentorData.has_team">
+								<div class="alert alert-success text-center"><strong>Ya enviaste una invitación al usuario</strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="col-xs-12">
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h1>{{ vm.mentorData.names + ' ' + vm.mentorData.lastnames }}</h1>
+							<p ng-if="vm.mentorData.bio"> {{ vm.mentorData.bio.name }} </p>
+							<div class="col-xs-12 col-sm-6">
+								<p>Correo electrónico: {{ vm.mentorData.email }}</p>
+								<p>Celular: {{ vm.mentorData.cellphone }}</p>
+								<p>Fecha de nacimiento: {{ vm.mentorData.birth_date }}</p>
+								<p>Género: {{ vm.mentorData.genre.descripcion }}</p>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<p>Ciudad: {{ vm.mentorData.city.nombre }}</p>
+								<p>Zona: {{ vm.mentorData.zone.nombre }}</p>
+								<p>Lugar de trabajo: {{ vm.mentorData.mentor.work_place }}</p>
+								<p>Profesión: {{ vm.mentorData.mentor.profession.nombre }}</p>
+								<p>Trabajo: {{ vm.mentorData.mentor.job }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2>Habilidades</h2>
+						</div>
+						<div class="panel-body">
+							<div ng-repeat="skill in vm.mentorData.mentor.skills" class="col-xs-6">
+								<span style="margin:5px;" class="label label-default" >
+									{{ skill.skill_name }}
+								</span>
+								{{ skill.skill_level }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

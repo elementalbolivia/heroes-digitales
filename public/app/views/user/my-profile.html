@@ -1,0 +1,56 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<div ng-if="vm.userImg.newImg == null">
+								<img ng-if="!vm.userData.image" src="/app/images/users/default-user.png" style="margin:auto;" alt="">
+								<img ng-if="vm.userData.image" ng-src="/app/images/users/{{vm.userData.image.name}}" style="margin:auto;" alt="">
+							</div>
+							<img ng-if="vm.userImg.newImg != null" ngf-src="vm.userImg.newImg" style="margin:auto;" alt="">	
+						</div>
+						<div class="col-xs-12">
+						<p style="padding:5px;"></p>
+							<button ng-if="vm.userImg.newImg != null" class="btn btn-info pull-right" ng-model="vm.userImg.newImg" ng-click="vm.updateImg()"> Actualizar fotografía</button>
+							<button ngf-select ngf-pattern="'.jpg,.gif'" ngf-accept="'.jpg,.gif'" ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}" class="btn btn-primary pull-right" ng-model="vm.userImg.newImg"> Cambiar fotografía</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h1>{{ vm.userData.names + ' ' + vm.userData.lastnames }}</h1>
+						<p ng-if="vm.userData.bio"> {{ vm.userData.bio.name }} </p>
+						<div class="col-xs-12 col-sm-6">
+							<p>Correo electrónico: {{ vm.userData.email }}</p>
+							<p>Celular: {{ vm.userData.cellphone }}</p>
+							<p>Fecha de nacimiento: {{ vm.userData.birth_date }}</p>
+							<p>Género: {{ vm.userData.genre.descripcion }}</p>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<p>Ciudad: {{ vm.userData.city.nombre }}</p>
+							<p>Zona: {{ vm.userData.zone.nombre }}</p>
+							<p ng-if="vm.userCreds.role == 1">Colegio: {{ vm.userData.student.school.nombre }}</p>
+							<p ng-if="vm.userCreds.role == 2">Puesto de trabajo: {{vm.userData.mentor.job }}</p>
+							<p ng-if="vm.userCreds.role == 2">Profesión: {{vm.userData.mentor.profession.nombre }}</p>
+							<button class="btn btn-link pull-right" ui-sref="user.my-profile.edit"><i class="fa fa-pencil-square-o fa-2x"></i></button>
+						</div>
+						<div class="col-xs-12" ng-if="vm.userCreds.role == 2">
+							<h2>Habilidades</h2>
+							<div class="col-xs-6" ng-repeat="skill in vm.userData.mentor.skills">
+								<div>
+									<p>{{ skill.skill_name }} <span class="label label-default">{{ skill.skill_level }}</span></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
