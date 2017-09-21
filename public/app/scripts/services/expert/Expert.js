@@ -1,9 +1,7 @@
 (function(){
 	'use strict';
 	angular.module('heroesDigitalesApp')
-		.factory('Expert', Expert)
-		.constant('PUBLIC_URL', 'http://localhost:8000/api/v1/')
-		.constant('AUTH_URL', 'http://localhost:8000/api/v1/auth');
+		.factory('Expert', Expert);
 	Expert.$inyect = ['$http', 'Auth', 'PUBLIC_URL', 'AUTH_URL'];
 	function Expert($http, Auth, PUBLIC_URL, AUTH_URL){
 		return{

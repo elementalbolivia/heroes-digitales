@@ -1,8 +1,7 @@
 (function(){
 	'use strict';
 	angular.module('heroesDigitalesApp')
-		.factory('Auth', Auth)
-		.constant('PUBLIC_URL', 'http://localhost:8000/api/v1/');
+		.factory('Auth', Auth);
 	Auth.$inyect = ['$http', '$state', 'locker', 'PUBLIC_URL'];
 	function Auth($http, $state, locker, PUBLIC_URL){
 		return{
