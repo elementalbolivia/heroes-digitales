@@ -1,9 +1,7 @@
 (function(){
 	'use strict';
 	angular.module('heroesDigitalesApp')
-		.factory('Division', Division)
-		.constant('PUBLIC_URL', 'http://localhost:8000/api/v1/')
-		.constant('AUTH_URL', 'http://localhost:8000/api/v1/auth/');
+		.factory('Division', Division);
 	Division.$inyect = ['$http', 'Auth', 'PUBLIC_URL', 'AUTH_URL'];
 	function Division($http, Auth, PUBLIC_URL, AUTH_URL){
 		return{

@@ -1,8 +1,7 @@
 (function(){
 	'use strict';
 	angular.module('heroesDigitalesApp')
-		.factory('Register', Register)
-		.constant('PUBLIC_URL', 'http://localhost:8000/api/v1/');
+		.factory('Register', Register);
 	Register.$inyect = ['$http', 'Upload', 'PUBLIC_URL'];
 	function Register($http, Upload, PUBLIC_URL){
 		return{

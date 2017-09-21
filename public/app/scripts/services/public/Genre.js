@@ -1,8 +1,7 @@
 (function(){
 	'use strict';
 	angular.module('heroesDigitalesApp')
-		.factory('Genre', Genre)
-		.constant('PUBLIC_URL', 'http://localhost:8000/api/v1/');
+		.factory('Genre', Genre);
 	Genre.$inyect = ['$http', 'PUBLIC_URL'];
 	function Genre($http, PUBLIC_URL){
 		return{
