@@ -1,5 +1,5 @@
 ## Heroes Digitales by Elemental
-
+Proyect for a programming contest for kids
 
 ## Security Vulnerabilities
 
