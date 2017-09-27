@@ -10,7 +10,7 @@ class Estudiante extends Model
     protected $table = 'estudiante';
     public $timestamps = false;
     protected $fillable = ['usuario_id', 'colegio_id'];
-    
+
     public function user(){
     	return $this->belongsTo('App\Models\Usuario');
     }
