@@ -62,6 +62,8 @@
 <script src="/app/scripts/controllers/admin/LoginAdminCtrl.js"></script>
 <script src="/app/scripts/controllers/admin/DashboardAdminCtrl.js"></script>
 <script src="/app/scripts/controllers/admin/HeaderAdminCtrl.js"></script>
+<script src="/app/scripts/controllers/admin/JudgeAdminCtrl.js"></script>
+<script src="/app/scripts/controllers/admin/ExpertAdminCtrl.js"></script>
 <!-- Services -->
 <script src="/app/scripts/services/public/Register.js"></script>
 <script src="/app/scripts/services/public/City.js"></script>

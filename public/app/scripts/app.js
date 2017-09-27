@@ -249,13 +249,31 @@ angular.module('heroesDigitalesApp', [
 					templateUrl: '/app/views/admin/footer.html'
 				},
 			}
+		})
+		.state('admin.judges', {
+			url: '/admin/jueces',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/judges.html',
+						controller: 'JudgeAdminCtrl as vm'
+				},
+			}
+		})
+		.state('admin.experts', {
+			url: '/admin/expertos',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/experts.html',
+						controller: 'ExpertAdminCtrl as vm'
+				},
+			}
 		});
 	$urlRouterProvider.otherwise('/');
 	$locationProvider.html5Mode(true);
 })
 .run(function($transitions, $state, $window) {
   $transitions.onStart({}, function($transition$){
-    document.body.scrollTop = document.documentElement.scrollTop = 0;    
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
   });
   $transitions.onStart({to : 'user.**'}, function(trans){
     var $state = trans.router.stateService;
