@@ -20,7 +20,6 @@ use Storage;
 use Hash;
 use DB;
 
-
 date_default_timezone_set('America/La_Paz');
 class RegisterCtrl extends Controller
 {
@@ -72,7 +71,7 @@ class RegisterCtrl extends Controller
 	    		'genero_id'			=> $request->genreId,
 	    	];
 	    	// Crear un registro en la tabla usuario
-	    	$user = Usuario::create($userData);	
+	    	$user = Usuario::create($userData);
 	    	// Crear array-assoc para crear el rol del usuario
 	    	$role = [
 	    		'usuario_id'	=> $user->id,
@@ -95,13 +94,13 @@ class RegisterCtrl extends Controller
 	    			'colegio_id'	=> $request->schoolId,
 	    		]);
 	    	}
-	    	// Crear rol de usuario 
+	    	// Crear rol de usuario
 	    	$userHasRole = UsuarioTieneRol::create($role);
 	    	if($request->type == 'judge' || $request->type == 'expert'){
 	    		$res->msg = 'Felicitaciones, su registro fue completado con éxito, revisaremos su solicitud para que pueda formar parte del equipo. Le enviaremos un correo de confirmación';
-				$res->emailSended = 'NOT_SENDED';	    	
+				$res->emailSended = 'NOT_SENDED';
 	    	}else{
-	    		// Crear un token de seguridad para verificar el mail 
+	    		// Crear un token de seguridad para verificar el mail
 		    	$mailToken = md5($request->mail) . md5(date('YmdHis'));
 		    	// Crear una URL para verificar al usuario
 		    	$verifUrl = config('Constants.API.LOCAL_URL') . 'email-verification/'. $user->id . '/' . $mailToken . '/' . $user->correo;
@@ -113,9 +112,9 @@ class RegisterCtrl extends Controller
 		    	]);
 		    	Mail::to($request->email)
 	    			->send(new Registration($request->names, $request->lastnames, $verifUrl, 'USER_MENTOR'));
-				$res->emailSended = 'SENDED';	    
+				$res->emailSended = 'SENDED';
 				$res->msg = 'Su registro fue completado con éxito, por favor revise su correo electrónico
-	    				 para finalizar su inscripción';	
+	    				 para finalizar su inscripción';
 	    	}
 	    	// Enviar mail de confirmación
 	    	// SI EL USUARIO ES DE TIPO JUEZ O MENTOR, ENVIAR UN MAIL
@@ -127,10 +126,10 @@ class RegisterCtrl extends Controller
     	}catch (\Exception $e){
     		DB::rollBack();
     		return response()->json([
-	    		'success' => false, 
+	    		'success' => false,
 	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente',
 		    ]);
-    	}	
+    	}
     }
     private function insertUser($role, Usuario $user, $proffesionalData, $file){
     	// Verificar rol del usuario
@@ -140,8 +139,8 @@ class RegisterCtrl extends Controller
     	}else if($role == 'judge' || $role == 'expert'){
     		// Si el usuario es un juez o experto, debe subir su CV
     		$roleId = $role == 'judge' ? 3 : 4;
-    		$cvName = md5(date('YmdHis')) 
-    				  . md5($user->id) 
+    		$cvName = md5(date('YmdHis'))
+    				  . md5($user->id)
     				  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
 	    	Storage::disk('uploads')
 	    			->put('curriculums/'.$cvName,
@@ -163,8 +162,8 @@ class RegisterCtrl extends Controller
     	try{
     		$user = Usuario::find($request->idLeader);
 	    	$file = $request->file('img');
-	    	$img = md5(date('YmdHis')) 
-	    				  . md5($request->idLeader) 
+	    	$img = md5(date('YmdHis'))
+	    				  . md5($request->idLeader)
 	    				  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
 		    	Storage::disk('uploads')
 		    			->put('teams/'.$img,
@@ -186,7 +185,7 @@ class RegisterCtrl extends Controller
 	    	}
 			$hasTeam['equipo_id'] = $createdTeam->id;
 			$hasTeam['lider_equipo'] = true;
-			$hasTeam['aprobado'] = true;	
+			$hasTeam['aprobado'] = true;
 	    	// Crear relacion terciaria
 	    	EstudianteMentorTieneEquipo::create($hasTeam);
 	    	$project = [
@@ -207,6 +206,6 @@ class RegisterCtrl extends Controller
     		$res->msg = 'Hubo un error al crear al equipo, inténtelo nuevamente';
     		return response()->json($res);
     	}
-    	
+
     }
 }
