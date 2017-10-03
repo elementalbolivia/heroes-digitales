@@ -29,5 +29,9 @@ class Equipo extends Model
         return $this->belongsToMany('App\Models\Equipo', 'invitaciones_equipo', 'estudiante_id', 'equipo_id')
                 ->withPivot('id', 'confirmacion', 'fecha_creacion', 'fecha_actualizacion');
     }
-    
+    public function hasStages(){
+      return $this->belongsToMany('App\Models\Etapa', 'equipo_tiene_etapa', 'equipo_id', 'etapa_id')
+        ->withPivot('id', 'puntaje_promedio', 'clasifico');
+    }
+
 }
