@@ -151,6 +151,10 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'MenthorCtrl@index',
 		'middleware'	=> 'jwt.auth'
 	]);
+	Route::get('stages', [
+		'uses'	=> 'StageCtrl@index',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::get('cv/{name}', [
 		'uses'	=> 'CVCtrl@getCV',
 		'middleware'	=> 'jwt.auth'

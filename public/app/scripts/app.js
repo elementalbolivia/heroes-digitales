@@ -267,6 +267,15 @@ angular.module('heroesDigitalesApp', [
 						controller: 'ExpertAdminCtrl as vm'
 				},
 			}
+		})
+		.state('admin.stages', {
+			url: '/admin/etapas',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/create-stage.html',
+						controller: 'StageAdminCtrl as vm'
+				},
+			}
 		});
 	$urlRouterProvider.otherwise('/');
 	$locationProvider.html5Mode(true);

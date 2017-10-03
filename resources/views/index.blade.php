@@ -64,6 +64,7 @@
 <script src="/app/scripts/controllers/admin/HeaderAdminCtrl.js"></script>
 <script src="/app/scripts/controllers/admin/JudgeAdminCtrl.js"></script>
 <script src="/app/scripts/controllers/admin/ExpertAdminCtrl.js"></script>
+<script src="/app/scripts/controllers/admin/StageAdminCtrl.js"></script>
 <!-- Services -->
 <script src="/app/scripts/services/public/Register.js"></script>
 <script src="/app/scripts/services/public/City.js"></script>
@@ -84,6 +85,7 @@
 <script src="/app/scripts/services/expert/Expert.js"></script>
 <script src="/app/scripts/services/judge/Judge.js"></script>
 <script src="/app/scripts/services/professional/Request.js"></script>
+<script src="/app/scripts/services/admin/Stage.js"></script>
 <!-- Filters -->
 <script src="/app/scripts/filters/team/TeamFilter.js"></script>
 <script src="/app/scripts/filters/student/StudentFilter.js"></script>
