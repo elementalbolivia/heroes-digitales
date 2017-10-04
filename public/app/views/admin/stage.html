@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Datos de etapa</h2>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal">
+            <label for="stage" class=" col-xs-12 ">Nombre de la etapa</label>
+            <div class="col-xs-12 col-sm-4">
+              <input type="text" id="stage" ng-model="vm.stage.name" class="form-control" placeholder="P.ej.: Primera etapa" class="form-control" required>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Checkpoints</h2>
+        </div>
+        <div class="panel-body">
+          <p class="lead" ng-if="vm.checkpoints.length == 0">Esta etapa no tiene checkpoints</p>
+          <div class="table-responsive" ng-if="vm.checkpoints.length > 0">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Fecha evaluación</th>
+                  <th>Editar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="checkpoint in vm.checkpoints track by $index">
+                  <td>{{ $index + 1}}</td>
+                  <td>{{ checkpoint.label }}</td>
+                  <td>{{ checkpoint.eval_date }} </td>
+                  <td><button type="button" class="btn btn-sm btn-info" ui-sref="admin.stage.checkpoint({checkpointId: checkpoint.id})"><i class="fa fa-edit"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Crear checkpoint</h2>
+        </div>
+        <div class="panel-body">
+          <form name="checkPointForm" class="form-horizontal" ng-submit="vm.createCheckpoint()">
+            <div class="form-group">
+              <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <label for="stage" class=" col-xs-12 ">Nombre del checkpoint</label>
+                <div class="col-xs-12 col-sm-4">
+                  <input type="text" id="stage" ng-model="vm.newCheckpoint.name" class="form-control" placeholder="P.ej.: Primera etapa" class="form-control" required>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <button type="button" class="btn btn-lg btn-default" ng-click="vm.openDatePicker('_eval')">Fecha inicio: {{ vm.newCheckpoint.evalDate.formatted }}</button>
+                </div>
+                <lx-date-picker id="{{ vm.newCheckpoint.evalDate.id }}"
+                  ng-model="vm.newCheckpoint.evalDate.date"
+                    lx-callback="vm.datePickerCallback(newDate, 'EVAL')"
+                  lx-locale="{{ vm.newCheckpoint.locale }}"
+                  lx-max-date="vm.newCheckpoint.maxDate"
+                  lx-min-date="vm.newCheckpoint.minDate"></lx-date-picker>
+                </div>
+              </div>
+              <p style="padding:10px;"></p>
+              <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="alert alert-warning" ng-if="vm.isUploaded.state">
+                  <strong>{{ vm.isUploaded.msg }}</strong>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success pull-right" ng-disabled="vm.isUploaded.isLoading"><i ng-class="!vm.isUploaded.isLoading ? 'fa fa-plus' : 'fa fa-circle-o-notch fa-spin'"></i> Crear checkpoint</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <button type="button" class="btn btn-default btn-lg pull-right" ui-sref="admin.stages"><i class="fa fa-arrow-left"></i> Volver</button>
+    </div>
+  </div>
+</div>

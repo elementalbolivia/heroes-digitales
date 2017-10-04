@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/app/styles/timeline.css">
     <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
     <!-- -->
 </head>
@@ -64,6 +65,9 @@
 <script src="/app/scripts/controllers/admin/HeaderAdminCtrl.js"></script>
 <script src="/app/scripts/controllers/admin/JudgeAdminCtrl.js"></script>
 <script src="/app/scripts/controllers/admin/ExpertAdminCtrl.js"></script>
+<script src="/app/scripts/controllers/admin/CreateStageAdminCtrl.js"></script>
+<script src="/app/scripts/controllers/admin/StageAdminCtrl.js"></script>
+<script src="/app/scripts/controllers/admin/CheckpointAdminCtrl.js"></script>
 <!-- Services -->
 <script src="/app/scripts/services/public/Register.js"></script>
 <script src="/app/scripts/services/public/City.js"></script>
@@ -84,6 +88,8 @@
 <script src="/app/scripts/services/expert/Expert.js"></script>
 <script src="/app/scripts/services/judge/Judge.js"></script>
 <script src="/app/scripts/services/professional/Request.js"></script>
+<script src="/app/scripts/services/admin/Stage.js"></script>
+<script src="/app/scripts/services/admin/Checkpoint.js"></script>
 <!-- Filters -->
 <script src="/app/scripts/filters/team/TeamFilter.js"></script>
 <script src="/app/scripts/filters/student/StudentFilter.js"></script>

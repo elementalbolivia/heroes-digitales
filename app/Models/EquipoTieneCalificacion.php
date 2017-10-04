@@ -12,6 +12,5 @@ class EquipoTieneCalificacion extends Model
     const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = ['juez_id', 'experto_id',
                        'equipo_id', 'checkpoint_tiene_pregunta_id',
-                      'puntaje', 'comentario'];
-    
+                       'puntaje', 'comentario'];
 }

@@ -251,7 +251,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('admin.judges', {
-			url: '/admin/jueces',
+			url: '/jueces',
 			views: {
 				'admin-content@':{
 						templateUrl: '/app/views/admin/judges.html',
@@ -260,11 +260,38 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('admin.experts', {
-			url: '/admin/expertos',
+			url: '/expertos',
 			views: {
 				'admin-content@':{
 						templateUrl: '/app/views/admin/experts.html',
 						controller: 'ExpertAdminCtrl as vm'
+				},
+			}
+		})
+		.state('admin.stages', {
+			url: '/etapas',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/create-stage.html',
+						controller: 'CreateStageAdminCtrl as vm'
+				},
+			}
+		})
+		.state('admin.stage', {
+			url: '/etapas/:id',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/stage.html',
+						controller: 'StageAdminCtrl as vm'
+				},
+			}
+		})
+		.state('admin.stage.checkpoint', {
+			url: '/checkpoint/:checkpointId',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/checkpoint.html',
+						controller: 'CheckpointAdminCtrl as vm'
 				},
 			}
 		});
@@ -276,6 +303,14 @@ angular.module('heroesDigitalesApp', [
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   });
   $transitions.onStart({to : 'user.**'}, function(trans){
+    var $state = trans.router.stateService;
+    var AuthService = trans.injector().get('Auth');
+    if(!AuthService.isAuth()){
+    	// $window.location.href ='http://localhost:8000';
+    	return $state.target('home');
+    }
+  });
+	$transitions.onStart({to : 'admin.**'}, function(trans){
     var $state = trans.router.stateService;
     var AuthService = trans.injector().get('Auth');
     if(!AuthService.isAuth()){
