@@ -11,7 +11,7 @@ class Checkpoint extends Model
     const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = ['etapa_id', 'nombre', 'fecha_evaluacion'];
 
-    public function has_question(){
+    public function hasQuestions(){
       return $this->belongsToMany('App\Models\Pregunta', 'checkpoint_tiene_pregunta', 'checkpoint_id', 'pregunta_id')
         ->withPivot('id', 'fecha_creacion', 'fecha_actualizacion');
     }

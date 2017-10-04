@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Datos del checkpoint</h2>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal">
+            <label for="stage" class=" col-xs-12 ">Nombre del checkpoint</label>
+            <div class="col-xs-12 col-sm-4">
+              <input type="text" id="stage" ng-model="vm.checkpoint.label" class="form-control" placeholder="P.ej.: Primera etapa" class="form-control" required>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Preguntas del checkpoint</h2>
+        </div>
+        <div class="panel-body">
+          <p class="lead" ng-if="vm.questions.length == 0">No hay preguntas en este checkpoint</p>
+          <div class="table-responsive" ng-if="vm.questions.length > 0">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Tipo</th>
+                  <th>Actualizar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="question in vm.questions track by $index">
+                  <td><input type="text" ng-model="question.question" size="35" ></td>
+                  <td> {{ question.type }}  </td>
+                  <td><button type="button" class="btn btn-sm btn-info" ng-click="vm.updateQuestion(question.id)"><i class="fa fa-refresh"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Crear preguntas para ser evaluadas</h2>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive" >
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Tipo</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="checkpointQuestion in vm.checkpointQuestions track by $index">
+                  <td><input type="text" ng-model="checkpointQuestion.question" size="35" ></td>
+                  <td> Tipo</td>
+                  <td><button type="button" class="btn btn-sm btn-danger" ng-click="vm.deleteQuestion(checkpointQuestion.id)"><i class="fa fa-times"></i></button></td>
+                </tr>
+                <button type="button" class="btn btn-block btn-primary" ng-click="vm.addQuestion()"><i class="fa fa-plus"></i> Añadir pregunta</button>
+              </tbody>
+            </table>
+          </div>
+          <p style="padding:10px;"></p>
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="alert alert-warning" ng-if="vm.isUploaded.state">
+              <strong>{{ vm.isUploaded.msg }}</strong>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success pull-right" ng-click="vm.createQuestions()" ng-disabled="vm.isUploaded.isLoading"><i ng-class="!vm.isUploaded.isLoading ? 'fa fa-plus' : 'fa fa-circle-o-notch fa-spin'"></i> Crear preguntas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

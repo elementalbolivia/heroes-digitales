@@ -3,58 +3,89 @@
 
 	angular.module('heroesDigitalesApp')
 		.controller('StageAdminCtrl', StageAdminCtrl);
-	StageAdminCtrl.$inyect = ['User', 'Auth', 'Stage', 'LxNotificationService', 'LxDatePickerService'];
+	StageAdminCtrl.$inyect = ['User', 'Auth', 'Stage', 'Checkpoit', 'LxNotificationService', 'LxDatePickerService' , '$state', '$stateParams'];
 
-	function StageAdminCtrl(User, Auth, Stage, LxNotificationService, LxDatePickerService){
+	function StageAdminCtrl(User, Auth, Stage, Checkpoint, LxNotificationService, LxDatePickerService, $state, $stateParams){
 		var vm = this;
 		// Props
-		vm.stages = [];
-		vm.newStage = {
+		vm.checkpoints = [];
+    vm.stage = {};
+		vm.isUploaded = {
+			state: false,
+			msg: '',
+			isLoading: false,
+		};
+		vm.newCheckpoint = {
 			name: '',
 			locale: 'es',
 			minDate: new Date(new Date().getFullYear(), new Date().getMonth() - 2, new Date().getDate()),
 			maxDate: new Date(new Date().getFullYear(), new Date().getMonth() + 2, new Date().getDate()),
-			beginDate: {
-				id: '_begin',
+			evalDate: {
+				id: '_eval',
 				date: new Date(),
 				formatted: moment().locale('es').format('L'),
 			},
-			endDate: {
-					id: '_end',
-					date: new Date(),
-					formatted: moment().locale('es').format('L'),
-			},
 		};
 		// Methods
-		vm.getStages = getStages;
+		vm.getCheckpoints = getCheckpoints;
+    vm.getStage = getStage;
 		vm.openDatePicker = openDatePicker;
 		vm.datePickerCallback = datePickerCallback;
+		vm.createCheckpoint = createCheckpoint;
 		// Methods implementation
-		function getStages(){
-			Stage.getStages().then(function(data){
+		function getCheckpoints(){
+			Checkpoint.getCheckpoints($stateParams.id).then(function(data){
 				if(data.success){
-					vm.stages = data.stages;
+					vm.checkpoints = data.checkpoints;
 				}else{
 					alert(data.msg);
 				}
 			}, function(err){
-
+				console.error('Hubo un error en el servidor');
 			});
 		};
+		function getStage(){
+      Stage.getStage($stateParams.id).then(function(data){
+        if(data.success){
+          vm.stage = data.stage;
+        }else{
+          console.warn(data.msg);
+        }
+      }, function(data){
+        console.error('Hubo un error en el servidor');
+      });
+    };
 		function openDatePicker(pickerid){
 			LxDatePickerService.open(pickerid);
 		};
 		function datePickerCallback(_newdate, pickerid){
-				if(pickerid == 'BEGIN'){
-					vm.newStage.beginDate.date = _newdate;
-	        vm.newStage.beginDate.formatted = moment(_newdate).locale(vm.newStage.locale).format('L');
-				}else{
-					vm.newStage.endDate.date = _newdate;
-					vm.newStage.endDate.formatted = moment(_newdate).locale(vm.newStage.locale).format('L');
+				if(pickerid == 'EVAL'){
+					vm.newCheckpoint.evalDate.date = _newdate;
+	        vm.newCheckpoint.evalDate.formatted = moment(_newdate).locale(vm.newCheckpoint.locale).format('L');
 				}
-
-    }
+    };
+		function createCheckpoint(){
+			vm.isUploaded.isLoading = true;
+			vm.isUploaded.state = false;
+			var checkpointData = {
+					stageId: $stateParams.id,
+					name: vm.newCheckpoint.name,
+					evalDate: vm.newCheckpoint.evalDate.formatted.split('/').reverse().join('-'),
+			};
+			Checkpoint.createCheckpoint(checkpointData).then(function(data){
+				if(data.success){
+					$state.go('admin.stage.checkpoint', {stageId: $stateParams.id, checkpointId: data.checkId});
+				}else{
+					vm.isUploaded.isLoading = false;
+					vm.isUploaded.state = true;
+					vm.isUploaded.msg = data.msg;
+				}
+			}, function(data){
+				console.error('Hubo un error en el servidor');
+			});
+		};
 		// Methods self invoking
-		vm.getStages();
+		vm.getCheckpoints();
+    vm.getStage();
 	};
 })();

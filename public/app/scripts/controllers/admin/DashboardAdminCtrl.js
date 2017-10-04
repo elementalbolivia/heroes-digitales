@@ -3,70 +3,30 @@
 
 	angular.module('heroesDigitalesApp')
 		.controller('DashboardAdminCtrl', DashboardAdminCtrl);
-	DashboardAdminCtrl.$inyect = ['User', 'Auth', 'Team', 'Expert', 'Judge', 'Request', 'LxNotificationService'];
+	DashboardAdminCtrl.$inyect = ['User', 'Auth', 'Stage', 'LxNotificationService', '$state'];
 
-	function DashboardAdminCtrl(User, Auth, Team, Expert, Judge, Request, LxNotificationService){
+	function DashboardAdminCtrl(User, Auth, Stage, LxNotificationService, $state){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
-		vm.judges = [];
-		vm.experts = [];
+		vm.stages = []
 		// Methods
-		vm.getExperts = getExperts;
-		vm.getJudges = getJudges;
-		vm.processRequest = processRequest;
+		vm.getStages = getStages;
 		// Methods implementation
-		function getExperts(){
-			Expert.getExperts().then(function(data){
+		function getStages(){
+			Stage.getStages().then(function(data){
 				if(data.success){
-					console.log(data);
-					vm.experts = data.experts;
+					console.log(data.stages);
+					vm.stages = data.stages;
 				}else{
 					alert(data.msg);
 				}
 			}, function(err){
-
-			});
-		};
-		function getJudges(){
-			Judge.getJudges().then(function(data){
-				if(data.success){
-					console.log(data);
-					vm.judges = data.judges;
-				}else{
-					alert(data.msg);
-				}
-			}, function(err){
-
-			});
-		};
-		function processRequest(id, bool){
-			var title = bool ? 'Esta seguro que desea aprobarlo para ser juez/experto?' : 'Esta seguro que desea rechazarlo para ser juez/experto?'
-			LxNotificationService.confirm(title, '', {
-				cancel: 'Cancelar',
-				ok: 'Si, deseo hacerlo',
-			}, function (answer){
-				if(answer){
-					var data = {id: id, accept: bool};
-					Request.confirmRequest(data).then(function(data){
-						if(data.success){
-							vm.getExperts();
-							vm.getJudges();
-							LxNotificationService.success('La acción fue realizada con éxito');
-						}else{
-							LxNotificationService.warn('Hubo un error al realizar la acción');
-						}
-					}, function(err){
-						LxNotificationService.error('Hubo un error al realizar la acción')
-					});
-				}else{
-					return;
-				}
+				console.error('Hubo un error en el servidor');
 			});
 		};
 		// Methods self invoking
-		vm.getExperts();
-		vm.getJudges();
+		vm.getStages();
 	};
 })();

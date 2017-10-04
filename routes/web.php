@@ -155,6 +155,34 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'StageCtrl@index',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::get('stages/{id}', [
+		'uses'	=> 'StageCtrl@getStage',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::post('stages', [
+		'uses'	=> 'StageCtrl@create',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::get('stages/{sid}/checkpoints', [
+		'uses'	=> 'CheckpointCtrl@getCheckPointsAtStage',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::post('checkpoints', [
+		'uses'	=> 'CheckpointCtrl@createCheckpoint',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::get('checkpoints/{checkid}/questions', [
+		'uses'	=> 'QuestionCtrl@getQuestionsFromCheckpoint',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::get('stages/{sid}/checkpoints/{cid}', [
+		'uses'	=> 'CheckpointCtrl@getCheckpoint',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::post('checkpoints/{checkid}/questions', [
+		'uses'	=> 'QuestionCtrl@createQuestions',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::get('cv/{name}', [
 		'uses'	=> 'CVCtrl@getCV',
 		'middleware'	=> 'jwt.auth'

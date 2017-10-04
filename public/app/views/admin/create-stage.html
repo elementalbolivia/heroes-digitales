@@ -10,6 +10,30 @@
             <p class="lead" ng-if="vm.stages.length == 0">
               No creaste ninguna etapa
             </p>
+            <div ng-if="vm.stages.length > 0" class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Fecha inicio</th>
+                    <th>Fecha fin</th>
+                    <th>Editar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="stage in vm.stages track by $index">
+                    <td>{{ $index + 1}}</td>
+                    <td>{{ stage.label }}</td>
+                    <td>{{ stage.desc }}</td>
+                    <td>{{ stage.begin_date }} </td>
+                    <td>{{ stage.end_date }}</td>
+                    <td><button type="button" class="btn btn-sm btn-info" ui-sref="admin.stage({id: stage.id})"><i class="fa fa-edit"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="panel panel-default">
@@ -17,7 +41,7 @@
             <h2>Crear nueva etapa</h2>
           </div>
           <div class="panel-body">
-            <form class="form-horizontal" name="stageForm" ng-submit="">
+            <form class="form-horizontal" name="stageForm" ng-submit="vm.createStage()">
               <div class="form-group">
       					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
       						<label for="stage" class=" col-xs-12 ">Nombre de la etapa</label>
@@ -43,11 +67,22 @@
                     lx-max-date="vm.newStage.maxDate"
                     lx-min-date="vm.newStage.minDate"></lx-date-picker>
       					</div>
-                <p style="padding:40px;"></p>
-                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                  <button type="submit" class="btn btn-lg btn-success pull-right">Crear etapa</button>
-                </div>
       				</div>
+              <div class="form-group">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                  <label for="desc" class=" col-xs-12 ">Descripción de la etapa</label>
+                  <div class="col-xs-12 col-sm-8">
+                    <textarea id="desc" ng-model="vm.newStage.desc" rows="5" class="form-control" class="form-control" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <p style="padding:10px;"></p>
+              <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                <div class="alert alert-warning" ng-if="vm.isUploaded.state">
+                  <strong>{{ vm.isUploaded.msg }}</strong>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success pull-right"><i ng-class="!vm.isUploaded.isLoading ? 'fa fa-check' : 'fa fa-circle-o-notch fa-spin'"></i> Crear etapa</button>
+              </div>
             </form>
           </div>
         </div>

@@ -1,5 +1,25 @@
 <div class="container-fluid">
 	<div class="row">
-		
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<div class="page-header">
+				<h1>Cronograma</h1>
+			</div>
+			<div style="display:inline-block;width:100%;overflow-y:auto;">
+			<ul class="timeline timeline-horizontal">
+				<li class="timeline-item" ng-repeat="stage in vm.stages">
+					<div class="timeline-badge primary" ui-sref="admin.stages({id: stage.id})"><i class="fa fa-check"></i></div>
+					<div class="timeline-panel">
+						<div class="timeline-heading">
+							<h4 class="timeline-title">{{ stage.label }}</h4>
+							<p><small class="text-muted"><i class="fa fa-calendar"></i> Inicio: {{ stage.begin_date }} - Fin: {{ stage.end_date }}</small></p>
+						</div>
+						<div class="timeline-body">
+							<p>{{ stage.desc }}</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		</div>
 	</div>
 </div>
