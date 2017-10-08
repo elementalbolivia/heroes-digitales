@@ -10,14 +10,14 @@ use App\Models\Genero;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
 
-class Usuario extends Model implements AuthenticatableContract 
+class Usuario extends Model implements AuthenticatableContract
 {
     use Authenticatable;
     protected $table = 'usuario';
     const CREATED_AT = 'fecha_creacion';
     const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = ['correo', 'password', 'nombres', 'apellidos', 'fecha_nacimiento',
-    						'celular', 'ciudad_id', 'zona_id', 'genero_id'];
+    						'celular', 'ciudad_id', 'genero_id'];
     public function roles(){
     	return $this->belongsToMany('App\Models\Roles', 'usuario_tiene_rol', 'usuario_id', 'rol_id')
     			->withPivot('fecha_creacion', 'fecha_actualizacion');
@@ -61,8 +61,8 @@ class Usuario extends Model implements AuthenticatableContract
     public function genre($genreId){
         return Genero::find($genreId);
     }
-    public function zone($zoneId){
-        return Zona::find($zoneId);
+    public function zone(){
+        return $this->hasOne('App\Models\Zona', 'usuario_id');
     }
 
 }

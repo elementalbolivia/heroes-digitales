@@ -97,9 +97,6 @@ INSERT INTO `profesion` (`id`, `nombre`, `descripcion`) VALUES
 -- Dumping data for table `zona`
 --
 
-INSERT INTO `zona` (`id`, `nombre`) VALUES
-(1, 'Sopocachi'),
-(2, 'San Pedro');
 
 --
 -- Dumping data for table `rol`
@@ -116,31 +113,31 @@ INSERT INTO `rol` (`id`, `nombre`, `descripcion`) VALUES
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `correo`, `password`, `nombres`, `apellidos`, `fecha_nacimiento`, `celular`, `terminos_uso`, `activo`, `fecha_creacion`, `fecha_actualizacion`, `ciudad_id`, `zona_id`, `genero_id`) VALUES
-(4, 'baruchspredd@gmail.com', '$2y$10$cX/RXho3AQFtSrJ3xsV5quahbQ0IplGX.skwjW95Y924WEqJgxMoe', 'Pablo Diego', 'Montes', '1990-08-07', 70123232, 0, 0, '2017-08-26 20:35:45', '2017-08-26 20:35:45', 1, 1, 2),
-(5, 'baruchspred@gmail.com', '$2y$10$w1Tz0yev5r1q8vpYFntF8.86NRKRkUNKU1vCaIs6z3YSFcxfyzYCS', 'Diego', 'Alvarez', '1990-08-07', 70123232, 1, 1, '2017-08-26 20:37:35', '2017-09-04 15:38:54', 1, 1, 2),
-(8, 'diemontes@hotmail.com', '$2y$10$TEezUZkbwZSjJTf/oYqGmO7jMPWpxfQjqEbcc.GcCjc.CZ22wmfFq', 'Pablo Diegoz', 'Montes Jordan', '1990-08-07', 70162630, 1, 1, '2017-08-26 20:47:05', '2017-09-03 13:58:21', 1, 2, 2),
-(9, 'id.galarza.sa@gmail.com', '$2y$10$TfIOAhOxXVipliUEf4Mu0OEe4zo8FwJCGzOUVnvhWHwHRzTogNcJG', 'Ivan', 'Galarza', '1990-08-07', 70123232, 0, 1, '2017-08-26 20:49:08', '2017-09-10 19:43:47', 1, 2, 2),
-(14, 'marcemarce@gmail.com', '$2y$10$tG0Ir0/LTNuylYSmZsmpB.TK/XGIVe6chOYfyBO9yRDtD1Ezm.DsG', 'Marcelo', 'Peralta', '1964-06-06', 68119232, 0, 0, '2017-08-26 22:37:46', '2017-08-26 22:37:46', 1, 2, 2),
-(17, 'mariana@gmail.com', '$2y$10$N9IgulnOBm5lyZRoXmH5weM0Ybud8aGk8sIL7K2ICXoZUkkvPmk36', 'Mariana', 'Velasquez', '1989-02-03', 70123123, 0, 0, '2017-08-26 22:55:47', '2017-08-26 22:55:47', 1, 1, 1),
-(22, 'david@gmail.com', '$2y$10$Tr1DZT.hMIc0XaydPMchs..NjqCIr1KdzVudg7qXlTISuNRW.SpBi', 'Mariana', 'Velasquez', '1989-02-03', 70123123, 0, 0, '2017-08-26 23:10:26', '2017-08-26 23:10:26', 1, 1, 1),
-(25, 'alzapa@gmail.com', '$2y$10$Yq2OjZXJzDDNIPCI9tCW.uo5iZ71k/4TRaPkRfcjqjrNH8EGDo.se', 'alvaro', 'Zaparan', '1969-09-07', 70123123, 1, 1, '2017-08-29 10:12:44', '2017-09-12 01:21:28', 1, 2, 2),
-(26, 'alvzpp@gmail.com', '$2y$10$s/dAdIQ.WxigPrby8qsObuyp91MPSDQoekcuy3UNMHCr0IuCKiyw6', 'Ana', 'Romero', '2010-08-09', 70123213, 1, 1, '2017-08-29 10:23:20', '2017-09-12 12:30:04', 1, 1, 1),
-(27, 'dani.g18@gmail.com', '$2y$10$HeVQNlQADoXeS2IJWgswLu5Aa0IE2ve2TZ.RApc4Ibx/bT2zicuta', 'Daniella', 'Garcia', '1983-12-30', 72254077, 1, 1, '2017-08-29 11:35:09', '2017-09-04 09:32:10', 1, 2, 1),
-(28, 'elemental.bolivia@gmail.com', '$2y$10$nFnQHQ7FI9h5tlhnBoISWOSnP9dtNIKvPgPFYk8RO.2.1BLf.s0Vm', 'Marcelo Candia', 'Alvárez', '1962-03-03', 70123236, 0, 1, '2017-08-29 11:45:57', '2017-08-29 18:25:47', 1, 1, 2),
-(29, 'esther@gmail.com', '$2y$10$rCqnFV/YUQc9h1n0cQQ1GO3INkSOkOJItjHQZo0LMEdFoTfD6CNKC', 'Esther', 'Jordan', '1969-11-07', 70619793, 0, 1, '2017-09-12 01:57:45', '2017-09-12 01:57:45', 2, 1, 1),
-(30, 'alicia@gmail.com', '$2y$10$8x4Ix.8OtyWF3UgHAApUHesUvpWC5W2u6wQXfEM9ppAse4DOTtrea', 'Alicia', 'De las Maravillas', '2008-06-13', 6818212, 0, 1, '2017-09-12 11:46:51', '2017-09-12 11:46:51', 1, 1, 1),
-(31, 'jorge.esquivel@gmail.com', '$2y$10$N8rXAFq3lDKu9JARoD8y1.2bFFp97h/fSvn/QMbcDiLIiyuB7kbJW', 'Jorge', 'Esquivel', '1964-08-09', 78013123, 1, 1, '2017-09-14 22:51:45', '2017-09-15 05:17:48', 1, 1, 2),
-(33, 'lulu@gmail.com', '$2y$10$g834zhQ0cHEY2CgfaIGbj.YGyaGIX7aV.rBUv2Wx08euMvKsPM/Ze', 'lucia', 'Calderon', '1994-09-06', 70131232, 1, 1, '2017-09-16 15:34:29', '2017-09-16 19:45:03', 2, 1, 2),
-(34, 'brenda@gmail.com', '$2y$10$NkQ5yl7Q0J8V2l8Sx9Si3.VjAjkRPOixxw39d..zpiCT1NS1p8WKK', 'Brenda', 'Garcia', '1974-08-05', 701213123, 1, 1, '2017-09-16 16:15:24', '2017-09-16 20:17:17', 1, 2, 1),
-(35, 'ingrid@gmail.com', '$2y$10$eMNoVnLsJc6Jye7wiWjoO.ADj01pqlZT/0y9Cj5A.qg2u3OmKzoKG', 'Ingrid', 'Alvárez', '1982-07-01', 70112312, 0, 0, '2017-09-17 12:38:02', '2017-09-17 12:38:02', 1, 1, 1),
-(36, 'admin@gmail.com', '$2y$10$fmQxTATrjwzNuq7zVRedqeIo33GPDQnUj6uh4ge7vY8xS1Q.LYqAG', 'Daniella', 'Garcia', '1986-08-11', 7012312, 0, 1, '2017-09-17 15:28:57', '2017-09-17 15:28:57', 1, 1, 1),
-(39, 'salva@gmail.com', '$2y$10$UyAH4J/dHcxpegfZuzmHdu2bKtXgG2SQEn0OFYGv9UZoGEwl0MPIy', 'Salvador', 'Montes', '1990-10-09', 7012312, 1, 1, '2017-09-17 23:10:27', '2017-09-18 03:13:51', 1, 1, 2),
-(40, 'isabel@gmail.com', '$2y$10$yUsuxkMW7scmw/wcz5FR9.UWC1WTu5Q.N4r42j7rc5Q7wDSFOoFbm', 'Isabel', 'Del Carmen', '2006-10-07', 70131232, 1, 1, '2017-09-17 23:16:42', '2017-09-18 14:09:56', 2, 1, 1),
-(41, 'pao@gmail.com', '$2y$10$pxQSWk.f5EsBiAe7mIN4p.bpvu7DHLYimh.1XCakUtw2w/kDm/1pO', 'Paola', 'Garcia', '1987-09-07', 68912165, 1, 1, '2017-09-17 23:19:17', '2017-09-18 14:06:36', 1, 2, 1),
-(43, 'guille@gmail.com', '$2y$10$ncnvvuQCIK6ecaLp2ORNvugGil6aZmMLNV4dPj2Mws6ukWDFz26Am', 'Guillermo', 'Careaga', '1995-11-08', 70123128, 1, 1, '2017-09-17 23:43:30', '2017-09-18 03:44:00', 1, 1, 2),
-(46, 'pedro@gmail.com', '$2y$10$BZw5IOAwCW6hVKQ3sJyT5OavbBuYpfsyfXCa9/k1bIITtYNhzRC.C', 'Pedro', 'Cabaña', '1992-01-11', 7012314, 0, 1, '2017-09-17 23:54:24', '2017-09-17 23:54:24', 1, 1, 2),
-(47, 'susana@gmail.com', '$2y$10$YLcNymBPBjmqV7A1hyXBmOHVtCG3LoLmvNHyAV0cL.fEZA2rgtDw6', 'Susana', 'Carpio', '1991-07-19', 70123146, 1, 1, '2017-09-18 08:24:06', '2017-09-18 12:24:44', 1, 2, 1);
+INSERT INTO `usuario` (`id`, `correo`, `password`, `nombres`, `apellidos`, `fecha_nacimiento`, `celular`, `terminos_uso`, `activo`, `fecha_creacion`, `fecha_actualizacion`, `ciudad_id`, `genero_id`) VALUES
+(4, 'baruchspredd@gmail.com', '$2y$10$cX/RXho3AQFtSrJ3xsV5quahbQ0IplGX.skwjW95Y924WEqJgxMoe', 'Pablo Diego', 'Montes', '1990-08-07', 70123232, 0, 0, '2017-08-26 20:35:45', '2017-08-26 20:35:45', 1, 2),
+(5, 'baruchspred@gmail.com', '$2y$10$w1Tz0yev5r1q8vpYFntF8.86NRKRkUNKU1vCaIs6z3YSFcxfyzYCS', 'Diego', 'Alvarez', '1990-08-07', 70123232, 1, 1, '2017-08-26 20:37:35', '2017-09-04 15:38:54', 1, 2),
+(8, 'diemontes@hotmail.com', '$2y$10$TEezUZkbwZSjJTf/oYqGmO7jMPWpxfQjqEbcc.GcCjc.CZ22wmfFq', 'Pablo Diegoz', 'Montes Jordan', '1990-08-07', 70162630, 1, 1, '2017-08-26 20:47:05', '2017-09-03 13:58:21', 1, 2),
+(9, 'id.galarza.sa@gmail.com', '$2y$10$TfIOAhOxXVipliUEf4Mu0OEe4zo8FwJCGzOUVnvhWHwHRzTogNcJG', 'Ivan', 'Galarza', '1990-08-07', 70123232, 0, 1, '2017-08-26 20:49:08', '2017-09-10 19:43:47', 1, 2),
+(14, 'marcemarce@gmail.com', '$2y$10$tG0Ir0/LTNuylYSmZsmpB.TK/XGIVe6chOYfyBO9yRDtD1Ezm.DsG', 'Marcelo', 'Peralta', '1964-06-06', 68119232, 0, 0, '2017-08-26 22:37:46', '2017-08-26 22:37:46', 1, 2),
+(17, 'mariana@gmail.com', '$2y$10$N9IgulnOBm5lyZRoXmH5weM0Ybud8aGk8sIL7K2ICXoZUkkvPmk36', 'Mariana', 'Velasquez', '1989-02-03', 70123123, 0, 0, '2017-08-26 22:55:47', '2017-08-26 22:55:47', 1, 1),
+(22, 'david@gmail.com', '$2y$10$Tr1DZT.hMIc0XaydPMchs..NjqCIr1KdzVudg7qXlTISuNRW.SpBi', 'Mariana', 'Velasquez', '1989-02-03', 70123123, 0, 0, '2017-08-26 23:10:26', '2017-08-26 23:10:26', 1, 1),
+(25, 'alzapa@gmail.com', '$2y$10$Yq2OjZXJzDDNIPCI9tCW.uo5iZ71k/4TRaPkRfcjqjrNH8EGDo.se', 'alvaro', 'Zaparan', '1969-09-07', 70123123, 1, 1, '2017-08-29 10:12:44', '2017-09-12 01:21:28', 1, 2),
+(26, 'alvzpp@gmail.com', '$2y$10$s/dAdIQ.WxigPrby8qsObuyp91MPSDQoekcuy3UNMHCr0IuCKiyw6', 'Ana', 'Romero', '2010-08-09', 70123213, 1, 1, '2017-08-29 10:23:20', '2017-09-12 12:30:04', 1, 1),
+(27, 'dani.g18@gmail.com', '$2y$10$HeVQNlQADoXeS2IJWgswLu5Aa0IE2ve2TZ.RApc4Ibx/bT2zicuta', 'Daniella', 'Garcia', '1983-12-30', 72254077, 1, 1, '2017-08-29 11:35:09', '2017-09-04 09:32:10', 1, 1),
+(28, 'elemental.bolivia@gmail.com', '$2y$10$nFnQHQ7FI9h5tlhnBoISWOSnP9dtNIKvPgPFYk8RO.2.1BLf.s0Vm', 'Marcelo Candia', 'Alvárez', '1962-03-03', 70123236, 0, 1, '2017-08-29 11:45:57', '2017-08-29 18:25:47', 1, 2),
+(29, 'esther@gmail.com', '$2y$10$rCqnFV/YUQc9h1n0cQQ1GO3INkSOkOJItjHQZo0LMEdFoTfD6CNKC', 'Esther', 'Jordan', '1969-11-07', 70619793, 0, 1, '2017-09-12 01:57:45', '2017-09-12 01:57:45', 2, 1),
+(30, 'alicia@gmail.com', '$2y$10$8x4Ix.8OtyWF3UgHAApUHesUvpWC5W2u6wQXfEM9ppAse4DOTtrea', 'Alicia', 'De las Maravillas', '2008-06-13', 6818212, 0, 1, '2017-09-12 11:46:51', '2017-09-12 11:46:51', 1, 1),
+(31, 'jorge.esquivel@gmail.com', '$2y$10$N8rXAFq3lDKu9JARoD8y1.2bFFp97h/fSvn/QMbcDiLIiyuB7kbJW', 'Jorge', 'Esquivel', '1964-08-09', 78013123, 1, 1, '2017-09-14 22:51:45', '2017-09-15 05:17:48', 1, 2),
+(33, 'lulu@gmail.com', '$2y$10$g834zhQ0cHEY2CgfaIGbj.YGyaGIX7aV.rBUv2Wx08euMvKsPM/Ze', 'lucia', 'Calderon', '1994-09-06', 70131232, 1, 1, '2017-09-16 15:34:29', '2017-09-16 19:45:03', 2, 2),
+(34, 'brenda@gmail.com', '$2y$10$NkQ5yl7Q0J8V2l8Sx9Si3.VjAjkRPOixxw39d..zpiCT1NS1p8WKK', 'Brenda', 'Garcia', '1974-08-05', 701213123, 1, 1, '2017-09-16 16:15:24', '2017-09-16 20:17:17', 1, 1),
+(35, 'ingrid@gmail.com', '$2y$10$eMNoVnLsJc6Jye7wiWjoO.ADj01pqlZT/0y9Cj5A.qg2u3OmKzoKG', 'Ingrid', 'Alvárez', '1982-07-01', 70112312, 0, 0, '2017-09-17 12:38:02', '2017-09-17 12:38:02', 1, 1),
+(36, 'admin@gmail.com', '$2y$10$fmQxTATrjwzNuq7zVRedqeIo33GPDQnUj6uh4ge7vY8xS1Q.LYqAG', 'Daniella', 'Garcia', '1986-08-11', 7012312, 0, 1, '2017-09-17 15:28:57', '2017-09-17 15:28:57', 1, 1),
+(39, 'salva@gmail.com', '$2y$10$UyAH4J/dHcxpegfZuzmHdu2bKtXgG2SQEn0OFYGv9UZoGEwl0MPIy', 'Salvador', 'Montes', '1990-10-09', 7012312, 1, 1, '2017-09-17 23:10:27', '2017-09-18 03:13:51', 1, 2),
+(40, 'isabel@gmail.com', '$2y$10$yUsuxkMW7scmw/wcz5FR9.UWC1WTu5Q.N4r42j7rc5Q7wDSFOoFbm', 'Isabel', 'Del Carmen', '2006-10-07', 70131232, 1, 1, '2017-09-17 23:16:42', '2017-09-18 14:09:56', 2, 1),
+(41, 'pao@gmail.com', '$2y$10$pxQSWk.f5EsBiAe7mIN4p.bpvu7DHLYimh.1XCakUtw2w/kDm/1pO', 'Paola', 'Garcia', '1987-09-07', 68912165, 1, 1, '2017-09-17 23:19:17', '2017-09-18 14:06:36', 1, 1),
+(43, 'guille@gmail.com', '$2y$10$ncnvvuQCIK6ecaLp2ORNvugGil6aZmMLNV4dPj2Mws6ukWDFz26Am', 'Guillermo', 'Careaga', '1995-11-08', 70123128, 1, 1, '2017-09-17 23:43:30', '2017-09-18 03:44:00', 1, 2),
+(46, 'pedro@gmail.com', '$2y$10$BZw5IOAwCW6hVKQ3sJyT5OavbBuYpfsyfXCa9/k1bIITtYNhzRC.C', 'Pedro', 'Cabaña', '1992-01-11', 7012314, 0, 1, '2017-09-17 23:54:24', '2017-09-17 23:54:24', 1, 2),
+(47, 'susana@gmail.com', '$2y$10$YLcNymBPBjmqV7A1hyXBmOHVtCG3LoLmvNHyAV0cL.fEZA2rgtDw6', 'Susana', 'Carpio', '1991-07-19', 70123146, 1, 1, '2017-09-18 08:24:06', '2017-09-18 12:24:44', 1, 1);
 
 --
 -- Dumping data for table `usuario_tiene_rol`

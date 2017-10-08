@@ -24,7 +24,7 @@ trait UserTrait{
 	 * userData: Devuelve la información basica que es requerida por cada
 	 * 			rol de usuario.
 	 * @param  int $uid: ID de cada usuario
-	 * @return object $userData: Objeto conteniendo toda la 
+	 * @return object $userData: Objeto conteniendo toda la
 	 *                           informacion del usuario.
 	 */
 	public static function userData($uid){
@@ -34,8 +34,8 @@ trait UserTrait{
 		if($userData[0]['role_id'] == 1){
 			$userData[0]['student'] = self::studentData($userData[1]);
 			$userData[0]['has_team'] = isset($userData[0]['student']['has_team']) ? $userData[0]['student']['has_team'] : false;
-			$userData[0]['min_fields'] = $userData[0]['student']['authorization'] 
-										&& $userData[0]['image'] 
+			$userData[0]['min_fields'] = $userData[0]['student']['authorization']
+										&& $userData[0]['image']
 										&& $userData[0]['bio']
 										&& $userData[0]['terms_use'] ? true : false;
 			$userData[0]['invitations'] = self::invitations($userData[1], $userData[0]['role_id']);
@@ -48,9 +48,9 @@ trait UserTrait{
 			if($mTeam != null)
 				$userData[0]['team'] = self::teamUserData($mTeam);
 		}else if($userData[0]['role_id'] == 2){
-			$userData[0]['mentor'] = self::mentorData($userData[1]);	
+			$userData[0]['mentor'] = self::mentorData($userData[1]);
 			$userData[0]['has_team'] = isset($userData[0]['mentor']['has_team']) ? $userData[0]['mentor']['has_team'] : false;
-			$userData[0]['min_fields'] = $userData[0]['image'] 
+			$userData[0]['min_fields'] = $userData[0]['image']
 										&& $userData[0]['bio']
 										&& $userData[0]['terms_use'] ? true : false;
 			$userData[0]['invitations'] = self::invitations($userData[1], $userData[0]['role_id']);
@@ -79,8 +79,8 @@ trait UserTrait{
 	 * 					que comparten todos los usuarios mediante
 	 * 					la tabla 'usuario'
 	 * @param  [int] $uid: ID del usuario
-	 * @return [array]: Compuesto por el array $userData (el que tiene 
-	 *                   toda la informacion) y $user (instancia del 
+	 * @return [array]: Compuesto por el array $userData (el que tiene
+	 *                   toda la informacion) y $user (instancia del
 	 *                   objeto Model::Usuario)
 	 */
 	protected static function basicUserInfo($uid){
@@ -171,7 +171,7 @@ trait UserTrait{
 					'team_id'		=> $invitation->id,
 					'team_name'		=> $invitation->nombre_equipo,
 					'created_at'	=> $invitation->pivot->fecha_creacion,
-				]; 
+				];
 		}
 		return $invitationsData['invitations'];
 	}
@@ -186,7 +186,7 @@ trait UserTrait{
 					'id'		=> $student->responsable->id,
 					'signature'	=> $student->responsable->firma,
 				] : false;
-		$studentData['school'] = $student->school($student->colegio_id) != NULL ? $student->school($student->colegio_id) : NULL;	
+		$studentData['school'] = $student->school($student->colegio_id) != NULL ? $student->school($student->colegio_id) : NULL;
 		return $studentData;
 	}
 	private static function mentorData($user){
@@ -217,28 +217,28 @@ trait UserTrait{
 		$expertData['profession'] = Profesion::professionData($user->proffesionalData->profesion_id);
 		$expertData['work_place'] = $user->proffesionalData->organizacion;
 		$expertData['cv'] = storage_path().'/app/public/curriculums/' . $user->proffesionalData->cv;
-		$expertData['skills'] = [];
-		
+		$expertData['cv'] = storage_path().'/app/public/curriculums/' . $user->proffesionalData->cv;
+		$expertData['social_network'] = $user->proffesionalData->red_social_url;
 		return $expertData;
 	}
 	private static function judgeData($user){
 		// TODO
-		$expert = $user->expert;
-		$expertData = [];
-		$expertData['job'] = $user->proffesionalData->trabajo;
-		$expertData['profession'] = Profesion::professionData($user->proffesionalData->profesion_id);
-		$expertData['work_place'] = $user->proffesionalData->organizacion;
-		$expertData['cv'] = $user->proffesionalData->cv;
-		$expertData['skills'] = [];
-		
-		return $expertData;
+		$judgeData = $user->expert;
+		$judgeData = [];
+		$judgeData['job'] = $user->proffesionalData->trabajo;
+		$judgeData['profession'] = Profesion::professionData($user->proffesionalData->profesion_id);
+		$judgeData['work_place'] = $user->proffesionalData->organizacion;
+		$judgeData['cv'] = $user->proffesionalData->cv;
+		$judgeData['social_network'] = $user->proffesionalData->red_social_url;
+
+		return $judgeData;
 	}
 	// ################################
 	// #######  USER UPDATES     ######
 	// ################################
 	public static function updateUser($uid, $data){
 		// Cambios en usuario
-		
+
 		$user = Usuario::find($uid);
 		$user->nombres = $data->names;
 		$user->apellidos = $data->lastnames;
@@ -272,9 +272,9 @@ trait UserTrait{
 	}
 	private static function updateMenthor($user, $data){
 		// Actualizacion del mentor
-		$user->proffesionalData->trabajo = $data->mentor['job'];		
-		$user->proffesionalData->organizacion = $data->mentor['work_place'];		
-		$user->proffesionalData->profesion_id = $data->mentor['profession']['id'];	
+		$user->proffesionalData->trabajo = $data->mentor['job'];
+		$user->proffesionalData->organizacion = $data->mentor['work_place'];
+		$user->proffesionalData->profesion_id = $data->mentor['profession']['id'];
 		$user->proffesionalData->save();
 		foreach ($data->skills as $skill) {
 	    	if(isset($skill['expertise']))

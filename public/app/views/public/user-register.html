@@ -38,7 +38,7 @@
 	                      </select>
 	                    </div>
 	    			</div>
-            	</div> 
+            	</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="correo" class=" col-xs-12 ">Número celular</label>
@@ -49,18 +49,18 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Ciudad</label>
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2" lx-tooltip-position="top" lx-tooltip="En la primera versión del concurso, se aceptarán únicamente postulaciones de La Paz y El Alto">
+						<label id="correo" class=" col-xs-12" >Ciudad</label>
 						<div class="col-xs-12">
 							<select ng-model="vm.dataRegister.cityId" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
-						</div>	
+						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Zona</label>
+						<label for="zone" class=" col-xs-12">Zona</label>
 						<div class="col-xs-12">
-							<select ng-model="vm.dataRegister.zoneId" class="form-control" ng-options="zone.id as zone.label for zone in vm.zones"></select>
+							<input type="text" id="zone" ng-model="vm.dataRegister.zone" class="form-control" required/>
 						</div>
 					</div>
 				</div>
@@ -82,34 +82,50 @@
 				</div>
 				<!-- Fields only available for menthors, judges, experts -->
 				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'mentor' || vm.typeReg == 'expert'">
-				<div class="form-group">
-					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="org" class=" col-xs-12">Organización de trabajo</label>
-						<div class="col-xs-12">
-							<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="" required>
-							<p style="padding:3px;"></p>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label id="org" class=" col-xs-12">Lugar de trabajo</label>
+							<div class="col-xs-12">
+								<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="" required>
+								<p style="padding:3px;"></p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label id="correo" class=" col-xs-12">Puesto de trabajo</label>
+							<div class="col-xs-12">
+								<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job" placeholder="P.ej.: tuemail@gmail.com" required>
+								<p style="padding:3px;"></p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label id="correo" class=" col-xs-12">Profesión</label>
+							<div class="col-xs-12">
+								<select ng-model="vm.dataRegister.professionId" class="form-control" ng-options="profession.id as profession.label for profession in vm.professions"></select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label id="correo" class=" col-xs-12">Tamaño de polera</label>
+							<div class="col-xs-12">
+								<select ng-model="vm.dataRegister.shirtId" class="form-control" ng-options="shirt.id as shirt.label for shirt in vm.shirts"></select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label for="sn" class=" col-xs-12">Enlace de su perfil en Facebook o LinkedIn (opcional)</label>
+							<div class="col-xs-12">
+								<input type="text" id="sn" class="form-control" ng-change="vm.validateSocialNetwork(vm.dataRegister.socialNetwork)" ng-model="vm.dataRegister.socialNetwork" placeholder="P.ej.: https://www.linkedin.com/in/mark-zuckerberg-92b2077" >
+								<p style="padding:3px;"></p>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Puesto de trabajo</label>
-						<div class="col-xs-12">
-							<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job" placeholder="P.ej.: tuemail@gmail.com" required>
-							<p style="padding:3px;"></p>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Profesión</label>
-						<div class="col-xs-12">
-							<select ng-model="vm.dataRegister.professionId" class="form-control" ng-options="profession.id as profession.label for profession in vm.professions"></select>
-						</div>
-					</div>
-				</div>	
-				</div>
-				
 				<!-- Field available only for judges and experts -->
 				<div class="form-group"  ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
