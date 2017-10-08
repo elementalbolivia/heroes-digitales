@@ -18,7 +18,9 @@
 										<th>Puesto de trabajo</th>
 										<th>Ciudad</th>
 										<th>Curriculum</th>
-										<th>Aprobar/Rechazar</th>
+                    <th>Red Social</th>
+                    <th>Aprobar/Rechazar</th>
+                    <th>Estado</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -29,11 +31,16 @@
 										<td>{{ expert.expert.profession.nombre }}</td>
 										<td>{{ expert.expert.work_place }}</td>
 										<td>{{ expert.city.nombre }}</td>
-										<td><a class="btn btn-info btn-block" href="/Users/pablojordan/laravel_apps/heroes-digitales/storage/app/public/curriculums/{{expert.expert.cv}}}" download> Ver CV</a></td>
-										<td>
+										<td><a class="btn btn-info btn-block" ng-href="/app/docs/curriculums/{{expert.expert.cv}}" target="_blank" download> Ver CV</a></td>
+                    <td> <a ng-href="{{ judge.judge.social_network }}" target="_blank" class="btn btn-link">Ver <i class="fa fa-eye"></i></a> </td>
+                    <td>
 											<button class="btn btn-success" ng-click="vm.processRequest(expert.id, true)">Aprobar</button>
 											<button class="btn btn-danger" ng-click="vm.processRequest(expert.id, false)">Rechazar</button>
 										</td>
+                    <td>
+                      <span class="label label-default" ng-if="expert.is_active">Aprobado</span>
+                      <span class="label label-default" ng-if="!expert.is_active">Rechazado</span>
+                     </td>
 									</tr>
 								</tbody>
 							</table>

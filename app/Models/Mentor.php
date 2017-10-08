@@ -8,6 +8,7 @@ class Mentor extends Model
 {
     protected $table = 'mentor';
     public $timestamps = false;
+    protected = ['tamano_polera_id'];
 
     public function user(){
     	return $this->belongsTo('App\Models\Usuario');

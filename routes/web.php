@@ -22,8 +22,8 @@ Route::prefix('api/v1')->group(function(){
 	Route::get('new-admin', [
 		'uses'	=> 'RegisterCtrl@newAdmin'
 	]);
-	Route::get('zones', [
-		'uses'	=> 'ZoneCtrl@index'
+	Route::get('shirts', [
+		'uses'	=> 'ShirtCtrl@index'
 	]);
 	Route::get('genres', [
 		'uses'	=> 'GenreCtrl@index'

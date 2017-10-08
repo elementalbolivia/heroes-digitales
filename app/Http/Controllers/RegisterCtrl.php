@@ -32,7 +32,6 @@ class RegisterCtrl extends Controller
             'fecha_nacimiento'  => '1986-08-11',
             'celular'           => 7012312,
             'ciudad_id'         => 1,
-            'zona_id'           => 1,
             'genero_id'         => 1,
         ];
         $user = Usuario::create($userData);
@@ -67,11 +66,12 @@ class RegisterCtrl extends Controller
 	    		'fecha_nacimiento'	=> $request->birthDate['year'] . '-'. $request->birthDate['month'] . '-' . $request->birthDate['day'],
 	    		'celular'			=> $request->cellphone,
 	    		'ciudad_id'			=> $request->cityId,
-	    		'zona_id'			=> $request->zoneId,
 	    		'genero_id'			=> $request->genreId,
 	    	];
 	    	// Crear un registro en la tabla usuario
 	    	$user = Usuario::create($userData);
+				// Crear relacion con la zona del usuario
+				$user->zone()->create(['nombre'	=> $request->zone]);
 	    	// Crear array-assoc para crear el rol del usuario
 	    	$role = [
 	    		'usuario_id'	=> $user->id,
@@ -84,6 +84,8 @@ class RegisterCtrl extends Controller
 	    		'organizacion'	=> $request->org,
 	    		'trabajo'		=> $request->job,
 	    		'cv'			=> NULL,
+					'tamano_polera'	=> $request->shirtId,
+					'red_social_url' => isset($request->socialNetwork) ? $request->socialNetwork : NULL,
 	    	];
 	    	if ($request->type != 'student'){
 	    		$role['rol_id'] = $this->insertUser($request->type, $user, $proffesionalData, $request->file('cv'));
@@ -127,7 +129,7 @@ class RegisterCtrl extends Controller
     		DB::rollBack();
     		return response()->json([
 	    		'success' => false,
-	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente',
+	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente: ' . $e->getMessage(),
 		    ]);
     	}
     }
@@ -146,11 +148,13 @@ class RegisterCtrl extends Controller
 	    			->put('curriculums/'.$cvName,
 	    			  file_get_contents($file->getRealPath()));
     		$proffesionalData['cv'] = $cvName;
+
     		if($roleId == 3)
-    			$user->judge()->create([]);
+    			$user->judge()->create(['tamano_polera_id' => $proffesionalData['tamano_polera']]);
     		else
-    			$user->expert()->create([]);
+    			$user->expert()->create(['tamano_polera_id' => $proffesionalData['tamano_polera']]);
     	}
+			unset($proffesionalData['tamano_polera']);
     	$profesional = $user->proffesionalData()->create($proffesionalData);
     	return $roleId;
     }

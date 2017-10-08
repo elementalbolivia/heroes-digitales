@@ -37,6 +37,7 @@
 <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="/bower_components/angular-locker/dist/angular-locker.min.js"></script>
+<!-- <script src="/app/js/bootstrap-init.js"></script> -->
 <!-- Angular Script dependencies -->
 <script src="/app/scripts/app.js"></script>
 <!-- Controllers  -->
@@ -71,8 +72,8 @@
 <!-- Services -->
 <script src="/app/scripts/services/public/Register.js"></script>
 <script src="/app/scripts/services/public/City.js"></script>
-<script src="/app/scripts/services/public/Zone.js"></script>
 <script src="/app/scripts/services/public/Genre.js"></script>
+<script src="/app/scripts/services/public/Shirt.js"></script>
 <script src="/app/scripts/services/public/School.js"></script>
 <script src="/app/scripts/services/user/User.js"></script>
 <script src="/app/scripts/services/auth/Auth.js"></script>

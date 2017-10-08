@@ -1,16 +1,16 @@
 (function(){
 	'use strict';
 	angular.module('heroesDigitalesApp')
-		.factory('Zone', Zone);
-	Zone.$inyect = ['$http', 'PUBLIC_URL'];
-	function Zone($http, PUBLIC_URL){
+		.factory('Shirt', Shirt);
+	Shirt.$inyect = ['$http', 'PUBLIC_URL'];
+	function Shirt($http, PUBLIC_URL){
 		return{
-			getZones: function(){
+			getShirts: function(){
 				var promise = $http({
 					method: 'GET',
-					url: PUBLIC_URL + 'zones'
+					url: PUBLIC_URL + 'shirts'
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},

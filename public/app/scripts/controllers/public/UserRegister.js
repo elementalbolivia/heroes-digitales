@@ -3,18 +3,19 @@
 
 	angular.module('heroesDigitalesApp')
 		.controller('UserRegisterCtrl', UserRegisterCtrl);
-	UserRegisterCtrl.$inyect = ['$stateParams', '$state', 'City', 'Zone', 'Genre', 'School', 'Profession', 'Register', 'LxNotificationService'];
+	UserRegisterCtrl.$inyect = ['$stateParams', '$state', 'City', 'Shirt', 'Genre', 'School', 'Profession', 'Register', 'LxNotificationService'];
 
-	function UserRegisterCtrl($stateParams, $state, City, Zone, Genre, School, Profession, Register, LxNotificationService){
+	function UserRegisterCtrl($stateParams, $state, City, Shirt, Genre, School, Profession, Register, LxNotificationService){
 		var vm = this;
 		// Methods
 		vm.getCities = getCities;
-		vm.getZones = getZones;
 		vm.getGenres = getGenres;
 		vm.getSchools = getSchools;
+		vm.getShirts = getShirts;
 		vm.getProfessions = getProfessions;
 		vm.generateYears = generateYears;
 		vm.sendRegistration = sendRegistration;
+		vm.validateSocialNetwork = validateSocialNetwork;
 		var setRegProps = setRegProps;
 		var retypePassword = retypePassword;
 		// Props
@@ -32,14 +33,16 @@
 			birthDate: {
 				day: 'Día',
 				month: 'Mes',
-				year: 'Año' 
+				year: 'Año'
 			},
 			cellphone: 0,
 			cityId: 0,
-			zoneId: 0,
+			zone: '',
 			genreId: 0,
 			schoolId: 0,
 			email: '',
+			shirtId: 0,
+			socialNetwork: '',
 			password: '',
 			retype: '',
 			org: '',
@@ -49,7 +52,7 @@
 		};
 		vm.cities = [];
 		vm.schools = [];
-		vm.zones = [];
+		vm.shirts = [];
 		vm.genres = [];
 		vm.dates = {
 			days: [
@@ -123,7 +126,7 @@
 		};
 		/**
 		 * getCities: Hace la llamada al servicio City
-		 * 			  para obtener las ciudades de la BD 
+		 * 			  para obtener las ciudades de la BD
 		 * @return void
 		 */
 		function getCities(){
@@ -136,30 +139,30 @@
 				console.error('Error en el servidor');
 			});
 		};
-		/**
-		 * getZoes: Hace la llamada al servicio Zone
-		 * 			  para obtener las zonas de la BD 
+		/*
+		 * getCities: Hace la llamada al servicio Genre
+		 * 			  para obtener los tipos de genero
 		 * @return void
 		 */
-		function getZones(){
-			Zone.getZones().then(function(data){
+		function getGenres(){
+			Genre.getGenres().then(function(data){
 				if(data.success)
-					vm.zones = data.zones;
+					vm.genres = data.genres;
 				else
 					console.warn('Hubo un error al cargar los datos');
 			}, function(err){
 				console.error('Error en el servidor');
 			});
 		};
-		/**
+		/*
 		 * getCities: Hace la llamada al servicio Genre
-		 * 			  para obtener los tipos de genero 
+		 * 			  para obtener los tipos de genero
 		 * @return void
 		 */
-		function getGenres(){
-			Genre.getGenres().then(function(data){				
+		function getShirts(){
+			Shirt.getShirts().then(function(data){
 				if(data.success)
-					vm.genres = data.genres;
+					vm.shirts = data.shirts;
 				else
 					console.warn('Hubo un error al cargar los datos');
 			}, function(err){
@@ -203,14 +206,16 @@
 		};
 		function sendRegistration(){
 			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype))
-				return
+				return;
+			if(!vm.validateSocialNetwork(vm.dataRegister.socialNetwork))
+				return;
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
 			// Validar que el retype es igual al password
 			Register.register(vm.dataRegister).then(function(data){
 				if(data.success){
 					if(data.emailSended == 'NOT_SENDED')
-						LxNotificationService.alert('Felicitaciones', data.msg, 'OK', function(answer){ state.go('home') });
+						LxNotificationService.alert('Felicitaciones', data.msg, 'OK', function(answer){ $state.go('home') });
 					else
 						$state.go('home.success-register');
 				}else{
@@ -223,12 +228,23 @@
 				console.error('Error con el servidor');
 			});
 		};
+		function validateSocialNetwork(text){
+			if(text == undefined || text == '') return;
+			if(text.search(/linkedin/i) == -1 && text.search(/facebook/i) == -1){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Debes enlazar tu cuenta de Facebook o LinkedIn';
+				return false;
+			}else{
+				vm.isNotRegistered.state = false;
+			}
+			return true;
+		}
 		// Self execution functions
 		setRegProps(vm.typeReg);
 		getCities();
-		getZones();
-		getGenres();
+		getShirts();
 		getSchools();
+		getGenres();
 		getProfessions();
 		generateYears();
 	};
