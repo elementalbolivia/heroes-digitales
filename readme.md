@@ -1,9 +1,5 @@
 ## Heroes Digitales by Elemental
-Proyect for a programming contest for kids
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+System for a programming contest for kids between 14 - 18 years old.
 
 ## Developed by Pablo Diego Montes Jordan & Daniella Garcia
 
