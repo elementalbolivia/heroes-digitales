@@ -207,7 +207,7 @@
 		function sendRegistration(){
 			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype))
 				return;
-			if(!vm.validateSocialNetwork(vm.dataRegister.socialNetwork))
+			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork))
 				return;
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
