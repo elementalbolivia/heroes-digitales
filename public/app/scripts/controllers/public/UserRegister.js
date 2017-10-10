@@ -35,7 +35,7 @@
 				month: 'Mes',
 				year: 'Año'
 			},
-			cellphone: 0,
+			cellphone: '',
 			cityId: 0,
 			zone: '',
 			genreId: 0,
@@ -209,6 +209,10 @@
 				return;
 			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork))
 				return;
+			if(!Number.isInteger(parseInt(vm.dataRegister.cellphone))){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';
+			}
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
 			// Validar que el retype es igual al password
@@ -222,10 +226,11 @@
 					vm.isNotRegistered.state = true;
 					vm.isNotRegistered.isLoading = false;
 					vm.isNotRegistered.msg = data.msg;
-					console.warn('Hubo un error, inténtelo nuevamente');
 				}
 			}, function(err){
-				console.error('Error con el servidor');
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.isLoading = false;
+				vm.isNotRegistered.msg = 'Hubo un error al realizar su registro, revise su conexión a internet e inténtelo nuevamente';
 			});
 		};
 		function validateSocialNetwork(text){
