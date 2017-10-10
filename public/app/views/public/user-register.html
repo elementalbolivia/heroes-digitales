@@ -43,7 +43,7 @@
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="correo" class=" col-xs-12 ">Número celular</label>
 						<div class="col-xs-12 col-sm-6">
-							<input type="number" id="correo" class="form-control" ng-model="vm.dataRegister.cellphone" p required>
+							<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.cellphone" required>
 							<p style="padding:3px;"></p>
 						</div>
 					</div>
@@ -84,7 +84,7 @@
 				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'mentor' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="org" class=" col-xs-12">Lugar de trabajo</label>
+							<label id="org" class=" col-xs-12">Organización</label>
 							<div class="col-xs-12">
 								<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="" required>
 								<p style="padding:3px;"></p>
@@ -93,9 +93,9 @@
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Puesto de trabajo</label>
+							<label id="correo" class=" col-xs-12">Cargo</label>
 							<div class="col-xs-12">
-								<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job" placeholder="P.ej.: tuemail@gmail.com" required>
+								<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job" required>
 								<p style="padding:3px;"></p>
 							</div>
 						</div>
