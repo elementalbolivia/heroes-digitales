@@ -22,13 +22,13 @@ class DashboardCtrl extends Controller
     		$res->user = UserTrait::userData($uid);
 	    	$res->success = true;
 	    	DB::commit();
-	    	return response()->json($res);	
+	    	return response()->json($res);
     	}catch(\Exception $e){
+        DB::rollBack();
     		$res->success = false;
     		$res->msg = 'Hubo un error al cargar la información del usuario';
-    		DB::rollBack();
     		return response()->json($res);
     	}
-    	
+
     }
 }

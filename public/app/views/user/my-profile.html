@@ -9,7 +9,7 @@
 								<img ng-if="!vm.userData.image" src="/app/images/users/default-user.png" style="margin:auto;" alt="">
 								<img ng-if="vm.userData.image" ng-src="/app/images/users/{{vm.userData.image.name}}" style="margin:auto;" alt="">
 							</div>
-							<img ng-if="vm.userImg.newImg != null" ngf-src="vm.userImg.newImg" style="margin:auto;" alt="">	
+							<img ng-if="vm.userImg.newImg != null" ngf-src="vm.userImg.newImg" style="margin:auto;" alt="">
 						</div>
 						<div class="col-xs-12">
 						<p style="padding:5px;"></p>
@@ -34,7 +34,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<p>Ciudad: {{ vm.userData.city.nombre }}</p>
-							<p>Zona: {{ vm.userData.zone.nombre }}</p>
+							<p>Zona: {{ vm.userData.zone }}</p>
 							<p ng-if="vm.userCreds.role == 1">Colegio: {{ vm.userData.student.school.nombre }}</p>
 							<p ng-if="vm.userCreds.role == 2">Puesto de trabajo: {{vm.userData.mentor.job }}</p>
 							<p ng-if="vm.userCreds.role == 2">Profesión: {{vm.userData.mentor.profession.nombre }}</p>

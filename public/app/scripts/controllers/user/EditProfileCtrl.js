@@ -3,9 +3,9 @@
 
 	angular.module('heroesDigitalesApp')
 		.controller('EditProfileCtrl', EditProfileCtrl);
-	EditProfileCtrl.$inyect = ['$state', 'User', 'City', 'Zone', 'School', 'Profession', 'Auth', 'Expertise', 'Skill'];
+	EditProfileCtrl.$inyect = ['$state', 'User', 'City', 'School', 'Profession', 'Auth', 'Expertise', 'Skill'];
 
-	function EditProfileCtrl($state, User, City, Zone, School, Profession, Auth, Expertise, Skill){
+	function EditProfileCtrl($state, User, City, School, Profession, Auth, Expertise, Skill){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
@@ -20,7 +20,6 @@
 		// Methods
 		vm.getUserData = getUserData;
 		vm.getCities = getCities;
-		vm.getZones = getZones;
 		vm.getSchools = getSchools;
 		vm.getProfessions = getProfessions;
 		vm.getSkills = getSkills;
@@ -31,8 +30,7 @@
 			User.getInfo(vm.userCreds.id).then(function(data){
 				if(data.success){
 					vm.userData = data.user;
-					vm.userData.bio = vm.userData.bio ? vm.userData.bio.name : ''; 
-					console.log(data.user);
+					vm.userData.bio = vm.userData.bio ? vm.userData.bio.name : '';
 				}else{
 					alert(data.msg);
 				}
@@ -42,29 +40,13 @@
 		};
 		/**
 		 * getCities: Hace la llamada al servicio City
-		 * 			  para obtener las ciudades de la BD 
+		 * 			  para obtener las ciudades de la BD
 		 * @return void
 		 */
 		function getCities(){
 			City.getCities().then(function(data){
 				if(data.success)
 					vm.cities = data.cities;
-				else
-					console.warn('Hubo un error al cargar los datos');
-			}, function(err){
-				console.error('Error en el servidor');
-			});
-		};
-		/**
-		 * getZoes: Hace la llamada al servicio Zone
-		 * 			  para obtener las zonas de la BD 
-		 * @return void
-		 */
-		function getZones(){
-			Zone.getZones().then(function(data){
-				console.log(data);
-				if(data.success)
-					vm.zones = data.zones;
 				else
 					console.warn('Hubo un error al cargar los datos');
 			}, function(err){
@@ -123,7 +105,7 @@
 					}
 				}, function(err){
 					alert('Hubo un error en servidor, revise su conexión a internet');
-				});		
+				});
 			}else if(vm.userCreds.role == 2){
 				var userData = vm.userData;
 				userData.skills = vm.skillsUser;
@@ -135,13 +117,12 @@
 					}
 				}, function(err){
 					alert('Hubo un error en servidor, revise su conexión a internet');
-				});	
+				});
 			}
 		};
 		// Methods self invoking
 		getUserData();
 		getCities();
-		getZones();
 		getSchools();
 		getProfessions();
 		getSkills();
