@@ -9,6 +9,7 @@ use App\Models\Estudiante;
 use App\Models\Mentor;
 use App\Models\Profesion;
 use App\Models\Experticia;
+use App\Models\Zona;
 use App\Models\MentorTieneHabilidad;
 use Carbon\Carbon;
 use DB;
@@ -97,7 +98,7 @@ trait UserTrait{
 		$userData['is_active'] = $user->activo;
 		$userData['city'] 		= $user->city($user->ciudad_id);
 		$userData['genre'] 		= $user->genre($user->genero_id);
-		$userData['zone'] 		= $user->zone($user->zona_id);
+		$userData['zone'] 		= $user->zone != NULL ? $user->zone->nombre : NULL;
 		$userData['image'] 	= $user->image != NULL ? [
 								'id'	=> $user->image->id,
 								'name'	=> $user->image->nombre_archivo
@@ -238,13 +239,11 @@ trait UserTrait{
 	// ################################
 	public static function updateUser($uid, $data){
 		// Cambios en usuario
-
 		$user = Usuario::find($uid);
 		$user->nombres = $data->names;
 		$user->apellidos = $data->lastnames;
 		$user->celular = $data->cellphone;
 		$user->ciudad_id = $data->city['id'];
-		$user->zona_id = $data->zone['id'];
 		$user->save();
 		// Cambios en biografia
 		if($user->biography == null ){
@@ -255,6 +254,15 @@ trait UserTrait{
 			$user->biography->descripcion = $data->bio;
 			$user->biography->save();
 		}
+		if($user->zone == null ){
+			$user->zone()->create([
+				'nombre'	=> $data->zone,
+			]);
+		}else{
+			$user->zone->nombre = $data->zone;
+			$user->zone->save();
+		}
+
 		if($user->role($user->id)->rol_id == 1){
 			self::updateStudent($user, $data);
 		}else if($user->role($user->id)->rol_id == 2){
