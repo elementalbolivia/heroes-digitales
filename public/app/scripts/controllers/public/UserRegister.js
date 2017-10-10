@@ -205,13 +205,12 @@
 			return true;
 		};
 		function sendRegistration(){
-			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype))
-				return;
-			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork))
-				return;
-			if(!Number.isInteger(parseInt(vm.dataRegister.cellphone))){
+			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype)) return;
+			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork)) return;
+			if(!Number.isInteger(Number(vm.dataRegister.cellphone))){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';
+				return;
 			}
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
