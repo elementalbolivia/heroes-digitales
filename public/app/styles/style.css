@@ -1,6 +1,10 @@
 body{
 	font-family: 'BackIssues';
 }
+.heading{
+	font-family: 'Badaboom';
+	font-weight: bold;
+}
 .banner-container{
 	position: relative;
 	width: 100%;
@@ -31,4 +35,6 @@ body{
 }
 .navbar{
 	font-family: 'Badaboom';
+	text-shadow: 1px 2px #6495ED;
+	font-weight: bold;
 }
