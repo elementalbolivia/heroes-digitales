@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
     <link rel="stylesheet" type="text/css" href="/app/styles/timeline.css">
+    <link rel="stylesheet" type="text/css" href="/app/styles/fonts.css">
     <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
     <!-- -->
 </head>
