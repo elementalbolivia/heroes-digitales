@@ -116,6 +116,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<!-- Field available only for judges and experts -->
+				<div class="form-group"  ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 							<label for="sn" class=" col-xs-12">Enlace de su perfil en Facebook o LinkedIn (opcional)</label>
@@ -125,9 +128,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- Field available only for judges and experts -->
-				<div class="form-group"  ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="cv" class=" col-xs-12">Curriculum vitae</label>
 						<div class="col-xs-12">
