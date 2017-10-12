@@ -9,7 +9,7 @@ class Estudiante extends Model
 {
     protected $table = 'estudiante';
     public $timestamps = false;
-    protected $fillable = ['usuario_id', 'colegio_id'];
+    protected $fillable = ['usuario_id', 'colegio'];
 
     public function user(){
     	return $this->belongsTo('App\Models\Usuario');
@@ -30,8 +30,5 @@ class Estudiante extends Model
     public function invitationsToTeam(){
         return $this->belongsToMany('App\Models\Equipo', 'invitaciones_equipo', 'estudiante_id', 'equipo_id')
                 ->withPivot('id', 'activo', 'confirmacion', 'fecha_creacion', 'fecha_actualizacion');
-    }
-    public function school($id){
-        return Colegio::find($id);
     }
 }

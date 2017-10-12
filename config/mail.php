@@ -4,14 +4,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Mail Driver
+    | MAIL Driver
     |--------------------------------------------------------------------------
     |
-    | Laravel supports both SMTP and PHP's "mail" function as drivers for the
-    | sending of e-mail. You may specify which one you're using throughout
-    | your application here. By default, Laravel is setup for SMTP mail.
+    | Laravel supports both SMTP and PHP's "MAIL" function as drivers for the
+    | sending of e-MAIL. You may specify which one you're using throughout
+    | your application here. By default, Laravel is setup for SMTP MAIL.
     |
-    | Supported: "smtp", "sendmail", "mailgun", "mandrill", "ses",
+    | Supported: "smtp", "sendMAIL", "MAILgun", "MAIL", "ses",
     |            "sparkpost", "log", "array"
     |
     */
@@ -25,7 +25,7 @@ return [
     |
     | Here you may provide the host address of the SMTP server used by your
     | applications. A default option is provided that is compatible with
-    | the Mailgun mail service which will provide reliable deliveries.
+    | the MAILgun MAIL service which will provide reliable deliveries.
     |
     */
 
@@ -36,9 +36,9 @@ return [
     | SMTP Host Port
     |--------------------------------------------------------------------------
     |
-    | This is the SMTP port used by your application to deliver e-mails to
+    | This is the SMTP port used by your application to deliver e-MAILs to
     | users of the application. Like the host we have set this value to
-    | stay compatible with the Mailgun e-mail application by default.
+    | stay compatible with the MAILgun e-MAIL application by default.
     |
     */
 
@@ -49,24 +49,24 @@ return [
     | Global "From" Address
     |--------------------------------------------------------------------------
     |
-    | You may wish for all e-mails sent by your application to be sent from
+    | You may wish for all e-MAILs sent by your application to be sent from
     | the same address. Here, you may specify a name and address that is
-    | used globally for all e-mails that are sent by your application.
+    | used globally for all e-MAILs that are sent by your application.
     |
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_ADDRESS', 'elementalbolivia@gmail.com'),
+        'name' => env('MAIL_NAME', 'Elemental'),
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | E-Mail Encryption Protocol
+    | E-MAIL Encryption Protocol
     |--------------------------------------------------------------------------
     |
     | Here you may specify the encryption protocol that should be used when
-    | the application send e-mail messages. A sensible default using the
+    | the application send e-MAIL messages. A sensible default using the
     | transport layer security protocol should provide great security.
     |
     */
@@ -90,11 +90,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Sendmail System Path
+    | SendMAIL System Path
     |--------------------------------------------------------------------------
     |
-    | When using the "sendmail" driver to send e-mails, we will need to know
-    | the path to where Sendmail lives on this server. A default path has
+    | When using the "sendMAIL" driver to send e-MAILs, we will need to know
+    | the path to where SendMAIL lives on this server. A default path has
     | been provided here, which will work well on most of your systems.
     |
     */
@@ -103,12 +103,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Markdown Mail Settings
+    | Markdown MAIL Settings
     |--------------------------------------------------------------------------
     |
-    | If you are using Markdown based email rendering, you may configure your
+    | If you are using Markdown based eMAIL rendering, you may configure your
     | theme and component paths here, allowing you to customize the design
-    | of the emails. Or, you may simply stick with the Laravel defaults!
+    | of the eMAILs. Or, you may simply stick with the Laravel defaults!
     |
     */
 

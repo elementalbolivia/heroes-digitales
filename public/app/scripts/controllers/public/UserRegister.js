@@ -3,16 +3,14 @@
 
 	angular.module('heroesDigitalesApp')
 		.controller('UserRegisterCtrl', UserRegisterCtrl);
-	UserRegisterCtrl.$inyect = ['$stateParams', '$state', 'City', 'Shirt', 'Genre', 'School', 'Profession', 'Register', 'LxNotificationService'];
+	UserRegisterCtrl.$inyect = ['$stateParams', '$state', 'City', 'Shirt', 'Genre', 'Register', 'LxNotificationService'];
 
-	function UserRegisterCtrl($stateParams, $state, City, Shirt, Genre, School, Profession, Register, LxNotificationService){
+	function UserRegisterCtrl($stateParams, $state, City, Shirt, Genre, Register, LxNotificationService){
 		var vm = this;
 		// Methods
 		vm.getCities = getCities;
 		vm.getGenres = getGenres;
-		vm.getSchools = getSchools;
 		vm.getShirts = getShirts;
-		vm.getProfessions = getProfessions;
 		vm.generateYears = generateYears;
 		vm.sendRegistration = sendRegistration;
 		vm.validateSocialNetwork = validateSocialNetwork;
@@ -39,7 +37,7 @@
 			cityId: 0,
 			zone: '',
 			genreId: 0,
-			schoolId: 0,
+			school: '',
 			email: '',
 			shirtId: 0,
 			socialNetwork: '',
@@ -47,7 +45,7 @@
 			retype: '',
 			org: '',
 			job: '',
-			professionId: 0,
+			profession: '',
 			cv: {},
 		};
 		vm.cities = [];
@@ -169,26 +167,6 @@
 				console.error('Error en el servidor');
 			});
 		};
-		function getSchools(){
-			School.getSchools().then(function(data){
-				if(data.success)
-					vm.schools = data.schools;
-				else
-					console.warn('Hubo un error al cargar los datos');
-			}, function(err){
-				console.error('Error en el servidor');
-			});
-		};
-		function getProfessions(){
-			Profession.getProfessions().then(function(data){
-				if(data.success)
-					vm.professions = data.professions;
-				else
-					console.warn('Hubo un error al cargar los datos');
-			}, function(err){
-				console.error('Error en el servidor');
-			});
-		};
 		function generateYears(){
 			var actYear = new Date().getFullYear();
 			for (var i = 1960; i <= actYear; i++) {
@@ -205,13 +183,14 @@
 			return true;
 		};
 		function sendRegistration(){
-			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype)) return;
-			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork)) return;
 			if(!Number.isInteger(Number(vm.dataRegister.cellphone))){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';
 				return;
 			}
+			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork)) return;
+			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype)) return;
+
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
 			// Validar que el retype es igual al password
@@ -233,7 +212,7 @@
 			});
 		};
 		function validateSocialNetwork(text){
-			if(text == undefined || text == '') return;
+			if(text == undefined || text == '') true;
 			if(text.search(/linkedin/i) == -1 && text.search(/facebook/i) == -1){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debes enlazar tu cuenta de Facebook o LinkedIn';
@@ -247,9 +226,7 @@
 		setRegProps(vm.typeReg);
 		getCities();
 		getShirts();
-		getSchools();
 		getGenres();
-		getProfessions();
 		generateYears();
 	};
 })();

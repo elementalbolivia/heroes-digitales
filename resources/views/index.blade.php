@@ -75,14 +75,12 @@
 <script src="/app/scripts/services/public/City.js"></script>
 <script src="/app/scripts/services/public/Genre.js"></script>
 <script src="/app/scripts/services/public/Shirt.js"></script>
-<script src="/app/scripts/services/public/School.js"></script>
 <script src="/app/scripts/services/user/User.js"></script>
 <script src="/app/scripts/services/auth/Auth.js"></script>
 <script src="/app/scripts/services/team/Division.js"></script>
 <script src="/app/scripts/services/team/Category.js"></script>
 <script src="/app/scripts/services/team/Team.js"></script>
 <script src="/app/scripts/services/student/Student.js"></script>
-<script src="/app/scripts/services/professional/Profession.js"></script>
 <script src="/app/scripts/services/professional/Expertise.js"></script>
 <script src="/app/scripts/services/professional/Skill.js"></script>
 <script src="/app/scripts/services/professional/CV.js"></script>

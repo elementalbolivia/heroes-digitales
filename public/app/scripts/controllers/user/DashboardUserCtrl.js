@@ -10,6 +10,7 @@
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
+		console.log(vm.userCreds);
 		// Methods
 		vm.getUserData = getUserData;
 		vm.confirmRequest = confirmRequest;
@@ -20,7 +21,7 @@
 				if(data.success){
 					console.log(data.user)
 					vm.userData = data.user;
-					vm.userData.invitations = angular.equals(data.user.invitations, []) ? false : data.user.invitations; 
+					vm.userData.invitations = angular.equals(data.user.invitations, []) ? false : data.user.invitations;
 				}else{
 					alert(data.msg);
 				}
@@ -64,7 +65,7 @@
 	                {
 	                	return;
 	                }
-	            });	
+	            });
 			}
 		};
 		function confirmInvitation(invitationId, teamId, bool){
@@ -72,8 +73,11 @@
 				Team.confirmInvitationFromTeam({invitationId: invitationId, teamId: teamId, accept: bool}).then(function(data){
 					if(data.success){
 						LxNotificationService.success('Aceptaste la invitación del equipo');
+						console.log(data);
 						vm.getUserData();
 						Auth.setHasTeam(true);
+						Auth.setIsLeader(false);
+						Auth.setTeamId(data.team_id);
 					}else{
 						LxNotificationService.warning(data.msg);
 					}
@@ -108,7 +112,7 @@
 	                {
 	                	return;
 	                }
-	            });	
+	            });
 			}
 		};
 		// Methods self invoking

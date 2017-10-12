@@ -68,7 +68,7 @@
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="correo" class=" col-xs-12">Colegio</label>
 						<div class="col-xs-12">
-							<select ng-model="vm.dataRegister.schoolId" class="form-control" ng-options="school.id as school.label for school in vm.schools"></select>
+							<input type="text" ng-model="vm.dataRegister.school" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -104,10 +104,13 @@
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 							<label id="correo" class=" col-xs-12">Profesión</label>
 							<div class="col-xs-12">
-								<select ng-model="vm.dataRegister.professionId" class="form-control" ng-options="profession.id as profession.label for profession in vm.professions"></select>
+								<input ng-model="vm.dataRegister.profession" class="form-control"/>
 							</div>
 						</div>
 					</div>
+				</div>
+				<!-- Field available only for judges and experts -->
+				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 							<label id="correo" class=" col-xs-12">Tamaño de polera</label>
@@ -116,9 +119,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- Field available only for judges and experts -->
-				<div class="form-group"  ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 							<label for="sn" class=" col-xs-12">Enlace de su perfil en Facebook o LinkedIn (opcional)</label>

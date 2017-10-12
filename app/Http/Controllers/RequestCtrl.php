@@ -15,10 +15,10 @@ class RequestCtrl extends Controller
     	$res = (object) null;
     	$user = Usuario::find($request->id);
     	if($request->accept){
-    		// Crear un token de seguridad para verificar el mail 
+    		// Crear un token de seguridad para verificar el mail
 	    	$mailToken = md5($user->correo) . md5(date('YmdHis'));
 	    	// Crear una URL para verificar al usuario
-	    	$verifUrl = config('Constants.API.LOCAL_URL') . 'email-verification/'. $user->id . '/' . $mailToken . '/' . $user->correo;
+	    	$verifUrl = config('constants.API.LOCAL_URL') . 'email-verification/'. $user->id . '/' . $mailToken . '/' . $user->correo;
 	    	// Crear array-assoc para crear token de confirmacion
 	    	$verifToken = ConfirmacionEmail::create([
 	    		'usuario_id'		=> $user->id,
