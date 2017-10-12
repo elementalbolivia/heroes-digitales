@@ -3,25 +3,21 @@
 
 	angular.module('heroesDigitalesApp')
 		.controller('EditProfileCtrl', EditProfileCtrl);
-	EditProfileCtrl.$inyect = ['$state', 'User', 'City', 'School', 'Profession', 'Auth', 'Expertise', 'Skill'];
+	EditProfileCtrl.$inyect = ['$state', 'User', 'City', 'Auth', 'Expertise', 'Skill'];
 
-	function EditProfileCtrl($state, User, City, School, Profession, Auth, Expertise, Skill){
+	function EditProfileCtrl($state, User, City, Auth, Expertise, Skill){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
 		vm.cities = [];
-		vm.schools = [];
 		vm.zones = [];
-		vm.proffesions = [];
 		vm.skills = [];
 		vm.expertises = [];
 		vm.skillsUser = [];
 		// Methods
 		vm.getUserData = getUserData;
 		vm.getCities = getCities;
-		vm.getSchools = getSchools;
-		vm.getProfessions = getProfessions;
 		vm.getSkills = getSkills;
 		vm.getExpertises = getExpertises;
 		vm.update = update;
@@ -47,26 +43,6 @@
 			City.getCities().then(function(data){
 				if(data.success)
 					vm.cities = data.cities;
-				else
-					console.warn('Hubo un error al cargar los datos');
-			}, function(err){
-				console.error('Error en el servidor');
-			});
-		};
-		function getSchools(){
-			School.getSchools().then(function(data){
-				if(data.success)
-					vm.schools = data.schools;
-				else
-					console.warn('Hubo un error al cargar los datos');
-			}, function(err){
-				console.error('Error en el servidor');
-			});
-		};
-		function getProfessions(){
-			Profession.getProfessions().then(function(data){
-				if(data.success)
-					vm.professions = data.professions;
 				else
 					console.warn('Hubo un error al cargar los datos');
 			}, function(err){
@@ -123,8 +99,6 @@
 		// Methods self invoking
 		getUserData();
 		getCities();
-		getSchools();
-		getProfessions();
 		getSkills();
 		getExpertises();
 	};

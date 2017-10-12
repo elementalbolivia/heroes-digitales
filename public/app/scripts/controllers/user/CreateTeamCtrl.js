@@ -34,7 +34,7 @@
 		// Methods implementation
 		/**
 		 * getCities: Hace la llamada al servicio City
-		 * 			  para obtener las ciudades de la BD 
+		 * 			  para obtener las ciudades de la BD
 		 * @return void
 		 */
 		function getCities(){
@@ -49,7 +49,7 @@
 		};
 		/**
 		 * getZoes: Hace la llamada al servicio Zone
-		 * 			  para obtener las zonas de la BD 
+		 * 			  para obtener las zonas de la BD
 		 * @return void
 		 */
 		function getCategories(){
@@ -64,11 +64,11 @@
 		};
 		/**
 		 * getCities: Hace la llamada al servicio Genre
-		 * 			  para obtener los tipos de genero 
+		 * 			  para obtener los tipos de genero
 		 * @return void
 		 */
 		function getDivisions(){
-			Division.getDivisions().then(function(data){				
+			Division.getDivisions().then(function(data){
 				if(data.success)
 					vm.divisions = data.divisions;
 				else
@@ -84,15 +84,18 @@
 			Team.registerTeam(vm.dataRegister).then(function(data){
 				if(data.success){
 					Auth.setHasTeam(true);
+					Auth.setIsLeader(true);
+					Auth.setTeamId(data.team_id);
 					$state.go('user');
 				}else{
 					vm.isNotRegistered.state = true;
 					vm.isNotRegistered.isLoading = false;
 					vm.isNotRegistered.msg = data.msg;
-					console.warn('Hubo un error, inténtelo nuevamente');
 				}
 			}, function(err){
-				console.error('Error con el servidor');
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.isLoading = false;
+				vm.isNotRegistered.msg = data.msg;
 			});
 		};
 		// Method self invoking

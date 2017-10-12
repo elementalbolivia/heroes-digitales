@@ -9,8 +9,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTFactory;
 /**
- * CODES CONFIG: 
- * 		- 
+ * CODES CONFIG:
+ * 		-
  */
 
 class VerificatorCtrl extends Controller
@@ -24,8 +24,8 @@ class VerificatorCtrl extends Controller
 	 */
     public function redirect($id, $token, $mail){
         if($id == NULL || $token == NULL || $mail == NULL)
-            return response()->redirectTo(config('Constants.STATE.LOCAL_URL').'error-confirmacion');
-        return response()->redirectTo(config('Constants.STATE.LOCAL_URL').'confirmacion-usuario/'. $id . '/' . $token . '/' . $mail);        
+            return response()->redirectTo(config('constants.STATE.LOCAL_URL').'error-confirmacion');
+        return response()->redirectTo(config('constants.STATE.LOCAL_URL').'confirmacion-usuario/'. $id . '/' . $token . '/' . $mail);
     }
     public function confirmRegisterEmail(Request $request){
     	if($request->uid == NULL || $request->token == NULL){
@@ -56,7 +56,7 @@ class VerificatorCtrl extends Controller
                 $user->save();
                 $role = $user->role($user->id);
                 $res = [
-                        'success'   => true, 
+                        'success'   => true,
                         'uid'       => $user->id,
                         'rid'       => $role->rol_id,
                         'path'      => '',
@@ -73,7 +73,7 @@ class VerificatorCtrl extends Controller
                 }else{
                     $res['path'] = 'admin';
                 }
-                return response()->json($res);  
+                return response()->json($res);
     		}else{
     			return response()->json([
 	    			'success'	=> false,

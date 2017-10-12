@@ -187,7 +187,7 @@ trait UserTrait{
 					'id'		=> $student->responsable->id,
 					'signature'	=> $student->responsable->firma,
 				] : false;
-		$studentData['school'] = $student->school($student->colegio_id) != NULL ? $student->school($student->colegio_id) : NULL;
+		$studentData['school'] = $student->colegio != NULL ? $student->colegio : NULL;
 		return $studentData;
 	}
 	private static function mentorData($user){
@@ -195,7 +195,7 @@ trait UserTrait{
 		$mentor = $user->mentor;
 		$mentorData = [];
 		$mentorData['job'] = $user->proffesionalData->trabajo;
-		$mentorData['profession'] = Profesion::professionData($user->proffesionalData->profesion_id);
+		$mentorData['profession'] = $user->proffesionalData->profesion;
 		$mentorData['work_place'] = $user->proffesionalData->organizacion;
 		$mentorData['skills'] = [];
 		foreach ($mentor->skills as $skill) {
@@ -215,7 +215,7 @@ trait UserTrait{
 		$expert = $user->expert;
 		$expertData = [];
 		$expertData['job'] = $user->proffesionalData->trabajo;
-		$expertData['profession'] = Profesion::professionData($user->proffesionalData->profesion_id);
+		$expertData['profession'] = $user->proffesionalData->profesion;
 		$expertData['work_place'] = $user->proffesionalData->organizacion;
 		$expertData['cv'] = storage_path().'/app/public/curriculums/' . $user->proffesionalData->cv;
 		$expertData['cv'] = storage_path().'/app/public/curriculums/' . $user->proffesionalData->cv;
@@ -227,7 +227,7 @@ trait UserTrait{
 		$judgeData = $user->expert;
 		$judgeData = [];
 		$judgeData['job'] = $user->proffesionalData->trabajo;
-		$judgeData['profession'] = Profesion::professionData($user->proffesionalData->profesion_id);
+		$judgeData['profession'] = $user->proffesionalData->profesion;
 		$judgeData['work_place'] = $user->proffesionalData->organizacion;
 		$judgeData['cv'] = $user->proffesionalData->cv;
 		$judgeData['social_network'] = $user->proffesionalData->red_social_url;
@@ -275,14 +275,14 @@ trait UserTrait{
 	}
 	private static function updateStudent($user, $data){
 		// Actualizacion del estudiante
-		$user->student->colegio_id = $data->student['school']['id'];
+		$user->student->colegio = $data->student['school'];
 		$user->student->save();
 	}
 	private static function updateMenthor($user, $data){
 		// Actualizacion del mentor
 		$user->proffesionalData->trabajo = $data->mentor['job'];
 		$user->proffesionalData->organizacion = $data->mentor['work_place'];
-		$user->proffesionalData->profesion_id = $data->mentor['profession']['id'];
+		$user->proffesionalData->profesion = $data->mentor['profession'];
 		$user->proffesionalData->save();
 		foreach ($data->skills as $skill) {
 	    	if(isset($skill['expertise']))

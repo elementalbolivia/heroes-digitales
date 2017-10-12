@@ -82,7 +82,7 @@ class LoginCtrl extends Controller
                                 ->where([['estudiante_id', '=', $user->student->id],
                                          ['aprobado', '=', 1]])
                                 ->first();
-                $temp['team_id'] = $team != NULL ? $team->equipo_id : false;    
+                $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
                 $temp['has_team'] = $team != NULL ? true : false;
                 $temp['is_leader'] = ($user->student->member->lider_equipo == 1) ? true : false;
             }else{
@@ -100,7 +100,7 @@ class LoginCtrl extends Controller
                                 ->where([['mentor_id', '=', $user->mentor->id],
                                          ['aprobado', '=', 1]])
                                 ->first();
-                $temp['team_id'] = $team != NULL ? $team->equipo_id : false;    
+                $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
                 $temp['has_team'] = $team != NULL ? true : false;
                 $temp['is_leader'] = ($user->mentor->member->lider_equipo == 1) ? true : false;
             }else{

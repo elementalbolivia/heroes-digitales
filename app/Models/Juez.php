@@ -9,7 +9,7 @@ class Juez extends Model
 {
     protected $table = 'juez';
     public $timestamps = false;
-    protected = ['tamano_polera_id'];
+    protected $fillable = ['tamano_polera_id'];
 
     public function usuario(){
     	return $this->belongsTo('App\Models\Usuario');

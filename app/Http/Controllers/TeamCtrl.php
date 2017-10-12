@@ -23,7 +23,7 @@ class TeamCtrl extends Controller
     	try{
 	    	foreach (Equipo::all() as $team) {
 	    		$teams[] = TeamTrait::teamInfo($team->id);
-	       	}	
+	       	}
 	       	$res->success = true;
 	       	$res->teams = $teams;
     		return response()->json($res);
@@ -48,7 +48,7 @@ class TeamCtrl extends Controller
     public function editTeam(Request $request){
         $team = Equipo::find($request->id);
         $res = (object) null;
-        try{    
+        try{
             $teamData = (object) $request->only(['team_name', 'project_name', 'project_desc', 'cityId', 'divisionId', 'categoryId']);
             // Actualizar equipo
             $team->nombre_equipo = $teamData->team_name;
@@ -73,7 +73,7 @@ class TeamCtrl extends Controller
     public function editTeamImg(Request $request){
         $res = (object) null;
         try{
-            $imgUpdated = TeamTrait::updateImg(new Storage(), $request, $request->id); 
+            $imgUpdated = TeamTrait::updateImg(new Storage(), $request, $request->id);
             $res->success = true;
             $res->updated_img = $imgUpdated;
             return response()->json($res);
@@ -81,7 +81,7 @@ class TeamCtrl extends Controller
             $res->success = false;
             $res->msg = 'Hubo un error al actualizar su imagen, inténtelo nuevamente';
             return response()->json($res);
-        } 
+        }
     }
     public function confirmRequestToJoin(Request $request){
         $res = (object) null;
@@ -147,7 +147,7 @@ class TeamCtrl extends Controller
             return response()->json($res);
         }catch(\Exception $e){
             $res->success = false;
-            $res->msg = 'Hubo un error al enviar la invitación';
+            $res->msg = 'Hubo un error al enviar la invitación: ' . $e->getMessage();
             return response()->json($res);
         }
     }
@@ -169,7 +169,7 @@ class TeamCtrl extends Controller
             $res->msg = 'Hubo un error al comprobar la invitación del usuario';
             return response()->json($res);
         }
-    } 
+    }
     public function confirmInvitation(Request $request){
         $res = (object) null;
         $invitation = InvitacionesEquipo::find($request->invitationId);
@@ -200,6 +200,7 @@ class TeamCtrl extends Controller
             $member['aprobado'] = true;
             EstudianteMentorTieneEquipo::create($member);
             $res->success = true;
+						$res->team_id = $request->teamId;
             return response()->json($res);
         }catch(\Exception $e){
             $res->success = false;

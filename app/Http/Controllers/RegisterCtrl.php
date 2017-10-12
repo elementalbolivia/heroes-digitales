@@ -80,7 +80,7 @@ class RegisterCtrl extends Controller
 	    	// Crear array-assoc de datos profesionales
 	    	$proffesionalData = [
 	    		'usuario_id'	=> $user->id,
-	    		'profesion_id'	=> $request->professionId,
+	    		'profesion'	=> $request->profession,
 	    		'organizacion'	=> $request->org,
 	    		'trabajo'		=> $request->job,
 	    		'cv'			=> NULL,
@@ -93,7 +93,7 @@ class RegisterCtrl extends Controller
 	    		unset($proffesionalData);
 	    		$role['rol_id'] = 1;
 	    		$user->student()->create([
-	    			'colegio_id'	=> $request->schoolId,
+	    			'colegio'	=> $request->school,
 	    		]);
 	    	}
 	    	// Crear rol de usuario
@@ -105,7 +105,7 @@ class RegisterCtrl extends Controller
 	    		// Crear un token de seguridad para verificar el mail
 		    	$mailToken = md5($request->mail) . md5(date('YmdHis'));
 		    	// Crear una URL para verificar al usuario
-		    	$verifUrl = config('Constants.API.LOCAL_URL') . 'email-verification/'. $user->id . '/' . $mailToken . '/' . $user->correo;
+		    	$verifUrl = config('constants.API.LOCAL_URL') . 'email-verification/'. $user->id . '/' . $mailToken . '/' . $user->correo;
 		    	// Crear array-assoc para crear token de confirmacion
 		    	$verifToken = ConfirmacionEmail::create([
 		    		'usuario_id'		=> $user->id,
@@ -187,9 +187,9 @@ class RegisterCtrl extends Controller
 	    		$hasTeam['estudiante_id'] = NULL;
 	    		$hasTeam['mentor_id'] = $user->mentor->id;
 	    	}
-			$hasTeam['equipo_id'] = $createdTeam->id;
-			$hasTeam['lider_equipo'] = true;
-			$hasTeam['aprobado'] = true;
+				$hasTeam['equipo_id'] = $createdTeam->id;
+				$hasTeam['lider_equipo'] = true;
+				$hasTeam['aprobado'] = true;
 	    	// Crear relacion terciaria
 	    	EstudianteMentorTieneEquipo::create($hasTeam);
 	    	$project = [
@@ -200,9 +200,10 @@ class RegisterCtrl extends Controller
 	    	];
 	    	// Crear proyecto
 	    	$createdProject = Proyecto::create($project);
-	    	DB::commit();
 	    	$res->success = true;
+				$res->team_id = $createdTeam->id;
 	    	$res->msg = 'El equipo fue creado con éxito';
+				DB::commit();
 	    	return response()->json($res);
     	}catch(\Exception $e){
     		DB::rollBack();

@@ -28,12 +28,6 @@ Route::prefix('api/v1')->group(function(){
 	Route::get('genres', [
 		'uses'	=> 'GenreCtrl@index'
 	]);
-	Route::get('schools', [
-		'uses'	=> 'SchoolCtrl@index'
-	]);
-	Route::get('professions', [
-		'uses'	=> 'ProfessionCtrl@index'
-	]);
 	Route::post('register', [
 		'uses'	=> 'RegisterCtrl@create'
 	]);
