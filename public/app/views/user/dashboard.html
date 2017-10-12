@@ -21,7 +21,8 @@
 					  			<th>Nombre(s)</th>
 					  			<th>Apellido(s)</th>
 					  			<th>Tipo</th>
-					  			<th>Perfil</th>
+									<th>Perfil</th>
+					  			<th>Eliminar</th>
 				  			</tr>
 				  		</thead>
 				  		<tbody>
@@ -31,7 +32,8 @@
 				  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
 				  				<td ng-if="!member.is_student"> Mentor (líder)</td>
 				  				<td ng-if="member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.student-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
-				  				<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
+									<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
+				  				<td><button class="btn btn-danger btn-sm" ng-click="vm.deleteMembership(member.membership_id)" ng-disabled="!vm.userCreds.isLeader"><i class="fa fa-times-circle"></i></button></td>
 				  			</tr>
 				  		</tbody>
 				  	</table>

@@ -10,11 +10,11 @@
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
-		console.log(vm.userCreds);
 		// Methods
 		vm.getUserData = getUserData;
 		vm.confirmRequest = confirmRequest;
 		vm.confirmInvitation = confirmInvitation;
+		vm.deleteMembership = deleteMembership;
 		// Methods implementation
 		function getUserData(){
 			User.getInfo(vm.userCreds.id).then(function(data){
@@ -91,29 +91,54 @@
 	                ok: 'Si, quiero hacerlo'
 	            }, function(answer)
 	            {
-	                if (answer)
+              if (answer)
 	                {
 	                	Team.confirmInvitationFromTeam({invitationId: invitationId, teamId: teamId, accept: bool}).then(function(data){
-							if(data.success){
-								LxNotificationService.success('La invitación fue eliminada');
-								Auth.setTeamId(teamId);
-								Auth.setIsLeader(false);
-								Auth.setHasTeam(true);
-								vm.userCreds = Auth.getSession();
-								vm.getUserData();
-							}else{
-								LxNotificationService.warning(data.msg);
-							}
-						}, function(err){
-							LxNotificationService.error('Hubo un error en el servidor');
-						});
-	                }
-	                else
-	                {
-	                	return;
-	                }
-	            });
+										if(data.success){
+											LxNotificationService.success('La invitación fue eliminada');
+											Auth.setTeamId(teamId);
+											Auth.setIsLeader(false);
+											Auth.setHasTeam(true);
+											vm.userCreds = Auth.getSession();
+											vm.getUserData();
+										}else{
+											LxNotificationService.warning(data.msg);
+										}
+									}, function(err){
+										LxNotificationService.error('Hubo un error en el servidor');
+									});
+              }
+              else
+              {
+              	return;
+              }
+            });
 			}
+		};
+		function deleteMembership(memberShipId){
+			LxNotificationService.confirm('Eliminar membresía', 'Estas seguro que deseas eliminar la membresía del participante?',
+					{
+							cancel: 'Cancelar',
+							ok: 'Si, quiero hacerlo'
+					}, function(answer)
+					{
+						if (answer){
+							Team.deleteMembership(memberShipId).then(function(data){
+								if(data.success){
+									console.log(data);
+										LxNotificationService.success('El miembro fue eliminado');
+										vm.getUserData();
+								}else{
+									LxNotificationService.warning(data.msg);
+								}
+							}, function(err){
+								LxNotificationService.error('Hubo un error en el servidor');
+							});
+						}else{
+							return;
+						}
+					}
+			);
 		};
 		// Methods self invoking
 		getUserData();

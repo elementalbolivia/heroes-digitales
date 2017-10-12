@@ -3,6 +3,14 @@
 return [
 
     /*
+    MAIL_DRIVER=mailgun
+    MAIL_HOST=smtp.mailgun.org
+    MAIL_PORT=587
+    MAIL_USERNAME=postmaster@heroesdigitales.org
+    MAIL_PASSWORD=pyth0n4@i
+    MAILGUN_SECRET=key-cf8b30818534f2df99db6d2d2445e41c
+    MAILGUN_DOMAIN=heroesdigitales.org
+    MAIL_ENCRYPTION=tls
     |--------------------------------------------------------------------------
     | MAIL Driver
     |--------------------------------------------------------------------------
