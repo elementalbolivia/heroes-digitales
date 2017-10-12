@@ -12,7 +12,7 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -22,7 +22,7 @@
 					url: AUTH_URL + 'team',
 					params: {token: Auth.getSession().token },
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -32,7 +32,7 @@
 					url: AUTH_URL + 'team/'+ id,
 					params: {token: Auth.getSession().token },
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -43,7 +43,7 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -54,7 +54,7 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -65,7 +65,7 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -76,7 +76,7 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -87,7 +87,7 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
@@ -98,10 +98,20 @@
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){
-					return response.data;	
+					return response.data;
 				});
 				return promise;
 			},
+			deleteMembership: function(memberId){
+				var promise = $http({
+					method: 'DELETE',
+					url: AUTH_URL + 'team/member/'+memberId,
+					params: {token: Auth.getSession().token },
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			}
 		};
 	};
 })();

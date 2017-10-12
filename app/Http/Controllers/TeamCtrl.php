@@ -111,6 +111,20 @@ class TeamCtrl extends Controller
             $res->msg = 'Hubo un error, inténtelo nuevamente';
         }
     }
+		public function deleteMembership($mid){
+        $res = (object) null;
+        try{
+            $member = EstudianteMentorTieneEquipo::find($mid);
+						$member->aprobado = false;
+						$member->activo = false;
+            $member->save();
+            $res->success = true;
+            return response()->json($res);
+        }catch(\Exception $e){
+            $res->success = false;
+            $res->msg = 'Hubo un error, inténtelo nuevamente';
+        }
+    }
     public function requestJoin(Request $request){
         // Verificar que el estudiante no pertenece a ningun otro equipo ya
         $res  = (object) null;

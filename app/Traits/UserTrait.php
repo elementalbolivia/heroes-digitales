@@ -139,6 +139,7 @@ trait UserTrait{
 					'names'			=> $userMember->nombres,
 					'lastnames'		=> $userMember->apellidos,
 					'user_id'		=> $userMember->id,
+					'membership_id'		=> $member->id,
 					'is_student'	=> $isStudent,
 					'is_leader'		=> $member->lider_equipo == 1 ? true : false,
 					'is_aproved'	=> $member->aprobado == 1 ? true : false,
