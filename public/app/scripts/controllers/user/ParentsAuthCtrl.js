@@ -10,13 +10,14 @@
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.parents = {
-			signature: ''
+			signature: '',
+			email: ''
 		}
 		// Methods
 		vm.accept = accept;
 		// Methods implementation
 		function accept(){
-			User.acceptParentsAuth({uid: vm.userCreds.id, signature: vm.parents.signature}).then(function(data){
+			User.acceptParentsAuth({uid: vm.userCreds.id, signature: vm.parents.signature, email: vm.parents.email}).then(function(data){
 				if(data.success)
 					$state.go('user');
 				else

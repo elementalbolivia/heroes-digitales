@@ -14,6 +14,7 @@ class ParentsAuthCtrl extends Controller
     	$user->student->responsable()->create([
     		'estudiante_id'	 => $user->student->id,
     		'firma'			 => $request->signature,
+        'correo_electronico'  => $request->email,
     		'fecha_creacion' => date('Y-m-d H:i:s'),
     	]);
     	return response()->json(['success' => true]);
