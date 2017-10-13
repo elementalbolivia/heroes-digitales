@@ -57,11 +57,17 @@
 						<li ng-if="vm.userData.student.authorization" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
 						<i class="fa fa-check-circle-o"></i></li>
 					</div>
-					<li ui-sref="user.my-profile" ng-if="!(vm.userData.image && vm.userData.bio)">
-					<a>Subir una foto y biografía corta a tu perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
+					<li ui-sref="user.my-profile" ng-if="!vm.userData.image">
+					<a>Subir una foto de perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
 					</li>
-					<li class="text-success" ng-if="vm.userData.image && vm.userData.bio">
-					Subir una foto y biografía corta a tu perfil. <i class="fa fa-times-check-o text-danger "></i>
+					<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio">
+					<a>Subir una biografía corta a tu perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
+					</li>
+					<li class="text-success" ng-if="vm.userData.image">
+					Subir una foto de perfil. <i class="fa fa-times-check-o text-danger "></i>
+					</li>
+					<li class="text-success" ng-if="vm.userData.bio">
+					Subir una biografía corta a tu perfil. <i class="fa fa-times-check-o text-danger "></i>
 					</li>
 				</ol>
 			  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
