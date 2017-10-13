@@ -4,7 +4,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#heroesNavBar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">Héroes Digitales</a>
     </div>
@@ -38,7 +38,7 @@
             <div class="col-xs-12 col-sm-8 col-sm-offset-2">
               <label for="nombre" class="col-xs-12 col-sm-12 ">Correo electrónico</label>
               <div class="col-xs-12 col-sm-12">
-                <input type="email" id="nombre" ng-model="vm.creds.email"  placeholder="P.ej.: Pablo" class="form-control" required>
+                <input type="email" id="nombre" ng-model="vm.creds.email"  placeholder="P.ej.: rdevio@gmail.com" class="form-control" required>
               </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
           <div class="col-xs-12 col-sm-8 col-sm-offset-2">
             <label for="apat" class=" col-xs-12 ">Contraseña</label>
               <div class="col-xs-12 col-sm-12">
-                <input type="password" id="apat" ng-model="vm.creds.password" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
+                <input type="password" id="apat" ng-model="vm.creds.password" class="form-control" class="form-control" required>
               </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
           <strong>{{ vm.loginState.msg }}</strong>
         </div>
       </div>
-      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-link" ui-sref="home.forgot-password" data-dismiss="modal">Olvidaste tu contraseña?</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
