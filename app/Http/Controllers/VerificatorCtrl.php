@@ -39,7 +39,7 @@ class VerificatorCtrl extends Controller
     	if($user != NULL){
             if($user->activo)
                 return response()->json(['success'  => true, 'already_verif' => true, 'path'    => 'home']);
-						if(Hash::check($request->password, $user->password))
+						if(!Hash::check($request->password, $user->password))
 							return response()->json(['success'  => false, 'msg' => 'La contraseña no es correcta']);
 
     		if($user->emailConfirmation->token == $request->token){
