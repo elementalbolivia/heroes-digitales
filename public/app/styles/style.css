@@ -41,6 +41,7 @@ body{
 	height: auto;
 }
 .register-btn{
+	font-size: 15px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	background: #cb2228;
@@ -61,8 +62,7 @@ body{
 .change-world{
 	color: #FFFFFF;
 	background: #229ED7;
-	padding: 50px;
-  align-items: center;
+	padding: 75px;
 }
 .howto{
 	color: #FFFFFF;
