@@ -1,3 +1,3 @@
 $(window).ready(function() {
-    $('#loading').fadeOut('slow');
+    $('#loading').fadeOut(1000);
 });
