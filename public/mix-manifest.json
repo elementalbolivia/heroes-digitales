@@ -1,0 +1,7 @@
+{
+    "/app/js/app.min.js": "/app/js/app.min.js",
+    "/app/css/app.min.css": "/app/css/app.min.css",
+    "/app/js/controllers.min.js": "/app/js/controllers.min.js",
+    "/app/js/services.min.js": "/app/js/services.min.js",
+    "/app/js/filters.min.js": "/app/js/filters.min.js"
+}

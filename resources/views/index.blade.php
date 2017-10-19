@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="/bower_components/lumx/dist/lumx.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/app/styles/style.css">
-    <link rel="stylesheet" type="text/css" href="/app/styles/timeline.css">
-    <link rel="stylesheet" type="text/css" href="/app/styles/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/app/css/app.min.css">
     <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
     <!-- -->
 </head>
@@ -38,62 +36,14 @@
 <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="/bower_components/angular-locker/dist/angular-locker.min.js"></script>
-<!-- <script src="/app/js/bootstrap-init.js"></script> -->
 <!-- Angular Script dependencies -->
-<script src="/app/scripts/app.js"></script>
-<!-- Controllers  -->
-<script src="/app/scripts/controllers/public/UserRegister.js"></script>
-<script src="/app/scripts/controllers/public/EmailConfirmationCtrl.js"></script>
-<script src="/app/scripts/controllers/public/LoginCtrl.js"></script>
-<script src="/app/scripts/controllers/public/RegisterSuccessCtrl.js"></script>
-<script src="/app/scripts/controllers/public/ForgotPasswordCtrl.js"></script>
-<script src="/app/scripts/controllers/public/ResetPasswordCtrl.js"></script>
-<script src="/app/scripts/controllers/user/DashboardUserCtrl.js"></script>
-<script src="/app/scripts/controllers/user/HeaderUserCtrl.js"></script>
-<script src="/app/scripts/controllers/user/HonorCodeCtrl.js"></script>
-<script src="/app/scripts/controllers/user/ParentsAuthCtrl.js"></script>
-<script src="/app/scripts/controllers/user/MyProfileCtrl.js"></script>
-<script src="/app/scripts/controllers/user/EditProfileCtrl.js"></script>
-<script src="/app/scripts/controllers/user/CreateTeamCtrl.js"></script>
-<script src="/app/scripts/controllers/student/StudentProfileCtrl.js"></script>
-<script src="/app/scripts/controllers/student/StudentsCtrl.js"></script>
-<script src="/app/scripts/controllers/team/TeamsCtrl.js"></script>
-<script src="/app/scripts/controllers/team/TeamProfileCtrl.js"></script>
-<script src="/app/scripts/controllers/team/EditTeamProfileCtrl.js"></script>
-<script src="/app/scripts/controllers/mentor/MentorsCtrl.js"></script>
-<script src="/app/scripts/controllers/mentor/MentorProfileCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/LoginAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/DashboardAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/HeaderAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/JudgeAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/ExpertAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/CreateStageAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/StageAdminCtrl.js"></script>
-<script src="/app/scripts/controllers/admin/CheckpointAdminCtrl.js"></script>
+<!-- App -->
+<script src="/app/js/app.min.js"></script>
+<!-- Controllers -->
+<script src="/app/js/controllers.min.js"></script>
 <!-- Services -->
-<script src="/app/scripts/services/public/Register.js"></script>
-<script src="/app/scripts/services/public/City.js"></script>
-<script src="/app/scripts/services/public/Genre.js"></script>
-<script src="/app/scripts/services/public/Shirt.js"></script>
-<script src="/app/scripts/services/user/User.js"></script>
-<script src="/app/scripts/services/auth/Auth.js"></script>
-<script src="/app/scripts/services/team/Division.js"></script>
-<script src="/app/scripts/services/team/Category.js"></script>
-<script src="/app/scripts/services/team/Team.js"></script>
-<script src="/app/scripts/services/student/Student.js"></script>
-<script src="/app/scripts/services/professional/Expertise.js"></script>
-<script src="/app/scripts/services/professional/Skill.js"></script>
-<script src="/app/scripts/services/professional/CV.js"></script>
-<script src="/app/scripts/services/mentor/Mentor.js"></script>
-<script src="/app/scripts/services/expert/Expert.js"></script>
-<script src="/app/scripts/services/judge/Judge.js"></script>
-<script src="/app/scripts/services/professional/Request.js"></script>
-<script src="/app/scripts/services/admin/Stage.js"></script>
-<script src="/app/scripts/services/admin/Checkpoint.js"></script>
+<script src="/app/js/services.min.js"></script>
 <!-- Filters -->
-<script src="/app/scripts/filters/team/TeamFilter.js"></script>
-<script src="/app/scripts/filters/student/StudentFilter.js"></script>
-<script src="/app/scripts/filters/mentor/Mentors.js"></script>
-
+<script src="/app/js/filters.min.js"></script>
 </body>
 </html>

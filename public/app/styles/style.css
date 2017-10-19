@@ -6,14 +6,38 @@ body{
 	font-weight: bold;
 }
 .row-content{
-	padding: 30px;
+	padding: 10px;
 }
 .row-banner-container{
-	background: url('../images/app-arts/wallpaper.jpg') no-repeat center;
+	background: url('../images/app-arts/svg/banner-home.svg') no-repeat center;
   background-size: 100% auto;
 }
 .img-logo{
 	width: 100%;
+	height: auto;
+}
+.img-center{
+	margin: 0 auto;
+}
+.img-howto{
+	width: 150px;
+	height: auto;
+}
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+.img-sponsor{
+	width: 165px;
+	height: auto;
+	padding: 20px;
+}
+.img-organizer{
+	width: 250px;
 	height: auto;
 }
 .register-btn{
@@ -22,6 +46,8 @@ body{
 	border: 2px solid #229ED7;
 	transition: 1s;
 	text-decoration: none;
+	font-size: 15px;
+	font-weight: bold;
 }
 .register-btn:hover{
 	background: #229ED7;
@@ -33,7 +59,8 @@ body{
 .change-world{
 	color: #FFFFFF;
 	background: #229ED7;
-	padding:60px;
+	padding: 50px;
+  align-items: center;
 }
 .howto{
 	color: #FFFFFF;
