@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/app/css/app.min.css">
 </head>
 <body ng-app="heroesDigitalesApp">
+    <div id="loading"></div>
     <div ui-view="header"></div>
     <div ui-view="content"></div>
     <div ui-view="footer"></div>
@@ -23,6 +24,7 @@
     <div ui-view="admin-footer"></div>
 <!-- Bower dependencies -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/app/js/loader.js"></script>
 <script src="/bower_components/velocity/velocity.min.js"></script>
 <script src="/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="/bower_components/angular/angular.min.js"></script>
