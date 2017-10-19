@@ -10,8 +10,6 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/app/css/app.min.css">
-    <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
-    <!-- -->
 </head>
 <body ng-app="heroesDigitalesApp">
     <div ui-view="header"></div>
@@ -24,11 +22,11 @@
     <div ui-view="admin-content"></div>
     <div ui-view="admin-footer"></div>
 <!-- Bower dependencies -->
-<script src="/bower_components/jquery/dist/jquery.js"></script>
-<script src="/bower_components/velocity/velocity.js"></script>
-<script src="/bower_components/moment/min/moment-with-locales.js"></script>
-<script src="/bower_components/angular/angular.js"></script>
-<script src="/bower_components/lumx/dist/lumx.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/velocity/velocity.min.js"></script>
+<script src="/bower_components/moment/min/moment-with-locales.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script src="/bower_components/lumx/dist/lumx.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="/bower_components/angular-touch/angular-touch.min.js"></script>
