@@ -43,6 +43,8 @@ body{
 .register-btn{
 	margin-top: 10px;
 	margin-bottom: 10px;
+	background: #cb2228;
+	color: #f1cd33;
 	border: 2px solid #229ED7;
 	transition: 1s;
 	text-decoration: none;
