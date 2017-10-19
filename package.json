@@ -17,5 +17,11 @@
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^4.1.1",
+    "fs": "0.0.1-security",
+    "imagemin-mozjpeg": "^6.0.0",
+    "imagemin-webpack-plugin": "^1.5.2"
   }
 }
