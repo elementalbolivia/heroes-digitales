@@ -114,7 +114,7 @@
             });
 			}
 		};
-		function deleteMembership(memberShipId){
+		function deleteMembership(memberShipId, invitationId){
 			LxNotificationService.confirm('Eliminar membresía', 'Estas seguro que deseas eliminar la membresía del participante?',
 					{
 							cancel: 'Cancelar',
@@ -122,7 +122,7 @@
 					}, function(answer)
 					{
 						if (answer){
-							Team.deleteMembership(memberShipId).then(function(data){
+							Team.deleteMembership(memberShipId, invitationId).then(function(data){
 								if(data.success){
 									console.log(data);
 										LxNotificationService.success('El miembro fue eliminado');

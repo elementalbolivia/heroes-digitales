@@ -16,7 +16,6 @@ use DB;
 
 date_default_timezone_set('America/La_Paz');
 
-
 trait UserTrait{
 	// ################################
 	// #######  MAIN USER DATA   ######
@@ -130,16 +129,20 @@ trait UserTrait{
 		$teamData['team']['city'] 		= $team->city($team->ciudad_id);
 		foreach ($team->members as $member) {
 			$isStudent = $member->estudiante_id != NULL ? true : false;
-			if($isStudent)
+			if($isStudent){
 				$userMember = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
-			else
+				$roleId = $member->estudiante_id;
+			}else{
 				$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
+				$roleId = $member->mentor_id;
+			}
 			if($member->aprobado == 1 && $mTeam->equipo_id == $member->equipo_id){
 				$teamData['team']['members'][] = [
 					'names'			=> $userMember->nombres,
 					'lastnames'		=> $userMember->apellidos,
 					'user_id'		=> $userMember->id,
 					'membership_id'		=> $member->id,
+					'invitation'		=> $userMember->getInvitation($isStudent, $roleId, $team->id),
 					'is_student'	=> $isStudent,
 					'is_leader'		=> $member->lider_equipo == 1 ? true : false,
 					'is_aproved'	=> $member->aprobado == 1 ? true : false,

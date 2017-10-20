@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Heróes Digitales</title>
+    <link rel="icon" href="/app/images/app-arts/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <!-- CSS -->
-    <link rel="stylesheet" href="/bower_components/lumx/dist/lumx.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/lumx/dist/lumx.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/app/css/app.min.css">
@@ -22,9 +23,10 @@
     <div ui-view="admin-header"></div>
     <div ui-view="admin-content"></div>
     <div ui-view="admin-footer"></div>
+<!-- JS script to load gif -->
+<script src="/app/js/loader.js"></script>
 <!-- Bower dependencies -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/app/js/loader.js"></script>
 <script src="/bower_components/velocity/velocity.min.js"></script>
 <script src="/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="/bower_components/angular/angular.min.js"></script>

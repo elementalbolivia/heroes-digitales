@@ -27,13 +27,14 @@
 				  		</thead>
 				  		<tbody>
 				  			<tr ng-repeat="member in vm.userData.team.members">
-				  				<td>{{ member.names }}</td>
+									<td>{{ member.names }}</td>
 				  				<td>{{ member.lastnames }}</td>
 				  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
 				  				<td ng-if="!member.is_student"> Mentor (líder)</td>
 				  				<td ng-if="member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.student-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
 									<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
-				  				<td><button class="btn btn-danger btn-sm" ng-click="vm.deleteMembership(member.membership_id)" ng-disabled="!vm.userCreds.isLeader || member.user_id == vm.userData.id"><i class="fa fa-times-circle"></i></button></td>
+				  				<td><button class="btn btn-danger btn-sm" ng-click="vm.deleteMembership(member.membership_id, member.invitation.id)"
+										 	ng-disabled="((!vm.userCreds.isLeader) && (member.user_id != vm.userData.id)) || member.is_leader"><i class="fa fa-times-circle"></i></button></td>
 				  			</tr>
 				  		</tbody>
 				  	</table>

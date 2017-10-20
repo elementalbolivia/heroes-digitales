@@ -15,6 +15,7 @@
 		vm.validateSocialNetwork = validateSocialNetwork;
 		var setRegProps = setRegProps;
 		var retypePassword = retypePassword;
+		var validateCV = validateCV;
 		// Props
 		vm.typeReg = $stateParams.type;
 		vm.typeParams = {};
@@ -187,9 +188,10 @@
 				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';
 				return;
 			}
-			if((vm.typeReg == 'judge' || vm.typeReg == 'expert') && !vm.validateSocialNetwork(vm.dataRegister.socialNetwork)) return;
+			if((vm.typeReg == 'judge' || vm.typeReg == 'expert')
+					&& (!vm.validateSocialNetwork(vm.dataRegister.socialNetwork)
+					|| !validateCV(vm.dataRegister.cv))) return;
 			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype)) return;
-
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
 			// Validar que el retype es igual al password
@@ -211,10 +213,19 @@
 			});
 		};
 		function validateSocialNetwork(text){
-			if(text == undefined || text == '') true;
-			if(text.search(/linkedin/i) == -1 && text.search(/facebook/i) == -1){
+			if((text == undefined || text == '') || (text.search(/linkedin/i) == -1 && text.search(/facebook/i) == -1)){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debes enlazar tu cuenta de Facebook o LinkedIn';
+				return false;
+			}else{
+				vm.isNotRegistered.state = false;
+			}
+			return true;
+		}
+		function validateCV(cv){
+			if(angular.equals(cv, {})){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Debes subir tu curriculum vitae';
 				return false;
 			}else{
 				vm.isNotRegistered.state = false;

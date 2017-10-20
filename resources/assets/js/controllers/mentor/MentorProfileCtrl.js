@@ -28,6 +28,7 @@
 		vm.getMentorData = getMentorData;
 		vm.inviteToTeam = inviteToTeam;
 		vm.hasInvited = hasInvited;
+		vm.cancelInvitation = cancelInvitation;
 		// Methods implementation
 		function getMentorData(id){
 			User.getInfo(id).then(function(data){
@@ -68,11 +69,25 @@
 		function hasInvited(){
 			var invitations = vm.mentorData.invitations;
 			for (var i = 0; i < invitations.length; i++) {
-				if(invitations[i].team_id == vm.authParams.teamId)
+				if(invitations[i].team_id == vm.authParams.teamId){
+					vm.mentorData.invitationId = invitations[i].invitation_id;
 					return true;
+				}
 			}
 			return false;
 		};
+		function cancelInvitation(){
+			Team.confirmInvitationFromTeam({invitationId: vm.mentorData.invitationId, accept: false}).then(function(data){
+				if(data.success){
+					getMentorData($stateParams.id);
+					LxNotificationService.success('La invitación fue cancelada');
+				}else{
+					LxNotificationService.warning('Hubo un error al cancelar la invitación');
+				}
+			}, function(err){
+				LxNotificationService.error('Hubo un error en el servidor, revise su conexión a internet');
+			});
+		}
 		// Methods self invoking
 		getMentorData($stateParams.id);
 	};

@@ -101,10 +101,10 @@
 				});
 				return promise;
 			},
-			deleteMembership: function(memberId){
+			deleteMembership: function(memberId, invitationId){
 				var promise = $http({
 					method: 'DELETE',
-					url: AUTH_URL + 'team/member/'+memberId,
+					url: AUTH_URL + 'team/member/'+memberId+'/invitation/'+invitationId,
 					params: {token: Auth.getSession().token },
 				}).then(function(response){
 					return response.data;
