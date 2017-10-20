@@ -9,6 +9,7 @@ use App\Models\Zona;
 use App\Models\Genero;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
+use DB;
 
 class Usuario extends Model implements AuthenticatableContract
 {
@@ -63,6 +64,18 @@ class Usuario extends Model implements AuthenticatableContract
     }
     public function zone(){
         return $this->hasOne('App\Models\Zona', 'usuario_id');
+    }
+    // Obtener invitacion de un usuario mediante su id y el del equipo, que siga activo como 1
+    public function getInvitation($isStudent, $uId, $tId){
+      $userField = $isStudent ? 'estudiante_id' : 'mentor_id';
+      return DB::table('invitaciones_equipo')
+              ->select('id')
+              ->where([
+                  [$userField, '=', $uId],
+                  ['equipo_id', '=', $tId],
+                  ['activo', '=', true],
+                ])
+              ->first();
     }
 
 }

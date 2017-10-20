@@ -28,12 +28,13 @@
 		vm.getStudentData = getStudentData;
 		vm.inviteToTeam = inviteToTeam;
 		vm.hasInvited = hasInvited;
+		vm.cancelInvitation = cancelInvitation;
 		// Methods implementation
 		function getStudentData(id){
 			User.getInfo(id).then(function(data){
 				if(data.success){
-					console.log(data.user);
 					vm.studentData = data.user;
+					console.log(vm.studentData);
 					vm.isMemberInvited = vm.hasInvited();
 				}else{
 					console.warn(data.msg);
@@ -68,11 +69,25 @@
 		function hasInvited(){
 			var invitations = vm.studentData.invitations;
 			for (var i = 0; i < invitations.length; i++) {
-				if(invitations[i].team_id == vm.authParams.teamId)
+				if(invitations[i].team_id == vm.authParams.teamId){
+					vm.studentData.invitationId = invitations[i].invitation_id;
 					return true;
+				}
 			}
 			return false;
 		};
+		function cancelInvitation(){
+			Team.confirmInvitationFromTeam({invitationId: vm.studentData.invitationId, accept: false}).then(function(data){
+				if(data.success){
+					getStudentData($stateParams.id);
+					LxNotificationService.success('La invitación fue cancelada');
+				}else{
+					LxNotificationService.warning('Hubo un error al cancelar la invitación');
+				}
+			}, function(err){
+				LxNotificationService.error('Hubo un error en el servidor, revise su conexión a internet');
+			});
+		}
 		// Methods self invoking
 		getStudentData($stateParams.id);
 	};

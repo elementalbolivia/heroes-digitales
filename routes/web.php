@@ -129,7 +129,7 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'TeamCtrl@confirmRequestToJoin',
 		'middleware'	=> 'jwt.auth'
 	]);
-  Route::delete('team/member/{mid}', [
+  Route::delete('team/member/{mid}/invitation/{invid?}', [
 		'uses'	=> 'TeamCtrl@deleteMembership',
 		'middleware'	=> 'jwt.auth'
 	]);

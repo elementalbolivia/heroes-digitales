@@ -21,7 +21,8 @@
 								<div class="alert alert-success text-center"><strong>Ya eres mentor de un equipo</strong></div>
 							</div>
 							<div ng-if="vm.isMemberInvited && !vm.mentorData.has_team">
-								<div class="alert alert-success text-center"><strong>Ya enviaste una invitación al usuario</strong></div>
+								<div class="alert alert-success text-center"><strong>Ya enviaste una invitación al mentor</strong></div>
+								<button class="btn btn-warning btn-block" ng-disabled="!vm.authParams.isLeader" ng-click="vm.cancelInvitation()"><i class="fa fa-times"></i> Cancelar invitación</button>
 							</div>
 						</div>
 					</div>

@@ -1,3 +1,3 @@
-$(window).ready(function() {
-    $('#loading').fadeOut(1000);
-});
+window.onload = function(){
+  var loader = document.getElementById('loading').style.display = 'none';
+}

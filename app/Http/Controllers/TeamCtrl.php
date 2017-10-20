@@ -111,9 +111,14 @@ class TeamCtrl extends Controller
             $res->msg = 'Hubo un error, inténtelo nuevamente';
         }
     }
-		public function deleteMembership($mid){
+		public function deleteMembership($mid, $invid){
         $res = (object) null;
         try{
+						if($invid != null){
+							$invitation = InvitacionesEquipo::find($invid);
+							$invitation->activo = false;
+							$invitation->save();
+						}
             $member = EstudianteMentorTieneEquipo::find($mid);
 						$member->aprobado = false;
 						$member->activo = false;

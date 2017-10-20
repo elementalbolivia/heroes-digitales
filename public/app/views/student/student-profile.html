@@ -19,6 +19,7 @@
 							</div>
 							<div ng-if="vm.isMemberInvited && !vm.studentData.has_team">
 								<div class="alert alert-success text-center"><strong>Ya enviaste una invitación al usuario</strong></div>
+								<button class="btn btn-warning btn-block" ng-disabled="!vm.authParams.isLeader" ng-click="vm.cancelInvitation()"><i class="fa fa-times"></i> Cancelar invitación</button>
 							</div>
 						</div>
 					</div>
