@@ -11,7 +11,7 @@ class Equipo extends Model
     protected $table = 'equipo';
     const CREATED_AT = 'fecha_creacion';
     const UPDATED_AT = 'fecha_actualizacion';
-    protected $fillable = ['ciudad_id', 'division_id', 'nombre_equipo', 'descripcion', 'imagen'];
+    protected $fillable = ['ciudad_id', 'division_id', 'nombre_equipo', 'imagen'];
 
     public function members(){
     	return $this->hasMany('App\Models\EstudianteMentorTieneEquipo', 'equipo_id');

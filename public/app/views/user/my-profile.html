@@ -17,7 +17,7 @@
 							<button ngf-select ngf-pattern="'.jpg,.gif'" ngf-accept="'.jpg,.gif'" ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}" class="btn btn-primary pull-right" ng-model="vm.userImg.newImg"> Cambiar fotografía</button>
 						</div>
 						<div class="col-xs-12">
-							<button class="btn btn-default btn-block" style="margin: 10px;" ui-sref="user"><fa class="fa fa-arrow-left"></fa> Volver</button>							
+							<button class="btn btn-default btn-block" style="margin: 10px;" ui-sref="user"><fa class="fa fa-arrow-left"></fa> Volver</button>
 						</div>
 					</div>
 				</div>
@@ -29,18 +29,16 @@
 					<div class="panel-body">
 						<h1>{{ vm.userData.names + ' ' + vm.userData.lastnames }}</h1>
 						<p ng-if="vm.userData.bio"> {{ vm.userData.bio.name }} </p>
-						<div class="col-xs-12 col-sm-6">
-							<p>Correo electrónico: {{ vm.userData.email }}</p>
-							<p>Celular: {{ vm.userData.cellphone }}</p>
-							<p>Fecha de nacimiento: {{ vm.userData.birth_date }}</p>
-							<p>Género: {{ vm.userData.genre.descripcion }}</p>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<p>Ciudad: {{ vm.userData.city.nombre }}</p>
-							<p>Zona: {{ vm.userData.zone }}</p>
-							<p ng-if="vm.userCreds.role == 1">Colegio: {{ vm.userData.student.school }}</p>
-							<p ng-if="vm.userCreds.role == 2">Puesto de trabajo: {{vm.userData.mentor.job }}</p>
-							<p ng-if="vm.userCreds.role == 2">Profesión: {{vm.userData.mentor.profession }}</p>
+						<div class="col-xs-12">
+							<p><strong>Correo electrónico:</strong> {{ vm.userData.email }}</p>
+							<p><strong>Celular:</strong> {{ vm.userData.cellphone }}</p>
+							<p><strong>Fecha de nacimiento:</strong> {{ vm.userData.birth_date }}</p>
+							<p><strong>Género:</strong> {{ vm.userData.genre.descripcion }}</p>
+							<p><strong>Ciudad:</strong> {{ vm.userData.city.nombre }}</p>
+							<p><strong>Zona: </strong>{{ vm.userData.zone }}</p>
+							<p ng-if="vm.userCreds.role == 1"><strong>Colegio:</strong> {{ vm.userData.student.school }}</p>
+							<p ng-if="vm.userCreds.role == 2"><strong>Puesto de trabajo:</strong> {{vm.userData.mentor.job }}</p>
+							<p ng-if="vm.userCreds.role == 2"><strong>Profesión:</strong> {{vm.userData.mentor.profession }}</p>
 							<button class="btn btn-link pull-right" ui-sref="user.my-profile.edit"><i class="fa fa-pencil-square-o fa-2x"></i></button>
 						</div>
 						<div class="col-xs-12" ng-if="vm.userCreds.role == 2">

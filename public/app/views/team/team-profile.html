@@ -9,7 +9,7 @@
 								<img ng-if="!vm.teamData.img" src="/app/images/teams/default-team.jpg" style="margin:auto;width:200px;height:200px;" class="img-responsive" >
 								<img ng-if="vm.teamData.img" ng-src="/app/images/teams/{{vm.teamData.img}}" style="margin:auto;" style="width:200px;height:200px;" class="img-responsive" alt="">
 							</div>
-							<img ng-if="vm.teamImg.newImg != null" ngf-src="vm.teamImg.newImg" style="margin:auto;" alt="">	
+							<img ng-if="vm.teamImg.newImg != null" ngf-src="vm.teamImg.newImg" style="margin:auto;" alt="">
 						</div>
 						<div class="col-xs-12">
 						<p style="padding:5px;"></p>
@@ -21,18 +21,20 @@
 							</div>
 							<div ng-if="!vm.teamData.is_full && !vm.hasTeam && vm.userCreds.role == 1">
 								<div class="alert alert-info text-center"><strong>El equipo aún no tiene 4 estudiantes, únete</strong></div>
-								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || vm.userHasSentReq"> Solicitar unirme al equipo</button>
+								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
+								<div class="alert alert-info text-center" ng-if="vm.userHasSentReq"><strong>Tu solicitud fue enviada</strong></div>
 							</div>
 							<div ng-if="!vm.teamData.is_full && !vm.hasTeam && vm.userCreds.role == 2 && !vm.teamData.has_mentor">
 								<div class="alert alert-info text-center"><strong>El equipo aún no tiene mentor, únete</strong></div>
-								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || vm.userHasSentReq"> Solicitar unirme al equipo</button>
+								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
+								<span class="alert alert-default" ng-if="!vm.userHasSentReq">Tu solicitud fue enviada</span>
 							</div>
 							<div class="alert alert-warning text-center" ng-if="!vm.uploadRequest.success"><strong> {{vm.uploadRequest.msg}}</strong></div>
 							<div class="alert alert-warning text-center" ng-if="vm.hasTeam && !vm.isMTeam.state"><strong> Ya tienes un equipo</strong></div>
 							<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state">
 								<button ng-if="vm.teamImg.newImg != null" class="btn btn-info" ng-click="vm.updateTeamImg()"> Actualizar imagen</button>
 								<button class="btn btn-primary btn-md" ngf-select
-								ng-model="vm.teamImg.newImg" ngf-pattern="'.jpg,.gif'" ngf-accept="'.jpg,.gif'" ngf-resize="{width: 200, height: 200, quality: .8, centerCrop: true}"><strong> Cambiar imagen</strong></button>	
+								ng-model="vm.teamImg.newImg" ngf-pattern="'.jpg,.gif'" ngf-accept="'.jpg,.gif'" ngf-resize="{width: 200, height: 200, quality: .8, centerCrop: true}"><strong> Cambiar imagen</strong></button>
 							</div>
 						</div>
 					</div>
@@ -70,7 +72,7 @@
 							  				<td>
 							  			</tr>
 							  		</tbody>
-							  	</table>	
+							  	</table>
 						  	</div>
 						</div>
 					</div>

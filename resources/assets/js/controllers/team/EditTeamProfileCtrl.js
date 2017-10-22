@@ -12,6 +12,7 @@
 		vm.getCategories = getCategories;
 		vm.getTeamInfo = getTeamInfo;
 		vm.editTeam = editTeam;
+		vm.matchCategoryDesc = matchCategoryDesc
 		// Props
 		vm.isSubmited = {
 			state: false,
@@ -103,6 +104,15 @@
 
 			});
 		};
+		function matchCategoryDesc(cid){
+			for (var i = 0; i < vm.categories.length; i++) {
+				if(vm.categories[i].id == cid){
+					vm.categoryDesc = vm.categories[i].desc;
+					return;
+				}
+			}
+			vm.categoryDesc = 'Debe seleccionar una categoría para el equipo';
+		}
 		// Methods self invoking
 		getCities();
 		getCategories();

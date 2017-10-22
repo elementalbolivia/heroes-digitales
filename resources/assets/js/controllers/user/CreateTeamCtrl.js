@@ -17,13 +17,11 @@
 			msg: '',
 			isLoading: false,
 		};
+		vm.categoryDesc = '';
 		vm.dataRegister = {
 			idLeader: Auth.getSession().id,
 			teamName: '',
-			projectName: '',
-			desc: '',
 			cityId: 0,
-			categoryId: 0,
 			divisionId: 0,
 			img: {},
 		};
@@ -53,6 +51,8 @@
 		 */
 		function getCategories(){
 			Category.getCategories().then(function(data){
+				console.log(data)
+
 				if(data.success)
 					vm.categories = data.categories;
 				else
@@ -97,6 +97,7 @@
 				vm.isNotRegistered.msg = data.msg;
 			});
 		};
+
 		// Method self invoking
 		getCities();
 		getCategories();

@@ -88,6 +88,8 @@
 		};
 		function requestHasSent(){
 			User.requestHasSent($stateParams.id, vm.userCreds.id, vm.userCreds.role).then(function(data){
+				console.log(vm.userHasSentReq);
+
 				if(data.success)
 					vm.userHasSentReq = data.isSent;
 				else
