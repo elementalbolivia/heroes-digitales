@@ -4,6 +4,16 @@
 		.factory('Student',['$http', 'Auth', 'PUBLIC_URL', 'AUTH_URL', Student]);
 	function Student($http, Auth, PUBLIC_URL, AUTH_URL){
 		return{
+			parentAuth: function(data){
+				var promise = $http({
+					method: 'PUT',
+					url: PUBLIC_URL + 'user/parents-auth',
+					data: data,
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 			getStudents: function(){
 				var promise = $http({
 					method: 'GET',

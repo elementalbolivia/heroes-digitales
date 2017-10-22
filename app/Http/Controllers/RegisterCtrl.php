@@ -129,7 +129,7 @@ class RegisterCtrl extends Controller
     		DB::rollBack();
     		return response()->json([
 	    		'success' => false,
-	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente',
+	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente: '. $e->getMessage(),
 		    ]);
     	}
     }
@@ -194,9 +194,6 @@ class RegisterCtrl extends Controller
 	    	EstudianteMentorTieneEquipo::create($hasTeam);
 	    	$project = [
 	    		'equipo_id'			=> $createdTeam->id,
-	    		'nombre_proyecto'	=> $request->projectName,
-	    		'categoria_id'	=> $request->categoryId,
-	    		'descripcion'	=> $request->desc,
 	    	];
 	    	// Crear proyecto
 	    	$createdProject = Proyecto::create($project);

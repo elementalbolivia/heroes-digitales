@@ -4,5 +4,9 @@
 }
 @font-face {
   font-family: 'BackIssues';
-  src: url(../fonts/BackIssues.ttf); 
+  src: url(../fonts/BackIssues.ttf);
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url(../fonts/Montserrat/Montserrat-Light.ttf);
 }

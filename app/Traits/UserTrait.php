@@ -34,7 +34,7 @@ trait UserTrait{
 		if($userData[0]['role_id'] == 1){
 			$userData[0]['student'] = self::studentData($userData[1]);
 			$userData[0]['has_team'] = isset($userData[0]['student']['has_team']) ? $userData[0]['student']['has_team'] : false;
-			$userData[0]['min_fields'] = $userData[0]['student']['authorization']
+			$userData[0]['min_fields'] = $userData[0]['student']['authorization']['active']
 										&& $userData[0]['image']
 										&& $userData[0]['bio']
 										&& $userData[0]['terms_use'] ? true : false;
@@ -190,6 +190,7 @@ trait UserTrait{
 		$studentData['authorization'] = $student->responsable != NULL ? [
 					'id'		=> $student->responsable->id,
 					'signature'	=> $student->responsable->firma,
+					'active'	=> $student->responsable->activo == 0 ? false : true,
 				] : false;
 		$studentData['school'] = $student->colegio != NULL ? $student->colegio : NULL;
 		return $studentData;

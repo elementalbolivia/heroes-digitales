@@ -9,6 +9,8 @@
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
+		vm.menthors = [];
+		vm.students = [];
 		// Methods
 		vm.getUserData = getUserData;
 		vm.confirmRequest = confirmRequest;
@@ -21,11 +23,21 @@
 					console.log(data.user)
 					vm.userData = data.user;
 					vm.userData.invitations = angular.equals(data.user.invitations, []) ? false : data.user.invitations;
+					if(vm.userData.has_team){
+						for (var i = 0; i < vm.userData.team.members.length; i++) {
+							if(vm.userData.team.members[i].is_student){
+								vm.students.push(vm.userData.team.members[i]);
+							}else{
+								vm.menthors.push(vm.userData.team.members[i]);
+								vm.userData.team.has_menthor = true;
+							}
+						}
+					}
 				}else{
 					alert(data.msg);
 				}
 			}, function(err){
-
+				LxNotificationService.error('Hubo un error al descargar sus datos, revise su conexión a internet');
 			});
 		};
 		function confirmRequest(reqId, bool){

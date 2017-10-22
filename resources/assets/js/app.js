@@ -91,6 +91,14 @@ angular.module('heroesDigitalesApp', [
 				},
 			}
 		})
+		.state('home.auth-parents',{
+			url: 'autorizacion-padres/:id/:token',
+			views: {
+				'content@': {
+					templateUrl: '/app/views/public/auth-parents.html',
+				},
+			}
+		})
 		/**
 		 * EMAIL CONFIRMATION STATE
 		 */

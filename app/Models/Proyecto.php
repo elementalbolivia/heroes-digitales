@@ -10,7 +10,7 @@ class Proyecto extends Model
     protected $table = 'proyecto';
     const CREATED_AT = 'fecha_creacion';
     const UPDATED_AT = 'fecha_actualizacion';
-    protected $fillable = ['equipo_id', 'categoria_id', 'nombre_proyecto', 'descripcion'];
+    protected $fillable = ['equipo_id'];
     public function team(){
       return $this->belongsTo('App\Models\Equipo');
     }

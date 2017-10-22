@@ -85,6 +85,10 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'ParentsAuthCtrl@accept',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::put('user/parents-auth', [
+		'uses'	=> 'ParentsAuthCtrl@parentSign',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::put('user/student/edit/{id}', [
 		'uses'	=> 'StudentCtrl@edit',
 		'middleware'	=> 'jwt.auth'

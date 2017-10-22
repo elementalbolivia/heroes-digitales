@@ -2,18 +2,71 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="panel panel-default">
+			  <div class="panel-body">
+			  	<h2>BIENVENIDO</h2>
+				<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
+				<ol style="padding:5px;">
+
+					<!-- Código de honor -->
+					<li ng-if="!vm.userData.terms_use"><a ui-sref="user.terms-use">Leer y firmar el código de honor para participantes. <i class="fa fa-times-circle-o text-danger fa-1x"></i></a></li>
+					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para participantes <i class="fa fa-check-circle-o"></i></li>
+					<!-- Autorización -->
+					<div ng-if="vm.userCreds.role == 1">
+						<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization.active"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
+						<i class="fa fa-times-circle-o text-danger fa-1x"></i></li>
+						<li ng-if="vm.userData.student.authorization" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
+						<i class="fa fa-check-circle-o"></i></li>
+					</div>
+					<li ui-sref="user.my-profile" ng-if="!vm.userData.image">
+					<a>Subir una foto de perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
+					</li>
+					<li class="text-success" ng-if="vm.userData.image">
+					Subir una foto de perfil. <i class="fa fa-check-circle-o text-success "></i>
+					</li>
+					<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio">
+					<a>Subir una biografía corta a tu perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
+					</li>
+					<li class="text-success" ng-if="vm.userData.bio">
+					Subir una biografía corta a tu perfil. <i class="fa fa-check-circle-o text-success "></i>
+					</li>
+					<li ng-if="!vm.userData.has_team" class="text-danger">Crea o únete a un equipo <i class="fa fa-times-circle-o"></i></li>
+					<li ng-if="vm.userData.has_team" class="text-success">Crea o únete a un equipo <i class="fa fa-check-circle-o"></i></li>
+					<li ng-if="!vm.userData.team.has_menthor" class="text-danger">Invita a un mentor <i class="fa fa-times-circle-o"></i></li>
+					<li ng-if="vm.userData.team.has_menthor"  class="text-success">Invita a un mentor <i class="fa fa-check-circle-o"></i></li>
+				</ol>
+			  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
+			  		<p>
+			  			<strong>Atención:</strong>
+			  			Todavía no has completado todos los pasos para habilitarte en el concurso.
+			  		</p>
+			  	</div>
+			  	<div ng-if="vm.userData.min_fields" class="alert alert-success">
+			  		<p>
+			  			<strong>FELICITACIONES:</strong>
+			  			Has completado los pasos para poder concursar ahora crea o únete a un equipo
+			  		</p>
+			  	</div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<div class="panel panel-default">
 			  <div class="panel-body" ng-if="!vm.userData.has_team">
 			  	<h2>MI EQUIPO</h2>
-				<p>Aún no registraste un equipo. Crea uno! </p>
-			  	<div class="col-xs-12" ng-if="!vm.userData.has_team">
+					<p ng-if="!vm.userData.min_fields">Para poder crear o unirte a un equipo, sigue los pasos de la sección a la izquierda <i class="fa fa-arrow-left"></i></p>
+					<p ng-if="vm.userData.min_fields">Aún no registraste un equipo. Crea uno! </p>
+					<div class="col-xs-12" ng-if="!vm.userData.has_team">
 			  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.create-team"> Crear equipo</button>
 			  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.teams"> Únete a un equipo</button>
 			  	</div>
 			  	<p style="padding:85px;"></p>
 			  </div>
 			  <div class="panel-body" ng-if="vm.userData.has_team">
-			  	<h2><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }} </a></h2>
-			  	<h4>Miembros</h4>
+					<h2 class="text-center"><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }}</a></h2>
+					<h3>Miembros </h3>
+						<p>El equipo debe tener un mínimo 2 miembros (un estudiante y un mentor),
+						y debe tener un máximo 5 miembros (4 estudiantes y un mentor)</p>
+					<h3>Estudiantes</h3>
 			  	<div class="table-responsive">
 			  		<table class="table table-striped">
 				  		<thead>
@@ -26,7 +79,7 @@
 				  			</tr>
 				  		</thead>
 				  		<tbody>
-				  			<tr ng-repeat="member in vm.userData.team.members">
+				  			<tr ng-repeat="member in vm.students">
 									<td>{{ member.names }}</td>
 				  				<td>{{ member.lastnames }}</td>
 				  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
@@ -39,50 +92,34 @@
 				  		</tbody>
 				  	</table>
 			  	</div>
-			  </div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-6">
-			<div class="panel panel-default">
-			  <div class="panel-body">
-			  	<h2>BIENVENIDO</h2>
-				<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
-				<ol style="padding:5px;">
-					<!-- Código de honor -->
-					<li ng-if="!vm.userData.terms_use"><a ui-sref="user.terms-use">Leer y firmar el código de honor para participantes. <i class="fa fa-times-circle-o text-danger fa-1x"></i></a></li>
-					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para participantes <i class="fa fa-check-circle-o"></i></li>
-					<!-- Autorización -->
-					<div ng-if="vm.userCreds.role == 1">
-						<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
-						<i class="fa fa-times-circle-o text-danger fa-1x"></i></li>
-						<li ng-if="vm.userData.student.authorization" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
-						<i class="fa fa-check-circle-o"></i></li>
-					</div>
-					<li ui-sref="user.my-profile" ng-if="!vm.userData.image">
-					<a>Subir una foto de perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
-					</li>
-					<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio">
-					<a>Subir una biografía corta a tu perfil. <i class="fa fa-times-circle-o text-danger"></i></a>
-					</li>
-					<li class="text-success" ng-if="vm.userData.image">
-					Subir una foto de perfil. <i class="fa fa-times-check-o text-danger "></i>
-					</li>
-					<li class="text-success" ng-if="vm.userData.bio">
-					Subir una biografía corta a tu perfil. <i class="fa fa-times-check-o text-danger "></i>
-					</li>
-				</ol>
-			  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
-			  		<p>
-			  			<strong>Atención:</strong>
-			  			Todavía no has completado todos los pasos para habilitarte en el concurso.
-			  		</p>
+					<h3>Mentor</h3>
+					<h5 class="text-warning" ng-if="!vm.userData.team.has_menthor">Aún no tienes un mentor</h5>
+					<div class="table-responsive" ng-if="vm.userData.team.has_menthor">
+			  		<table class="table table-striped">
+				  		<thead>
+				  			<tr>
+					  			<th>Nombre(s)</th>
+					  			<th>Apellido(s)</th>
+					  			<th>Tipo</th>
+									<th>Perfil</th>
+					  			<th>Eliminar</th>
+				  			</tr>
+				  		</thead>
+				  		<tbody>
+				  			<tr ng-repeat="member in vm.menthors">
+									<td>{{ member.names }}</td>
+				  				<td>{{ member.lastnames }}</td>
+				  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
+				  				<td ng-if="!member.is_student"> Mentor (líder)</td>
+				  				<td ng-if="member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.student-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
+									<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
+				  				<td><button class="btn btn-danger btn-sm" ng-click="vm.deleteMembership(member.membership_id, member.invitation.id)"
+										 	ng-disabled="((!vm.userCreds.isLeader) && (member.user_id != vm.userData.id)) || member.is_leader"><i class="fa fa-times-circle"></i></button></td>
+				  			</tr>
+				  		</tbody>
+				  	</table>
 			  	</div>
-			  	<div ng-if="vm.userData.min_fields" class="alert alert-success">
-			  		<p>
-			  			<strong>FELICITACIONES:</strong>
-			  			Has completado los pasos para poder concursar.
-			  		</p>
-			  	</div>
+					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteTeam">Eliminar equipo</button>
 			  </div>
 			</div>
 		</div>
@@ -145,4 +182,23 @@
 			<h1>CRONOGRAMA</h1>
 		</div>
 	</div>
+</div>
+<div id="deleteTeam" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Eliminar equipo</h4>
+      </div>
+      <div class="modal-body">
+        <p>Si desea eliminar el equipo, póngase en contacto con el administrador a info@heroesdigitales.org</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+
+  </div>
 </div>

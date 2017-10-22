@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('ParentsAuthCtrl', ['$state', 'User', 'Auth', ParentsAuthCtrl]);
+		.controller('ParentsAuthCtrl', ['$state', 'User', 'Auth', 'LxNotificationService', ParentsAuthCtrl]);
 
-	function ParentsAuthCtrl($state, User, Auth){
+	function ParentsAuthCtrl($state, User, Auth, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
@@ -18,7 +18,12 @@
 		function accept(){
 			User.acceptParentsAuth({uid: vm.userCreds.id, signature: vm.parents.signature, email: vm.parents.email}).then(function(data){
 				if(data.success)
-					$state.go('user');
+				LxNotificationService.confirm('Autorización enviada', data.msg ,{
+							ok: 'Entiendo'
+					}, function(answer){
+						if (answer)
+							$state.go('user');
+					});
 				else
 					alert(data.msg);
 			}, function(err){
