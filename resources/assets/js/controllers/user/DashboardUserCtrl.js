@@ -37,7 +37,7 @@
 					alert(data.msg);
 				}
 			}, function(err){
-
+				LxNotificationService.error('Hubo un error al descargar sus datos, revise su conexión a internet');
 			});
 		};
 		function confirmRequest(reqId, bool){
