@@ -21,21 +21,23 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-9">
-			<div class="col-xs-12 col-sm-4" ng-repeat="student in vm.students | StudentFilter:vm.filters.cities:vm.filters.withTeam track by $index" >
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<img ng-if="!student.image" src="/app/images/users/default-user.png" style="margin:auto;" class="img-responsive" alt="">
-						<img ng-if="student.image" ng-src="/app/images/users/{{student.image.name}}" style="margin:auto;" class="img-responsive" alt="">
-					</div>
-					<div class="panel-body">
-						<h4 class="text-center">{{ student.names + ' ' + student.lastnames }}</h4>
-						<div style="margin-bottom:10px;">
-							<span class="label label-warning">Colegio: {{ student.student.school }}</span>
-							<span class="label label-success">Ciudad: {{ student.city.nombre }}</span>
-							<span class="label label-primary" ng-if="!student.has_team">Necesita equipo</span>
-							<span class="label label-default" ng-if="student.has_team">Tiene equipo</span>
+			<div class="row display-flex">
+				<div class="col-xs-12 col-sm-4 " ng-repeat="student in vm.students | StudentFilter:vm.filters.cities:vm.filters.withTeam track by $index" >
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<img ng-if="!student.image" src="/app/images/users/default-user.png" style="margin:auto;" class="img-responsive" alt="">
+							<img ng-if="student.image" ng-src="/app/images/users/{{student.image.name}}" style="margin:auto;" class="img-responsive" alt="">
 						</div>
-						<button class="btn btn-primary btn-lg btn-block" ui-sref="user.student-profile({id: student.id})">Ver perfil</button>
+						<div class="panel-body">
+							<h4 class="text-center">{{ student.names + ' ' + student.lastnames }}</h4>
+							<div style="margin-bottom:10px;">
+								<span class="label label-warning">Colegio: {{ student.student.school }}</span>
+								<span class="label label-success">Ciudad: {{ student.city.nombre }}</span>
+								<span class="label label-primary" ng-if="!student.has_team">Necesita equipo</span>
+								<span class="label label-default" ng-if="student.has_team">Tiene equipo</span>
+							</div>
+							<button class="btn btn-primary btn-lg btn-block" ui-sref="user.student-profile({id: student.id})">Ver perfil</button>
+						</div>
 					</div>
 				</div>
 			</div>

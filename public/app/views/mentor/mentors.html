@@ -34,22 +34,23 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-9">
-			<div class="col-xs-12 col-md-4" ng-repeat="mentor in vm.mentors | MentorFilter : vm.filters.cities : vm.filters.withTeam : vm.filters.skills track by $index">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<img ng-if="!mentor.image" src="/app/images/users/default-user.png" style="margin:auto;" class="img-responsive" alt="">
-						<img ng-if="mentor.image" ng-src="/app/images/users/{{mentor.image.name}}" style="margin:auto;" class="img-responsive" alt="">
-					</div>
-					<div class="panel-body">
-						<h4 class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</h4>
-						<div style="margin-bottom:10px;">
-							<span class="label label-success">Ciudad: {{ mentor.city.nombre }}</span>
-							<span class="label label-primary" ng-if="!mentor.has_team">Necesita equipo</span>
-							<span class="label label-default" ng-if="mentor.has_team">Tiene equipo</span>
-							<span class="label label-default"  style="margin:5px" ng-repeat="skill in mentor.mentor.skills">{{skill.skill_name}}</span>
+			<div class="row display-flex">
+				<div class="col-xs-12 col-md-4" ng-repeat="mentor in vm.mentors | MentorFilter : vm.filters.cities : vm.filters.withTeam : vm.filters.skills track by $index">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<img ng-if="!mentor.image" src="/app/images/users/default-user.png" style="margin:auto;" class="img-responsive" alt="">
+							<img ng-if="mentor.image" ng-src="/app/images/users/{{mentor.image.name}}" style="margin:auto;" class="img-responsive" alt="">
 						</div>
-
-						<button class="btn btn-primary btn-lg btn-block" ui-sref="user.mentor-profile({id: mentor.id})">Ver perfil</button>
+						<div class="panel-body">
+							<h4 class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</h4>
+							<div style="margin-bottom:10px;">
+								<span class="label label-success">Ciudad: {{ mentor.city.nombre }}</span>
+								<span class="label label-primary" ng-if="!mentor.has_team">Necesita equipo</span>
+								<span class="label label-default" ng-if="mentor.has_team">Tiene equipo</span>
+								<span class="label label-default"  style="margin:5px" ng-repeat="skill in mentor.mentor.skills">{{skill.skill_name}}</span>
+							</div>
+							<button class="btn btn-primary btn-lg btn-block" ui-sref="user.mentor-profile({id: mentor.id})">Ver perfil</button>
+						</div>
 					</div>
 				</div>
 			</div>
