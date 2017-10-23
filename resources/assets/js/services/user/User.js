@@ -109,6 +109,17 @@
 				});
 				return promise;
 			},
+			sendEmailInvitation: function(data){
+				var promise = Upload.upload({
+					method: 'POST',
+					url: AUTH_URL + 'user/email-invitation',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			}
 		};
 	};
 })();

@@ -31,7 +31,13 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('home.register',{
-			url: 'registro/:type',
+			url: 'registro/:type/:typeRegister',
+			params: {
+				typeRegister: {
+					squash: true,
+					value: null
+				}
+			},
 			views: {
 				'content@': {
 					templateUrl: '/app/views/public/user-register.html',

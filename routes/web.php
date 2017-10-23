@@ -56,6 +56,10 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'			=> 'DashboardCtrl@userInfo',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::post('user/email-invitation', [
+		'uses'			=> 'UserCtrl@sendEmailInvitation',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::get('divisions', [
 		'uses'			=> 'DivisionCtrl@index',
 		'middleware'	=> 'jwt.auth'
