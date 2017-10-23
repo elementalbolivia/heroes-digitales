@@ -17,7 +17,7 @@
 								<input type="text" class="form-control" ng-model="vm.parents.signature" style="margin-bottom:10px;" required>
 								<p class="text-center"><strong>Correo electrónico del apoderado</strong></p>
 								<input type="email" class="form-control" ng-model="vm.parents.email" style="margin-bottom:10px;" required>
-								<button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="authForm.$invalid">Enviar autorización al email</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="authForm.$invalid || vm.sended.isLoading">Enviar autorización al email</button>
 							</form>
 						</div>
 					</div>
@@ -25,4 +25,21 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div id="parentsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title text-center"><strong>{{ vm.sended.title }}</strong></h3>
+      </div>
+      <div class="modal-body">
+        <p>{{ vm.sended.msg }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.redirect(vm.sended.success)">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -21,8 +21,12 @@ body{
 .link-field-req:link,
 .link-field-req:visited,
 .link-field-req:hover,
-.link-field-req:active,{
-	color: red;
+.link-field-req:active{
+	color: #843534;
+	font-size: 20px;
+}
+.field-required{
+	font-size: 20px;
 }
 .img-logo{
 	width: 100%;
