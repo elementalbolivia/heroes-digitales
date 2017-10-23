@@ -9,7 +9,7 @@
 
 					<!-- Código de honor -->
 					<li ng-if="!vm.userData.terms_use"><a ui-sref="user.terms-use">Leer y firmar el código de honor para participantes. <i class="fa fa-times-circle-o text-danger fa-1x"></i></a></li>
-					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para participantes <i class="fa fa-check-circle-o"></i></li>
+					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para {{ vm.userData.role_id == 1 ? 'estudiantes' : 'mentores' }} <i class="fa fa-check-circle-o"></i></li>
 					<!-- Autorización -->
 					<div ng-if="vm.userCreds.role == 1">
 						<li ui-sref="user.parents-auth" class="text-danger" ng-if="!vm.userData.student.authorization.active"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
