@@ -21,7 +21,7 @@ class ParentsAuthCtrl extends Controller
                 'title'  => 'Error en la autorización',
                  'success' => false]);
         }
-        if($user->stundent->responsable != null){
+        if($user->student->responsable != null){
           return response()->json(
                 ['msg' => 'Tu autorización ya fue enviada, si no lo encuentra revise la casilla de spam o comuníquese con el administrador a info@heroesdigitales.com',
                 'title'  => 'Error en la autorización',
