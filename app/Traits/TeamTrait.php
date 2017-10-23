@@ -8,10 +8,12 @@ use App\Models\Mentor;
 use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
+use App\Traits\EmailTrait;
 
 date_default_timezone_set('America/La_Paz');
 
 trait TeamTrait{
+	use EmailTrait;
 	public static function teamInfo($id){
 		$teamData = [];
 		$counterStudents = 0;
@@ -83,6 +85,7 @@ trait TeamTrait{
 			$toJoin['mentor_id'] = $user->mentor->id;
 		}
 		EstudianteMentorTieneEquipo::create($toJoin);
+		EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $url, $user->correo);
 		return true;
 	}
 }
