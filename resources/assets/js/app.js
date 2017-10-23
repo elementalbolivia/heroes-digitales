@@ -31,9 +31,13 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('home.register',{
-			url: 'registro/:type/:typeRegister',
+			url: 'registro/:type/:typeRegister/:teamId',
 			params: {
 				typeRegister: {
+					squash: true,
+					value: null
+				},
+				team: {
 					squash: true,
 					value: null
 				}

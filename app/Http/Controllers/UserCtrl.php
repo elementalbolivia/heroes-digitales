@@ -42,7 +42,7 @@ class UserCtrl extends Controller
 					// Enviar invitacion mediante mail
 					$leader = Usuario::find($request->leaderId);
 					$team  = Equipo::find($request->teamId);
-					$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/' . $request->teamId;
+					$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/invitacion/' . $request->teamId;
 					EmailTrait::invitationEmail($request->mail, $leader->nombres, $team->nombre_equipo, $registerUrl);
 					$res->action = 'SEND_EMAIL';
 					$res->success = true;
@@ -51,7 +51,7 @@ class UserCtrl extends Controller
 				}
 			}catch(\Exception $e){
 				$res->success = false;
-				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente' . $e->getMessage();
+				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente';
 				return response()->json($res);
 			}
 		}

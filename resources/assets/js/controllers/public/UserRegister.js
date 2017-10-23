@@ -26,6 +26,8 @@
 		};
 		vm.dataRegister = {
 			type: vm.typeReg,
+			typeRegister: $stateParams.typeRegister,
+			teamId: $stateParams.teamId,
 			names: '',
 			lastnames: '',
 			birthDate: {
@@ -183,7 +185,6 @@
 			return true;
 		};
 		function sendRegistration(){
-			console.log($stateParams.typeRegister);
 			return;
 			if(!Number.isInteger(Number(vm.dataRegister.cellphone))){
 				vm.isNotRegistered.state = true;
