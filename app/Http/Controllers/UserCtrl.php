@@ -46,7 +46,7 @@ class UserCtrl extends Controller
 					EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
 					$res->action = 'SEND_EMAIL';
 					$res->success = true;
-					$res->msg = 'Su correo electrónico su enviado con éxito';
+					$res->msg = 'La invitación fue enviada por correo electrónico';
 					return response()->json($res);
 				}
 			}catch(\Exception $e){
