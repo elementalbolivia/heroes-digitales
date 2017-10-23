@@ -112,9 +112,33 @@ class RegisterCtrl extends Controller
 		    		'token'				=> $mailToken,
 		    		'fecha_creacion'	=> date('Y-m-d H:i:s'),
 		    	]);
+					if($request->typeRegister != null && $request->teamId != null){
+						if(Equipo::find($request->teamId) == null){
+							$res->success = false;
+							$res->msg = 'No existe el equipo que le envío la invitación';
+							DB::rollBack();
+							return response()->json($res);
+						}else{
+							// Registrarlo en el equipo
+							$invitation = new EstudianteMentorTieneEquipo;
+	            if($request->type == 'student'){
+	                $invitation->estudiante_id = $user->student->id;
+									$invitation->mentor_id = null;
+									$invitation->lider_equipo = false;
+	            }else if($request->type == 'mentor'){
+	                $invitation['mentor_id'] = $user->mentor->id;
+									$invitation->estudiante_id = null;
+									$invitation->lider_equipo = true;
+							}
+							$invitation->equipo_id = $request->teamId;
+							$invitation->aprobado = true;
+							$invitation->save();
+						}
+					}
 		    	Mail::to($request->email)
 	    			->send(new Registration($request->names, $request->lastnames, $verifUrl, 'USER_MENTOR'));
 				$res->emailSended = 'SENDED';
+				$res->success = true;
 				$res->msg = 'Su registro fue completado con éxito, por favor revise su correo electrónico
 	    				 para finalizar su inscripción';
 	    	}
@@ -123,7 +147,6 @@ class RegisterCtrl extends Controller
 	    	// INDICANDO QUE SU PETICION SERA PROCESADA, UNA VEZ ESTA SE
 	    	// REALICE, SE ENVIARA EL MAIL DEBAJO
 	    	DB::commit();
-	    	$res->success = true;
 	    	return response()->json($res);
     	}catch (\Exception $e){
     		DB::rollBack();
