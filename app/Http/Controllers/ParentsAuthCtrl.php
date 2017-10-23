@@ -33,6 +33,7 @@ class ParentsAuthCtrl extends Controller
       try{
         $responsable = Responsable::find($request->rid);
         $responsable->activo = true;
+        $responsable->save();
         $res->success = true;
         $res->msg = 'Su hijo ya está autorizado para concursar en Héroes Digitales, puede visitar la página de inicio para tener más información al respecto';
         return response()->json($res);
