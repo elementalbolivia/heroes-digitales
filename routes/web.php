@@ -46,6 +46,9 @@ Route::prefix('api/v1')->group(function(){
 	Route::put('reset-password', [
 		'uses'	=> 'ResetPasswordCtrl@reset'
 	]);
+  Route::put('user/parents-auth', [
+		'uses'	=> 'ParentsAuthCtrl@parentSign',
+	]);
 });
 
 Route::prefix('api/v1/auth')->group(function(){
@@ -83,10 +86,6 @@ Route::prefix('api/v1/auth')->group(function(){
 	]);
 	Route::post('user/parents-auth', [
 		'uses'	=> 'ParentsAuthCtrl@accept',
-		'middleware'	=> 'jwt.auth'
-	]);
-  Route::put('user/parents-auth', [
-		'uses'	=> 'ParentsAuthCtrl@parentSign',
 		'middleware'	=> 'jwt.auth'
 	]);
 	Route::put('user/student/edit/{id}', [
