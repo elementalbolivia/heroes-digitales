@@ -12,9 +12,9 @@
 					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para participantes <i class="fa fa-check-circle-o"></i></li>
 					<!-- Autorización -->
 					<div ng-if="vm.userCreds.role == 1">
-						<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization.active"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
+						<li ui-sref="user.parents-auth" class="text-danger" ng-if="!vm.userData.student.authorization.active"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
 						<i class="fa fa-times-circle-o text-danger fa-1x"></i></li>
-						<li ng-if="vm.userData.student.authorization" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
+						<li ng-if="vm.userData.student.authorization.active" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
 						<i class="fa fa-check-circle-o"></i></li>
 					</div>
 					<li ui-sref="user.my-profile" ng-if="!vm.userData.image">

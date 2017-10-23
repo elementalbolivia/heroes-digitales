@@ -24,7 +24,7 @@ class ParentsAuthCtrl extends Controller
         EmailTrait::parentsEmail($user->id, $auth->correo_electronico, $auth->id, $auth->token);
       	return response()->json(['msg' => 'Se le envío un correo electrónico a tu padre/apoderado para que pueda autorizar tu participación', 'success' => true]);
       }catch(\Exception $e){
-        return response()->json(['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente', 'success' => false]);
+        return response()->json(['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente ' . $e->getMessage(), 'success' => false]);
       }
     }
     public function parentSign(Request $request){
