@@ -77,6 +77,16 @@
 			});
 		};
 		function sendRegistration(){
+			if(vm.dataRegister.cityId == 0 || vm.dataRegister.divisionId == 0){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Todos los campos son requeridos';
+				return;
+			}
+			if(angular.equals(vm.dataRegister.img, {})){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Debes agregar una imagen para tu equipo';
+				return;
+			}
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;
 			// Validar que el retype es igual al password

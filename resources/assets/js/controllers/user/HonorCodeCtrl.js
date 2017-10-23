@@ -8,12 +8,14 @@
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
+		vm.signature = {
+			name: ''
+		};
 		// Methods
 		vm.accept = accept;
-
 		// Methods self invokation
 		function accept(){
-			User.acceptHonorCode({uid: vm.userCreds.id}).then(function(data){
+			User.acceptHonorCode({uid: vm.userCreds.id, name: vm.signature.name}).then(function(data){
 				if(data.success){
 					$state.go('user');
 				}else{

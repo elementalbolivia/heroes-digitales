@@ -11,7 +11,11 @@
 
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolorem assumenda error eveniet harum quasi similique, earum distinctio quis corrupti iste voluptates placeat magnam. Porro ipsa non alias aspernatur magni. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima iure, deleniti maxime repellendus! Ad sint inventore, aliquid nobis voluptates magnam, doloribus eveniet. Id in nobis commodi aut dolores illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas harum officiis omnis, dignissimos iure neque praesentium temporibus rerum aspernatur suscipit a tempore id possimus iste molestiae modi saepe aperiam assumenda!</p>
 						<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-							<button class="btn btn-primary btn-lg btn-block" ng-click="vm.accept()"> Acepto el código de honor</button>
+							<form class="form-horizontal" name="authForm" ng-submit="vm.accept()">
+								<p class="text-center"><strong>Escribe tu nombre</strong></p>
+								<input type="text" class="form-control" ng-model="vm.signature.name" style="margin-bottom:10px;" required>
+								<button class="btn btn-primary btn-lg btn-block" ng-disabled="authForm.$invalid" ng-click="vm.accept()"> Acepto el código de honor</button>
+							</form>
 						</div>
 					</div>
 				</div>

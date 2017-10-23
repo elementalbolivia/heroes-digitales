@@ -32,7 +32,7 @@
 						<div class="col-xs-12">
 							<p><strong>Correo electrónico:</strong> {{ vm.userData.email }}</p>
 							<p><strong>Celular:</strong> {{ vm.userData.cellphone }}</p>
-							<p><strong>Fecha de nacimiento:</strong> {{ vm.userData.birth_date }}</p>
+							<p><strong>Fecha de nacimiento:</strong> {{ vm.userData.birth_date | date:'dd-MM-yyyy' }}</p>
 							<p><strong>Género:</strong> {{ vm.userData.genre.descripcion }}</p>
 							<p><strong>Ciudad:</strong> {{ vm.userData.city.nombre }}</p>
 							<p><strong>Zona: </strong>{{ vm.userData.zone }}</p>

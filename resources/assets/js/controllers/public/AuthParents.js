@@ -3,6 +3,10 @@
     .controller('AuthParentsCtrl', ['$stateParams', '$state', 'LxNotificationService', 'Student', AuthParentsCtrl]);
   function AuthParentsCtrl($stateParams, $state, LxNotificationService, Student){
     var vm = this;
+    // Props
+    vm.signature = {
+      name: '',
+    };
     // Methods
     vm.accept = accept;
 
@@ -10,7 +14,8 @@
     function accept(){
       var authParams = {
         rid: $stateParams.id,
-        token: $stateParams.token
+        token: $stateParams.token,
+        signature: vm.signature.name,
       };
       Student.parentAuth(authParams).then(function(data){
         if(data.success){
