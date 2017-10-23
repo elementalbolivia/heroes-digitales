@@ -49,6 +49,9 @@ Route::prefix('api/v1')->group(function(){
   Route::put('user/parents-auth', [
 		'uses'	=> 'ParentsAuthCtrl@parentSign',
 	]);
+  Route::get('stages', [
+		'uses'	=> 'StageCtrl@index',
+	]);
 });
 
 Route::prefix('api/v1/auth')->group(function(){
@@ -154,10 +157,6 @@ Route::prefix('api/v1/auth')->group(function(){
 	]);
 	Route::get('mentors', [
 		'uses'	=> 'MenthorCtrl@index',
-		'middleware'	=> 'jwt.auth'
-	]);
-	Route::get('stages', [
-		'uses'	=> 'StageCtrl@index',
 		'middleware'	=> 'jwt.auth'
 	]);
   Route::get('stages/{id}', [

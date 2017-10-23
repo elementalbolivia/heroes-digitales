@@ -40,9 +40,9 @@ body{
 	height: auto;
 }
 .img-sponsor{
-	width: 165px;
+	width: 155px;
 	height: auto;
-	padding: 20px;
+	margin: 70px;
 }
 .img-organizer{
 	width: 250px;
@@ -84,7 +84,7 @@ body{
 .howto{
 	color: #FFFFFF;
 	background: #CB2228;
-	padding: 50px;
+	padding: 70px;
 }
 .howto-icon{
 	font-size: 100px;
@@ -95,6 +95,9 @@ body{
 .category{
 	background: #229ED7;
 	color: #FFFFFF;
+}
+.postulation{
+	border: 2px solid #000;
 }
 .sponsor{
 	border-bottom: 1px solid #D3D3D3;
