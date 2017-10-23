@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
+use App\Mail\ParentsAuth;
 use App\Models\Usuario;
 use Hash;
 
@@ -18,13 +19,12 @@ trait EmailTrait{
 			'fecha_fin'		=> date('Y-m-d H:i:s', strtotime($now . ' + 3 days')),
 		];
 		$user->resetPassword()->create($emailConf);
-		$resetUrl =  config(constants.STATE.LOCAL_URL) . 'reestablecer-contraseña/' . $user->id .'/'. $emailConf['token'];
+		$resetUrl =  config('constants.STATE.LOCAL_URL') . 'reestablecer-contraseña/' . $user->id .'/'. $emailConf['token'];
 		Mail::to($email)
 	    			->send(new ResetPassword($user->nombres, $user->apellidos, $resetUrl));
 	}
-	public static function parentsEmail($uid, $email, $rid, $token){
-		$user = Usuario::find($uid);
-		$authUrl = config(constants.STATE.LOCAL_URL) .'autorizacion-padres/' . $rid .'/'. $token;
+	public static function parentsEmail($user, $email, $rid, $token){
+		$authUrl = config('constants.STATE.LOCAL_URL') .'autorizacion-padres/' . $rid .'/'. $token;
 		Mail::to($email)
 	    			->send(new ParentsAuth($user->nombres, $user->apellidos, $authUrl));
 	}

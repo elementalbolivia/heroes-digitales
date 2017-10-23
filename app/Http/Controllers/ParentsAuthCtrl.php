@@ -11,6 +11,7 @@ date_default_timezone_set('America/La_Paz');
 
 class ParentsAuthCtrl extends Controller
 {
+    use EmailTrait;
     public function accept(Request $request){
     	try{
         $user = Usuario::find($request->uid);
@@ -21,7 +22,7 @@ class ParentsAuthCtrl extends Controller
       		'fecha_creacion' => date('Y-m-d H:i:s'),
           'token'        => md5(date('YmdHis')) . md5($request->uid),
       	]);
-        EmailTrait::parentsEmail($user->id, $auth->correo_electronico, $auth->id, $auth->token);
+        EmailTrait::parentsEmail($user, $auth->correo_electronico, $auth->id, $auth->token);
       	return response()->json(['msg' => 'Se le envío un correo electrónico a tu padre/apoderado para que pueda autorizar tu participación', 'success' => true]);
       }catch(\Exception $e){
         return response()->json(['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente ' . $e->getMessage(), 'success' => false]);
