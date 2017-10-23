@@ -8,11 +8,11 @@
 				<ol style="padding:5px;">
 
 					<!-- Código de honor -->
-					<li ng-if="!vm.userData.terms_use"><a ui-sref="user.terms-use">Leer y firmar el código de honor para participantes. <i class="fa fa-times-circle-o text-danger fa-1x"></i></a></li>
+					<li ng-if="!vm.userData.terms_use"><a ui-sref="user.terms-use" class="link-field-req">Leer y firmar el código de honor para participantes. <i class="fa fa-times-circle-o text-danger fa-1x"></i></a></li>
 					<li ng-if="vm.userData.terms_use" class="text-success">Leer y firmar el código de honor para {{ vm.userData.role_id == 1 ? 'estudiantes' : 'mentores' }} <i class="fa fa-check-circle-o"></i></li>
 					<!-- Autorización -->
 					<div ng-if="vm.userCreds.role == 1">
-						<li ui-sref="user.parents-auth" class="text-danger" ng-if="!vm.userData.student.authorization.active"><a>Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
+						<li ui-sref="user.parents-auth" class="text-danger" ng-if="!vm.userData.student.authorization.active"><a href="#" class="link-field-req">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
 						<i class="fa fa-times-circle-o text-danger fa-1x"></i></li>
 						<li ng-if="vm.userData.student.authorization.active" class="text-success">Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.
 						<i class="fa fa-check-circle-o"></i></li>
@@ -63,8 +63,7 @@
 			  </div>
 			  <div class="panel-body" ng-if="vm.userData.has_team">
 					<h2 class="text-center"><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }}</a></h2>
-					<h3>Miembros </h3>
-						<p>El equipo debe tener un mínimo 2 miembros (un estudiante y un mentor),
+						<p>El equipo debe tener un mínimo 3 miembros (dos estudiantes y un mentor),
 						y debe tener un máximo 5 miembros (4 estudiantes y un mentor)</p>
 					<h3>Estudiantes</h3>
 			  	<div class="table-responsive">

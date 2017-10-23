@@ -170,7 +170,7 @@
 			});
 		};
 		function generateYears(){
-			var actYear = new Date().getFullYear();
+			var actYear = 2008;
 			for (var i = 1960; i <= actYear; i++) {
 				vm.dates.years.push(i);
 			};

@@ -18,6 +18,12 @@ body{
 	background: url('../images/app-arts/svg/banner-home.svg') no-repeat center;
   background-size: 100% auto;
 }
+.link-field-req:link,
+.link-field-req:visited,
+.link-field-req:hover,
+.link-field-req:active,{
+	color: red;
+}
 .img-logo{
 	width: 100%;
 	height: auto;

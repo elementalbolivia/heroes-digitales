@@ -2,10 +2,11 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<h1 class="text-center">Regístrate como {{ vm.typeParams.title }}</h1>
+			<h2 class="text-center">Todos los campos con <span style="color:red">*</span> son requeridos</h2>
 			<form class="form-horizontal" name="registerForm" ng-submit="vm.sendRegistration()">
 	    		<div class="form-group">
 	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-	    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre(s)</label>
+	    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre(s) <span style="color:red">*</span></label>
 					    <div class="col-xs-12 col-sm-12">
 					      <input type="text" id="nombre" ng-model="vm.dataRegister.names"  placeholder="P.ej.: Pablo" class="form-control" required>
 					    </div>
@@ -13,7 +14,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label for="apat" class=" col-xs-12 ">Apellido(s)</label>
+						<label for="apat" class=" col-xs-12 ">Apellido(s) <span style="color:red">*</span></label>
 					    <div class="col-xs-12 col-sm-12">
 					      <input type="text" id="apat" ng-model="vm.dataRegister.lastnames" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
 					    </div>
@@ -22,7 +23,7 @@
 	    		<div class="form-group">
 	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 		    			<label for="birthDate" class="col-xs-12 ">
-		    				Fecha de nacimiento
+		    				Fecha de nacimiento <span style="color:red">*</span>
 		    			</label>
                   <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
                     <select id="dia" class="form-control" ng-options="day for day in vm.dates.days" ng-model="vm.dataRegister.birthDate.day" required></select>
@@ -41,7 +42,7 @@
         	</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12 ">Número celular</label>
+						<label id="correo" class=" col-xs-12 ">Número celular <span style="color:red">*</span></label>
 						<div class="col-xs-12 col-sm-6">
 							<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.cellphone" required>
 							<p style="padding:3px;"></p>
@@ -50,7 +51,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2" lx-tooltip-position="top" lx-tooltip="En la primera versión del concurso, se aceptarán únicamente postulaciones de La Paz y El Alto">
-						<label id="correo" class=" col-xs-12" >Ciudad</label>
+						<label id="correo" class=" col-xs-12" >Ciudad <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<select ng-model="vm.dataRegister.cityId" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
 						</div>
@@ -58,7 +59,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label for="zone" class=" col-xs-12">Zona</label>
+						<label for="zone" class=" col-xs-12">Zona <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="text" id="zone" ng-model="vm.dataRegister.zone" class="form-control" required/>
 						</div>
@@ -66,7 +67,7 @@
 				</div>
 				<div class="form-group" ng-if="vm.typeReg == 'student'">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Colegio</label>
+						<label id="correo" class=" col-xs-12">Colegio <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="text" ng-model="vm.dataRegister.school" class="form-control" />
 						</div>
@@ -74,7 +75,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="sex" class=" col-xs-12">Género</label>
+						<label id="sex" class=" col-xs-12">Género <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<select ng-model="vm.dataRegister.genreId" class="form-control" ng-options="genre.id as genre.label for genre in vm.genres"></select>
 						</div>
@@ -84,7 +85,7 @@
 				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'mentor' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="org" class=" col-xs-12">Organización</label>
+							<label id="org" class=" col-xs-12">Organización <span style="color:red">*</span></label>
 							<div class="col-xs-12">
 								<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="" required>
 								<p style="padding:3px;"></p>
@@ -93,7 +94,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Cargo</label>
+							<label id="correo" class=" col-xs-12">Cargo <span style="color:red">*</span></label>
 							<div class="col-xs-12">
 								<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job" required>
 								<p style="padding:3px;"></p>
@@ -102,7 +103,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Profesión</label>
+							<label id="correo" class=" col-xs-12">Profesión <span style="color:red">*</span></label>
 							<div class="col-xs-12">
 								<input ng-model="vm.dataRegister.profession" class="form-control"/>
 							</div>
@@ -113,7 +114,7 @@
 				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Tamaño de polera</label>
+							<label id="correo" class=" col-xs-12">Tamaño de polera <span style="color:red">*</span></label>
 							<div class="col-xs-12">
 								<select ng-model="vm.dataRegister.shirtId" class="form-control" ng-options="shirt.id as shirt.label for shirt in vm.shirts"></select>
 							</div>
@@ -121,7 +122,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label for="sn" class=" col-xs-12" >Enlace de su perfil en Facebook o LinkedIn</label>
+							<label for="sn" class=" col-xs-12" >Enlace de su perfil en Facebook o LinkedIn <span style="color:red">*</span></label>
 							<div class="col-xs-12">
 								<input type="text" id="sn" class="form-control" data-toggle="tooltip" title="Revisaremos su red social, para corroborar la información" ng-change="vm.validateSocialNetwork(vm.dataRegister.socialNetwork)" ng-model="vm.dataRegister.socialNetwork" placeholder="P.ej.: https://www.linkedin.com/in/mark-zuckerberg-92b2077" >
 								<p style="padding:3px;"></p>
@@ -129,7 +130,7 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="cv" class=" col-xs-12">Curriculum vitae</label>
+						<label id="cv" class=" col-xs-12">Curriculum vitae <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<button type="button" ngf-select id="cv" class="btn btn-primary btn-lg" ng-model="vm.dataRegister.cv" ngf-pattern="'.pdf,.docx'" ngf-accept="'.pdf,.docx'" ><i class="fa fa-file-pdf-o"></i> Subir curriculum</button>
 							<p style="padding:3px;"></p>
@@ -139,7 +140,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Correo electrónico</label>
+						<label id="correo" class=" col-xs-12">Correo electrónico <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="email" id="correo" class="form-control" ng-model="vm.dataRegister.email" placeholder="P.ej.: tuemail@gmail.com" required>
 							<p style="padding:3px;"></p>
@@ -148,7 +149,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="pass" class=" col-xs-12">Escriba su contraseña</label>
+						<label id="pass" class=" col-xs-12">Escriba su contraseña <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="password" id="pass" class="form-control" ng-model="vm.dataRegister.password" required>
 							<p style="padding:3px;"></p>
