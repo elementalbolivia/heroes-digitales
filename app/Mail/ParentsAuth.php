@@ -10,9 +10,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class ParentsAuth extends Mailable
 {
     use Queueable, SerializesModels;
-    private $name;
-    private $lastname;
-    private $url;
+    public $name;
+    public $lastname;
+    public $url;
 
     /**
      * Create a new message instance.

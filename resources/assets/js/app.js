@@ -96,6 +96,7 @@ angular.module('heroesDigitalesApp', [
 			views: {
 				'content@': {
 					templateUrl: '/app/views/public/auth-parents.html',
+					controller: 'AuthParentsCtrl as vm',
 				},
 			}
 		})
