@@ -14,12 +14,17 @@
 		vm.skills = [];
 		vm.expertises = [];
 		vm.skillsUser = [];
+		vm.updateSuccess = {
+			state: false,
+			msg: ''
+		}
 		// Methods
 		vm.getUserData = getUserData;
 		vm.getCities = getCities;
 		vm.getSkills = getSkills;
 		vm.getExpertises = getExpertises;
 		vm.update = update;
+		var validateRequired = validateRequired;
 		// Methods implementation
 		function getUserData(){
 			User.getInfo(vm.userCreds.id).then(function(data){
@@ -30,7 +35,7 @@
 					alert(data.msg);
 				}
 			}, function(err){
-
+				alert('Hubo un error al realizar los cambios');
 			});
 		};
 		/**
@@ -71,6 +76,11 @@
 			});
 		};
 		function update(){
+			if(!validateRequired(vm.userData)){
+				vm.updateSuccess.state = true;
+				vm.updateSuccess.msg = 'No puedes dejar los campos con * en vacío';
+				return;
+			}
 			if(vm.userCreds.role == 1){
 				User.updateStudent(vm.userData, vm.userData.id).then(function(data){
 					if(data.success){
@@ -95,6 +105,21 @@
 				});
 			}
 		};
+		function validateRequired(data){
+			console.log(data);
+			if(data.names == undefined || data.lastnames == undefined || data.zone == undefined || data.cellphone == undefined){
+				console.log('basic info');
+				return false;
+			}
+			if(data.role_id == 1){
+					if(data.student.school == '' || data.student.school == undefined){
+						return false;
+					}
+			}else if(data.role_id == 2){
+				// todo
+			}
+			return true;
+		}
 		// Methods self invoking
 		getUserData();
 		getCities();
