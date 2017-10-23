@@ -34,7 +34,7 @@ trait EmailTrait{
 		Mail::to($email)
 			->send(new EmailInvitation($leadername, $teamname, $url));
 	}
-	public static function requestEmail($name, $url, $email){
+	public static function requestEmail($name, $email){
 		$url = config('constants.STATE.LOCAL_URL') . 'dashboard';
 		Mail::to($email)
 			->send(new RequestToJoin($name, $url));

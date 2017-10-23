@@ -85,7 +85,7 @@ trait TeamTrait{
 			$toJoin['mentor_id'] = $user->mentor->id;
 		}
 		EstudianteMentorTieneEquipo::create($toJoin);
-		EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $url, $user->correo);
+		EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $user->correo);
 		return true;
 	}
 }
