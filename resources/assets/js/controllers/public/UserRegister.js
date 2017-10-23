@@ -185,7 +185,6 @@
 			return true;
 		};
 		function sendRegistration(){
-			return;
 			if(!Number.isInteger(Number(vm.dataRegister.cellphone))){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';

@@ -43,7 +43,7 @@ class UserCtrl extends Controller
 					$leader = Usuario::find($request->leaderId);
 					$team  = Equipo::find($request->teamId);
 					$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/invitacion/' . $request->teamId;
-					EmailTrait::invitationEmail($request->mail, $leader->nombres, $team->nombre_equipo, $registerUrl);
+					EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
 					$res->action = 'SEND_EMAIL';
 					$res->success = true;
 					$res->msg = 'Su correo electrónico su enviado con éxito';
