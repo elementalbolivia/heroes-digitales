@@ -85,7 +85,17 @@ trait TeamTrait{
 			$toJoin['mentor_id'] = $user->mentor->id;
 		}
 		EstudianteMentorTieneEquipo::create($toJoin);
-		EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $user->correo);
+		foreach (Equipo::find($idTeam)->members as $member) {
+			if($member->lider_equipo == 1){
+				$isStudent = $member->estudiante_id != NULL ? true : false;
+				if($isStudent){
+					$leader = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
+				}else{
+					$leader = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
+				}
+				EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
+			}
+		}
 		return true;
 	}
 }

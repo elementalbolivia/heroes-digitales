@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('StageAdminCtrl',['User', 'Auth', 'Stage', 'Checkpoit', 'LxNotificationService', 'LxDatePickerService' , '$state', '$stateParams', StageAdminCtrl]);
+		.controller('StageAdminCtrl',['User', 'Auth', 'Stage', 'Checkpoint', 'LxNotificationService', 'LxDatePickerService' , '$state', '$stateParams', StageAdminCtrl]);
 
 	function StageAdminCtrl(User, Auth, Stage, Checkpoint, LxNotificationService, LxDatePickerService, $state, $stateParams){
 		var vm = this;

@@ -1,21 +1,39 @@
 (function(){
   angular.module('heroesDigitalesApp')
-    .controller('HomeCtrl', [HomeCtrl]);
-  function HomeCtrl(){
+    .controller('HomeCtrl', ['Stage', HomeCtrl]);
+  function HomeCtrl(Stage){
     var vm = this;
+    // Methods
+		vm.getStages = getStages;
+		// Methods implementation
+		function getStages(){
+			Stage.getStages().then(function(data){
+				if(data.success){
+					console.log(data.stages);
+					vm.stages = data.stages;
+				}else{
+					alert(data.msg);
+				}
+			}, function(err){
+				console.error('Hubo un error en el servidor');
+			});
+		};
+		// Methods self invoking
     vm.organizers = [
       'auspiciadores-02.png',
       'auspiciadores-03.png',
     ];
     vm.sponsors = [
-      'auspiciadores-04.png',
-      'auspiciadores-05.png',
       'auspiciadores-06.png',
+      'auspiciadores-05.png',
       'auspiciadores-07.png',
       'auspiciadores-08.png',
-      'auspiciadores-09.png',
+      'auspiciadores-04.png',
       'auspiciadores-10.png',
       'auspiciadores-11.png',
+      'auspiciadores-09.png',
     ];
+    vm.getStages();
+
   };
 })();
