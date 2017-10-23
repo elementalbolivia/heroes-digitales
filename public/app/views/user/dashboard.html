@@ -5,33 +5,31 @@
 			  <div class="panel-body">
 			  	<h2>BIENVENIDO</h2>
 				<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
-				<ol style="padding:5px;">
-
+				<ol style="padding:10px;">
 					<!-- Código de honor -->
-					<li ng-if="!vm.userData.terms_use"><a href="#" ui-sref="user.terms-use" class="link-field-req"> <i class="fa fa-times-circle-o text-danger fa-2x"></i> Leer y firmar el código de honor para participantes. </a></li>
-					<li ng-if="vm.userData.terms_use" class="text-success"> <i class="fa fa-check-circle-o fa-2x"></i> Leer y firmar el código de honor para {{ vm.userData.role_id == 1 ? 'estudiantes' : 'mentores' }} </li>
+					<li ng-if="!vm.userData.terms_use" class="text-danger" style="font-size:20px;"><a href="#" ui-sref="user.terms-use" class="link-field-req"> <i class="fa fa-times-circle-o text-danger "></i> Leer y firmar el código de honor para participantes. </a></li>
+					<li ng-if="vm.userData.terms_use" class="text-success field-required"> <i class="fa fa-check-circle-o "></i> Leer y firmar el código de honor para {{ vm.userData.role_id == 1 ? 'estudiantes' : 'mentores' }} </li>
 					<!-- Autorización -->
 					<div ng-if="vm.userCreds.role == 1">
-						<li ui-sref="user.parents-auth" class="text-danger" ng-if="!vm.userData.student.authorization.active"><a href="#" class="link-field-req"><i class="fa fa-times-circle-o fa-2x"></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a>
-						<i class="fa fa-times-circle-o text-danger fa-1x"></i></li>
-						<li ng-if="vm.userData.student.authorization.active" class="text-success"><i class="fa fa-check-circle-o fa-2x"></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</li>
+						<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization.active" class="text-danger" style="font-size:20px;"><a href="#" class="link-field-req"><i class="fa fa-times-circle-o "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a></li>
+						<li ng-if="vm.userData.student.authorization.active" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</li>
 					</div>
-					<li ui-sref="user.my-profile" ng-if="!vm.userData.image">
-					<a href="#"> <i class="fa fa-times-circle-o fa-2x"></i> Subir una foto de perfil.</a>
+					<li ui-sref="user.my-profile" ng-if="!vm.userData.image" class="text-danger" style="font-size:20px;">
+					<a href="#"> <i class="fa fa-times-circle-o link-field-req"></i> Subir una foto de perfil.</a>
 					</li>
-					<li class="text-success" ng-if="vm.userData.image">
-					<i class="fa fa-check-circle-o fa-2x"></i> Subir una foto de perfil.
+					<li class="text-success field-required" ng-if="vm.userData.image">
+					<i class="fa fa-check-circle-o "></i> Subir una foto de perfil.
 					</li>
-					<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio">
-					<a href="#"><i class="fa fa-times-circle-o fa-2x"></i> Subir una biografía corta a tu perfil. </a>
+					<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio" class="text-danger" style="font-size:20px;">
+					<a href="#"><i class="fa fa-times-circle-o link-field-req"></i> Subir una biografía corta a tu perfil. </a>
 					</li>
-					<li class="text-success" ng-if="vm.userData.bio">
-					<i class="fa fa-check-circle-o fa-2x"></i> Subir una biografía corta a tu perfil.
+					<li class="text-success field-required" ng-if="vm.userData.bio">
+					<i class="fa fa-check-circle-o "></i> Subir una biografía corta a tu perfil.
 					</li>
-					<li ng-if="!vm.userData.has_team" class="text-danger"><i class="fa fa-times-circle-o fa-2x"></i> Crea o únete a un equipo </li>
-					<li ng-if="vm.userData.has_team" class="text-success"><i class="fa fa-check-circle-o fa-2x"></i> Crea o únete a un equipo </li>
-					<li ng-if="!vm.userData.team.has_menthor" class="text-danger"><i class="fa fa-times-circle-o fa-2x"></i> Invita a un mentor</li>
-					<li ng-if="vm.userData.team.has_menthor"  class="text-success">Invita a un mentor <i class="fa fa-check-circle-o"></i></li>
+					<li ng-if="!vm.userData.has_team" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Crea o únete a un equipo </li>
+					<li ng-if="vm.userData.has_team" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Crea o únete a un equipo </li>
+					<li ng-if="!vm.userData.team.has_menthor" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Invita a un mentor</li>
+					<li ng-if="vm.userData.team.has_menthor"  class="text-success field-required">Invita a un mentor <i class="fa fa-check-circle-o"></i></li>
 				</ol>
 			  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
 			  		<p>

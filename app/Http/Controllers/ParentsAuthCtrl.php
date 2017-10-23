@@ -15,6 +15,12 @@ class ParentsAuthCtrl extends Controller
     public function accept(Request $request){
     	try{
         $user = Usuario::find($request->uid);
+        if(trim($user->correo) == trim($request->email)){
+          return response()->json(
+                ['msg' => 'No puedes poner el mismo correo electrónico que le pertenece a tu usuario, por favor ponga el correo electrónico de su padre/apoderado',
+                'title'  => 'Error en la autorización',
+                 'success' => false]);
+        }
       	$auth = $user->student->responsable()->create([
       		'estudiante_id'	 => $user->student->id,
       		'firma'			 => $request->signature,
@@ -23,9 +29,15 @@ class ParentsAuthCtrl extends Controller
           'token'        => md5(date('YmdHis')) . md5($request->uid),
       	]);
         EmailTrait::parentsEmail($user, $auth->correo_electronico, $auth->id, $auth->token);
-      	return response()->json(['msg' => 'Se le envío un correo electrónico a tu padre/apoderado para que pueda autorizar tu participación', 'success' => true]);
+      	return response()->json(
+          ['msg' => 'Se le envío un correo electrónico a tu padre/apoderado para que pueda autorizar tu participación',
+          'title'  => 'Autorización enviada',
+           'success' => true]);
       }catch(\Exception $e){
-        return response()->json(['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente ' . $e->getMessage(), 'success' => false]);
+        return response()->json(
+          ['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente',
+           'title'  => 'Error en la autorización',
+           'success' => false]);
       }
     }
     public function parentSign(Request $request){
