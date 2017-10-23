@@ -143,7 +143,7 @@ class TeamCtrl extends Controller
             }
             return response()->json($res);
         }catch(\Exception $e){
-            $res->msg = 'Hubo un error al realizar la solicitud, inténtelo nuevamente';
+            $res->msg = 'Hubo un error al realizar la solicitud, inténtelo nuevamente: ' . $e->getMessage();
             $res->success = false;
             return response()->json($res);
         }
