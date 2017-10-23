@@ -129,7 +129,9 @@
 						<button class="btn btn-sm btn-link" ui-sref="user.mentors">Ver mentores</button>
 						<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#mailMenthor" >Enviar invitación</button>
 					</div>
-					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteTeam">Eliminar equipo</button>
+					<br/>
+					<br/>
+					<button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#deleteTeam">Eliminar equipo</button>
 			  </div>
 			</div>
 		</div>
@@ -231,20 +233,22 @@
   </div>
 </div>
 <div id="mailMenthor" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+	<div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Eliminar equipo</h4>
+        <h4 class="modal-title">Invita a un mentor</h4>
       </div>
       <div class="modal-body">
-        <p>Si desea eliminar el equipo, póngase en contacto con el administrador a info@heroesdigitales.org</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary" ng-click="vm.sendInvitationEmail('mentor')" >Enviar</button>
+        <p>Envía un correo electrónico al mentor que deseas que forme parte de tu equipo</p>
+				<input type="email" ng-model="vm.emailInvitation.mail" class="form-control" placeholder="Correo electrónico del mentor">
+				<div class="alert alert-danger" ng-if="vm.emailInvitation.state.success"><strong>{{ vm.emailInvitation.state.msg }}</strong></div>
 			</div>
+      <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.sendInvitationEmail('mentor')" ng-disabled="vm.emailInvitation.state.isLoading">Enviar</button>
+      </div>
     </div>
   </div>
 </div>

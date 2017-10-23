@@ -36,6 +36,8 @@ body{
 .row.display-flex > [class*='col-'] {
   display: flex;
   flex-direction: column;
+	width: 300px;
+	height: auto;
 }
 .img-sponsor{
 	width: 165px;
@@ -104,7 +106,7 @@ body{
 	background-color:#229ed7;
   color: #f1cd33;
 	border-radius:0;
-	padding: 18px;
+	padding: 10px;
 }
 .navbar-custom .navbar-nav > li > a {
   	color: #f1cd33;
