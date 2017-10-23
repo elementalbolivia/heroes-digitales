@@ -41,6 +41,5 @@ class ParentsAuthCtrl extends Controller
         $res->success = true;
         return response()->json($res);
       }
-
     }
 }

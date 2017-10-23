@@ -4,6 +4,7 @@ namespace App\Traits;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
 use App\Mail\ParentsAuth;
+use App\Mail\EmailInvitation;
 use App\Models\Usuario;
 use Hash;
 
@@ -27,5 +28,9 @@ trait EmailTrait{
 		$authUrl = config('constants.STATE.LOCAL_URL') .'autorizacion-padres/' . $rid .'/'. $token;
 		Mail::to($email)
 	    			->send(new ParentsAuth($user->nombres, $user->apellidos, $authUrl));
+	}
+	public static function invitationEmail($email, $leadername, $teamname, $url){
+		Mail::to($email)
+			->send(new EmailInvitation($leadername, $teamname, $url));
 	}
 }

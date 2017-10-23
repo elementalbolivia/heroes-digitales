@@ -92,6 +92,11 @@
 				  		</tbody>
 				  	</table>
 			  	</div>
+					<button class="btn btn-success btn-sm" data-toggle="collapse" data-target="#inviteStudents">Invitar a estudiantes</button>
+					<div id="inviteStudents" class="collapse">
+						<button class="btn btn-sm btn-link" ui-sref="user.students">Ver estudiantes</button>
+						<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#mailStudent" >Enviar invitación</button>
+					</div>
 					<h3>Mentor</h3>
 					<h5 class="text-warning" ng-if="!vm.userData.team.has_menthor">Aún no tienes un mentor</h5>
 					<div class="table-responsive" ng-if="vm.userData.team.has_menthor">
@@ -119,6 +124,11 @@
 				  		</tbody>
 				  	</table>
 			  	</div>
+					<button class="btn btn-success btn-sm" data-toggle="collapse" data-target="#inviteMenthor">Invitar a mentor</button>
+					<div id="inviteMenthor" class="collapse">
+						<button class="btn btn-sm btn-link" ui-sref="user.mentors">Ver mentores</button>
+						<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#mailMenthor" >Enviar invitación</button>
+					</div>
 					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteTeam">Eliminar equipo</button>
 			  </div>
 			</div>
@@ -185,7 +195,6 @@
 </div>
 <div id="deleteTeam" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -199,6 +208,43 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
-
+  </div>
+</div>
+<div id="mailStudent" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Invita a un estudiante</h4>
+      </div>
+      <div class="modal-body">
+        <p>Envía un correo electrónico al estudiante que deseas que forme parte de tu equipo</p>
+				<input type="email" ng-model="vm.emailInvitation.mail" class="form-control" placeholder="Correo electrónico de tu compañero">
+				<div class="alert alert-danger" ng-if="vm.emailInvitation.state.success"><strong>{{ vm.emailInvitation.state.msg }}</strong></div>
+			</div>
+      <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.sendInvitationEmail('student')" ng-disabled="vm.emailInvitation.state.loading">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mailMenthor" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Eliminar equipo</h4>
+      </div>
+      <div class="modal-body">
+        <p>Si desea eliminar el equipo, póngase en contacto con el administrador a info@heroesdigitales.org</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary" ng-click="vm.sendInvitationEmail('mentor')" >Enviar</button>
+			</div>
+    </div>
   </div>
 </div>
