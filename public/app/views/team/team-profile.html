@@ -54,8 +54,8 @@
 							<div class="col-xs-4"><p>Ciudad: {{ vm.teamData.city.nombre }}</p></div>
 						</div>
 						<div class="col-xs-12 col-sm-12">
-							<h2>Proyecto: {{ vm.teamData.project_name }}</h2>
-							<p>Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
+							<h2 ng-if="vm.teamData.project_name != null">Proyecto: {{ vm.teamData.project_name }}</h2>
+							<p ng-if="vm.teamData.project_desc != null">Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
 						</div>
 						<div class="col-xs-12">
 							<h4>Miembros</h4>
