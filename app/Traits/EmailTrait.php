@@ -42,6 +42,6 @@ trait EmailTrait{
 	}
 	public static function sendInvitationEmail($email, $teamname, $aUrl, $rUrl){
 		Mail::to($email)
-			->send(new RequestToJoin($teamname, $aUrl, $rUrl));
+			->send(new Invitation($teamname, $aUrl, $rUrl));
 	}
 }

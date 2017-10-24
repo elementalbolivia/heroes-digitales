@@ -233,7 +233,7 @@ class TeamCtrl extends Controller
         $invitation = InvitacionesEquipo::find($invitationId);
         try{
 						if($invitation->token != $token){
-							return redirect(config('constants.STATE.LOCAL_URL');
+							return redirect(config('constants.STATE.LOCAL_URL'));
 						}
             if($bool == 'REFUSE'){
                 $invitation->activo = false;
