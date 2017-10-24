@@ -189,6 +189,7 @@
 				if(data.success){
 					$('#mailStudent').modal('hide');
 					vm.emailInvitation.mail = '';
+					vm.emailInvitation.state.success = false;
 					$('#invitationSend').modal('show');
 					vm.sended.title = 'Invitación Enviada!';
 					vm.sended.msg = data.msg;
