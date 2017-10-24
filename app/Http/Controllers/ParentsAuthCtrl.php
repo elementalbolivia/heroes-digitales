@@ -41,7 +41,7 @@ class ParentsAuthCtrl extends Controller
            'success' => true]);
       }catch(\Exception $e){
         return response()->json(
-          ['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente:' . $e->getMessage(),
+          ['msg' => 'Hubo un error al enviar el correo electrónico a tu padre/apoderado, inténtalo nuevamente',
            'title'  => 'Error en la autorización',
            'success' => false]);
       }
