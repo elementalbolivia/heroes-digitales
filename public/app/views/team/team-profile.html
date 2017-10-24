@@ -32,9 +32,16 @@
 							<div class="alert alert-warning text-center" ng-if="!vm.uploadRequest.success"><strong> {{vm.uploadRequest.msg}}</strong></div>
 							<div class="alert alert-warning text-center" ng-if="vm.hasTeam && !vm.isMTeam.state"><strong> Ya tienes un equipo</strong></div>
 							<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state">
-								<button ng-if="vm.teamImg.newImg != null" class="btn btn-info" ng-click="vm.updateTeamImg()"> Actualizar imagen</button>
-								<button class="btn btn-primary btn-md" ngf-select
-								ng-model="vm.teamImg.newImg" ngf-pattern="'.jpg,.gif'" ngf-accept="'.jpg,.gif'" ngf-resize="{width: 200, height: 200, quality: .8, centerCrop: true}"><strong> Cambiar imagen</strong></button>
+								<button ng-if="vm.teamImg.newImg != null" class="btn btn-info pull-right" ng-click="vm.updateTeamImg()"> Guardar</button>
+								<label class="btn btn-primary btn-file">
+									Buscar <input type="file"
+									 				ngf-select ngf-pattern="'.jpg,.gif,.png'"
+													ngf-accept="'.jpg,.gif,.png'"
+													ngf-resize="{width: 250, height: 250, quality: .8}"
+													style="display:none;" class="show-errors file-upload"
+													ng-model="vm.teamImg.newImg" />
+								</label>
+
 							</div>
 						</div>
 					</div>
@@ -54,8 +61,8 @@
 							<div class="col-xs-4"><p>Ciudad: {{ vm.teamData.city.nombre }}</p></div>
 						</div>
 						<div class="col-xs-12 col-sm-12">
-							<h2>Proyecto: {{ vm.teamData.project_name }}</h2>
-							<p>Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
+							<h2 ng-if="vm.teamData.project_name != null">Proyecto: {{ vm.teamData.project_name }}</h2>
+							<p ng-if="vm.teamData.project_desc != null">Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
 						</div>
 						<div class="col-xs-12">
 							<h4>Miembros</h4>
