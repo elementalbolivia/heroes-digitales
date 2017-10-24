@@ -91,4 +91,12 @@ class Usuario extends Model implements AuthenticatableContract
                   ->where($userField, $userId)
                   ->first() != null;
     }
+    public function isInvitationSend($teamId, $userId, $type){
+      $userField = $type == 'student' ? 'estudiante_id' : 'mentor_id';
+      return DB::table('invitaciones_equipo')
+                  ->where('equipo_id', $teamId)
+                  ->where($userField, $userId)
+                  ->where('activo', 1)
+                  ->first() != null;
+    }
 }
