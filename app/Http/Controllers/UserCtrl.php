@@ -109,7 +109,7 @@ class UserCtrl extends Controller
 					}
 			}catch(\Exception $e){
 				$res->success = false;
-				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente: ' . $e->getMessage();
+				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente';
 				return response()->json($res);
 			}
 		}

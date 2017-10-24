@@ -31,6 +31,7 @@
 		vm.confirmInvitation = confirmInvitation;
 		vm.deleteMembership = deleteMembership;
 		vm.sendInvitationEmail = sendInvitationEmail;
+		vm.clearFields = clearFields;
 		// Methods implementation
 		function getUserData(){
 			User.getInfo(vm.userCreds.id).then(function(data){
@@ -202,6 +203,10 @@
 					vm.emailInvitation.state.success = true;
 					vm.emailInvitation.state.isLoading = false;
 			});
+		}
+		function clearFields(){
+			vm.emailInvitation.state.success = false;
+			vm.emailInvitation.mail = '';
 		}
 		// Methods self invoking
 		getUserData();
