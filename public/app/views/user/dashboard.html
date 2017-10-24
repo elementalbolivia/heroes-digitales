@@ -29,7 +29,7 @@
 					<li ng-if="!vm.userData.has_team" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Crea o únete a un equipo </li>
 					<li ng-if="vm.userData.has_team" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Crea o únete a un equipo </li>
 					<li ng-if="!vm.userData.team.has_menthor" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Invita a un mentor</li>
-					<li ng-if="vm.userData.team.has_menthor"  class="text-success field-required">Invita a un mentor <i class="fa fa-check-circle-o"></i></li>
+					<li ng-if="vm.userData.team.has_menthor"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Invita a un mentor </li>
 				</ol>
 			  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
 			  		<p>
