@@ -47,7 +47,13 @@ class UserCtrl extends Controller
 						}
 						if($invited->isMemberOfMyTeam($request->teamId, $userId, $request->type)){
 							$res->success = false;
-							$res->title = 'Ya enviaste una invitación al ' . $type;
+							$res->title = 'El' . $type . ' ya es parte de tu equipo';
+							$res->msg = 'El ' . $type . ' con correo electrónico '. $invited->correo . ', ya es parte de tu equipo';
+							return response()->json($res);
+						}
+						if($invited->isInvitationSend()){
+							$res->success = false;
+							$res->title = 'Ya enviaste una invitación a ' . $invited->correo;
 							$res->msg = 'El ' . $type . ' con correo electrónico '. $invited->correo . ', ya recibió una invitación de tu equipo';
 							return response()->json($res);
 						}
@@ -56,7 +62,7 @@ class UserCtrl extends Controller
 						$invitation = $invited->getInvitation($isStudent, $userId, $request->teamId);
 						$acceptUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/' .$team->id. '/ACCEPT';
 						$refuseUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/'. $team->id .'/REFUSE';
-						EmailTrait::sendInvitationEmail($team->nombre_equipo, $acceptUrl, $refuseUrl);
+						EmailTrait::sendInvitationEmail($request->mail, $team->nombre_equipo, $acceptUrl, $refuseUrl);
 						$res->success = true;
 						$res->title = 'Invitación enviada';
 						$res->msg = 'El ' . $type . ' ' . $invited->correo . ' ya tiene una cuenta en la plataforma. Se le envió una notificación por email para pueda aceptar la invitación a unirse a tu equipo.';
