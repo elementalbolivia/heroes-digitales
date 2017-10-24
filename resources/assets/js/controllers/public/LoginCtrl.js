@@ -34,8 +34,10 @@
 					vm.loginState.msg = data.msg
 				}
 			}, function(err){
-				console.error("Problema en el servidor");
-			});
+				vm.loginState.isNotLogged = true;
+				vm.loginState.isLoading = false;
+				vm.loginState.msg = 'Hubo un error al iniciar sesión, revise su conexión a internet e inténtelo nuevamente';
+ 			});
 		};
 	};
 	angular.module("heroesDigitalesApp")
