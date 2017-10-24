@@ -15,7 +15,13 @@
 						<p style="padding:5px;"></p>
 							<button ng-if="vm.userImg.newImg != null" class="btn btn-info pull-right" ng-model="vm.userImg.newImg" ng-click="vm.updateImg()"> Guardar</button>
 							<label class="btn btn-primary btn-file">
-								Buscar <input type="file" ngf-select ngf-pattern="'.jpg,.gif,.png'" ngf-accept="'.jpg,.gif,.png'" ngf-resize="{width: 250, height: 250, quality: .8}" style="display:none;" class="show-errors file-upload" ng-model="vm.userImg.newImg" data-toggle="tooltip" title="Sube imágenes solo desde una computadora, o tómate una selfie desde tu celular"/>
+								Buscar <input type="file"
+												ngf-select ngf-pattern="'.jpg,.gif,.png'"
+												ngf-accept="'.jpg,.gif,.png'"
+												ngf-resize="{width: 250, height: 250, quality: .8}"
+												style="display:none;"
+												class="show-errors file-upload"
+												ng-model="vm.userImg.newImg"/>
 							</label>
 						</div>
 						<div class="col-xs-12">
