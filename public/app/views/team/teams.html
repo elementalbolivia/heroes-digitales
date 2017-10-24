@@ -19,7 +19,9 @@
 					</div>
 					<div>
 						<h4>Categoría</h4>
-						<input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('categories', 'Medio ambiente')"> Medio ambiente <br />
+						<input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('categories', 'Violencia contra la niñez')">Violencia contra la niñez<br />
+						<input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('categories', 'Bienestar y salud')"> Bienestar y salud<br />
+						<input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('categories', 'Educación')">Educación <br />
 					</div>
 					<div>
 						<h4>Equipos que</h4>
@@ -43,7 +45,7 @@
 							<h4 class="text-center">{{ team.team_name }}</h4>
 							<div style="margin-bottom:10px;">
 								<span class="label label-default">División: {{ team.division.nombre }}</span>
-								<span class="label label-info">Categoría: {{ team.category.nombre }}</span>
+								<span class="label label-info" ng-if="team.category != null">Categoría: {{ team.category.nombre }}</span>
 								<span class="label label-success">Ciudad: {{ team.city.nombre }}</span>
 								<span class="label label-primary" ng-if="!team.is_full">Necesita miembros</span>
 								<span class="label label-primary" ng-if="!team.is_full && !team.has_mentor">Necesita mentor</span>
