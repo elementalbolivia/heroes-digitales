@@ -236,6 +236,10 @@ class TeamCtrl extends Controller
 							return redirect(config('constants.STATE.LOCAL_URL'));
 						}
             if($bool == 'REFUSE'){
+                $invitation->activo = false;
+                $invitation->save();
+                return redirect(config('constants.STATE.LOCAL_URL') . 'invitacion-rechazada');
+            }
             $member = [
                 'equipo_id'     => $teamid,
                 'mentor_id'     => NULL,
