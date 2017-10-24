@@ -14,7 +14,7 @@
 						<div class="col-xs-12">
 						<p style="padding:5px;"></p>
 							<button ng-if="vm.userImg.newImg != null" class="btn btn-info pull-right" ng-model="vm.userImg.newImg" ng-click="vm.updateImg()"> Guardar</button>
-							<button ngf-select ngf-pattern="'.jpg,.gif,.png'" ngf-accept="'.jpg,.gif,.png'" ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}" class="btn btn-primary pull-right" ng-model="vm.userImg.newImg"> Cambiar fotografía</button>
+							<input type="button" ngf-capture="'camera'" ngf-select ngf-pattern="'.jpg,.gif,.png'" ngf-accept="'.jpg,.gif,.png'" ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}" class="btn btn-primary pull-right show-errors file-upload" ng-model="vm.userImg.newImg" value="Cambiar fotografía"/>
 						</div>
 						<div class="col-xs-12">
 							<button class="btn btn-default btn-block" style="margin: 10px;" ui-sref="user"><fa class="fa fa-arrow-left"></fa> Volver</button>
