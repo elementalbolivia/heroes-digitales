@@ -7,8 +7,8 @@ angular.module('heroesDigitalesApp', [
 	'angular-locker',
 	'lumx',
 ])
-.constant('PUBLIC_URL', 'http://heroesdigitales.org/api/v1/')
-.constant('AUTH_URL', 'http://heroesdigitales.org/api/v1/auth/')
+.constant('PUBLIC_URL', 'http://localhost:8000/api/v1/')
+.constant('AUTH_URL', 'http://localhost:8000/api/v1/auth/')
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider){
 	$stateProvider
 		/**
