@@ -48,7 +48,8 @@
 						<button class="btn btn-primary btn-md pull-right" ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" ui-sref="user.team-profile.edit({leaderId: vm.isMTeam.uid})">Editar equipo</button>
 						<h1>{{ vm.teamData.team_name }}</h1>
 						<div class="col-xs-12">
-							<div class="col-xs-4"><p>Categoría: {{ vm.teamData.category.nombre }}</p></div>
+							<div class="col-xs-4" ng-if="vm.teamData.category == null"><p>Categoría: El equipo no tiene categoría</p></div>
+							<div class="col-xs-4" ng-if="vm.teamData.category != null"><p>Categoría: {{ vm.teamData.category.nombre }}</p></div>
 							<div class="col-xs-4"><p>División: {{ vm.teamData.division.nombre }}</p></div>
 							<div class="col-xs-4"><p>Ciudad: {{ vm.teamData.city.nombre }}</p></div>
 						</div>
