@@ -89,6 +89,7 @@ class Usuario extends Model implements AuthenticatableContract
       return DB::table('estudiante_mentor_tiene_equipo')
                   ->where('equipo_id', $teamId)
                   ->where($userField, $userId)
+                  ->where('aprobado', 1)
                   ->first() != null;
     }
     public function isInvitationSend($teamId, $userId, $type){
