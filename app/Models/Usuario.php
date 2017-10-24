@@ -77,5 +77,18 @@ class Usuario extends Model implements AuthenticatableContract
                 ])
               ->first();
     }
-
+    public function isMemberOfAnyTeam($userId, $type){
+      $userField = $type == 'student' ? 'estudiante_id' : 'mentor_id';
+      return DB::table('estudiante_mentor_tiene_equipo')
+                  ->where($userField, $userId)
+                  ->where('aprobado', 1)
+                  ->first() != null;
+    }
+    public function isMemberOfMyTeam($teamId, $userId, $type){
+      $userField = $type == 'student' ? 'estudiante_id' : 'mentor_id';
+      return DB::table('estudiante_mentor_tiene_equipo')
+                  ->where('equipo_id', $teamId)
+                  ->where($userField, $userId)
+                  ->first() != null;
+    }
 }
