@@ -11,7 +11,7 @@
 		vm.filters = {
 			cities: ['La Paz', 'El Alto'],
 			divisions: ['Junior', 'Senior'],
-			categories: ['Medio ambiente'],
+			categories: ['Violencia contra la niñez', 'Bienestar y salud', 'Educación'],
 			teamThat: {
 				requestMembers: true,
 				requestMentors: true,
