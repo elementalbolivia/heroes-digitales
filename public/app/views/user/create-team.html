@@ -35,7 +35,15 @@
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="cv" class=" col-xs-12">Imagen del equipo <span style="color:red">*</span></label>
 						<div class="col-xs-12">
-							<button type="button" ngf-select id="cv" class="btn btn-primary btn-lg" ng-model="vm.dataRegister.img" ngf-pattern="'.jpg,.png'" ngf-accept="'.jpg,.png'" ><i class="fa fa-file-image-o"></i> Subir imagen</button>
+							<label class="btn btn-primary btn-file">
+								Buscar <input type="file"
+												ngf-select ngf-pattern="'.jpg,.gif,.png'"
+												ngf-accept="'.jpg,.gif,.png'"
+												ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}"
+												style="display:none;"
+												class="show-errors file-upload"
+												ng-model="vm.dataRegister.img"/>
+							</label>
 							<p style="padding:3px;"></p>
 							<p>{{ vm.dataRegister.img.name }}</p>
 						</div>
