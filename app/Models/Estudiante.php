@@ -31,5 +31,4 @@ class Estudiante extends Model
         return $this->belongsToMany('App\Models\Equipo', 'invitaciones_equipo', 'estudiante_id', 'equipo_id')
                 ->withPivot('id', 'activo', 'confirmacion', 'fecha_creacion', 'fecha_actualizacion');
     }
-
 }

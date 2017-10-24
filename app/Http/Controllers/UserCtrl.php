@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Traits\EmailTrait;
 use App\Models\Equipo;
+use App\Models\EstudianteMentorTieneEquipo;
 
 use App\Traits\UserTrait as UserTrait;
 use Storage;
@@ -31,27 +32,48 @@ class UserCtrl extends Controller
 			$res = (object) null;
 			try{
 					if($invited != null){
-					// Enviar invitación a usuario que tiene un cuenta
-					$res->success = true;
-					$res->team_id = $request->teamId;
-					$res->role = $request->type == 'student' ? 1 : 2 ;
-					$res->uid = $invited->id;
-					$res->action = 'EXIST';
-					return response()->json($res);
-				}else{
-					// Enviar invitacion mediante mail
-					$leader = Usuario::find($request->leaderId);
-					$team  = Equipo::find($request->teamId);
-					$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/invitacion/' . $request->teamId;
-					EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
-					$res->action = 'SEND_EMAIL';
-					$res->success = true;
-					$res->msg = 'La invitación fue enviada por correo electrónico';
-					return response()->json($res);
-				}
+						$type = $request->type == 'student' ? 'estudiante' : 'mentor';
+						if($request->type == 'student'){
+							$userId = $invited->student->id;
+						}else{
+							$userId = $invited->mentor->id;
+						}
+						if($invited->isMemberOfAnyTeam($userId, $request->type)){
+							$res->success = false;
+							$res->title = 'El '. $type .' ya tiene un equipo';
+							$res->msg = 'El ' . $type . ' con correo electrónico '. $invited->correo . ' ya forma parte de un equipo';
+							return response()->json($res);
+						}
+						if($invited->isMemberOfMyTeam($request->teamId, $userId, $request->type)){
+							$res->success = false;
+							$res->title = 'Ya enviaste una invitación al ' . $type;
+							$res->msg = 'El ' . $type . ' con correo electrónico '. $invited->correo . ', ya recibió una invitación de tu equipo';
+							return response()->json($res);
+						}
+						// Enviar invitación a usuario que tiene un cuenta
+						$res->success = true;
+						$res->title = 'Invitación enviada';
+						$res->msg = 'El ' . $type . ' ' . $invited->correo . ' ya tiene una cuenta en la plataforma. Se le envió una notificación por email para pueda aceptar la invitación a unirse a tu equipo.';
+						$res->team_id = $request->teamId;
+						$res->role = $request->type == 'student' ? 1 : 2 ;
+						$res->uid = $invited->id;
+						$res->action = 'EXIST';
+						return response()->json($res);
+					}else{
+						// Enviar invitacion mediante mail
+						$leader = Usuario::find($request->leaderId);
+						$team  = Equipo::find($request->teamId);
+						$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/invitacion/' . $request->teamId;
+						EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
+						$res->action = 'SEND_EMAIL';
+						$res->success = true;
+						$res->title = 'Invitación enviada!';
+						$res->msg = 'Una invitación fue enviada a ' . $request->mail . ' con instrucciones para completar su proceso de registro. Una vez registrado será parte de tu equipo automáticamente';
+						return response()->json($res);
+					}
 			}catch(\Exception $e){
 				$res->success = false;
-				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente';
+				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente: ' . $e->getMessage();
 				return response()->json($res);
 			}
 		}
