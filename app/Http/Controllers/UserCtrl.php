@@ -7,6 +7,7 @@ use App\Models\Usuario;
 use App\Traits\EmailTrait;
 use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
+use App\Models\InvitacionesEquipo;
 
 use App\Traits\UserTrait as UserTrait;
 use Storage;
@@ -36,8 +37,10 @@ class UserCtrl extends Controller
 						$type = $request->type == 'student' ? 'estudiante' : 'mentor';
 						if($request->type == 'student'){
 							$userId = $invited->student->id;
+							$isStudent = true;
 						}else{
 							$userId = $invited->mentor->id;
+							$isStudent = false;
 						}
 						if($invited->isMemberOfAnyTeam($userId, $request->type)){
 							$res->success = false;
@@ -51,15 +54,25 @@ class UserCtrl extends Controller
 							$res->msg = 'El ' . $type . ' con correo electrónico '. $invited->correo . ', ya es parte de tu equipo';
 							return response()->json($res);
 						}
-						if($invited->isInvitationSend()){
+						if($invited->isInvitationSend($request->teamId, $userId, $request->type)){
 							$res->success = false;
 							$res->title = 'Ya enviaste una invitación a ' . $invited->correo;
 							$res->msg = 'El ' . $type . ' con correo electrónico '. $invited->correo . ', ya recibió una invitación de tu equipo';
 							return response()->json($res);
 						}
 						// Enviar invitación a usuario que tiene un cuenta
-						$isStudent = $request->type == 'student' ? true : false;
-						$invitation = $invited->getInvitation($isStudent, $userId, $request->teamId);
+						$newInvitation = [
+                'equipo_id'     => $request->teamId,
+                'mentor_id'     => NULL,
+                'estudiante_id' => NULL,
+								'token'					=> md5(date('YmdHis')) . md5($request->teamId),
+            ];
+            if($request->type == 'student')
+                $newInvitation['estudiante_id'] = $userId;
+            else
+                $newInvitation['mentor_id'] = $userId;
+
+            $invitation = InvitacionesEquipo::create($newInvitation);
 						$acceptUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/' .$team->id. '/ACCEPT';
 						$refuseUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/'. $team->id .'/REFUSE';
 						EmailTrait::sendInvitationEmail($request->mail, $team->nombre_equipo, $acceptUrl, $refuseUrl);
@@ -69,7 +82,6 @@ class UserCtrl extends Controller
 						$res->team_id = $request->teamId;
 						$res->role = $request->type == 'student' ? 1 : 2 ;
 						$res->uid = $invited->id;
-						$res->action = 'EXIST';
 						return response()->json($res);
 					}else{
 						// Enviar invitacion mediante mail

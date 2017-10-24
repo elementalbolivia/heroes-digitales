@@ -190,23 +190,8 @@
 					$('#mailStudent').modal('hide');
 					vm.emailInvitation.mail = '';
 					$('#invitationSend').modal('show');
-					if(data.action == 'EXIST'){
-						var teamData = {
-							role: data.role,
-							teamId: data.team_id,
-							uid: data.uid,
-						};
-						Team.inviteToTeam(teamData).then(function(res){
-							var typeUser = teamData.role == 1 ? 'estudiante' : 'mentor'
-							vm.sended.title = 'Invitación Enviada!';
-							vm.sended.msg = data.msg;
-						}, function(err){
-								LxNotificationService.error('Hubo un error al enviar la invitación');
-						});
-					}else{
-						vm.sended.title = 'Invitación Enviada!';
-						vm.sended.msg = data.msg;
-					}
+					vm.sended.title = 'Invitación Enviada!';
+					vm.sended.msg = data.msg;
 				}else{
 					vm.emailInvitation.state.success = true;
 					vm.emailInvitation.state.msg = data.msg;
