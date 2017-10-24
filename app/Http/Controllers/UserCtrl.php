@@ -36,12 +36,25 @@ class UserCtrl extends Controller
 					if($invited != null){
 						$type = $request->type == 'student' ? 'estudiante' : 'mentor';
 						if($request->type == 'student'){
+							if($invited->student == null){
+									$res->success = false;
+									$res->title = 'Error';
+									$res->msg = 'El participante con correo electrónico '. $invited->correo . ' es un mentor';
+									return response()->json($res);
+							}
 							$userId = $invited->student->id;
 							$isStudent = true;
 						}else{
+							if($invited->mentor == null){
+									$res->success = false;
+									$res->title = 'Error';
+									$res->msg = 'El participante con correo electrónico '. $invited->correo . ' es un estudiante';
+									return response()->json($res);
+							}
 							$userId = $invited->mentor->id;
 							$isStudent = false;
 						}
+
 						if($invited->isMemberOfAnyTeam($userId, $request->type)){
 							$res->success = false;
 							$res->title = 'El '. $type .' ya tiene un equipo';
@@ -96,7 +109,7 @@ class UserCtrl extends Controller
 					}
 			}catch(\Exception $e){
 				$res->success = false;
-				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente: ' . $e->getMessage();
+				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente';
 				return response()->json($res);
 			}
 		}
