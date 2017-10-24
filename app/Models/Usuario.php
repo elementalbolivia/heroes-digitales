@@ -69,7 +69,7 @@ class Usuario extends Model implements AuthenticatableContract
     public function getInvitation($isStudent, $uId, $tId){
       $userField = $isStudent ? 'estudiante_id' : 'mentor_id';
       return DB::table('invitaciones_equipo')
-              ->select('id')
+              ->select('id', 'token')
               ->where([
                   [$userField, '=', $uId],
                   ['equipo_id', '=', $tId],
