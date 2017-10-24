@@ -122,6 +122,22 @@ angular.module('heroesDigitalesApp', [
 				}
 			},
 		})
+		.state('home.accept-invitation',{
+			url: 'invitacion-aceptada',
+			views: {
+				'content@': {
+					templateUrl: '/app/views/public/accept-invitation.html',
+				}
+			},
+		})
+		.state('home.refuse-invitation',{
+			url: 'invitacion-rechazada',
+			views: {
+				'content@': {
+					templateUrl: '/app/views/public/refuse-invitation.html',
+				}
+			},
+		})
 		/**
 		 *########## AUTH STATES #########
 		 *

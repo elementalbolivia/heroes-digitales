@@ -156,6 +156,7 @@ class TeamCtrl extends Controller
                 'equipo_id'     => $request->teamId,
                 'mentor_id'     => NULL,
                 'estudiante_id' => NULL,
+								'token'					=> md5(date('YmdHis')) . md5($request->teamId),
             ];
             if($request->role == 1)
                 $invitation['estudiante_id'] = $user->student->id;
@@ -221,6 +222,43 @@ class TeamCtrl extends Controller
             $res->success = true;
 						$res->team_id = $request->teamId;
             return response()->json($res);
+        }catch(\Exception $e){
+            $res->success = false;
+            $res->msg = 'Hubo un error al rechazar la invitación';
+            return response()->json($res);
+        }
+    }
+		public function confirmEmailInvitation($invitationId, $token, $teamid, $bool){
+        $res = (object) null;
+        $invitation = InvitacionesEquipo::find($invitationId);
+        try{
+						if($invitation->token != $token){
+							return redirect(config('constants.STATE.LOCAL_URL');
+						}
+            if($bool == 'REFUSE'){
+                $invitation->activo = false;
+                $invitation->save();
+                return redirect(config('constants.STATE.LOCAL_URL') . 'invitacion-rechazada');
+            }
+            $member = [
+                'equipo_id'     => $teamid,
+                'mentor_id'     => NULL,
+                'estudiante_id' => NULL,
+            ];
+            if($invitation->estudiante_id != NULL){
+                $user = Estudiante::find($invitation->estudiante_id);
+                $member['estudiante_id'] = $user->id;
+                $member['lider_equipo'] = false;
+            }else{
+                $user = Mentor::find($invitation->mentor_id);
+                $member['mentor_id'] = $user->id;
+                $member['lider_equipo'] = true;
+            }
+            $invitation->confirmacion = true;
+            $invitation->save();
+            $member['aprobado'] = true;
+            EstudianteMentorTieneEquipo::create($member);
+						return redirect(config('constants.STATE.LOCAL_URL') . 'invitacion-aceptada');
         }catch(\Exception $e){
             $res->success = false;
             $res->msg = 'Hubo un error al rechazar la invitación';

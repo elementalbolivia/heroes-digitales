@@ -31,6 +31,7 @@ class UserCtrl extends Controller
 			$invited = Usuario::where('correo', $request->mail)->first();
 			$res = (object) null;
 			try{
+					$team  = Equipo::find($request->teamId);
 					if($invited != null){
 						$type = $request->type == 'student' ? 'estudiante' : 'mentor';
 						if($request->type == 'student'){
@@ -51,6 +52,11 @@ class UserCtrl extends Controller
 							return response()->json($res);
 						}
 						// Enviar invitación a usuario que tiene un cuenta
+						$isStudent = $request->type == 'student' ? true : false;
+						$invitation = $invited->getInvitation($isStudent, $userId, $request->teamId);
+						$acceptUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/' .$team->id. '/ACCEPT';
+						$refuseUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/'. $team->id .'/REFUSE';
+						EmailTrait::sendInvitationEmail($team->nombre_equipo, $acceptUrl, $refuseUrl);
 						$res->success = true;
 						$res->title = 'Invitación enviada';
 						$res->msg = 'El ' . $type . ' ' . $invited->correo . ' ya tiene una cuenta en la plataforma. Se le envió una notificación por email para pueda aceptar la invitación a unirse a tu equipo.';
@@ -62,7 +68,6 @@ class UserCtrl extends Controller
 					}else{
 						// Enviar invitacion mediante mail
 						$leader = Usuario::find($request->leaderId);
-						$team  = Equipo::find($request->teamId);
 						$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/invitacion/' . $request->teamId;
 						EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
 						$res->action = 'SEND_EMAIL';

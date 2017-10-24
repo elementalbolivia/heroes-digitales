@@ -6,6 +6,7 @@ use App\Mail\ResetPassword;
 use App\Mail\ParentsAuth;
 use App\Mail\EmailInvitation;
 use App\Mail\RequestToJoin;
+use App\Mail\Invitation;
 use App\Models\Usuario;
 use Hash;
 
@@ -38,5 +39,9 @@ trait EmailTrait{
 		$url = config('constants.STATE.LOCAL_URL') . 'dashboard';
 		Mail::to($email)
 			->send(new RequestToJoin($name, $url));
+	}
+	public static function sendInvitationEmail($email, $teamname, $aUrl, $rUrl){
+		Mail::to($email)
+			->send(new RequestToJoin($teamname, $aUrl, $rUrl));
 	}
 }

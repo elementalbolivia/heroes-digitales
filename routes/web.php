@@ -52,6 +52,9 @@ Route::prefix('api/v1')->group(function(){
   Route::get('stages', [
 		'uses'	=> 'StageCtrl@index',
 	]);
+  Route::get('confirm-invitation/{invId}/{token}/team/{teamid}/{bool}', [
+		'uses'	=> 'TeamCtrl@confirmEmailInvitation',
+	]);
 });
 
 Route::prefix('api/v1/auth')->group(function(){

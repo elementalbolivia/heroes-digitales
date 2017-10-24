@@ -15,13 +15,13 @@
 						<li ng-if="vm.userData.student.authorization.active" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</li>
 					</div>
 					<li ui-sref="user.my-profile" ng-if="!vm.userData.image" class="text-danger" style="font-size:20px;">
-					<a href="#"> <i class="fa fa-times-circle-o link-field-req"></i> Subir una foto de perfil.</a>
+					<a href="#" class="link-field-req"> <i class="fa fa-times-circle-o"></i> Subir una foto de perfil.</a>
 					</li>
 					<li class="text-success field-required" ng-if="vm.userData.image">
 					<i class="fa fa-check-circle-o "></i> Subir una foto de perfil.
 					</li>
 					<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio" class="text-danger" style="font-size:20px;">
-					<a href="#"><i class="fa fa-times-circle-o link-field-req"></i> Subir una biografía corta a tu perfil. </a>
+					<a href="#" class="link-field-req"><i class="fa fa-times-circle-o"></i> Subir una biografía corta a tu perfil. </a>
 					</li>
 					<li class="text-success field-required" ng-if="vm.userData.bio">
 					<i class="fa fa-check-circle-o "></i> Subir una biografía corta a tu perfil.
@@ -175,7 +175,7 @@
 				  			<tr ng-repeat="invitation in vm.userData.invitations">
 				  				<td>{{ invitation.team_name }}</td>
 				  				<td>{{ invitation.created_at | date:'dd-mm-YYYY' }}</td>
-				  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, true)" ng-disabled="!vm.userData.min_fields">Unirme</button> </td>
+				  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, true)" ng-disabled="!vm.userData.min_fields">Aceptar</button> </td>
 				  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, false)" ng-disabled="!vm.userData.min_fields">Rechazar</button> </td>
 				  			</tr>
 				  		</tbody>
