@@ -10,3 +10,20 @@
     </form>
   </div>
 </div>
+<div id="parentAuth" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title text-center"><strong>{{ vm.sended.title }}</strong></h3>
+      </div>
+      <div class="modal-body">
+        <p>{{ vm.sended.msg }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.redirect(vm.sended.success)">Ver página de inicio</button>
+      </div>
+    </div>
+  </div>
+</div>
