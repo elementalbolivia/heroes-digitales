@@ -7,6 +7,13 @@ body{
 		height: 100%;
 		background: url('../images/app-arts/loading.gif') no-repeat center center;
 }
+.title{
+	font-family: 'Badaboom';
+	text-shadow: 1px 2px #000000;
+	font-weight: bold;
+	color: #fff;
+	font-size: 50px;
+}
 .heading{
 	font-family: 'Badaboom';
 	font-weight: bold;
@@ -50,9 +57,10 @@ body{
 	height: auto;
 }
 .img-sponsor{
-	width: 155px;
+	width: 250px;
 	height: auto;
-	margin: 70px;
+	margin-bottom: 40px;
+	margin-top: 40px;
 }
 .img-organizer{
 	width: 250px;
@@ -94,20 +102,25 @@ body{
 .howto{
 	color: #FFFFFF;
 	background: #CB2228;
-	padding: 70px;
+	padding: 35px;
+	border-radius: 20px;
 }
 .howto-icon{
 	font-size: 100px;
 }
 .howto-element{
-	padding: 10px;
+	margin: 5px;
+	background: #ffffff;
 }
 .category{
 	background: #229ED7;
 	color: #FFFFFF;
+	border-radius: 20px;
 }
 .postulation{
 	border: 2px solid #000;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 .sponsor{
 	border-bottom: 1px solid #D3D3D3;

@@ -43,12 +43,17 @@
 						</div>
 						<div class="panel-body">
 							<h4 class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</h4>
-							<div style="margin-bottom:10px;">
+							<div>
 								<span class="label label-success">Ciudad: {{ mentor.city.nombre }}</span>
 								<span class="label label-primary" ng-if="!mentor.has_team">Necesita equipo</span>
 								<span class="label label-default" ng-if="mentor.has_team">Tiene equipo</span>
-								<span class="label label-default"  style="margin:5px" ng-repeat="skill in mentor.mentor.skills">{{skill.skill_name}}</span>
+								<div class="col-xs-6 col-sm-5" ng-repeat="skill in mentor.mentor.skills">
+									<span class="label label-default">
+										 {{skill.skill_name}}
+									 </span>
+								</div>
 							</div>
+							<p style="padding:30px"></p>
 							<button class="btn btn-primary btn-lg btn-block" ui-sref="user.mentor-profile({id: mentor.id})">Ver perfil</button>
 						</div>
 					</div>
