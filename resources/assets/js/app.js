@@ -357,6 +357,7 @@ angular.module('heroesDigitalesApp', [
   $transitions.onStart({to : 'home.**'}, function(trans){
     var $state = trans.router.stateService;
     var AuthService = trans.injector().get('Auth');
+		console.log(AuthService.getSession());
     if(AuthService.isAuth() && AuthService.getSession().role != 5){
     	// $window.location.href ='http://localhost:8000';
     	return $state.target('user');
