@@ -47,7 +47,7 @@ trait UserTrait{
 			$userData[0]['has_team'] = $mTeam == NULL ? false : true;
 			if($mTeam != null){
 				$userData[0]['team'] = self::teamUserData($mTeam);
-				$invitations = $userData[1]->invitationsSended($mTeam->equipo_id);
+				$invitations = $userData[1]->invitationsSended($mTeam->equipo_id) == null ? false : $userData[1]->invitationsSended($mTeam->equipo_id);
 			  foreach ($invitations as $invitation) {
 					$invUser = $invitation->estudiante_id != null ?
 												 Estudiante::find($invitation->estudiante_id)->user :
