@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('EditTeamProfileCtrl',['$state', '$stateParams', 'User', 'Team', 'Auth', 'Division', 'City', 'Category', EditTeamProfileCtrl]);
+		.controller('EditTeamProfileCtrl',['$state', '$stateParams', 'User', 'Team', 'Auth', 'Division', 'City', 'Category', 'LxNotificationService', EditTeamProfileCtrl]);
 
-	function EditTeamProfileCtrl($state, $stateParams, User, Team, Auth, Division, City, Category){
+	function EditTeamProfileCtrl($state, $stateParams, User, Team, Auth, Division, City, Category, LxNotificationService){
 		var vm = this;
 		// Methods
 		vm.getCities = getCities;
@@ -57,9 +57,9 @@
 				if(data.success)
 					vm.categories = data.categories;
 				else
-					console.warn('Hubo un error al cargar los datos');
+				LxNotificationService.warning('Hubo un error al obtener los datos de categorías, inténtelo nuevamente');
 			}, function(err){
-				console.error('Error en el servidor');
+				LxNotificationService.error('Hubo un error al obtener los datos de categorías, revise su conexión a internet');
 			});
 		};
 		/**
@@ -72,36 +72,41 @@
 				if(data.success)
 					vm.divisions = data.divisions;
 				else
-					console.warn('Hubo un error al cargar los datos');
+					LxNotificationService.warning('Hubo un error al cargar los datos de divisiones,inténtelo nuevamente');
 			}, function(err){
-				console.error('Error en el servidor');
+				LxNotificationService.error('Hubo un error, revise su conexión a internet');
 			});
 		};
 		function getTeamInfo(){
 			Team.getTeam($stateParams.id).then(function(data){
 				if(data.success){
-					console.log(data);
 					vm.teamData = data.team;
 					vm.teamData.cityId = data.team.city.id;
 					vm.teamData.categoryId = data.team.category.id;
 					vm.teamData.divisionId = data.team.division.id;
-					console.log(vm.teamData);
 				}else{
-					console.warn(data.msg);
+					LxNotificationService.warning(data.msg);
 				}
 			}, function(err){
-				alert('Hubo un error en el servidor');
+				LxNotificationService.error('Hubo un error al obtener los datos del equipo, revise su conexión a internet');
 			});
 		};
 		function editTeam(){
+			if(vm.teamData.divisionId == 0 || vm.teamData.cityId == 0){
+				vm.isSubmited.state = true;
+				vm.isSubmited.msg = 'No puede dejar los campos con * en vacío';
+			}
+			vm.isSubmited.isLoading = true;
 			Team.editTeam(vm.teamData).then(function(data){
+				vm.isSubmited.isLoading = false;
 				if(data.success){
 					$state.go('user.team-profile', {id: $stateParams.id});
 				}else{
-					console.warn(data.msg);
+					vm.isSubmited.state = true;
+					vm.isSubmited.msg = data.msg;
 				}
 			}, function(err){
-
+				LxNotificationService.error('Hubo un error al realizar los cambios, revise su conexión a internet');
 			});
 		};
 		function matchCategoryDesc(cid){

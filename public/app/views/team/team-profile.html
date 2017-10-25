@@ -34,7 +34,7 @@
 							<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state">
 								<button ng-if="vm.teamImg.newImg != null" class="btn btn-info pull-right" ng-click="vm.updateTeamImg()"> Guardar</button>
 								<label class="btn btn-primary btn-file">
-									Buscar <input type="file"
+									Subir imagen <input type="file"
 									 				ngf-select ngf-pattern="'.jpg,.gif,.png'"
 													ngf-accept="'.jpg,.gif,.png'"
 													ngf-resize="{width: 250, height: 250, quality: .8}"
@@ -53,15 +53,15 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<button class="btn btn-primary btn-md pull-right" ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" ui-sref="user.team-profile.edit({leaderId: vm.isMTeam.uid})">Editar equipo</button>
-						<h1>{{ vm.teamData.team_name }}</h1>
+						<h1 class="title-white-bg">{{ vm.teamData.team_name }}</h1>
 						<div class="col-xs-12">
-							<div class="col-xs-4" ng-if="vm.teamData.category == null"><p>Categoría: El equipo no tiene categoría</p></div>
-							<div class="col-xs-4" ng-if="vm.teamData.category != null"><p>Categoría: {{ vm.teamData.category.nombre }}</p></div>
-							<div class="col-xs-4"><p>División: {{ vm.teamData.division.nombre }}</p></div>
-							<div class="col-xs-4"><p>Ciudad: {{ vm.teamData.city.nombre }}</p></div>
+							<div class="col-xs-4" ng-if="vm.teamData.category == null"><p><strong>Categoría:</strong> El equipo no tiene categoría<p></div>
+							<div class="col-xs-4" ng-if="vm.teamData.category != null"><p><strong>Categoría:</strong> {{ vm.teamData.category.nombre }}<p></div>
+							<div class="col-xs-4"><p><strong>División:</strong> {{ vm.teamData.division.nombre }}</p></div>
+							<div class="col-xs-4"><p><strong>Ciudad:  </strong>{{ vm.teamData.city.nombre }}</p></div>
 						</div>
 						<div class="col-xs-12 col-sm-12">
-							<h2 ng-if="vm.teamData.project_name != null">Proyecto: {{ vm.teamData.project_name }}</h2>
+							<h2 ng-if="vm.teamData.project_name != null" class="subtitle-white-bg">Proyecto: {{ vm.teamData.project_name }}</h2>
 							<p ng-if="vm.teamData.project_desc != null">Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
 						</div>
 						<div class="col-xs-12">

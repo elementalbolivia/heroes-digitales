@@ -24,7 +24,12 @@ body{
 	text-shadow: 0px 5px #000000;
 	font-weight: bold;
 	color: #fff;
-	font-size: 30px;
+	font-size: 35px;
+}
+.subtitle-white-bg{
+	font-family: 'BackIssues';
+	color: #000;
+	font-size: 35px;
 }
 .heading{
 	font-family: 'Badaboom';
@@ -161,7 +166,7 @@ body{
 		font-weight: bold;
 		font-size: 25px;
 		text-align: center;
-		margin-left: 50px;
+		margin-left: 25px;
 }
 .navbar-custom .navbar-nav > .active > a {
   color: #ffffff;
@@ -210,4 +215,9 @@ body{
 }
 .text-blue{
 	color: #1476a5;
+}
+.panel-blue > .panel-heading {
+  color: #fff;
+  background-color: #229ed7;
+  border-color: #ddd;
 }
