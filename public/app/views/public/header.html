@@ -8,10 +8,10 @@
     </div>
     <div class="collapse navbar-collapse" id="heroesNavBar" >
       <ul class="nav navbar-nav">
-        <li class="active"><a ui-sref="home" onclick="navigate('#hd')" href="#">Inicio</a></li>
+        <li class="active"><a ui-sref="home" ng-click="vm.navigate('#hd')" href="#">Inicio</a></li>
         <li><a href="/app/docs/terms-use.pdf" target="_blank" download>Convocatoria</a></li>
-        <li><a onclick="navigate('#howto')">Cómo participar?</a></li>
-        <li><a onclick="navigate('#sponsors')">Auspiciadores</a></li>
+        <li><a ng-click="vm.navigate('#howto')">Cómo participar?</a></li>
+        <li><a ng-click="vm.navigate('#sponsors')">Auspiciadores</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a data-target="#login" data-toggle="modal"><span class="glyphicon glyphicon-log-in"></span> Inicia sesión</a></li>
