@@ -27,7 +27,6 @@
 <script src="/app/js/loader.js"></script>
 <!-- Bower dependencies -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="/app/js/navigateTo.js"></script>
 <script src="/bower_components/velocity/velocity.min.js"></script>
 <script src="/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="/bower_components/angular/angular.min.js"></script>
