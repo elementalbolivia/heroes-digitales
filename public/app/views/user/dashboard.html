@@ -3,7 +3,7 @@
 		<div class="col-xs-12 col-sm-6">
 			<div class="panel panel-default">
 			  <div class="panel-body">
-			  	<h2>BIENVENIDO</h2>
+			  	<h2 class="title-white-bg text-center">BIENVENIDO</h2>
 				<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
 				<ol style="padding:10px;">
 					<!-- Código de honor -->
@@ -49,7 +49,7 @@
 		<div class="col-xs-12 col-sm-6">
 			<div class="panel panel-default">
 			  <div class="panel-body" ng-if="!vm.userData.has_team">
-			  	<h2>MI EQUIPO</h2>
+			  	<h2 class="title-white-bg text-center">MI EQUIPO</h2>
 					<p ng-if="!vm.userData.min_fields">Para poder crear o unirte a un equipo, sigue los pasos de la sección a la izquierda <i class="fa fa-arrow-left"></i></p>
 					<p ng-if="vm.userData.min_fields">Aún no registraste un equipo. Crea uno! </p>
 					<div class="col-xs-12" ng-if="!vm.userData.has_team">
@@ -59,7 +59,7 @@
 			  	<p style="padding:85px;"></p>
 			  </div>
 			  <div class="panel-body" ng-if="vm.userData.has_team">
-					<h2 class="text-center"><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }}</a></h2>
+					<h2 class="text-center title-white-bg"><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }}</a></h2>
 						<p>El equipo debe tener un mínimo 3 miembros (dos estudiantes y un mentor),
 						y debe tener un máximo 5 miembros (4 estudiantes y un mentor)</p>
 					<h3>Estudiantes</h3>
@@ -136,7 +136,7 @@
 		<div class="col-xs-12 col-sm-6" ng-if="!vm.userData.team.is_full">
 			<div class="panel panel-default">
 			  <div class="panel-body">
-			  	<h2>SOLICITUDES</h2>
+			  	<h2 class="title-white-bg text-center">SOLICITUDES</h2>
 				<p>En esta sección recibirás información sobre las solicitudes de otros participantes/mentores para ser parte de tu equipo. </p>
 			  	<div class="alert alert-warning" ng-if="!vm.userData.team.requests">
 			  		<strong>No tienes solicitudes</strong>
@@ -162,7 +162,7 @@
 		<div class="col-xs-12 col-sm-6" ng-if="!vm.userData.has_team" >
 			<div class="panel panel-default">
 			  <div class="panel-body">
-			  	<h2>INVITACIONES</h2>
+			  	<h2 class="title-white-bg text-center">INVITACIONES</h2>
 				<p>Aquí recibirás información sobre las invitaciones para formar parte de un equipo.</p>
 			  	<div ng-if="!vm.userData.invitations" class="alert alert-info">
 			  		<p>
@@ -187,7 +187,7 @@
 		<div class="col-xs-12 col-sm-6" ng-if="vm.userData.has_team" >
 			<div class="panel panel-default">
 			  <div class="panel-body">
-			  	<h2>INVITACIONES ENVIADAS</h2>
+			  	<h2 class="title-white-bg text-center">INVITACIONES ENVIADAS</h2>
 				<p>Aquí verás todas las invitaciones que tu equipo a realizado a otros estudiantes/mentores.</p>
 			  	<div ng-if="!vm.userData.team.invitations_sent" class="alert alert-info">
 			  		<p>
@@ -211,7 +211,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>CRONOGRAMA</h1>
+			<h1 class="text-center title-white-bg">CRONOGRAMA</h1>
 			<ul class="timeline">
 	        <li ng-class=" $index % 2 == 0 ? '' : 'timeline-inverted' " ng-repeat="stage in vm.stages track by $index">
 	          <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>

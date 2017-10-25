@@ -34,20 +34,20 @@
 				<div class="panel-group">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h1>{{ vm.mentorData.names + ' ' + vm.mentorData.lastnames }}</h1>
+							<h1 class="title-white-bg">{{ vm.mentorData.names + ' ' + vm.mentorData.lastnames }}</h1>
 							<p ng-if="vm.mentorData.bio"> {{ vm.mentorData.bio.name }} </p>
 							<div class="col-xs-12 col-sm-6">
-								<p>Correo electrónico: {{ vm.mentorData.email }}</p>
-								<p>Celular: {{ vm.mentorData.cellphone }}</p>
-								<p>Fecha de nacimiento: {{ vm.mentorData.birth_date }}</p>
-								<p>Género: {{ vm.mentorData.genre.descripcion }}</p>
+								<p><strong>Correo electrónico:</strong> {{ vm.mentorData.email }}</p>
+								<p><strong>Celular:</strong> {{ vm.mentorData.cellphone }}</p>
+								<p><strong>Fecha de nacimiento:</strong> {{ vm.mentorData.birth_date }}</p>
+								<p><strong>Género:</strong> {{ vm.mentorData.genre.descripcion }}</p>
 							</div>
 							<div class="col-xs-12 col-sm-6">
-								<p>Ciudad: {{ vm.mentorData.city.nombre }}</p>
-								<p>Zona: {{ vm.mentorData.zone }}</p>
-								<p>Lugar de trabajo: {{ vm.mentorData.mentor.work_place }}</p>
-								<p>Profesión: {{ vm.mentorData.mentor.profession }}</p>
-								<p>Trabajo: {{ vm.mentorData.mentor.job }}</p>
+								<p><strong>Ciudad:</strong> {{ vm.mentorData.city.nombre }}</p>
+								<p><strong>Zona:</strong> {{ vm.mentorData.zone }}</p>
+								<p><strong>Lugar de trabajo:</strong> {{ vm.mentorData.mentor.work_place }}</p>
+								<p><strong>Profesión:</strong> {{ vm.mentorData.mentor.profession }}</p>
+								<p><strong>Trabajo:</strong> {{ vm.mentorData.mentor.job }}</p>
 							</div>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 				<div class="panel-group">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2>Habilidades</h2>
+							<h2 class="subtitle-white-bg">Habilidades</h2>
 						</div>
 						<div class="panel-body">
 							<div ng-repeat="skill in vm.mentorData.mentor.skills" class="col-xs-6">

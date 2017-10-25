@@ -188,6 +188,22 @@ class RegisterCtrl extends Controller
     	// y que el usuario no tiene un equipo aun
     	try{
     		$user = Usuario::find($request->idLeader);
+				if($user->student != NULL){
+	    		$hasTeam['estudiante_id'] = $user->student->id;
+	    		$hasTeam['mentor_id'] = NULL;
+					$type = 'student';
+	    	}else{
+	    		$hasTeam['estudiante_id'] = NULL;
+	    		$hasTeam['mentor_id'] = $user->mentor->id;
+					$type = 'mentor';
+				}
+				if($user->isMemberOfAnyTeam(
+						$hasTeam['estudiante_id'] != null ? $hasTeam['estudiante_id'] : $hasTeam['mentor_id'],
+						$type)){
+					$res->success = false;
+	    		$res->msg = 'Ya perteneces a un equipo, y no puedes crear uno nuevo';
+	    		return response()->json($res);
+				}
 	    	$file = $request->file('img');
 				if($file != null){
 					$img = md5(date('YmdHis'))
@@ -207,13 +223,7 @@ class RegisterCtrl extends Controller
 	    	];
 	    	// Crear equipo
 	    	$createdTeam = Equipo::create($team);
-	    	if($user->student != NULL){
-	    		$hasTeam['estudiante_id'] = $user->student->id;
-	    		$hasTeam['mentor_id'] = NULL;
-	    	}else{
-	    		$hasTeam['estudiante_id'] = NULL;
-	    		$hasTeam['mentor_id'] = $user->mentor->id;
-	    	}
+
 				$hasTeam['equipo_id'] = $createdTeam->id;
 				$hasTeam['lider_equipo'] = true;
 				$hasTeam['aprobado'] = true;
@@ -235,6 +245,5 @@ class RegisterCtrl extends Controller
     		$res->msg = 'Hubo un error al crear al equipo, inténtelo nuevamente';
     		return response()->json($res);
     	}
-
     }
 }
