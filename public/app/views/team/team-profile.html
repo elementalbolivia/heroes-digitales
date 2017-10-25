@@ -31,7 +31,7 @@
 							</div>
 							<div class="alert alert-warning text-center" ng-if="!vm.uploadRequest.success"><strong> {{vm.uploadRequest.msg}}</strong></div>
 							<div class="alert alert-warning text-center" ng-if="vm.hasTeam && !vm.isMTeam.state"><strong> Ya tienes un equipo</strong></div>
-							<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state">
+							<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" class="col-xs-12 col-sm-6 col-sm-offset-3">
 								<button ng-if="vm.teamImg.newImg != null" class="btn btn-info pull-right" ng-click="vm.updateTeamImg()"> Guardar</button>
 								<label class="btn btn-primary btn-file">
 									Subir imagen <input type="file"
@@ -41,7 +41,6 @@
 													style="display:none;" class="show-errors file-upload"
 													ng-model="vm.teamImg.newImg" />
 								</label>
-
 							</div>
 						</div>
 					</div>
