@@ -26,7 +26,7 @@ class DashboardCtrl extends Controller
     	}catch(\Exception $e){
         DB::rollBack();
     		$res->success = false;
-    		$res->msg = 'Hubo un error al cargar la información del usuario';
+    		$res->msg = 'Hubo un error al cargar la información del usuario:' . $e->getMessage();
     		return response()->json($res);
     	}
 
