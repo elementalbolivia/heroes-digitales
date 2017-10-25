@@ -44,6 +44,13 @@ body{
 	color: #843534;
 	font-size: 20px;
 }
+.social-network:link,
+.social-network:visited,
+.social-network:hover,
+.social-network:active{
+	color: #fff;
+	margin: 10px 15px;
+}
 .field-required{
 	font-size: 20px;
 }
