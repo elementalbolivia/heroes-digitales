@@ -184,12 +184,49 @@
 			  </div>
 			</div>
 		</div>
+		<div class="col-xs-12 col-sm-6" ng-if="vm.userData.has_team" >
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			  	<h2>INVITACIONES ENVIADAS</h2>
+				<p>Aquí verás todas las invitaciones que tu equipo a realizado a otros estudiantes/mentores.</p>
+			  	<div ng-if="!vm.userData.team.invitations_sent" class="alert alert-info">
+			  		<p>
+			  			<strong>No enviaste invitaciones</strong>
+			  		</p>
+			  	</div>
+			  	<div class="table-responsive" ng-if="vm.userData.team.invitations_sent">
+			  		<table class="table table-striped">
+				  		<tbody>
+				  			<tr ng-repeat="invitation in vm.userData.team.invitations_sent">
+				  				<td>{{ invitation.names + ' ' + invitation.lastnames }}</td>
+				  				<td>{{ invitation.sent_at | date:'dd-mm-YYYY' }}</td>
+									<td>{{ invitation.type }}</td>
+				  			</tr>
+				  		</tbody>
+				  	</table>
+			  	</div>
+			  </div>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
 			<h1>CRONOGRAMA</h1>
-			<img src="/app/images/app-arts/cronograma.png" alt="">
-
+			<ul class="timeline">
+	        <li ng-class=" $index % 2 == 0 ? '' : 'timeline-inverted' " ng-repeat="stage in vm.stages track by $index">
+	          <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+	          <div class="timeline-panel">
+	            <div class="timeline-heading">
+	              <h4 class="timeline-title">{{ stage.label }}</h4>
+								<p><small class="text-muted"><i class="fa fa-calendar-o"></i> Fecha inicio: {{ stage.begin_date | date: 'd-M-y' }}</small></p>
+	              <p><small class="text-muted"><i class="fa fa-calendar-times-o"></i> Fecha fin: {{ stage.end_date | date: 'd-M-y' }}</small></p>
+	            </div>
+	            <div class="timeline-body">
+	              <p>{{ stage.desc }}</p>
+	            </div>
+	          </div>
+	        </li>
+	    </ul>
 		</div>
 	</div>
 </div>

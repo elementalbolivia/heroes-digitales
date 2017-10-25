@@ -12,7 +12,7 @@ class Estudiante extends Model
     protected $fillable = ['usuario_id', 'colegio'];
 
     public function user(){
-    	return $this->belongsTo('App\Models\Usuario');
+    	return $this->belongsTo('App\Models\Usuario', 'usuario_id');
     }
     public function responsable(){
     	return $this->hasOne('App\Models\Responsable');

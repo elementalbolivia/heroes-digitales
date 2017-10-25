@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('DashboardUserCtrl',['User', 'Auth', 'Team', 'LxNotificationService', DashboardUserCtrl]);
+		.controller('DashboardUserCtrl',['User', 'Auth', 'Team', 'Stage', 'LxNotificationService', DashboardUserCtrl]);
 
-	function DashboardUserCtrl(User, Auth, Team, LxNotificationService){
+	function DashboardUserCtrl(User, Auth, Team, Stage, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
@@ -25,6 +25,7 @@
 			msg: '',
 			title: '',
 		};
+		vm.stages = [];
 		// Methods
 		vm.getUserData = getUserData;
 		vm.confirmRequest = confirmRequest;
@@ -32,7 +33,20 @@
 		vm.deleteMembership = deleteMembership;
 		vm.sendInvitationEmail = sendInvitationEmail;
 		vm.clearFields = clearFields;
+		vm.getStages = getStages;
 		// Methods implementation
+		function getStages(){
+			Stage.getStages().then(function(data){
+				if(data.success){
+					console.log(data.stages);
+					vm.stages = data.stages;
+				}else{
+					alert(data.msg);
+				}
+			}, function(err){
+				console.error('Hubo un error en el servidor');
+			});
+		};
 		function getUserData(){
 			User.getInfo(vm.userCreds.id).then(function(data){
 				if(data.success){
@@ -210,5 +224,6 @@
 		}
 		// Methods self invoking
 		getUserData();
+		getStages();
 	};
 })();

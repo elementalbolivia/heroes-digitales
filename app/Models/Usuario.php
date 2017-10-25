@@ -100,4 +100,10 @@ class Usuario extends Model implements AuthenticatableContract
                   ->where('activo', 1)
                   ->first() != null;
     }
+    public function invitationsSended($teamId){
+      return DB::table('invitaciones_equipo')
+                  ->where('equipo_id', $teamId)
+                  ->where('activo', 1)
+                  ->get();
+    }
 }

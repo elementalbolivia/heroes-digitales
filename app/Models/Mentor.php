@@ -10,7 +10,7 @@ class Mentor extends Model
     public $timestamps = false;
 
     public function user(){
-    	return $this->belongsTo('App\Models\Usuario');
+    	return $this->belongsTo('App\Models\Usuario', 'usuario_id');
     }
     public function skills(){
     	return $this->belongsToMany('App\Models\Habilidad', 'mentor_tiene_habilidad', 'mentor_id', 'habilidad_id')
