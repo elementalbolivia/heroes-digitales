@@ -19,7 +19,6 @@
 		function getMentors(){
 			Mentor.getMentors().then(function(data){
 				if(data.success){
-					console.log(data);
 					vm.mentors = data.mentors;
 				}else{
 					alert(data.msg);
