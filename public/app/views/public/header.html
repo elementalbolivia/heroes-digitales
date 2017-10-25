@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-custom">
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#heroesNavBar">
@@ -8,10 +8,10 @@
     </div>
     <div class="collapse navbar-collapse" id="heroesNavBar" >
       <ul class="nav navbar-nav">
-        <li class="active"><a ui-sref="home" href="#">Inicio</a></li>
-        <li><a href="#" download>Convocatoria</a></li>
-        <li><a href="#">Cómo participar?</a></li>
-        <li><a href="#">Auspiciadores</a></li>
+        <li class="active"><a ui-sref="home" onclick="navigate('#hd')" href="#">Inicio</a></li>
+        <li><a href="/app/docs/terms-use.pdf" target="_blank" download>Convocatoria</a></li>
+        <li><a onclick="navigate('#howto')">Cómo participar?</a></li>
+        <li><a onclick="navigate('#sponsors')">Auspiciadores</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a data-target="#login" data-toggle="modal"><span class="glyphicon glyphicon-log-in"></span> Inicia sesión</a></li>
@@ -19,6 +19,7 @@
     </div>
   </div>
 </nav>
+<p style="padding:40px;"></p>
 <div id="login" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -57,6 +58,5 @@
       </div>
     </div>
     </form>
-
   </div>
 </div>

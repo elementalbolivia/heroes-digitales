@@ -16,6 +16,9 @@
 		var setRegProps = setRegProps;
 		var retypePassword = retypePassword;
 		var validateCV = validateCV;
+		var validateDate = validateDate;
+		var validatePhone = validatePhone;
+		var isStudent = isStudent;
 		// Props
 		vm.typeReg = $stateParams.type;
 		vm.typeParams = {};
@@ -36,12 +39,12 @@
 				year: 'Año'
 			},
 			cellphone: '',
-			cityId: 0,
+			cityId: 1,
 			zone: '',
-			genreId: 0,
+			genreId: 1,
 			school: '',
 			email: '',
-			shirtId: 0,
+			shirtId: 1,
 			socialNetwork: '',
 			password: '',
 			retype: '',
@@ -185,7 +188,18 @@
 			return true;
 		};
 		function sendRegistration(){
-			if(!Number.isInteger(Number(vm.dataRegister.cellphone))){
+			vm.isNotRegistered.state = false;
+			if(!validateDate(vm.dataRegister.birthDate.day, vm.dataRegister.birthDate.month, vm.dataRegister.birthDate.year)){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Debe introducir una fecha de nacimiento';
+				return;
+			}
+			if(!isStudent($stateParams.type, vm.dataRegister.birthDate.year)){
+				vm.isNotRegistered.state = true;
+				vm.isNotRegistered.msg = 'Los estudiantes deben tener entre 10 y 18 años';
+				return;
+			}
+			if(!validatePhone(vm.dataRegister.cellphone)){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';
 				return;
@@ -232,6 +246,25 @@
 			}else{
 				vm.isNotRegistered.state = false;
 			}
+			return true;
+		}
+		function validateDate(day, month, year){
+			if(!Number(day) || !Number(month) || !Number(year))
+				return false;
+			return true;
+		}
+		function validatePhone(num){
+			if(!Number.isInteger(Number(num)) ||
+			 		num.length != 8 ||
+					!(num.charAt(0) == '6' || num.charAt(0) == '7'))
+					return false;
+			return true;
+		}
+		function isStudent(type, year){
+			var actYear = new Date().getFullYear();
+			var age = actYear - Number(year);
+			if(type == 'student' && (age < 10 || age > 18))
+				return false;
 			return true;
 		}
 		// Self execution functions
