@@ -189,12 +189,16 @@ class RegisterCtrl extends Controller
     	try{
     		$user = Usuario::find($request->idLeader);
 	    	$file = $request->file('img');
-	    	$img = md5(date('YmdHis'))
-	    				  . md5($request->idLeader)
-	    				  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-		    	Storage::disk('uploads')
-		    			->put('teams/'.$img,
-		    			  file_get_contents($file->getRealPath()));
+				if($file != null){
+					$img = md5(date('YmdHis'))
+		    				  . md5($request->idLeader)
+		    				  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+			    	Storage::disk('uploads')
+			    			->put('teams/'.$img,
+			    			  file_get_contents($file->getRealPath()));
+				}else{
+					$img = 'default-team.jpg';
+				}
 	    	$team = [
 	    		'ciudad_id'		=> $request->cityId,
 	    		'division_id'	=> $request->divisionId,

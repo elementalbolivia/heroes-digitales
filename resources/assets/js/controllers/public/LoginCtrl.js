@@ -1,7 +1,10 @@
 (function(){
 	"use strict";
-	function LoginCtrl($state, $timeout, Auth){
+	angular.module('heroesDigitalesApp')
+    .controller('LoginCtrl', ['$state', '$timeout', '$anchorScroll', '$location', 'Auth', LoginCtrl]);
+	function LoginCtrl($state, $timeout, $anchorScroll, $location, Auth){
 		var vm = this;
+		// Props
 		vm.creds = {
 			email: "",
 			password: ""
@@ -11,9 +14,9 @@
 			msg: "",
 			isLoading: false
 		};
-
+		// Method
 		vm.login = login;
-
+		vm.navigate = navigate;
 		function login(){
 			vm.loginState.isNotLogged = false;
 			vm.loginState.isLoading = true;
@@ -39,7 +42,16 @@
 				vm.loginState.msg = 'Hubo un error al iniciar sesión, revise su conexión a internet e inténtelo nuevamente';
  			});
 		};
+		function navigate(id){
+			if ($location.hash() !== id) {
+        // set the $location.hash to `newHash` and
+        // $anchorScroll will automatically scroll to it
+        $location.hash(id);
+      } else {
+        // call $anchorScroll() explicitly,
+        // since $location.hash hasn't changed
+        $anchorScroll();
+      }
+		}
 	};
-	angular.module("heroesDigitalesApp")
-	.controller("LoginCtrl",["$state", "$timeout", "Auth", LoginCtrl]);
 })();
