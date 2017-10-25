@@ -45,8 +45,23 @@ trait UserTrait{
 								 ['aprobado', '=', 1]])
 						->first();
 			$userData[0]['has_team'] = $mTeam == NULL ? false : true;
-			if($mTeam != null)
+			if($mTeam != null){
 				$userData[0]['team'] = self::teamUserData($mTeam);
+				$invitations = $userData[1]->invitationsSended($mTeam->equipo_id);
+			  foreach ($invitations as $invitation) {
+					$invUser = $invitation->estudiante_id != null ?
+												 Estudiante::find($invitation->estudiante_id)->user :
+												 Mentor::find($invitation->mentor_id)->user ;
+			  	$userData[0]['team']['invitations_sent'][] = [
+																												'id'		=> $invUser->id,
+																												'names'	=> $invUser->nombres,
+																												'lastnames' => $invUser->apellidos,
+																												'type'	=> $invitation->estudiante_id != null ? 'Estudiante' : 'Mentor',
+																												'sent_at'	=> $invitation->fecha_creacion,
+																											];
+			  }
+				$userData[0]['team']['invitations_sent'] = count($userData[0]['team']['invitations_sent']) == 0 ? false : $userData[0]['team']['invitations_sent'];
+			}
 		}else if($userData[0]['role_id'] == 2){
 			$userData[0]['mentor'] = self::mentorData($userData[1]);
 			$userData[0]['has_team'] = isset($userData[0]['mentor']['has_team']) ? $userData[0]['mentor']['has_team'] : false;
