@@ -104,6 +104,7 @@ class Usuario extends Model implements AuthenticatableContract
       return DB::table('invitaciones_equipo')
                   ->where('equipo_id', $teamId)
                   ->where('activo', 1)
+                  ->where('confirmacion', 0)
                   ->get();
     }
 }
