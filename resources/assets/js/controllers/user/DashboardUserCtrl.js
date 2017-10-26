@@ -34,6 +34,7 @@
 		vm.sendInvitationEmail = sendInvitationEmail;
 		vm.clearFields = clearFields;
 		vm.getStages = getStages;
+		vm.cancelInvitation = cancelInvitation;
 		// Methods implementation
 		function getStages(){
 			Stage.getStages().then(function(data){
@@ -221,6 +222,25 @@
 		function clearFields(){
 			vm.emailInvitation.state.success = false;
 			vm.emailInvitation.mail = '';
+		}
+		function cancelInvitation(id){
+			Team.confirmInvitationFromTeam({invitationId: id, accept: false}).then(function(data){
+				if(data.success){
+					var toPop = 0;
+					var invitations =  vm.userData.team.invitations_sent;
+					for (var i = 0; i < invitations.length; i++) {
+						if(invitations[i].invitation_id == id){
+							toPop = i;
+						}
+					}
+					invitations.splice(toPop, 1);
+					LxNotificationService.success('La invitación fue cancelada');
+				}else{
+					LxNotificationService.warning('Hubo un error al cancelar la invitación');
+				}
+			}, function(err){
+				LxNotificationService.error('Hubo un error en el servidor, revise su conexión a internet');
+			});
 		}
 		// Methods self invoking
 		getUserData();

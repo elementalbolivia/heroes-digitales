@@ -54,7 +54,7 @@ trait UserTrait{
 												 Estudiante::find($invitation->estudiante_id)->user :
 												 Mentor::find($invitation->mentor_id)->user ;
 			  	$userData[0]['team']['invitations_sent'][] = [
-																												'id'		=> $invUser->id,
+																												'invitation_id'		=> $invitation->id,
 																												'names'	=> $invUser->nombres,
 																												'lastnames' => $invUser->apellidos,
 																												'type'	=> $invitation->estudiante_id != null ? 'Estudiante' : 'Mentor',

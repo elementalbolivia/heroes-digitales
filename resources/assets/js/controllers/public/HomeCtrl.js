@@ -9,7 +9,6 @@
 		function getStages(){
 			Stage.getStages().then(function(data){
 				if(data.success){
-					console.log(data.stages);
 					vm.stages = data.stages;
 				}else{
 					alert(data.msg);
@@ -27,9 +26,11 @@
       'auspiciadores-06.png',
       'auspiciadores-05.png',
       'auspiciadores-07.png',
-      'auspiciadores-08.png',
+      'auspiciadores-08.jpg',
       'auspiciadores-04.png',
       'auspiciadores-10.png',
+      'auspiciadores-12.png',
+      'auspiciadores-13.jpg',
       'auspiciadores-11.png',
       'auspiciadores-09.png',
     ];

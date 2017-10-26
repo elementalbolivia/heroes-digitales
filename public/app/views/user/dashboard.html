@@ -201,6 +201,8 @@
 				  				<td>{{ invitation.names + ' ' + invitation.lastnames }}</td>
 				  				<td>{{ invitation.sent_at | date:'dd-mm-YYYY' }}</td>
 									<td>{{ invitation.type }}</td>
+									<td>Pendiente</td>
+									<td><button type="button" class="btn btn-warning btn-sm" ng-click="vm.cancelInvitation(invitation.invitation_id)"><i class="fa fa-times"></i></button></td>
 				  			</tr>
 				  		</tbody>
 				  	</table>
