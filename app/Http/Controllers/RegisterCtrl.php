@@ -99,8 +99,9 @@ class RegisterCtrl extends Controller
 	    	// Crear rol de usuario
 	    	$userHasRole = UsuarioTieneRol::create($role);
 	    	if($request->type == 'judge' || $request->type == 'expert'){
+					$res->success = true;
 	    		$res->msg = 'Felicitaciones, su registro fue completado con éxito, revisaremos su solicitud para que pueda formar parte del equipo. Le enviaremos un correo de confirmación';
-				$res->emailSended = 'NOT_SENDED';
+					$res->emailSended = 'NOT_SENDED';
 	    	}else{
 	    		// Crear un token de seguridad para verificar el mail
 		    	$mailToken = md5($request->mail) . md5(date('YmdHis'));
@@ -152,7 +153,7 @@ class RegisterCtrl extends Controller
     		DB::rollBack();
     		return response()->json([
 	    		'success' => false,
-	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente',
+	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente:' . $e->getMessage(,
 		    ]);
     	}
     }

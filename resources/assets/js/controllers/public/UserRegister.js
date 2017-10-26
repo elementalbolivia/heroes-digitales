@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-	.controller('UserRegisterCtrl', ['$stateParams', '$state', 'City', 'Shirt', 'Genre', 'Register', 'LxNotificationService', UserRegisterCtrl]);
+	.controller('UserRegisterCtrl', ['$stateParams', '$state', '$timeout', 'City', 'Shirt', 'Genre', 'Register', 'LxNotificationService', UserRegisterCtrl]);
 
-	function UserRegisterCtrl($stateParams, $state, City, Shirt, Genre, Register, LxNotificationService){
+	function UserRegisterCtrl($stateParams, $state, $timeout, City, Shirt, Genre, Register, LxNotificationService){
 		var vm = this;
 		// Methods
 		vm.getCities = getCities;
@@ -13,6 +13,7 @@
 		vm.generateYears = generateYears;
 		vm.sendRegistration = sendRegistration;
 		vm.validateSocialNetwork = validateSocialNetwork;
+		vm.returnHome = returnHome;
 		var setRegProps = setRegProps;
 		var retypePassword = retypePassword;
 		var validateCV = validateCV;
@@ -214,7 +215,7 @@
 			Register.register(vm.dataRegister).then(function(data){
 				if(data.success){
 					if(data.emailSended == 'NOT_SENDED')
-						LxNotificationService.alert('Felicitaciones', data.msg, 'OK', function(answer){ $state.go('home') });
+						$('#registerSend').modal('show');
 					else
 						$state.go('home.success-register');
 				}else{
@@ -266,6 +267,11 @@
 			if(type == 'student' && (age < 10 || age > 18))
 				return false;
 			return true;
+		}
+		function returnHome(){
+			$timeout(function(){
+				$state.go('home');
+			}, 100);
 		}
 		// Self execution functions
 		setRegProps(vm.typeReg);
