@@ -153,7 +153,7 @@ class RegisterCtrl extends Controller
     		DB::rollBack();
     		return response()->json([
 	    		'success' => false,
-	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente:' . $e->getMessage(,
+	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente:' . $e->getMessage(),
 		    ]);
     	}
     }
