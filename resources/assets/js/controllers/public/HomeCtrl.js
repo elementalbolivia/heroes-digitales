@@ -32,7 +32,6 @@
       'auspiciadores-12.png',
       'auspiciadores-13.jpg',
       'auspiciadores-11.png',
-      'auspiciadores-09.png',
     ];
     vm.getStages();
 

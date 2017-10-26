@@ -39,8 +39,24 @@ body{
 	padding: 10px;
 }
 .row-banner-container{
-	background: url('../images/app-arts/svg/banner-home.svg') no-repeat center;
-  background-size: 100% auto;
+		background: url('../images/app-arts/svg/banner-home.svg') no-repeat center;
+		background-size: 100% auto;
+		background-position: 0px 35%;
+		width: 100%;
+		height: auto;
+}
+.youtube-box{
+	background: #229ed7;
+}
+@media only screen and (min-device-width: 400px) {
+    .row-banner-container {
+			background: url('../images/app-arts/svg/banner-home.svg') no-repeat center;
+		  background-size: 100% auto;
+			background-position: 0px 0px;
+    }
+		.youtube-box{
+			background: #229ed7;
+		}
 }
 .link-field-req:link,
 .link-field-req:visited,
@@ -60,7 +76,7 @@ body{
 	font-size: 20px;
 }
 .img-logo{
-	width: 80%;
+	width: 60%;
 	height: auto;
 	margin: auto;
 }
@@ -82,7 +98,7 @@ body{
 	height: auto;
 }
 .img-sponsor{
-	width: 250px;
+	width: 230px;
 	height: auto;
 	margin-bottom: 40px;
 	margin-top: 40px;
@@ -145,8 +161,7 @@ body{
 }
 .postulation{
 	border: 2px solid #000;
-	margin-bottom: 20px;
-}
+	}
 .sponsor{
 	border-bottom: 1px solid #D3D3D3;
 }
