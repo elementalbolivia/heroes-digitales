@@ -204,6 +204,7 @@
 				vm.emailInvitation.state.isLoading = false;
 				if(data.success){
 					$('#mailStudent').modal('hide');
+					$('#mailMentor').modal('hide');
 					vm.emailInvitation.mail = '';
 					vm.emailInvitation.state.success = false;
 					$('#invitationSend').modal('show');
