@@ -271,7 +271,7 @@
 		function returnHome(){
 			$timeout(function(){
 				$state.go('home');
-			}, 100);
+			}, 1500);
 		}
 		// Self execution functions
 		setRegProps(vm.typeReg);
