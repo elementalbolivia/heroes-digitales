@@ -83,7 +83,7 @@ body, html {
     .row-banner-container {
 			background: url('../images/app-arts/svg/banner-ciudad.png') no-repeat center ;
 			background-color: #229ed7;
-			background-size: 70%;
+			background-size: 100%;
 			background-position: 100% -100px;
 	    height: 100vh;
     }
