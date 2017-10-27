@@ -53,10 +53,8 @@ body, html {
 .row-banner{
 		background: url('../images/app-arts/banner.jpg') no-repeat center;
 		/* The image used */
-
     /* Full height */
     height: 100%;
-
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
@@ -65,9 +63,10 @@ body, html {
 @media only screen and (min-device-width: 400px) {
     .row-banner-container {
 			background: url('../images/app-arts/svg/banner-ciudad.png') no-repeat center ;
-			background-size: 100%;
+			background-color: #229ed7;
+			background-size: 50%;
+			background-position: 98% -30px;
 	    height: 70vh;
-			background-position: 0px 60%;
     }
 		.row-banner{
 			background: url('../images/app-arts/banner.jpg') no-repeat center;
@@ -163,6 +162,7 @@ body, html {
 	background: #CB2228;
 	padding: 35px;
 	border-radius: 10px;
+	min-height: 500px;
 }
 .howto-icon{
 	font-size: 100px;
@@ -172,10 +172,12 @@ body, html {
 	margin-top: 10px;
 	background: #fff;
 }
+.howto-step{
+	font-size: 25px;
+}
 .category{
 	background: #229ED7;
 	color: #FFFFFF;
-	border: 1px solid #000;
 }
 .postulation{
 	border: 2px solid #000;
@@ -223,7 +225,7 @@ body, html {
 }
 .footer{
 	background: #778899;
-	padding-top: 50px;
+	padding-top: 10px;
 	padding-bottom: 50px;
 	color: #ffffff;
 }
@@ -253,6 +255,61 @@ body, html {
   color: #fff;
   background-color: #229ed7;
   border-color: #ddd;
+}
+.division{
+	color: #f1cd33;
+	font-weight: bold;
+	text-shadow: -4px 5px #272425;
+}
+.box-category{
+	border: 8px solid #272425;
+	background: #2293d7;
+	/*background: url('../images/app-arts/svg/banner-web-10.svg') no-repeat center;
+	background-size: 100% auto;
+	background-position: 0px 100%;
+	height: 100vh;*/
+}
+.division-box{
+	background: #272425;
+	padding: 3px;
+	border-radius: 5px;
+	margin: 10px 0px;
+}
+.ages-box{
+	background: #fff;
+	padding: 5px;
+	margin: 5px 0px;
+	font-size: 20px;
+	border: 5px solid #272425;
+	color: #272425;
+	font-family: 'BackIssues';
+}
+.division-price{
+	font-size: 25px;
+	text-shadow: 0px 0px;
+}
+.division-label{
+	font-size: 20px !important;
+	line-height: 20px !important;
+}
+.price{
+	font-size: 70px;
+}
+.wannabe{
+	color: #FFFFFF;
+	background: #CB2228;
+	padding: 35px;
+}
+.category-price{
+	font-size: 15px !important;
+	padding-top: 15px;
+	margin-left: 5px;
+}
+.img-hero{
+	margin-top: 25px;
+}
+.btn-facebook{
+	background: #3b5998;
 }
 
 .timeline {
