@@ -73,13 +73,19 @@ body, html {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+.youtube-embed{
+	border-top: 60px solid #272425;
+	border-bottom: 58px solid #272425;
+	border-left: 25px solid #272425;
+	border-right: 25px solid #272425;
+}
 @media only screen and (min-device-width: 400px) {
     .row-banner-container {
 			background: url('../images/app-arts/svg/banner-ciudad.png') no-repeat center ;
 			background-color: #229ed7;
-			background-size: 50%;
-			background-position: 98% -60px;
-	    height: 70vh;
+			background-size: 70%;
+			background-position: 100% -100px;
+	    height: 100vh;
     }
 		.row-banner{
 			background: url('../images/app-arts/banner.jpg') no-repeat center;
