@@ -27,7 +27,7 @@ body, html {
 }
 .subtitle{
 	font-family: 'BackIssues';
-	text-shadow: 0px 5px #000000;
+	text-shadow: 0px 3px #000000;
 	font-weight: bold;
 	color: #fff;
 	font-size: 35px;
@@ -60,16 +60,31 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.row-faq{
+	background: url('../images/app-arts/faq.jpg') no-repeat center;
+	/* The image used */
+	/* Full height */
+	height: 100%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 @media only screen and (min-device-width: 400px) {
     .row-banner-container {
 			background: url('../images/app-arts/svg/banner-ciudad.png') no-repeat center ;
 			background-color: #229ed7;
 			background-size: 50%;
-			background-position: 98% -30px;
+			background-position: 98% -60px;
 	    height: 70vh;
     }
 		.row-banner{
 			background: url('../images/app-arts/banner.jpg') no-repeat center;
+			background-size: 100%;
+	    height: 100vh;
+		}
+		.row-faq{
+			background: url('../images/app-arts/faq.jpg') no-repeat center;
 			background-size: 100%;
 	    height: 100vh;
 		}
@@ -225,7 +240,6 @@ body, html {
 }
 .footer{
 	background: #778899;
-	padding-top: 10px;
 	padding-bottom: 50px;
 	color: #ffffff;
 }
@@ -263,11 +277,20 @@ body, html {
 }
 .box-category{
 	border: 8px solid #272425;
-	background: #2293d7;
 	/*background: url('../images/app-arts/svg/banner-web-10.svg') no-repeat center;
 	background-size: 100% auto;
 	background-position: 0px 100%;
 	height: 100vh;*/
+}
+.box-category-left{
+	border-bottom: 8px solid #272425;
+	border-left: 8px solid #272425;
+	border-right: 4px solid #272425;
+}
+.box-category-right{
+	border-bottom: 8px solid #272425;
+	border-left: 4px solid #272425;
+	border-right: 8px solid #272425;
 }
 .division-box{
 	background: #272425;
@@ -299,6 +322,7 @@ body, html {
 	color: #FFFFFF;
 	background: #CB2228;
 	padding: 35px;
+	border-top: 2px solid #272425;
 }
 .category-price{
 	font-size: 15px !important;
@@ -308,8 +332,25 @@ body, html {
 .img-hero{
 	margin-top: 25px;
 }
-.btn-facebook{
+.btn-facebook:link,
+.btn-facebook:visited,
+.btn-facebook:hover,
+.btn-facebook:active{
 	background: #3b5998;
+	color: #fff;
+	white-space: normal;
+	font-family: 'MontserratBlack'
+}
+.rules:link,
+.rules:visited,
+.rules:hover,
+.rules:active{
+	color: #2293d7;
+	white-space: normal;
+	font-family: 'Badaboom';
+}
+.step{
+	font-size: 38px !important;
 }
 
 .timeline {
