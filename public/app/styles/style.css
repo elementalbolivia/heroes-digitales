@@ -1,6 +1,198 @@
 body, html {
 		font-family: 'Montserrat';
 }
+/* PHONE SPECIFICS*/
+.title{
+	font-family: 'Badaboom';
+	text-shadow: 0px 4px #000000;
+	font-weight: bold;
+	color: #fff;
+	font-size: 35px;
+}
+.title-white-bg{
+	font-family: 'Badaboom';
+	color: #272425;
+	font-size: 35px;
+}
+.subtitle{
+	font-family: 'BackIssues';
+	text-shadow: 0px 3px #000000;
+	font-weight: bold;
+	color: #fff;
+	font-size: 25px;
+}
+.subtitle-white-bg{
+	font-family: 'BackIssues';
+	color: #272425;
+	font-size: 25px;
+}
+.row-banner-container{
+		background: url('../images/app-arts/svg/banner-web-10.svg') no-repeat center;
+		background-size: 100% auto;
+		background-position: 0px 100%;
+		height: 50%;
+}
+.row-banner{
+		background: url('../images/app-arts/banner.jpg') no-repeat center;
+		/* The image used */
+		/* Full height */
+		height: 100%;
+		/* Center and scale the image nicely */
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+}
+.row-faq{
+	background: url('../images/app-arts/faq.jpg') no-repeat center;
+	/* The image used */
+	/* Full height */
+	height: 100%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.img-logo{
+	width: 85%;
+	height: auto;
+	margin: auto;
+}
+/* LAPTOP SPECIFICS*/
+@media screen
+  and (min-device-width: 1200px)
+  and (max-device-width: 1600px)
+  and (-webkit-min-device-pixel-ratio: 1) {
+		.img-logo{
+			width: 100%;
+			height: auto;
+			margin: auto;
+		}
+    .row-banner-container {
+			background: url('../images/app-arts/ciudad-b.png') no-repeat center ;
+			background-color: #229ed7;
+			background-size: 100%;
+			background-position: 50% 100%;
+	    height: 100%;
+    }
+		.row-banner{
+			background: url('../images/app-arts/banner.jpg') no-repeat center;
+			background-size: 100%;
+	    height: 100vh;
+		}
+		.row-faq{
+			background: url('../images/app-arts/faq.jpg') no-repeat center;
+			background-size: 100%;
+	    height: 100vh;
+		}
+		.title{
+			font-family: 'Badaboom';
+			text-shadow: 0px 4px #000000;
+			font-weight: bold;
+			color: #fff;
+			font-size: 50px;
+		}
+		.title-white-bg{
+			font-family: 'Badaboom';
+			color: #272425;
+			font-size: 50px;
+		}
+		.subtitle{
+			font-family: 'BackIssues';
+			text-shadow: 0px 3px #000000;
+			font-weight: bold;
+			color: #fff;
+			font-size: 35px;
+		}
+		.subtitle-white-bg{
+			font-family: 'BackIssues';
+			color: #272425;
+			font-size: 35px;
+		}
+		.title-world{
+			margin-top:100px;
+		}
+}
+/* TABLET SPECIFICS */
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px)
+  and (-webkit-min-device-pixel-ratio: 1) {
+		.img-logo{
+			width: 100%;
+			height: auto;
+			margin: auto;
+		}
+    .row-banner-container {
+			background: url('../images/app-arts/svg/banner-web-10.svg') no-repeat center ;
+			background-color: #fff;
+			background-size: 50%;
+			background-position: 100% 75%;
+	    height: 50%;
+    }
+		.row-banner{
+			background: url('../images/app-arts/banner.jpg') no-repeat center;
+	    height: 100%;
+			background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+		}
+		.row-faq{
+			background: url('../images/app-arts/faq.jpg') no-repeat center;
+			height: 100%;
+			background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+		}
+		.title{
+			font-family: 'Badaboom';
+			text-shadow: 0px 4px #000000;
+			font-weight: bold;
+			color: #fff;
+			font-size: 35px;
+		}
+		.title-white-bg{
+			font-family: 'Badaboom';
+			color: #272425;
+			font-size: 35px;
+		}
+		.subtitle{
+			font-family: 'BackIssues';
+			text-shadow: 0px 3px #000000;
+			font-weight: bold;
+			color: #fff;
+			font-size: 25px;
+		}
+		.subtitle-white-bg{
+			font-family: 'BackIssues';
+			color: #272425;
+			font-size: 20px;
+		}
+		.subtitle-change{
+			font-family: 'BackIssues';
+			color: #272425;
+			font-size: 10px;
+		}
+		.title-world{
+			font-family: 'Badaboom';
+			font-weight: bold;
+			color: #000;
+			font-size: 25px;
+			margin-top:0px;
+			padding: 0px;
+		}
+		.rules:link,
+		.rules:visited,
+		.rules:hover,
+		.rules:active{
+			color: #fff;
+			white-space: normal;
+			font-family: 'Badaboom';
+			background: #1476a5;
+			margin: 15px 0px;
+			font-size: 20px !important;
+		}
+}
+
 .montserrat{
 	font-family: 'Montserrat';
 }
@@ -16,30 +208,7 @@ body, html {
 .title-world{
 	padding: 50px 0px 0px 30px;
 }
-.title{
-	font-family: 'Badaboom';
-	text-shadow: 0px 4px #000000;
-	font-weight: bold;
-	color: #fff;
-	font-size: 50px;
-}
-.title-white-bg{
-	font-family: 'Badaboom';
-	color: #272425;
-	font-size: 50px;
-}
-.subtitle{
-	font-family: 'BackIssues';
-	text-shadow: 0px 3px #000000;
-	font-weight: bold;
-	color: #fff;
-	font-size: 35px;
-}
-.subtitle-white-bg{
-	font-family: 'BackIssues';
-	color: #272425;
-	font-size: 35px;
-}
+
 .heading{
 	font-family: 'Badaboom';
 	font-weight: bold;
@@ -47,56 +216,11 @@ body, html {
 .row-content{
 	padding: 10px
 }
-.row-banner-container{
-		background: url('../images/app-arts/svg/banner-web-10.svg') no-repeat center;
-		background-size: 100% auto;
-		background-position: 0px 100%;
-		height: 100vh;
-}
-.row-banner{
-		background: url('../images/app-arts/banner.jpg') no-repeat center;
-		/* The image used */
-    /* Full height */
-    height: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.row-faq{
-	background: url('../images/app-arts/faq.jpg') no-repeat center;
-	/* The image used */
-	/* Full height */
-	height: 100%;
-	/* Center and scale the image nicely */
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
 .youtube-embed{
 	border-top: 60px solid #272425;
 	border-bottom: 58px solid #272425;
 	border-left: 25px solid #272425;
 	border-right: 25px solid #272425;
-}
-@media only screen and (min-device-width: 400px) {
-    .row-banner-container {
-			background: url('../images/app-arts/svg/banner-ciudad.png') no-repeat center ;
-			background-color: #229ed7;
-			background-size: 100%;
-			background-position: 100% -180px;
-	    height: 100vh;
-    }
-		.row-banner{
-			background: url('../images/app-arts/banner.jpg') no-repeat center;
-			background-size: 100%;
-	    height: 100vh;
-		}
-		.row-faq{
-			background: url('../images/app-arts/faq.jpg') no-repeat center;
-			background-size: 100%;
-	    height: 100vh;
-		}
 }
 .link-field-req:link,
 .link-field-req:visited,
@@ -114,11 +238,6 @@ body, html {
 }
 .field-required{
 	font-size: 20px;
-}
-.img-logo{
-	width: 100%;
-	height: auto;
-	margin: auto;
 }
 .img-center{
 	margin: 0 auto;
@@ -350,14 +469,28 @@ body, html {
 	white-space: normal;
 	font-family: 'MontserratBlack'
 }
+.login:link,
+.login:visited,
+.login:hover,
+.login:active{
+	color: #f1cd33 !important;
+}
+.login:hover{
+	color: #fff !important;
+}
 .rules:link,
 .rules:visited,
 .rules:hover,
 .rules:active{
-	color: #2293d7;
+	color: #fff;
 	white-space: normal;
 	font-family: 'Badaboom';
+	background: #1476a5;
+	margin: 20px 0px;
 }
 .step{
 	font-size: 38px !important;
+}
+.row-faq-questions{
+	padding:50px;
 }
