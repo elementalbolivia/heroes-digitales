@@ -13,6 +13,9 @@ body, html {
 .title-space{
 	padding: 50px;
 }
+.title-world{
+	padding: 50px 0px 0px 30px;
+}
 .title{
 	font-family: 'Badaboom';
 	text-shadow: 0px 4px #000000;
@@ -135,7 +138,7 @@ body, html {
 	margin-top: 40px;
 }
 .img-organizer{
-	width: 250px;
+	width: 350px;
 	height: auto;
 }
 .register-btn{
