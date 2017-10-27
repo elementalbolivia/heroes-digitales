@@ -110,6 +110,14 @@ angular.module('heroesDigitalesApp', [
 				},
 			}
 		})
+		.state('home.faq',{
+			url: 'preguntas-frecuentes',
+			views: {
+				'content@': {
+					templateUrl: '/app/views/public/faq.html',
+				},
+			}
+		})
 		/**
 		 * EMAIL CONFIRMATION STATE
 		 */
