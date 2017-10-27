@@ -168,7 +168,7 @@ class RegisterCtrl extends Controller
     		$cvName = md5(date('YmdHis'))
     				  . md5($user->id)
     				  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-	    	Storage::disk('docs')
+	    	Storage::disk('uploads')
 	    			->put('curriculums/'.$cvName,
 	    			  file_get_contents($file->getRealPath()));
     		$proffesionalData['cv'] = $cvName;
