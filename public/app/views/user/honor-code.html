@@ -5,11 +5,91 @@
 			<div class="panel-group">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolorem assumenda error eveniet harum quasi similique, earum distinctio quis corrupti iste voluptates placeat magnam. Porro ipsa non alias aspernatur magni. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, reprehenderit laboriosam voluptatibus perspiciatis recusandae consectetur sed corrupti qui dicta temporibus voluptate aliquid culpa architecto nostrum laborum repudiandae quis illo, nihil!</p>
+						<div ng-if="vm.userCreds.role == 1">
+							<p>¡Bienvenido al Concurso Héroes Digitales!</p>
+ 							<br />
+							<p>Eres parte del primer programa de emprendimiento tecnológico organizado por Elemental SRL. y la Fundación IES con el apoyo de auspiciadores.</p>
+							<br />
+							<p>Nuestro objetivo es convertirte en un Héroe Digital que crea soluciones tecnológicas a problemas sociales, si tienes alguna consulta o no dudes en contactarnos.</p>
+							<br />
+							<p>En el transcurso del concurso te enseñaremos los conceptos básicos de programación informática para que puedas desarrollar tu APP. Si estás en la categoría Senior crearás un modelo de negocio al rededor de tu idea. Al terminar tendrás el prototipo de tu Aplicación y presentarás un pitch a un jurado conformado por personalidades notables.</p>
+							<br />
+							<p>Debes comprometerte a:</p>
+							<ul style="margin-left:10px;">
+								<li>Culminar las lecciones de AppInventor en la plataforma de educación en línea.</li>
+								<li>Trabajar en equipo y apoyarlos en las buenas y las malas.</li>
+								<li>Colaborar en las decisiones de tu equipo primando la razón.</li>
+								<li>Promover la equidad en tu equipo, donde varones y mujeres son iguales.</li>
+								<li>No hacer trampa en el desarrollo de la aplicación, es responsabilidad del equipo programar la aplicación.</li>
+								<li>No hacer trampa en la redacción del modelo de negocio (para Seniors).</li>
+							</ul>
 
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolorem assumenda error eveniet harum quasi similique, earum distinctio quis corrupti iste voluptates placeat magnam. Porro ipsa non alias aspernatur magni. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores ducimus, eos cum ratione ex harum quidem, sequi officiis exercitationem qui cumque voluptatum placeat natus doloribus doloremque. Ipsam ratione illum quidem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et delectus dignissimos quibusdam quia distinctio sunt nulla animi. Illo repudiandae voluptatum, distinctio, ex fugiat debitis quae in aspernatur quia porro explicabo? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis animi soluta, rem numquam hic, non suscipit placeat ab repellendus laborum expedita repellat! Ut amet facilis impedit voluptates exercitationem, modi voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius suscipit esse minima, atque reprehenderit earum alias. Maxime, ab aliquid provident praesentium quasi. Quas possimus adipisci delectus repudiandae voluptatum illum tempore.</p>
+							<p>El participante que firma abajo es consciente y se compromete a cumplir el código de honor.</p>
+							<br />
+							<p>Saludos</p>
+						</p>El equipo de Héroes Digitales</p>
+						</div>
+						<div ng-if="vm.userCreds.role_id == 2">
+							<p>Estimado mentor o mentora:</p>
+							<br />
+							<p>¡Bienvenido Héroes Digitales!</p>
+							<br />
 
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolorem assumenda error eveniet harum quasi similique, earum distinctio quis corrupti iste voluptates placeat magnam. Porro ipsa non alias aspernatur magni. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae minima iure, deleniti maxime repellendus! Ad sint inventore, aliquid nobis voluptates magnam, doloribus eveniet. Id in nobis commodi aut dolores illum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas harum officiis omnis, dignissimos iure neque praesentium temporibus rerum aspernatur suscipit a tempore id possimus iste molestiae modi saepe aperiam assumenda!</p>
+							<p>Queremos agradecer su interés por ser parte del Concurso Héroes Digitales, primer programa de emprendimiento tecnológico y concurso para niños, niñas y adolescentes organizado por Elemental SRL una escuela de tecnología y la Fundación IES una organización sin fines de lucro que promueve el emprendimiento en Bolivia.</p>
+							<br />
+
+							<p>En este programa, los niños y niñas aprenderán los conceptos básicos de la programación informática, crearán una idea de negocio de aplicación móvil, probarán la idea, redactarán un plan de negocios (solo en la división sénior), desarrollarán un prototipo y ofrecerán información a los inversores el momento de la final del concurso.</p>
+							<br />
+
+							<p>Nuestro objetivo es inspirar a los participantes a ser emprendedores tecnológicos.</p>
+							<br />
+
+							<p>Héroes Digitales es más que un programa de codificación; es una oportunidad para que los participantes desarrollen una variedad de habilidades profesionales y de vida y se desafíen a sí mismos a trabajar por sus sueños. No será fácil, es por eso que el rol y el apoyo del mentor o mentora es fundamental para el éxito de los participantes.</p>
+							<br />
+
+							<p>Tus tareas y responsabilidades como mentor o mentora son las siguientes:</p>
+							<ul style="margin-left:10px;">
+							<li>El equipo debe completar las lecciones en la plataforma.</li>
+							<li>
+								<ul style="margin-left:10px;">Tener contacto permanente con el equipo para monitorear su avance, cada reunión el equipo debe responder tres preguntas:
+								<li>¿Que hicimos?</li>
+								<li>¿Que estamos haciendo?</li>
+								<li>¿En qué necesitamos ayuda?</li>
+								</ul>
+							</li>
+							<li>Asegurarse y acompañar al equipo asista a las reuniones de seguimiento (checkpoints).</li>
+							<li>
+								<ul style="margin-left:10px;">Revisar las aplicación que el equipo vaya construyendo.
+									<li>Pruebas de calidad.</li>
+									<li>Pruebas de funcionamiento de la aplicación.</li>
+								</ul>
+							</li>
+							<li>Revisar el modelo de negocios (en la división senior).</li>
+							<li>
+								<ul style="margin-left:10px;">Preparar al equipo para la defensa final.
+									<li>Revisar su presentación.</li>
+									<li>Hacer que el equipo ensaye.</li>
+								</ul>
+							</li>
+							</ul>
+							<br />
+							<br />
+
+							<p>El plan de estudios del programa es en línea y acompañaras a tu equipo a los 3 eventos de Checkpoint detallados en el cronograma de la página, para poder recibir retroalimentación por expertos del avance de los chicos y así concluir de manera exitosa el programa.</p>
+							<br />
+
+							<p>Para la defensa final del App y su modelo de negocio contaremos con un panel de jueces donde el equipo presentará en vivo a este grupo de inversores y expertos los cuales definirán a los ganadores de la competencia el premio de 450 dólares por categoría.</p>
+							<br />
+
+							<p>Te agradecemos de antemano por tu compromiso en apoyar y fomentar el interés de niños, niñas y adolescentes en la tecnología y el espíritu empresarial, y nos sentimos  muy honrados en poder trabajar contigo para que los participantes puedan desarrollar nuevas habilidades y confianza para ser héroes digitales en nuestra sociedad.</p>
+							<br />
+
+							<p>Si tiene alguna pregunta en cualquier momento, no dudes en contactarnos a info@heroesdigitales.org</p>
+							<br />
+							<br />
+							<p>Saludos</p>
+							<p>El equipo de Héroes Digitales</p>
+						</div>
 						<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 							<form class="form-horizontal" name="authForm" ng-submit="vm.accept()">
 								<p class="text-center"><strong>Escribe tu nombre</strong></p>
