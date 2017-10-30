@@ -8,6 +8,7 @@ use Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWT\Exception;
 use DB;
+use Carbon\Carbon;
 
 date_default_timezone_set('America/La_Paz');
 
@@ -32,9 +33,10 @@ class LoginCtrl extends Controller
 	    		'correo'	=> $request->email,
 	    		'password'	=> $request->password,
 	    	];
+        $expiration = ['exp' => Carbon::now()->addweek()->timestamp];
 	    	try {
 	            // attempt to verify the credentials and create a token for the user
-	            if (! $token = JWTAuth::attempt($credentials)) {
+	            if (! $token = JWTAuth::attempt($credentials, $expiration)) {
 	                return response()->json(['success' => false, 'msg' => 'Sus datos son incorrectos', 'error' => 'invalid_credentials']);
 	            }
 	        } catch (JWTException $e) {
