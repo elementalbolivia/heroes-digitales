@@ -8,6 +8,7 @@ body, html {
 	font-weight: bold;
 	color: #fff;
 	font-size: 35px;
+	letter-spacing: 2px;
 }
 .title-white-bg{
 	font-family: 'Badaboom';
@@ -329,7 +330,7 @@ body, html {
 	background: #CB2228;
 	padding: 35px;
 	border-radius: 10px;
-	min-height: 500px;
+	min-height: 250px;
 }
 .howto-icon{
 	font-size: 100px;
@@ -340,7 +341,7 @@ body, html {
 	background: #fff;
 }
 .howto-step{
-	font-size: 25px;
+	font-size: 20px;
 }
 .category{
 	background: #229ED7;
@@ -369,6 +370,8 @@ body, html {
 		font-size: 25px;
 		text-align: center;
 		margin-left: 25px;
+		margin-top: 10px;
+		letter-spacing: 1px;
 }
 .navbar-custom .navbar-nav > .active > a {
   color: #f1cd33;
@@ -517,6 +520,13 @@ body, html {
 }
 .row-faq-questions{
 	padding:50px;
+}
+.city-label{
+	background: #cb2228 !important;
+}
+.category-label{
+	background: #f1cd33 !important;
+	color: #272425 !important;
 }
 
 .timeline {
@@ -719,4 +729,9 @@ ul.timeline > li > .timeline-panel {
 @font-face {
   font-family: 'MontserratBlack';
   src: url(../fonts/Montserrat/Montserrat-Black.ttf);
+}
+
+@font-face {
+  font-family: 'Horizon';
+  src: url(../fonts/Horizon.ttf);
 }

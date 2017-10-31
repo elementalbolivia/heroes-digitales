@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<h1 class="text-center">Regístrate como {{ vm.typeParams.title }}</h1>
-			<h2 class="text-center">Todos los campos con <span style="color:red">*</span> son requeridos</h2>
+			<h2 class="text-center" style="font-size:20px;">Todos los campos con <span style="color:red">*</span> son requeridos</h2>
 			<form class="form-horizontal" name="registerForm" ng-submit="vm.sendRegistration()">
 	    		<div class="form-group">
 	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
@@ -137,7 +137,7 @@
 							<p>{{ vm.dataRegister.cv.name }}</p>
 						</div>
 						<div class="col-xs-12 alert alert-info">
-							<strong>El documento que suba debe tener un peso máximo de 5MB y estar en formato PDF</strong>
+							<strong>El documento que suba debe tener un tamaño máximo de 10MB y estar en formato PDF</strong>
 						</div>
 					</div>
 				</div>
