@@ -15,18 +15,6 @@ class ParentsAuthCtrl extends Controller
     public function accept(Request $request){
     	try{
         $user = Usuario::find($request->uid);
-        if(trim($user->correo) == trim($request->email)){
-          return response()->json(
-                ['msg' => 'No puedes poner el mismo correo electrónico que le pertenece a tu usuario, por favor ponga el correo electrónico de su padre/apoderado',
-                'title'  => 'Error en la autorización',
-                 'success' => false]);
-        }
-        if($user->student->responsable != null){
-          return response()->json(
-                ['msg' => 'Tu autorización ya fue enviada, si no lo encuentra revise la casilla de spam o comuníquese con el administrador a info@heroesdigitales.com',
-                'title'  => 'Error en la autorización',
-                 'success' => false]);
-        }
       	$auth = $user->student->responsable()->create([
       		'estudiante_id'	 => $user->student->id,
       		'firma'			 => $request->signature,
