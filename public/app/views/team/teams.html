@@ -1,10 +1,9 @@
 <div class="container-fluid">
 	<div class="row">
-		<h1 class="title-white-bg text-center"> EQUIPOS</h1>
 		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-blue">
 				<div class="panel-heading">
-					<h2 class="subtitle ">Filtros</h2>
+					<h2 class="subtitle text-center">Filtros</h2>
 				</div>
 				<div class="panel-body">
 					<div>
@@ -34,6 +33,8 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-9">
+			<h1 class="title-white-bg text-center"> EQUIPOS</h1>
+
 			<div class="row display-flex">
 				<div class="col-xs-12 col-sm-4" ng-repeat="team in vm.teams | TeamFilter: vm.filters.cities : vm.filters.divisions : vm.filters.categories : vm.filters.teamThat.requestMembers : vm.filters.teamThat.requestMentors">
 					<div class="panel panel-default">
@@ -45,8 +46,8 @@
 							<h4 class="text-center">{{ team.team_name }}</h4>
 							<div style="margin-bottom:10px;">
 								<span class="label label-default">División: {{ team.division.nombre }}</span>
-								<span class="label label-info" ng-if="team.category != null">Categoría: {{ team.category.nombre }}</span>
-								<span class="label label-success">Ciudad: {{ team.city.nombre }}</span>
+								<span class="label label-info category-label" ng-if="team.category != null">Categoría: {{ team.category.nombre }}</span>
+								<span class="label label-success city-label">Ciudad: {{ team.city.nombre }}</span>
 								<span class="label label-primary" ng-if="!team.is_full">Necesita miembros</span>
 								<span class="label label-primary" ng-if="!team.is_full && !team.has_mentor">Necesita mentor</span>
 								<span class="label label-default" ng-if="team.is_full">Equipo lleno</span>

@@ -15,3 +15,8 @@
   font-family: 'MontserratBlack';
   src: url(../fonts/Montserrat/Montserrat-Black.ttf);
 }
+
+@font-face {
+  font-family: 'Horizon';
+  src: url(../fonts/Horizon.ttf);
+}
