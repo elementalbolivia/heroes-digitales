@@ -105,8 +105,14 @@ body, html {
 	background-size: cover;
 }
 .category-desc{
-	margin-top: 250px;
+	margin-top: 270px;
 	padding: 45px;
+	font-weight: bold;
+	font-size: 12px;
+}
+.category-desc-protect{
+	margin-top: 265px;
+	padding: 75px;
 	font-weight: bold;
 	font-size: 12px;
 }
@@ -185,10 +191,41 @@ body, html {
 			font-weight: bold;
 			font-size: 15px;
 		}
+		.category-protection{
+			background: url('../images/app-arts/categorias/1a.png') no-repeat center;
+			height: 110vh;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.category-education{
+			background: url('../images/app-arts/categorias/2b.png') no-repeat center;
+			height: 110vh;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.category-health{
+			background: url('../images/app-arts/categorias/3b.png') no-repeat center;
+			height: 110vh;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
 		.category-desc{
-			margin-top: 300px;
+			margin-top: 260px;
 			padding: 75px;
 			font-weight: bold;
+			font-size: 16px;
+		}
+		.category-desc-protect{
+			margin-top: 280px;
+			padding: 75px;
+			font-weight: bold;
+			font-size: 16px;
 		}
 }
 /* TABLET SPECIFICS */
@@ -279,7 +316,7 @@ body, html {
 		}
 		.category-protection{
 			background: url('../images/app-arts/categorias/1a.png') no-repeat center;
-			height: 50%;
+			height: 110vh;
 			/* Center and scale the image nicely */
 			background-position: center;
 			background-repeat: no-repeat;
@@ -305,6 +342,12 @@ body, html {
 			margin-top: 300px;
 			padding: 75px;
 			font-weight: bold;
+		}
+		.category-desc-protect{
+			margin-top: 280px;
+			padding: 75px;
+			font-weight: bold;
+			font-size: 16px;
 		}
 }
 
