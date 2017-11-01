@@ -53,6 +53,16 @@ body, html {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+.row-dashboard{
+	background: url('../images/app-arts/user/fondo-plataforma.svg') no-repeat center;
+	/* The image used */
+	/* Full height */
+	height: 100%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 .img-logo{
 	width: 85%;
 	height: auto;
@@ -69,6 +79,36 @@ body, html {
 .answer{
 	font-weight: bold;
 	font-size: 12px;
+}
+.category-protection{
+	background: url('../images/app-arts/categorias/1a.png') no-repeat center;
+	height: 110vh;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.category-education{
+	background: url('../images/app-arts/categorias/2b.png') no-repeat center;
+	height: 110vh;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.category-health{
+	background: url('../images/app-arts/categorias/3b.png') no-repeat center;
+	height: 110vh;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.category-desc{
+	margin-top: 285px;
+	padding: 50px;
+	font-weight: bold;
+	font-size: 13px;
 }
 /* LAPTOP SPECIFICS*/
 @media screen
@@ -100,6 +140,15 @@ body, html {
 			background-repeat: no-repeat;
 			background-size: cover;
 		}
+		.row-dashboard{
+			background: url('../images/app-arts/user/fondo-plataforma.svg') no-repeat center;
+			height: 100%;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
 		.title{
 			font-family: 'Badaboom';
 			text-shadow: 0px 4px #000000;
@@ -136,6 +185,11 @@ body, html {
 			font-weight: bold;
 			font-size: 15px;
 		}
+		.category-desc{
+			margin-top: 300px;
+			padding: 75px;
+			font-weight: bold;
+		}
 }
 /* TABLET SPECIFICS */
 @media only screen
@@ -163,6 +217,13 @@ body, html {
 		}
 		.row-faq{
 			background: url('../images/app-arts/faq.jpg') no-repeat center;
+			height: 100%;
+			background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+		}
+		.row-dashboard{
+			background: url('../images/app-arts/user/fondo-plataforma.svg') no-repeat center;
 			height: 100%;
 			background-position: center;
 	    background-repeat: no-repeat;
@@ -215,6 +276,35 @@ body, html {
 			background: #1476a5;
 			margin: 15px 0px;
 			font-size: 20px !important;
+		}
+		.category-protection{
+			background: url('../images/app-arts/categorias/1a.png') no-repeat center;
+			height: 50%;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.category-education{
+			background: url('../images/app-arts/categorias/2b.png') no-repeat center;
+			height: 110vh;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.category-health{
+			background: url('../images/app-arts/categorias/3b.png') no-repeat center;
+			height: 110vh;
+			/* Center and scale the image nicely */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.category-desc{
+			margin-top: 300px;
+			padding: 75px;
+			font-weight: bold;
 		}
 }
 
@@ -369,7 +459,7 @@ body, html {
 		font-weight: bold;
 		font-size: 25px;
 		text-align: center;
-		margin-left: 25px;
+		margin-left: 15px;
 		margin-top: 10px;
 		letter-spacing: 1px;
 }
@@ -482,7 +572,7 @@ body, html {
 .category-price{
 	font-size: 15px !important;
 	padding-top: 15px;
-	margin-left: 5px;
+	margin-left: 12px;
 }
 .img-hero{
 	margin-top: 25px;
@@ -527,4 +617,7 @@ body, html {
 .category-label{
 	background: #f1cd33 !important;
 	color: #272425 !important;
+}
+.user-dashboard-img{
+
 }

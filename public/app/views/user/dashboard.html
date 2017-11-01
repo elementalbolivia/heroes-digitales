@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid row-dashboard">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
 			<div class="panel panel-default">
+				<img src="/app/images/app-arts/user/bienvenido.png" alt="Bienvenido">
 			  <div class="panel-body">
-			  	<h2 class="title-white-bg text-center">BIENVENIDO</h2>
 				<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
 				<ol style="padding:10px;">
 					<!-- Código de honor -->
@@ -48,6 +48,7 @@
 		</div>
 		<div class="col-xs-12 col-sm-6">
 			<div class="panel panel-default">
+				<img src="/app/images/app-arts/user/mi-equipo.png" alt="Mi equipo">
 			  <div class="panel-body" ng-if="!vm.userData.has_team">
 			  	<h2 class="title-white-bg text-center">MI EQUIPO</h2>
 					<p ng-if="!vm.userData.min_fields">Para poder crear o unirte a un equipo, sigue los pasos de la sección a la izquierda <i class="fa fa-arrow-left"></i></p>
@@ -135,8 +136,8 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-6" ng-if="!vm.userData.team.is_full">
 			<div class="panel panel-default">
+				<img src="/app/images/app-arts/user/solicitudes.png" alt="Mi equipo">
 			  <div class="panel-body">
-			  	<h2 class="title-white-bg text-center">SOLICITUDES</h2>
 				<p>En esta sección recibirás información sobre las solicitudes de otros participantes/mentores para ser parte de tu equipo. </p>
 			  	<div class="alert alert-warning" ng-if="!vm.userData.team.requests">
 			  		<strong>No tienes solicitudes</strong>
@@ -186,8 +187,8 @@
 		</div>
 		<div class="col-xs-12 col-sm-6" ng-if="vm.userData.has_team" >
 			<div class="panel panel-default">
+				<img src="/app/images/app-arts/user/invitaciones.png" alt="">
 			  <div class="panel-body">
-			  	<h2 class="title-white-bg text-center">INVITACIONES ENVIADAS</h2>
 				<p>Aquí verás todas las invitaciones que tu equipo a realizado a otros estudiantes/mentores.</p>
 			  	<div ng-if="!vm.userData.team.invitations_sent" class="alert alert-info">
 			  		<p>
@@ -211,7 +212,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" style="background:#fff;">
 		<div class="col-xs-12">
 			<h1 class="text-center title-white-bg">CRONOGRAMA</h1>
 			<ul class="timeline">
