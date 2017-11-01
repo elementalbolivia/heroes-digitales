@@ -18,6 +18,13 @@ class StageCtrl extends Controller
         'end_date' => $stage->fecha_fin,
         'active'  => $stage->activo == 1 ? true : false,
       ];
+      foreach ($stage->hasCheckpoints as $checkpoint) {
+        $stages[] = [
+          'id'	=> $checkpoint->id,
+          'label' => $checkpoint->nombre,
+          'begin_date' => $checkpoint->fecha_evaluacion,
+        ];
+      }
     }
     return response()->json([
       'success' 	=> true,
