@@ -17,8 +17,8 @@
 		vm.newCheckpoint = {
 			name: '',
 			locale: 'es',
-			minDate: new Date(new Date().getFullYear(), new Date().getMonth() - 2, new Date().getDate()),
-			maxDate: new Date(new Date().getFullYear(), new Date().getMonth() + 2, new Date().getDate()),
+			minDate: new Date(new Date().getFullYear(), new Date().getMonth() - 6, new Date().getDate()),
+			maxDate: new Date(new Date().getFullYear(), new Date().getMonth() + 6, new Date().getDate()),
 			evalDate: {
 				id: '_eval',
 				date: new Date(),
