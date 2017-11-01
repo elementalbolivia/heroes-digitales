@@ -5,17 +5,15 @@
 			<div class="panel-group">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolorem assumenda error eveniet harum quasi similique, earum distinctio quis corrupti iste voluptates placeat magnam. Porro ipsa non alias aspernatur magni. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores ducimus, eos cum ratione ex harum quidem, sequi officiis exercitationem qui cumque voluptatum placeat natus doloribus doloremque. Ipsam ratione illum quidem. Lorem ipsum dolor sit amet,
-							 adipisicing elit. Voluptas harum officiis omnis, dignissimos iure neque praesentium temporibus rerum aspernatur suscipit a tempore id possimus iste molestiae modi saepe aperiam assumenda!</p>
 						<div class="col-xs-12 col-sm-6 col-sm-offset-3 text-center">
 							<strong>Escribe el correo electrónico de tu padre/apoderado, para que pueda autorizar tu participación
 							en el concurso Héroes Digitales. <br>
-							Si no tiene un correo electrónico, puedes descargar el siguiente <a href="/app/docs/terms-test.pdf"  target="_blank" download>documento</a>, sacarle una fotografía y enviarlo al número de Whatsapp: 7xxxxxx</strong>
+							Si no tiene un correo electrónico, puedes descargar el siguiente <a href="/app/docs/autorizacion-padres.pdf"  target="_blank" download>documento</a>, sacarle una fotografía y enviarlo al número de Whatsapp: 71566132</strong>
 							<p style="padding:10px;"></p>
 							<form class="form-horizontal" name="authForm" ng-submit="vm.accept()">
 								<p class="text-center"><strong>Nombre del apoderado</strong></p>
 								<input type="text" class="form-control" ng-model="vm.parents.signature" style="margin-bottom:10px;" required>
-								<p class="text-center"><strong>Correo electrónico del apoderado</strong></p>
+								<p class="text-center"><strong>Correo electrónico del padre/apoderado</strong></p>
 								<input type="email" class="form-control" ng-model="vm.parents.email" style="margin-bottom:10px;" required>
 								<button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="authForm.$invalid || vm.sended.isLoading">Enviar autorización al email</button>
 							</form>
