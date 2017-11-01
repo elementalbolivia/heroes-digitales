@@ -39,7 +39,7 @@ class StageCtrl extends Controller
       return response()->json($res);
     }catch(\Exception $e){
       $res->success = false;
-      $res->msg = 'Se produjo un error al crear la etapa, inténtelo nuevamente';
+      $res->msg = 'Se produjo un error al crear la etapa, inténtelo nuevamente: ' . $e->getMessage();
       return response()->json($res);
     }
   }
