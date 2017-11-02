@@ -64,8 +64,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_ADDRESS', 'elementalbolivia@gmail.com'),
-        'name' => env('MAIL_NAME', 'Elemental'),
+        'address' => env('MAIL_ADDRESS', 'info@heroesdigitales.org'),
+        'name' => env('MAIL_NAME', 'HeroesDigitales'),
     ],
 
     /*
