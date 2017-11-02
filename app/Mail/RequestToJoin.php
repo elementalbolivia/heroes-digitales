@@ -31,7 +31,7 @@ class RequestToJoin extends Mailable
      */
     public function build()
     {
-      return $this->from('elementalbolivia@gmail.com')
+      return $this->from('info@heroesdigitales.org')
                   ->subject('Solicitud de ingreso al equipo - Héroes Digitales')
                   ->view('emails.request-to-join');
     }

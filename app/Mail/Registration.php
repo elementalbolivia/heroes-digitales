@@ -36,11 +36,11 @@ class Registration extends Mailable
     public function build()
     {
         if($this->type == 'USER_MENTOR'){
-            return $this->from('elementalbolivia@gmail.com')
+            return $this->from('info@heroesdigitales.org')
                         ->subject('Confirmación de registro - Héroes Digitales')
                         ->view('emails.register-verification');
         }else if($this->type == 'JUDGE_EXPERT'){
-            return $this->from('elementalbolivia@gmail.com')
+            return $this->from('info@heroesdigitales.org')
                         ->subject('Confirmación de aceptación - Héroes Digitales')
                         ->view('emails.judge-expert-verification');
         }

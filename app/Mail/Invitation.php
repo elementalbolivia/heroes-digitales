@@ -33,7 +33,7 @@ class Invitation extends Mailable
      */
     public function build()
     {
-      return $this->from('elementalbolivia@gmail.com')
+      return $this->from('info@heroesdigitales.org')
                   ->subject('Invitación a equipo - Héroes Digitales')
                   ->view('emails.invitation-to-team');
     }

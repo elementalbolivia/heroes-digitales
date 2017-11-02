@@ -33,7 +33,7 @@ class ParentsAuth extends Mailable
      */
     public function build()
     {
-      return $this->from('elementalbolivia@gmail.com')
+      return $this->from('info@heroesdigitales.org')
                   ->subject('Autorización de padre/apoderado - Héroes Digitales')
                   ->view('emails.auth-parents');
     }

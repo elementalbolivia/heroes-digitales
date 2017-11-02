@@ -33,7 +33,7 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->from('elementalbolivia@gmail.com')
+        return $this->from('info@heroesdigitales.org')
                     ->subject('Reestablecer contraseña - Héroes Digitales')
                     ->view('emails.reset-password');
     }
