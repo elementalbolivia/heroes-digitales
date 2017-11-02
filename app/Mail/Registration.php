@@ -37,10 +37,12 @@ class Registration extends Mailable
     {
         if($this->type == 'USER_MENTOR'){
             return $this->from('info@heroesdigitales.org')
+                        ->sender('Héroes Digitales')
                         ->subject('Confirmación de registro - Héroes Digitales')
                         ->view('emails.register-verification');
         }else if($this->type == 'JUDGE_EXPERT'){
             return $this->from('info@heroesdigitales.org')
+                        ->sender('Héroes Digitales')
                         ->subject('Confirmación de aceptación - Héroes Digitales')
                         ->view('emails.judge-expert-verification');
         }
