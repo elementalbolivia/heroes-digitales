@@ -13,6 +13,7 @@
 		vm.getTeamInfo = getTeamInfo;
 		vm.editTeam = editTeam;
 		vm.matchCategoryDesc = matchCategoryDesc
+		vm.chooseCategoryImg = chooseCategoryImg;
 		// Props
 		vm.isSubmited = {
 			state: false,
@@ -117,6 +118,19 @@
 				}
 			}
 			vm.categoryDesc = 'Debe seleccionar una categoría para el equipo';
+		}
+		function chooseCategoryImg(id){
+			var path = '/app/images/app-arts/categorias/';
+			switch (id) {
+				case 1:
+					return path + '1.png';
+				case 2:
+					return path + '3.png';
+				case 3:
+						return path + '2.png';
+				default:
+					return;
+			}
 		}
 		// Methods self invoking
 		getCities();

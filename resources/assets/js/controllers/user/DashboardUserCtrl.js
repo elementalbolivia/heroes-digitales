@@ -11,6 +11,7 @@
 		vm.userData = {};
 		vm.menthors = [];
 		vm.students = [];
+		vm.isUserDataLoaded = false;
 		vm.emailInvitation = {
 			mail: '',
 			teamId: 0,
@@ -51,6 +52,7 @@
 		function getUserData(){
 			User.getInfo(vm.userCreds.id).then(function(data){
 				if(data.success){
+					vm.isUserDataLoaded = true;
 					console.log(data.user)
 					vm.userData = data.user;
 					vm.userData.invitations = angular.equals(data.user.invitations, []) ? false : data.user.invitations;
