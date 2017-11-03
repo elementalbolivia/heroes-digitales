@@ -110,15 +110,15 @@ body, html {
 }
 .category-desc{
 	margin-top: 230px;
-	padding: 45px;
+	padding: 50px;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 10px;
 }
 .category-desc-protect{
 	margin-top: 225px;
 	padding: 75px;
 	font-weight: bold;
-	font-size: 12px;
+	font-size: 10px;
 }
 /* LAPTOP SPECIFICS*/
 @media screen
@@ -220,16 +220,16 @@ body, html {
 			background-size: cover;
 		}
 		.category-desc{
-			margin-top: 260px;
-			padding: 90px;
+			margin-top: 240px;
+			padding: 95px;
 			font-weight: bold;
-			font-size: 16px;
+			font-size: 14px;
 		}
 		.category-desc-protect{
-			margin-top: 280px;
-			padding: 75px;
+			margin-top: 260px;
+			padding: 95px;
 			font-weight: bold;
-			font-size: 16px;
+			font-size: 14px;
 		}
 }
 /* TABLET SPECIFICS */
