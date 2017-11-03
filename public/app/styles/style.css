@@ -104,6 +104,10 @@ body, html {
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+.category-choose{
+	margin-top: 25px ;
+	margin-bottom: 10px;
+}
 .category-desc{
 	margin-top: 230px;
 	padding: 45px;
@@ -661,6 +665,20 @@ body, html {
 	background: #f1cd33 !important;
 	color: #272425 !important;
 }
-.user-dashboard-img{
-
+.img-dashboard-welcome{
+	margin-top: 10px;
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+	width: 70%;
+	height: auto;
+}
+.img-dashboard-user{
+	margin-top: 10px;
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+	width: 50%;
+	height: auto;
+}
+.img-loading{
+	margin: 100px 0px;
 }
