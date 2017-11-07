@@ -65,7 +65,6 @@
 				  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.create-team"> Crear equipo</button>
 				  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.teams"> Únete a un equipo</button>
 				  	</div>
-				  	<p style="padding:85px;"></p>
 				  </div>
 				  <div class="panel-body" ng-if="vm.userData.has_team">
 						<h2 class="text-center title-white-bg"><a ui-sref="user.team-profile({id: vm.userData.team.id})"> {{ vm.userData.team.team_name }}</a></h2>
@@ -220,6 +219,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 		<div class="row" style="background:#fff;">
 			<div class="col-xs-12">
 				<h1 class="text-center title-white-bg">CRONOGRAMA</h1>
@@ -240,7 +240,6 @@
 		    </ul>
 			</div>
 		</div>
-	</div>
 	<div id="deleteTeam" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 	    <!-- Modal content-->
