@@ -59,7 +59,6 @@
 				<div class="panel panel-default">
 					<img src="/app/images/app-arts/user/mi-equipo.png" class="img-dashboard-user" alt="Mi equipo">
 				  <div class="panel-body" ng-if="!vm.userData.has_team">
-				  	<h2 class="title-white-bg text-center">MI EQUIPO</h2>
 						<p ng-if="!vm.userData.min_fields">Para poder crear o unirte a un equipo, sigue los pasos de la sección a la izquierda <i class="fa fa-arrow-left"></i></p>
 						<p ng-if="vm.userData.min_fields">Aún no registraste un equipo. Crea uno! </p>
 						<div class="col-xs-12" ng-if="!vm.userData.has_team">
@@ -171,8 +170,8 @@
 			</div>
 			<div class="col-xs-12 col-sm-6" ng-if="!vm.userData.has_team" >
 				<div class="panel panel-default">
+					<img src="/app/images/app-arts/user/invitaciones.png" class="img-dashboard-user" alt="">
 				  <div class="panel-body">
-				  	<h2 class="title-white-bg text-center">INVITACIONES</h2>
 					<p>Aquí recibirás información sobre las invitaciones para formar parte de un equipo.</p>
 				  	<div ng-if="!vm.userData.invitations" class="alert alert-info">
 				  		<p>
