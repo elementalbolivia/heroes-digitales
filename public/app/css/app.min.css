@@ -682,6 +682,10 @@ body, html {
 .img-loading{
 	margin: 100px 0px;
 }
+.img-aj{
+	width: 150px;
+	height: auto;
+}
 
 .timeline {
 list-style: none;
