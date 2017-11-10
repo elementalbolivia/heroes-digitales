@@ -116,6 +116,9 @@ body, html {
 	font-size: 13px;
 	padding: 10px;
 }
+/*.col-category{
+	min-height: 0px !important;
+}*/
 /* LAPTOP SPECIFICS*/
 @media screen
   and (min-device-width: 1200px)
@@ -222,9 +225,9 @@ body, html {
 			font-size: 15px;
 			padding: 20px;
 		}
-		.col-category{
+		/*.col-category{
 			min-height: 420px !important;
-		}
+		}*/
 }
 /* TABLET SPECIFICS */
 @media only screen
@@ -343,9 +346,9 @@ body, html {
 			font-size: 15px;
 			padding: 20px;
 		}
-		.col-category{
+		/*.col-category{
 			min-height: 420px !important;
-		}
+		}*/
 }
 
 .montserrat{
