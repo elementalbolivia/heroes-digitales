@@ -10,6 +10,7 @@
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
 		vm.students = [];
+		vm.isLoading = true;
 		// Methods
 		vm.getStudents = getStudents;
 		// Methods implementation
@@ -17,6 +18,7 @@
 			Student.getStudents().then(function(data){
 				if(data.success){
 					console.log(data);
+					vm.isLoading = false;
 					vm.students = data.students;
 				}else{
 					alert(data.msg);

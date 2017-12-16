@@ -10,6 +10,7 @@
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
 		vm.teams = [];
+		vm.isLoading = true;
 		// Methods
 		vm.getTeams = getTeams;
 		// Methods implementation
@@ -17,6 +18,7 @@
 			Team.getTeams().then(function(data){
 				if(data.success){
 					console.log(data);
+					vm.isLoading = false;
 					vm.teams = data.teams;
 				}else{
 					alert(data.msg);

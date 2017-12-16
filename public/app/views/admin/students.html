@@ -1,5 +1,10 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" ng-if="vm.isLoading">
+    <div class="col-xs-12">
+      <h1 class="text-center" style="font-size:75px"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
+    </div>
+  </div>
+  <div class="row" ng-if="!vm.isLoading">
     <div class="col-xs-12">
 			<div class="panel-group">
 				<div class="panel panel-default">
@@ -18,8 +23,6 @@
 										<th class="text-center">División</th>
 										<th class="text-center">Ciudad</th>
                     <th class="text-center">Colegio</th>
-                    <th class="text-center">Equipo</th>
-                    <th class="text-center">División</th>
 									</tr>
 								</thead>
 								<tbody>
