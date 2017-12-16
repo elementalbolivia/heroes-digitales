@@ -312,6 +312,33 @@ angular.module('heroesDigitalesApp', [
 				},
 			}
 		})
+		.state('admin.students', {
+			url: '/estudiantes',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/students.html',
+						controller: 'StudentAdminCtrl as vm'
+				},
+			}
+		})
+		.state('admin.mentors', {
+			url: '/mentores',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/mentors.html',
+						controller: 'MentorAdminCtrl as vm'
+				},
+			}
+		})
+		.state('admin.teams', {
+			url: '/equipos',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/teams.html',
+						controller: 'TeamAdminCtrl as vm'
+				},
+			}
+		})
 		.state('admin.stages', {
 			url: '/etapas',
 			views: {
