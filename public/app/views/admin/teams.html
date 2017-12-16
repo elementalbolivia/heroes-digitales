@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3>Equipos</h3>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th class="text-center">Nombre</th>
+										<th class="text-center">Categoría</th>
+										<th class="text-center">División</th>
+										<th class="text-center">Tiene mentor</th>
+										<th class="text-center">Miembros</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="team in vm.teams">
+										<td class="text-center">{{ team.team_name }}</td>
+										<td class="text-center">{{ team.category.nombre }}</td>
+										<td class="text-center">{{ team.division.nombre }}</td>
+										<td class="text-center">{{ team.has_menthor ? 'Sí' : 'No' }}</td>
+                    <td>
+                      <table>
+                        <tr ng-repeat="member in team.members">
+                          <td>{{ member.names + ' ' + member.lastnames }} {{+ member.is_student ? '(Estudiante)' : '(Mentor)'}}</td>
+                        </tr>
+                      </table>
+                    </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+			<div class="panel-group">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3>Mentores</h3>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+                    <th class="text-center">Nombre</th>
+										<th class="text-center">Correo electrónico</th>
+										<th class="text-center">Celular</th>
+										<th class="text-center">Fecha de nacimiento</th>
+										<th class="text-center">Trabajo</th>
+										<th class="text-center">Profesión</th>
+                    <th class="text-center">Lugar de trabajo</th>
+									</tr>
+								</thead>
+                <tbody>
+									<tr ng-repeat="mentor in vm.mentors">
+										<td class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</td>
+										<td class="text-center">{{ mentor.email }}</td>
+										<td class="text-center">{{ mentor.cellphone }}</td>
+										<td class="text-center">{{ mentor.birth_date }}</td>
+										<td class="text-center">{{ mentor.mentor.job }}</td>
+                    <td class="text-center">{{ mentor.mentor.profession }}</td>
+										<td class="text-center">{{ mentor.mentor.work_place }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+</div>
