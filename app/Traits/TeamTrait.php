@@ -52,7 +52,7 @@ trait TeamTrait{
 					'image'			=> $userMember->image != NULL ? $userMember->image->nombre_archivo : NULL,
 				];
 			}
-			if($counterStudents == 4 && $counterMentor == 1)
+			if($counterStudents >= 4 && $counterMentor >= 2)
 				$teamData['is_full'] = true;
 			else
 				$teamData['is_full'] = false;

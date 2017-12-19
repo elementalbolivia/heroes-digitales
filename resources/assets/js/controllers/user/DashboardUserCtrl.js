@@ -160,6 +160,7 @@
 			}
 		};
 		function deleteMembership(memberShipId, invitationId){
+			var invId = invitationId == undefined ? null : invitationId;
 			LxNotificationService.confirm('Eliminar membresía', 'Estas seguro que deseas eliminar la membresía del participante?',
 					{
 							cancel: 'Cancelar',
@@ -167,11 +168,17 @@
 					}, function(answer)
 					{
 						if (answer){
-							Team.deleteMembership(memberShipId, invitationId).then(function(data){
+							Team.deleteMembership(memberShipId, invId).then(function(data){
 								if(data.success){
 									console.log(data);
-										LxNotificationService.success('El miembro fue eliminado');
-										vm.getUserData();
+									for (var i = 0; i < userData.team.members.length; i++) {
+										if(userData.team.members[i].membership_id == memberShipId){
+											userData.team.members.slice(i, 1);
+											return;
+										}
+									}
+									LxNotificationService.success('El miembro fue eliminado');
+									// getUserData();
 								}else{
 									LxNotificationService.warning(data.msg);
 								}

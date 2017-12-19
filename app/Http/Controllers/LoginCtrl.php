@@ -80,13 +80,12 @@ class LoginCtrl extends Controller
             // Estudiante
             if($user->student->member != NULL){
                 $team = DB::table('estudiante_mentor_tiene_equipo')
-                                ->select('equipo_id')
                                 ->where([['estudiante_id', '=', $user->student->id],
                                          ['aprobado', '=', 1]])
                                 ->first();
                 $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
                 $temp['has_team'] = $team != NULL ? true : false;
-                $temp['is_leader'] = ($user->student->member->lider_equipo == 1) ? true : false;
+                $temp['is_leader'] = ($team->lider_equipo == 1) ? true : false;
             }else{
                 $temp['has_team'] = NULL;
                 $temp['team_id'] = NULL;
@@ -104,7 +103,7 @@ class LoginCtrl extends Controller
                                 ->first();
                 $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
                 $temp['has_team'] = $team != NULL ? true : false;
-                $temp['is_leader'] = ($user->mentor->member->lider_equipo == 1) ? true : false;
+                $temp['is_leader'] = ($team->lider_equipo == 1) ? true : false;
             }else{
                 $temp['has_team'] = NULL;
                 $temp['team_id'] = NULL;
