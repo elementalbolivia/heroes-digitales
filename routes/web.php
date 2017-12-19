@@ -134,6 +134,10 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'TeamCtrl@getTeam',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::delete('team/{id}', [
+		'uses'	=> 'TeamCtrl@deleteTeam',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::get('team/member/invitation/{teamid}/{uid}/{role}', [
 		'uses'	=> 'TeamCtrl@hasRequestSentTo',
 		'middleware'	=> 'jwt.auth'

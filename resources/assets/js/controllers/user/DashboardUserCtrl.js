@@ -171,14 +171,13 @@
 							Team.deleteMembership(memberShipId, invId).then(function(data){
 								if(data.success){
 									console.log(data);
-									for (var i = 0; i < userData.team.members.length; i++) {
-										if(userData.team.members[i].membership_id == memberShipId){
+									for (var i = 0; i < vm.userData.team.members.length; i++) {
+										if(vm.userData.team.members[i].membership_id == memberShipId){
 											userData.team.members.slice(i, 1);
+											LxNotificationService.success('El miembro fue eliminado');
 											return;
 										}
 									}
-									LxNotificationService.success('El miembro fue eliminado');
-									// getUserData();
 								}else{
 									LxNotificationService.warning(data.msg);
 								}
