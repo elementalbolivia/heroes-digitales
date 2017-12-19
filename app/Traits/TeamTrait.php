@@ -81,21 +81,35 @@ trait TeamTrait{
 		];
 		if($role == 1){
 			$toJoin['estudiante_id'] = $user->student->id;
+			$id = $user->student->id;
+			$field = 'estudiante_id';
 		}else if($role == 2){
 			$toJoin['mentor_id'] = $user->mentor->id;
+			$id = $user->mentor->id;
+			$field = 'mentor_id';
 		}
-		EstudianteMentorTieneEquipo::create($toJoin);
-		foreach (Equipo::find($idTeam)->members as $member) {
-			if($member->lider_equipo == 1){
-				$isStudent = $member->estudiante_id != NULL ? true : false;
-				if($isStudent){
-					$leader = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
-				}else{
-					$leader = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
+		$isSent = DB::table('estudiante_mentor_tiene_equipo')
+						->where($field, '=', $id)
+						->where('equipo_id', '=', $idTeam)
+						->where('activo', '=', 1)
+						->get();
+		if($isSent != null){
+			EstudianteMentorTieneEquipo::create($toJoin);
+			foreach (Equipo::find($idTeam)->members as $member) {
+				if($member->lider_equipo == 1){
+					$isStudent = $member->estudiante_id != NULL ? true : false;
+					if($isStudent){
+						$leader = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
+					}else{
+						$leader = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
+					}
+					EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
 				}
-				EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
 			}
+			return true;
+		}else{
+			return false;
 		}
-		return true;
+
 	}
 }
