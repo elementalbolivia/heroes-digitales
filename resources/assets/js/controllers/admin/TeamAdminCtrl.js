@@ -15,7 +15,7 @@
 		vm.getTeams = getTeams;
 		// Methods implementation
 		function getTeams(){
-			Team.getTeams().then(function(data){
+			Team.getTeamsAdmin().then(function(data){
 				if(data.success){
 					console.log(data);
 					vm.isLoading = false;

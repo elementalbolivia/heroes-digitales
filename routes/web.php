@@ -126,6 +126,10 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'TeamCtrl@index',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::get('team-admin', [
+		'uses'	=> 'TeamCtrl@indexAdmin',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::get('team/{id}', [
 		'uses'	=> 'TeamCtrl@getTeam',
 		'middleware'	=> 'jwt.auth'
