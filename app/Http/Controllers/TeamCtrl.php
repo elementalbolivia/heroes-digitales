@@ -285,4 +285,30 @@ class TeamCtrl extends Controller
             return response()->json($res);
         }
     }
+
+		public function deleteTeam($idTeam){
+			$res = (object) null;
+			DB::beginTransaction();
+			try{
+				$team = Equipo::find($idTeam);
+				$team->activo = false;
+				$team->save();
+				DB::table('estudiante_mentor_tiene_equipo')
+						->where('equipo_id', '=', $idTeam)
+						->update(['activo' => 0, 'aprobado' => 0]);
+				DB::table('invitaciones_equipo')
+						->where('equipo_id', '=', $idTeam)
+						->update(['activo' => 0, 'confirmacion' => 0]);
+				$res->success = true;
+				$res->msg = 'Equipo eliminado con exito';
+				DB::commit();
+				return response()->json($res);
+			}catch(\Exception $e){
+				DB::rollBack();
+				$res->success = false;
+				$res->msg = 'Hubo un error al borrar al equipo';
+				$res->err = $e->getMessage();
+				return response()->json($res);
+			}
+		}
 }

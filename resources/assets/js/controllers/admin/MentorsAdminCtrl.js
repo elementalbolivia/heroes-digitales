@@ -24,9 +24,10 @@
 					alert(data.msg);
 				}
 			}, function(err){
-
+				alert('Hubo un error al obtener a los mentores');
 			});
 		};
+
 		// Methods self invoking
 		vm.getMentors();
 	};

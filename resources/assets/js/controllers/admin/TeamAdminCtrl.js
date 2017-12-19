@@ -13,6 +13,7 @@
 		vm.isLoading = true;
 		// Methods
 		vm.getTeams = getTeams;
+		vm.deleteTeam = deleteTeam;
 		// Methods implementation
 		function getTeams(){
 			Team.getTeamsAdmin().then(function(data){
@@ -21,12 +22,31 @@
 					vm.isLoading = false;
 					vm.teams = data.teams;
 				}else{
-					alert(data.msg);
+					LxNotificationService.warn(data.msg);
 				}
 			}, function(err){
-
+				LxNotificationService.error(err);
 			});
 		};
+		function deleteTeam(teamId){
+			console.log(teamId);
+			Team.deleteTeam(teamId).then(function(data){
+				if(data.success){
+					for (var i = 0; i < vm.teams.length; i++) {
+						if(vm.teams[i].id == teamId){
+							vm.teams.splice(i, 1);
+							console.log(i, 'Eliminado');
+							LxNotificationService.success(data.msg);
+							return;
+						}
+					}
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(err){
+				LxNotificationService.error(err);
+			});
+		}
 		// Methods self invoking
 		vm.getTeams();
 	};

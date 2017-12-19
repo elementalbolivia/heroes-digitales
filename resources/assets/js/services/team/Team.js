@@ -120,7 +120,17 @@
 					return response.data;
 				});
 				return promise;
-			}
+			},
+			deleteTeam: function(teamId){
+				var promise = $http({
+					method: 'DELETE',
+					url: AUTH_URL + 'team/' + teamId,
+					params: {token: Auth.getSession().token },
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 		};
 	};
 })();
