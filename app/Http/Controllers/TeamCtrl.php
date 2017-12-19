@@ -114,7 +114,7 @@ class TeamCtrl extends Controller
 		public function deleteMembership($mid, $invid){
         $res = (object) null;
         try{
-						if($invid != null){
+						if($invid !== 'null'){
 							$invitation = InvitacionesEquipo::find($invid);
 							$invitation->activo = false;
 							$invitation->save();
@@ -128,6 +128,8 @@ class TeamCtrl extends Controller
         }catch(\Exception $e){
             $res->success = false;
             $res->msg = 'Hubo un error, inténtelo nuevamente';
+						// $res->err = $e->getMessage();
+						return response()->json($res);
         }
     }
     public function requestJoin(Request $request){
@@ -144,6 +146,7 @@ class TeamCtrl extends Controller
             return response()->json($res);
         }catch(\Exception $e){
             $res->msg = 'Hubo un error al realizar la solicitud, inténtelo nuevamente';
+						$res->err = $e->getMessage();
             $res->success = false;
             return response()->json($res);
         }
