@@ -21,7 +21,7 @@ class TeamCtrl extends Controller
     	$teams = [];
     	$res = (object) null;
     	try{
-	    	foreach (Equipo::all() as $team) {
+	    	foreach (Equipo::where('activo', '=', 1)->get() as $team) {
 	    		$teams[] = TeamTrait::teamInfo($team->id);
 	       	}
 	       	$res->success = true;
