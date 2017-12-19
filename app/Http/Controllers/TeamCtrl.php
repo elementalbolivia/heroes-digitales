@@ -33,6 +33,23 @@ class TeamCtrl extends Controller
     		return response()->json($res);
     	}
     }
+		public function indexAdmin(){
+    	$teams = [];
+    	$res = (object) null;
+    	try{
+	    	foreach (Equipo::where('activo', '=', 1)->get() as $team) {
+	    		$teams[] = TeamTrait::teamInfoAdmin($team->id);
+	       	}
+	       	$res->success = true;
+	       	$res->teams = $teams;
+    		return response()->json($res);
+    	}catch(\Exception $e){
+				$res->err = $e->getMessage();
+    		$res->success = false;
+    		$res->msg = 'Hubo un error al cargar los equipos, inténtelo nuevamente';
+    		return response()->json($res);
+    	}
+    }
     public function getTeam($id){
     	$res = (object) null;
     	try{

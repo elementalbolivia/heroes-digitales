@@ -20,7 +20,9 @@
 										<th class="text-center">Categoría</th>
 										<th class="text-center">División</th>
 										<th class="text-center">Tiene mentor</th>
-										<th class="text-center">Miembros</th>
+                    <th class="text-center">Mentor</th>
+										<th class="text-center">Estudiantes</th>
+                    <th class="text-center">Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -31,11 +33,19 @@
 										<td class="text-center">{{ team.has_mentor ? 'Sí' : 'No' }}</td>
                     <td>
                       <table>
-                        <tr ng-repeat="member in team.members">
-                          <td>{{ member.names + ' ' + member.lastnames }} {{+ member.is_student ? '(Estudiante)' : '(Mentor)'}}</td>
+                        <tr ng-repeat="member in team.members.mentors">
+                          <td>{{ member.names + ' ' + member.lastnames }}</td>
                         </tr>
                       </table>
                     </td>
+                    <td>
+                      <table>
+                        <tr ng-repeat="member in team.members.students">
+                          <td>{{ member.names + ' ' + member.lastnames }}</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td><button class="btn btn-danger btn-sm" ><i class="fa fa-times"></i></button></td>
 									</tr>
 								</tbody>
 							</table>

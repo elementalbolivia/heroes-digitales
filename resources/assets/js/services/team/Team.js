@@ -25,6 +25,16 @@
 				});
 				return promise;
 			},
+			getTeamsAdmin: function(){
+				var promise = $http({
+					method: 'GET',
+					url: AUTH_URL + 'team-admin',
+					params: {token: Auth.getSession().token },
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 			getTeam: function(id){
 				var promise = $http({
 					method: 'GET',
