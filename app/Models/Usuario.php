@@ -27,7 +27,7 @@ class Usuario extends Model implements AuthenticatableContract
         return UsuarioTieneRol::where('usuario_id', $id)->first();
     }
     public function resetPassword(){
-    	return $this->hasOne('App\Models\ReestablecerPassword', 'usuario_id');
+    	return $this->hasMany('App\Models\ReestablecerPassword', 'usuario_id');
     }
     public function image(){
     	return $this->hasOne('App\Models\Imagen', 'usuario_id');
@@ -36,7 +36,7 @@ class Usuario extends Model implements AuthenticatableContract
     	return $this->hasOne('App\Models\Biografia', 'usuario_id');
     }
     public function emailConfirmation(){
-        return $this->hasMany('App\Models\ConfirmacionEmail', 'usuario_id');
+        return $this->hasOne('App\Models\ConfirmacionEmail', 'usuario_id');
     }
     public function student(){
         return $this->hasOne('App\Models\Estudiante', 'usuario_id');

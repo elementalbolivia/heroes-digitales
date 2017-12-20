@@ -40,7 +40,7 @@ class ResetPasswordCtrl extends Controller
         if($user){
 					foreach ($user->resetPassword as $reset) {
 						if($reset->token == $request->token){
-                if($now >= $user->resetPassword->fecha_inicio AND $now <= $user->resetPassword->fecha_fin ){
+                if($now >= $reset->fecha_inicio AND $now <= $reset->fecha_fin ){
                     $user->password = Hash::make($request->password);
                     $user->save();
                     $res->success = true;

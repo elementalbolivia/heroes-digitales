@@ -36,7 +36,7 @@
 				}else{
 					vm.isSubmited.isLoading = false;
 					vm.isSubmited.msg = data.msg;
-					vm.isSubmited.state = true;
+					vm.isSubmited.state = false;
 				}
 			}, function(err){
 				vm.isSubmited.isLoading = false;
