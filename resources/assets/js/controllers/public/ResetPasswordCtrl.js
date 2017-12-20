@@ -23,9 +23,9 @@
 		var checkPassword = checkPassword;
 		// Methods implementation
 		function resetPassword(){
-			vm.isSubmited.state = true;
+			vm.isSubmited.state = false;
 			if(!checkPassword(vm.passwordParams.password, vm.passwordParams.retype)){
-				vm.isSubmited.state = false;
+				vm.isSubmited.state = true;
 				vm.isSubmited.msg = 'Las contraseñas no coinciden';
 				return;
 			}
@@ -36,12 +36,12 @@
 				}else{
 					vm.isSubmited.isLoading = false;
 					vm.isSubmited.msg = data.msg;
-					vm.isSubmited.state = false;
+					vm.isSubmited.state = true;
 				}
 			}, function(err){
 				vm.isSubmited.isLoading = false;
 				vm.isSubmited.msg = 'Hubo un error en el servidor, inténtelo nuevamente';
-				vm.isSubmited.state = false;
+				vm.isSubmited.state = true;
 			});
 		};
 		function checkPassword(password, retype){
