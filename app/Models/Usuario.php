@@ -36,7 +36,7 @@ class Usuario extends Model implements AuthenticatableContract
     	return $this->hasOne('App\Models\Biografia', 'usuario_id');
     }
     public function emailConfirmation(){
-        return $this->hasOne('App\Models\ConfirmacionEmail', 'usuario_id');
+        return $this->hasMany('App\Models\ConfirmacionEmail', 'usuario_id');
     }
     public function student(){
         return $this->hasOne('App\Models\Estudiante', 'usuario_id');

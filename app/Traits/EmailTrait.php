@@ -21,7 +21,14 @@ trait EmailTrait{
 			'fecha_inicio'	=> $now,
 			'fecha_fin'		=> date('Y-m-d H:i:s', strtotime($now . ' + 3 days')),
 		];
-		$user->resetPassword()->create($emailConf);
+		if($user->resetPassword != null){
+			$user->resetPassword->token = $emailConf['token'];
+			$user->resetPassword->fecha_inicio = $emailConf['fecha_inicio'];
+			$user->resetPassword->fecha_fin = $emailConf['fecha_fin'];
+			$user->resetPassword->save();
+		}else{
+			$user->resetPassword()->create($emailConf);			
+		}
 		$resetUrl =  config('constants.STATE.LOCAL_URL') . 'reestablecer-contraseña/' . $user->id .'/'. $emailConf['token'];
 		Mail::to($email)
 	    			->send(new ResetPassword($user->nombres, $user->apellidos, $resetUrl));

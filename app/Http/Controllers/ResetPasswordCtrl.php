@@ -38,7 +38,8 @@ class ResetPasswordCtrl extends Controller
         $res = (object) null;
         $now = date('Y-m-d H:i:s');
         if($user){
-            if($user->resetPassword->token == $request->token){
+					foreach ($user->resetPassword as $reset) {
+						if($reset->token == $request->token){
                 if($now >= $user->resetPassword->fecha_inicio AND $now <= $user->resetPassword->fecha_fin ){
                     $user->password = Hash::make($request->password);
                     $user->save();
@@ -49,8 +50,9 @@ class ResetPasswordCtrl extends Controller
                 }
             }else{
                 $res->success = false;
-                $res->msg = 'Su token no es correcto';
+                $res->msg = 'Su token no es correcto, por favor solicite una nueva';
             }
+					}
         }else{
             $res->success = false;
             $res->msg = 'El usuario no existe';
