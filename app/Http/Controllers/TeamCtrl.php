@@ -10,14 +10,12 @@ use App\Models\InvitacionesEquipo;
 use App\Models\Usuario;
 use App\Models\Mentor;
 use App\Models\Estudiante;
-use App\Traits\UserTrait;
 use DB;
 use Storage;
 
 class TeamCtrl extends Controller
 {
 		use TeamTrait;
-		use UserTrait;
     public function index(){
     	$teams = [];
     	$res = (object) null;

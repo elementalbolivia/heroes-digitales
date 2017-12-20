@@ -9,12 +9,14 @@ use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
 use App\Traits\EmailTrait;
+use App\Traits\UserTrait;
 use DB;
 
 date_default_timezone_set('America/La_Paz');
 
 trait TeamTrait{
 	use EmailTrait;
+	use UserTrait;
 	public static function teamInfo($id){
 		$teamData = [];
 		$counterStudents = 0;
@@ -86,6 +88,8 @@ trait TeamTrait{
 					$teamData['members']['students'][] = [
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
+						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
+						'division'	=> UserTrait::division($userMember),
 						'user_id'		=> $userMember->id,
 						'is_student'	=> $isStudent,
 						'is_leader'		=> $member->lider_equipo == 1 ? true : false,
@@ -100,6 +104,7 @@ trait TeamTrait{
 					$teamData['members']['mentors'][] = [
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
+						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
 						'user_id'		=> $userMember->id,
 						'is_student'	=> $isStudent,
 						'is_leader'		=> $member->lider_equipo == 1 ? true : false,
