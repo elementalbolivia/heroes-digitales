@@ -19,7 +19,7 @@ class UserCtrl extends Controller
     public function updateImg(Request $request, $id){
     	$res = (object) null;
 			try{
-				UserTrait::updateImg(new Storage(), $request, $id);
+				UserTrait::updateUserImg(new Storage(), $request, $id);
 				$res->success = true;
 			}catch(\Exception $e){
 				$res->success = false;

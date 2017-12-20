@@ -10,13 +10,14 @@ use App\Models\InvitacionesEquipo;
 use App\Models\Usuario;
 use App\Models\Mentor;
 use App\Models\Estudiante;
+use App\Traits\UserTrait;
 use DB;
-
 use Storage;
 
 class TeamCtrl extends Controller
 {
-	use TeamTrait;
+		use TeamTrait;
+		use UserTrait;
     public function index(){
     	$teams = [];
     	$res = (object) null;
@@ -153,13 +154,21 @@ class TeamCtrl extends Controller
         // Verificar que el estudiante no pertenece a ningun otro equipo ya
         $res  = (object) null;
         try{
-            if(TeamTrait::requestJoinTeam($request->idUser, $request->idTeam, $request->role)){
-                $res->msg = 'Tu solicitud fue enviada con exito';
-                $res->success = true;
-            }else{
-                $res->msg = 'Ya enviaste una solicitud al equipo, revisa tu correo electrónico por una respuesta';
-                $res->success = false;
-            }
+						// Verificar edad del usuario en base a la division del equipo
+						// si es que estos concuerdan
+						$verify = UserTrait::verifyAge($request->idUser, $request->idTeam, 'JOIN');
+						if($verify['success']){
+							if(TeamTrait::requestJoinTeam($request->idUser, $request->idTeam, $request->role)){
+	                $res->msg = 'Tu solicitud fue enviada con exito';
+	                $res->success = true;
+	            }else{
+	                $res->msg = 'Ya enviaste una solicitud al equipo, revisa tu correo electrónico por una respuesta';
+	                $res->success = false;
+	            }
+						}else{
+							$res->success = $verify['success'];
+							$res->msg = $verify['msg'];
+						}
             return response()->json($res);
         }catch(\Exception $e){
             $res->msg = 'Hubo un error al realizar la solicitud, inténtelo nuevamente';
@@ -172,22 +181,29 @@ class TeamCtrl extends Controller
         $res = (object) null;
         $user = Usuario::find($request->uid);
         try{
-            $invitation = [
-                'equipo_id'     => $request->teamId,
-                'mentor_id'     => NULL,
-                'estudiante_id' => NULL,
-								'token'					=> md5(date('YmdHis')) . md5($request->teamId),
-            ];
-            if($request->role == 1)
-                $invitation['estudiante_id'] = $user->student->id;
-            else
-                $invitation['mentor_id'] = $user->mentor->id;
-            InvitacionesEquipo::create($invitation);
-            $res->success = true;
+						$verify = UserTrait::verifyAge($request->uid, $request->teamId, 'INVITATION');
+						if($verify['success']){
+							$invitation = [
+	                'equipo_id'     => $request->teamId,
+	                'mentor_id'     => NULL,
+	                'estudiante_id' => NULL,
+									'token'					=> md5(date('YmdHis')) . md5($request->teamId),
+	            ];
+	            if($request->role == 1)
+	                $invitation['estudiante_id'] = $user->student->id;
+	            else
+	                $invitation['mentor_id'] = $user->mentor->id;
+	            InvitacionesEquipo::create($invitation);
+							$res->success = true;
+						}else{
+							$res->success = $verify['success'];
+							$res->msg = $verify['msg'];
+						}
             return response()->json($res);
         }catch(\Exception $e){
             $res->success = false;
-            $res->msg = 'Hubo un error al enviar la invitación: ' . $e->getMessage();
+						$res->err = $e->getMessage();
+            $res->msg = 'Hubo un error al enviar la invitación';
             return response()->json($res);
         }
     }

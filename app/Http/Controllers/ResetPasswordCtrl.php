@@ -44,9 +44,11 @@ class ResetPasswordCtrl extends Controller
                     $user->password = Hash::make($request->password);
                     $user->save();
                     $res->success = true;
+										break;
                 }else{
                     $res->success = false;
                     $res->msg = 'Credenciales expirados, por favor solicite un nuevo cambio de contraseña';
+										break;
                 }
             }else{
                 $res->success = false;
