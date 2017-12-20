@@ -76,14 +76,14 @@ class LoginCtrl extends Controller
         $temp['min_fields'] = ($user->image != NULL)
                                 && ($user->biography != NULL)
                                 && ($user->terminos_uso != NULL) ? true : false;
-        $id = $roleId == 1 ? $user->student->id : $user->mentor->id;
-        $field = $roleId == 1 ? 'estudiante_id' : 'mentor_id';
-        $team = DB::table('estudiante_mentor_tiene_equipo')
-                  ->where([[$field, '=', $id],
-                           ['aprobado', '=', 1]])
-                  ->first();
         if($roleId == 1 || $roleId == 2){
             // Mentor o estudiante
+            $id = $roleId == 1 ? $user->student->id : $user->mentor->id;
+            $field = $roleId == 1 ? 'estudiante_id' : 'mentor_id';
+            $team = DB::table('estudiante_mentor_tiene_equipo')
+                      ->where([[$field, '=', $id],
+                               ['aprobado', '=', 1]])
+                      ->first();
             if($team != NULL){
                 $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
                 $temp['has_team'] = $team != NULL ? true : false;
