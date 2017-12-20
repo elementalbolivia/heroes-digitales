@@ -20,7 +20,8 @@
 										<th class="text-center">Correo electrónico</th>
 										<th class="text-center">Celular</th>
 										<th class="text-center">Fecha de nacimiento</th>
-										<th class="text-center">División</th>
+                    <th class="text-center">División</th>
+										<th class="text-center">Género</th>
 										<th class="text-center">Ciudad</th>
                     <th class="text-center">Colegio</th>
 									</tr>
@@ -31,7 +32,8 @@
 										<td class="text-center">{{ student.email }}</td>
 										<td class="text-center">{{ student.cellphone }}</td>
 										<td class="text-center">{{ student.birth_date }}</td>
-										<td class="text-center">{{ student.cellphone }}</td>
+                    <td class="text-center">{{ student.student.division }}</td>
+										<td class="text-center">{{ student.gender }}</td>
                     <td class="text-center">{{ student.city.nombre }}</td>
 										<td class="text-center">{{ student.student.school }}</td>
 									</tr>
