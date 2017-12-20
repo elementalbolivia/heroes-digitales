@@ -34,14 +34,14 @@
                     <td>
                       <table>
                         <tr ng-repeat="member in team.members.mentors">
-                          <td>{{ member.names + ' ' + member.lastnames }}</td>
+                          <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
                         </tr>
                       </table>
                     </td>
                     <td>
                       <table>
                         <tr ng-repeat="member in team.members.students">
-                          <td>{{ member.names + ' ' + member.lastnames }}</td>
+                          <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
                         </tr>
                       </table>
                     </td>

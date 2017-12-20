@@ -374,4 +374,13 @@ trait UserTrait{
 	private static function isStudent($user){
 		return $user->student != null;
 	}
+	public static function division($user){
+		if(!self::isStudent($user))
+			return null;
+		$birth = $user->fecha_nacimiento;
+		if($birth >= '2003-08-01' && $birth <= '2008-08-01')
+			return 'Junior';
+		else if($birth >= '1999-08-01' && $birth < '2003-08-01')
+			return 'Senior';
+	}
 }
