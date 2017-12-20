@@ -76,13 +76,15 @@ class LoginCtrl extends Controller
         $temp['min_fields'] = ($user->image != NULL)
                                 && ($user->biography != NULL)
                                 && ($user->terminos_uso != NULL) ? true : false;
-        if($roleId == 1){
-            // Estudiante
-            if($user->student->member != NULL){
-                $team = DB::table('estudiante_mentor_tiene_equipo')
-                                ->where([['estudiante_id', '=', $user->student->id],
-                                         ['aprobado', '=', 1]])
-                                ->first();
+        $id = $roleId == 1 ? $user->student->id : $user->mentor->id;
+        $field = $roleId == 1 ? 'estudiante_id' : 'mentor_id';
+        $team = DB::table('estudiante_mentor_tiene_equipo')
+                  ->where([[$field, '=', $id],
+                           ['aprobado', '=', 1]])
+                  ->first();
+        if($roleId == 1 || $roleId == 2){
+            // Mentor o estudiante
+            if($team != NULL){
                 $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
                 $temp['has_team'] = $team != NULL ? true : false;
                 $temp['is_leader'] = ($team->lider_equipo == 1) ? true : false;
@@ -92,23 +94,6 @@ class LoginCtrl extends Controller
                 $temp['is_leader'] = NULL;
             }
             $temp['min_fields'] = $temp['min_fields'] && ($user->student->responsable != NULL);
-            $temp['path'] = 'user';
-        }else if($roleId == 2){
-            // Mentor
-            if($user->mentor->member != NULL){
-                $team = DB::table('estudiante_mentor_tiene_equipo')
-                                ->select('equipo_id')
-                                ->where([['mentor_id', '=', $user->mentor->id],
-                                         ['aprobado', '=', 1]])
-                                ->first();
-                $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
-                $temp['has_team'] = $team != NULL ? true : false;
-                $temp['is_leader'] = ($team->lider_equipo == 1) ? true : false;
-            }else{
-                $temp['has_team'] = NULL;
-                $temp['team_id'] = NULL;
-                $temp['is_leader'] = NULL;
-            }
             $temp['path'] = 'user';
         }else if($roleId == 3){
             // Juez
