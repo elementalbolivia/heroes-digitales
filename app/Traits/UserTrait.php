@@ -106,6 +106,7 @@ trait UserTrait{
 		$userData['names'] 		= $user->nombres;
 		$userData['lastnames'] 	= $user->apellidos;
 		$userData['email']		= $user->correo;
+		$userData['gender'] 	= $user->genero_id == 1 ? 'Femenino' : 'Masculino';
 		$userData['cellphone'] 	= $user->celular;
 		$userData['terms_use'] 	= $user->terminos_uso == 1 ? true : false;
 		$userData['birth_date'] = $user->fecha_nacimiento;
@@ -209,6 +210,7 @@ trait UserTrait{
 					'active'	=> $student->responsable->activo == 0 ? false : true,
 				] : false;
 		$studentData['school'] = $student->colegio != NULL ? $student->colegio : NULL;
+		$studentData['division'] = self::division($user);
 		return $studentData;
 	}
 	private static function mentorData($user){
