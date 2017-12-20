@@ -16,6 +16,7 @@ use App\Models\ConfirmacionEmail;
 use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\Proyecto;
+use App\Traits\UserTrait;
 use Storage;
 use Hash;
 use DB;
@@ -23,6 +24,7 @@ use DB;
 date_default_timezone_set('America/La_Paz');
 class RegisterCtrl extends Controller
 {
+	use UserTrait;
 	public function newAdmin(){
         $userData = [
             'correo'            => 'admin@gmail.com',
@@ -185,9 +187,14 @@ class RegisterCtrl extends Controller
     public function createTeam(Request $request){
     	$res = (object) null;
     	DB::beginTransaction();
-    	// TODO: Verificar que no existe el mismo equipo y proyecto
-    	// y que el usuario no tiene un equipo aun
+
     	try{
+				$verify = UserTrait::verifyAge($request->idLeader, 0, 'CREATE', $request->divisionId);
+				if(!$verify['success']){
+					$res->success = $verify['success'];
+					$res->msg = $verify['msg'];
+					return response()->json($res);
+				}
     		$user = Usuario::find($request->idLeader);
 				if($user->student != NULL){
 	    		$hasTeam['estudiante_id'] = $user->student->id;
@@ -198,6 +205,8 @@ class RegisterCtrl extends Controller
 	    		$hasTeam['mentor_id'] = $user->mentor->id;
 					$type = 'mentor';
 				}
+				// TODO: Verificar que no existe el mismo equipo y proyecto
+	    	// y que el usuario no tiene un equipo aun
 				if($user->isMemberOfAnyTeam(
 						$hasTeam['estudiante_id'] != null ? $hasTeam['estudiante_id'] : $hasTeam['mentor_id'],
 						$type)){

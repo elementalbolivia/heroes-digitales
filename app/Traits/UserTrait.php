@@ -315,7 +315,7 @@ trait UserTrait{
     	}
 
 	}
-	public static function updateImg($Storage, $request, $id){
+	public static function updateUserImg($Storage, $request, $id){
 		$user = Usuario::find($id);
 		$img = md5(date('YmdHis')).md5($id).'.jpg';
 		if($user->image != null){
@@ -329,5 +329,49 @@ trait UserTrait{
         $Storage::disk('uploads')
             ->put('users/'.$img, file_get_contents($request->file('img')->getRealPath()));
 	}
-
+	public static function verifyAge($userId, $teamId, $typeRequest, $divisionId = null){
+		$user = Usuario::find($userId);
+		$team = Equipo::find($teamId);
+		$birth = $user->fecha_nacimiento;
+		// Verificar que es estudiante, si no lo es
+		// retornar True, ya que el mentor no tiene
+		// restricciones de edad
+		if(!self::isStudent($user)){
+			return ['success' => true];
+		}
+		if($team == null && $divisionId != null)
+			$division = $divisionId == 1 ? 'JUNIOR' : 'SENIOR';
+		else
+			$division = $team->division_id == 1 ? 'JUNIOR' : 'SENIOR';
+		if($division == 'JUNIOR'){
+			if($birth >= '2003-08-01' && $birth <= '2008-08-01'){
+				return ['success' => true];
+			}else{
+				switch ($typeRequest) {
+					case 'JOIN':
+						return ['success' => false, 'msg' => 'Perteneces a la división "Senior", y debes unirte a un equipo con la misma división'];
+					case 'INVITATION':
+						return ['success' => false, 'msg' => 'Tu equipo es de la división "$division", y debes invitar a otros estudiantes de la misma división'];
+					case 'CREATE':
+						return ['success' => false, 'msg' => 'Perteneces a la división "Senior", selecciona la división del equipo como tal'];
+				}
+			}
+		}else if($division == 'SENIOR'){
+			if($birth >= '1999-08-01' && $birth < '2003-08-01'){
+				return ['success' => true];
+			}else{
+				switch ($typeRequest) {
+					case 'JOIN':
+						return ['success' => false, 'msg' => 'Perteneces a la división "Junior", y debes unirte a un equipo con la misma división'];
+					case 'INVITATION':
+						return ['success' => false, 'msg' => 'Tu equipo es de la división "$division", y debes invitar a otros estudiantes de la misma división'];
+					case 'CREATE':
+					return ['success' => false, 'msg' => 'Perteneces a la división "Junior", selecciona la división del equipo como tal'];
+				}
+			}
+		}
+	}
+	private static function isStudent($user){
+		return $user->student != null;
+	}
 }

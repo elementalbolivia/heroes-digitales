@@ -9,6 +9,7 @@ use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
 use App\Traits\EmailTrait;
+use DB;
 
 date_default_timezone_set('America/La_Paz');
 
