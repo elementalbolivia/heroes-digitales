@@ -16,7 +16,7 @@ class ResetPasswordCtrl extends Controller
     public function sendVerifEmail(Request $request){
     	$res = (object) null;
     	try{
-            $user = Usuario::where('correo', $request->email)->first();
+        $user = Usuario::where('correo', $request->email)->first();
     		if($user == NULL OR $user->activo != 1){
     			$res->success = false;
     			$res->msg = 'El correo electrónico no existe, intente con uno válido';
@@ -25,16 +25,17 @@ class ResetPasswordCtrl extends Controller
 		    	$res->success = true;
 		    	$res->msg = 'Por favor ingrese a su correo electrónico, para reestablecer su contraseña';
     		}
-            return response()->json($res);
+        return response()->json($res);
     	}catch(Exception $e){
     		$res->success = false;
+				$res->err = $e->getMessage();
     		$res->msg = 'Hubo un error al enviar el correo electrónico, inténtelo nuevamente';
             return response()->json($res);
         }
     }
     public function reset(Request $request){
         $user = Usuario::find($request->uid);
-        $res = (object) null; 
+        $res = (object) null;
         $now = date('Y-m-d H:i:s');
         if($user){
             if($user->resetPassword->token == $request->token){
@@ -55,5 +56,5 @@ class ResetPasswordCtrl extends Controller
             $res->msg = 'El usuario no existe';
         }
         return response()->json($res);
-    } 
+    }
 }
