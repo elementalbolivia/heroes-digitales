@@ -76,6 +76,8 @@ class LoginCtrl extends Controller
         $temp['min_fields'] = ($user->image != NULL)
                                 && ($user->biography != NULL)
                                 && ($user->terminos_uso != NULL) ? true : false;
+        if($roleId == 1)
+          $temp['min_fields'] = $temp['min_fields'] && ($user->student->responsable != NULL);
         if($roleId == 1 || $roleId == 2){
             // Mentor o estudiante
             $id = $roleId == 1 ? $user->student->id : $user->mentor->id;
@@ -93,7 +95,6 @@ class LoginCtrl extends Controller
                 $temp['team_id'] = NULL;
                 $temp['is_leader'] = NULL;
             }
-            $temp['min_fields'] = $temp['min_fields'] && ($user->student->responsable != NULL);
             $temp['path'] = 'user';
         }else if($roleId == 3){
             // Juez
