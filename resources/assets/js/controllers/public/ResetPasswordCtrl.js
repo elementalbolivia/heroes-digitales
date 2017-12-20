@@ -23,13 +23,12 @@
 		var checkPassword = checkPassword;
 		// Methods implementation
 		function resetPassword(){
-			console.log(vm.passwordParams);
+			vm.isSubmited.state = true;
 			if(!checkPassword(vm.passwordParams.password, vm.passwordParams.retype)){
-				vm.isSubmited.state = true;
+				vm.isSubmited.state = false;
 				vm.isSubmited.msg = 'Las contraseñas no coinciden';
 				return;
 			}
-			vm.isSubmited.state = false;
 			vm.isSubmited.isLoading = true;
 			User.resetPassword(vm.passwordParams).then(function(data){
 				if(data.success){
@@ -37,9 +36,12 @@
 				}else{
 					vm.isSubmited.isLoading = false;
 					vm.isSubmited.msg = data.msg;
+					vm.isSubmited.state = false;
 				}
 			}, function(err){
-				alert('Hubo un error en el servidor');
+				vm.isSubmited.isLoading = false;
+				vm.isSubmited.msg = 'Hubo un error en el servidor, inténtelo nuevamente';
+				vm.isSubmited.state = false;
 			});
 		};
 		function checkPassword(password, retype){
