@@ -384,5 +384,16 @@ trait UserTrait{
 			return 'Junior';
 		else if($birth >= '1999-08-01' && $birth < '2003-08-01')
 			return 'Senior';
+		else {
+			return false;
+		}
+	}
+	public static function isDivisionAvailable($birth){
+		if($birth >= '2003-08-01' && $birth <= '2008-08-01')
+			return true;
+		else if($birth >= '1999-08-01' && $birth < '2003-08-01')
+			return true;
+		else
+			return false;
 	}
 }

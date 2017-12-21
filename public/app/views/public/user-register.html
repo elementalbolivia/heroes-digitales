@@ -1,8 +1,11 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-			<h1 class="text-center">Regístrate como {{ vm.typeParams.title }}</h1>
+			<h1 class="text-center" style="margin-top:50px;">Regístrate como {{ vm.typeParams.title }}</h1>
 			<h2 class="text-center" style="font-size:20px;">Todos los campos con <span style="color:red">*</span> son requeridos</h2>
+			<h3 class="text-center" style="font-size:18px;">
+				<strong>Para ser estudiante debe haber nacido entre el 01 de agosto de 1999 y el 01 de agosto de 2008</strong>
+			</h3>
 			<form class="form-horizontal" name="registerForm" ng-submit="vm.sendRegistration()">
 	    		<div class="form-group">
 	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
@@ -34,7 +37,7 @@
                     </select>
                   </div>
                   <div class="col-xs-12 col-sm-4" style="margin-top:10px;">
-                    <select id="mes" ng-model="vm.dataRegister.birthDate.year" class="form-control">
+                    <select id="anio" ng-model="vm.dataRegister.birthDate.year" class="form-control">
                           <option ng-repeat="year in vm.dates.years">{{ year }}</option>
                     </select>
                   </div>
@@ -42,18 +45,18 @@
         	</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12 ">Número celular <span style="color:red">*</span></label>
+						<label class=" col-xs-12 ">Número celular <span style="color:red">*</span></label>
 						<div class="col-xs-12 col-sm-6">
-							<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.cellphone" required>
+							<input type="text" id="cel" class="form-control" ng-model="vm.dataRegister.cellphone" required>
 							<p style="padding:3px;"></p>
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2" lx-tooltip-position="top" lx-tooltip="En la primera versión del concurso, se aceptarán únicamente postulaciones de La Paz y El Alto">
-						<label id="correo" class=" col-xs-12" >Ciudad <span style="color:red">*</span></label>
+						<label class=" col-xs-12" >Ciudad <span style="color:red">*</span></label>
 						<div class="col-xs-12">
-							<select ng-model="vm.dataRegister.cityId" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
+							<select ng-model="vm.dataRegister.cityId" id="city" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
 						</div>
 					</div>
 				</div>
@@ -67,9 +70,9 @@
 				</div>
 				<div class="form-group" ng-if="vm.typeReg == 'student'">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Colegio <span style="color:red">*</span></label>
+						<label class=" col-xs-12">Colegio <span style="color:red">*</span></label>
 						<div class="col-xs-12">
-							<input type="text" ng-model="vm.dataRegister.school" class="form-control" />
+							<input type="text" id="school" ng-model="vm.dataRegister.school" class="form-control" />
 						</div>
 					</div>
 				</div>
@@ -85,7 +88,7 @@
 				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'mentor' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="org" class=" col-xs-12">Organización </label>
+							<label class=" col-xs-12">Organización </label>
 							<div class="col-xs-12">
 								<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="">
 								<p style="padding:3px;"></p>
@@ -94,18 +97,18 @@
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Cargo </label>
+							<label class=" col-xs-12">Cargo </label>
 							<div class="col-xs-12">
-								<input type="text" id="correo" class="form-control" ng-model="vm.dataRegister.job">
+								<input type="text" id="job" class="form-control" ng-model="vm.dataRegister.job">
 								<p style="padding:3px;"></p>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Profesión <span style="color:red">*</span></label>
+							<label class=" col-xs-12">Profesión <span style="color:red">*</span></label>
 							<div class="col-xs-12">
-								<input ng-model="vm.dataRegister.profession" class="form-control"/>
+								<input ng-model="vm.dataRegister.profession" id="prof" class="form-control"/>
 							</div>
 						</div>
 					</div>
@@ -114,9 +117,9 @@
 				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<label id="correo" class=" col-xs-12">Tamaño de polera <span style="color:red">*</span></label>
+							<label class=" col-xs-12">Tamaño de polera <span style="color:red">*</span></label>
 							<div class="col-xs-12">
-								<select ng-model="vm.dataRegister.shirtId" class="form-control" ng-options="shirt.id as shirt.label for shirt in vm.shirts"></select>
+								<select ng-model="vm.dataRegister.shirtId" id="shirt" class="form-control" ng-options="shirt.id as shirt.label for shirt in vm.shirts"></select>
 							</div>
 						</div>
 					</div>
@@ -132,7 +135,7 @@
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="cv" class=" col-xs-12">Curriculum vitae <span style="color:red">*</span></label>
 						<div class="col-xs-12">
-							<button type="button" ngf-select id="cv" class="btn btn-primary btn-lg" ng-model="vm.dataRegister.cv" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="5MB"><i class="fa fa-file-pdf-o"></i> Subir curriculum</button>
+							<button type="button" ngf-select class="btn btn-primary btn-lg" ng-model="vm.dataRegister.cv" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="5MB"><i class="fa fa-file-pdf-o"></i> Subir curriculum</button>
 							<p style="padding:3px;"></p>
 							<p>{{ vm.dataRegister.cv.name }}</p>
 						</div>
@@ -143,7 +146,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="correo" class=" col-xs-12">Correo electrónico <span style="color:red">*</span></label>
+						<label class=" col-xs-12">Correo electrónico <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="email" id="correo" class="form-control" ng-model="vm.dataRegister.email" placeholder="P.ej.: tuemail@gmail.com" required>
 							<p style="padding:3px;"></p>
@@ -152,7 +155,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="pass" class=" col-xs-12">Escriba su contraseña <span style="color:red">*</span></label>
+						<label class=" col-xs-12">Escriba su contraseña <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="password" id="pass" class="form-control" ng-model="vm.dataRegister.password" required>
 							<p style="padding:3px;"></p>
@@ -161,9 +164,9 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label id="pass" class=" col-xs-12 col-sm-12">Escriba nuevamente su contraseña</label>
+						<label class=" col-xs-12 col-sm-12">Escriba nuevamente su contraseña</label>
 						<div class="col-xs-12">
-							<input type="password" id="pass" class="form-control" ng-model="vm.dataRegister.retype" required>
+							<input type="password" id="retype" class="form-control" ng-model="vm.dataRegister.retype" required>
 							<p style="padding:3px;"></p>
 						</div>
 					</div>
