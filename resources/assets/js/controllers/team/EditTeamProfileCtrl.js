@@ -27,7 +27,6 @@
 			project_desc: '',
 			city_d: 0,
 			category_id: 0,
-			division_id: 0,
 		};
 		vm.cities = [];
 		vm.divisions = [];
@@ -81,9 +80,10 @@
 		function getTeamInfo(){
 			Team.getTeam($stateParams.id).then(function(data){
 				if(data.success){
+					console.log(data);
 					vm.teamData = data.team;
 					vm.teamData.cityId = data.team.city.id;
-					vm.teamData.categoryId = data.team.category.id;
+					vm.teamData.categoryId = data.team.category != null ? data.team.category.id : 0;
 					vm.teamData.divisionId = data.team.division.id;
 				}else{
 					LxNotificationService.warning(data.msg);

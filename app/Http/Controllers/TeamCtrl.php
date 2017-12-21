@@ -72,7 +72,6 @@ class TeamCtrl extends Controller
             // Actualizar equipo
             $team->nombre_equipo = $teamData->team_name;
             $team->ciudad_id     = $teamData->cityId;
-            $team->division_id   = $teamData->divisionId;
             $team->save();
             // Actualizar proyecto
             $project = $team->project;
@@ -85,6 +84,7 @@ class TeamCtrl extends Controller
             return response()->json($res);
         }catch(\Exception $e){
             $res->success = false;
+						$res->err = $e->getMessage();
             $res->success = 'Hubo un error al actualizar los datos del equipo';
             return response()->json($res);
         }
