@@ -9,14 +9,12 @@ use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
 use App\Traits\EmailTrait;
-use App\Traits\UserTrait;
 use DB;
 
 date_default_timezone_set('America/La_Paz');
 
 trait TeamTrait{
 	use EmailTrait;
-	use UserTrait;
 	public static function teamInfo($id){
 		$teamData = [];
 		$counterStudents = 0;
