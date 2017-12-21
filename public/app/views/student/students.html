@@ -1,5 +1,5 @@
 <div class="container-fluid">
-	<div class="row">
+	<div class="row" >
 		<div class="col-xs-12 col-sm-3">
 			<div class="panel panel-blue">
 				<div class="panel-heading">
@@ -21,7 +21,10 @@
 		</div>
 		<div class="col-xs-12 col-sm-9">
 			<h1 class="text-center title-white-bg"> ESTUDIANTES</h1>
-			<div class="row display-flex">
+			<div class="col-xs-12" ng-if="vm.isLoading">
+				<h1 class="text-center" style="font-size:75px;color:#229ed7"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
+			</div>
+			<div class="row display-flex" ng-if="!vm.isLoading">
 				<div class="col-xs-12 col-sm-4 " ng-repeat="student in vm.students | StudentFilter:vm.filters.cities:vm.filters.withTeam track by $index" >
 					<div class="panel panel-default">
 						<div class="panel-heading">

@@ -16,7 +16,7 @@ class StudentCtrl extends Controller
         $students = [];
         $res = (object) null;
         try{
-            foreach (Usuario::all() as $user) {
+            foreach (Usuario::where('activo' , '=', 1)->get() as $user) {
                 if($user->role($user->id)->rol_id == 1 AND $user->activo == 1){
                     $students[] = UserTrait::userData($user->id);
                 }
