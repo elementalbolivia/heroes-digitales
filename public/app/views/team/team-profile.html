@@ -13,11 +13,11 @@
 						</div>
 						<div class="col-xs-12">
 						<p style="padding:5px;"></p>
-							<div ng-if="vm.teamData.is_full_students && vm.teamData.is_full_mentors">
-								<div class="alert alert-warning text-center"><strong>El equipo esta lleno</strong></div>
+							<div ng-if="vm.teamData.is_full_students">
+								<div class="alert alert-warning text-center"><strong>El equipo ya tiene 4 estudiantes</strong></div>
 							</div>
 							<div ng-if="vm.teamData.is_full_mentors && !vm.userCreds.hasTeam">
-								<div class="alert alert-warning text-center"><strong>El equipo ya tiene mentores</strong></div>
+								<div class="alert alert-warning text-center"><strong>El equipo ya tiene 2 mentores</strong></div>
 							</div>
 							<div ng-if="!vm.teamData.is_full_students && !vm.hasTeam && vm.userCreds.role == 1">
 								<div class="alert alert-info text-center"><strong>El equipo aún no tiene 4 estudiantes, únete</strong></div>
