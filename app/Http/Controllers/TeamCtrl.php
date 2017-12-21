@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipo;
-use App\Traits\TeamTrait;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
 use App\Models\Usuario;
 use App\Models\Mentor;
 use App\Models\Estudiante;
-use App\Traits\Usertrait;
+use App\Traits\UserTrait;
+use App\Traits\TeamTrait;
 use DB;
 use Storage;
 
