@@ -16,7 +16,7 @@
         <li class="active"><a ui-sref="admin.students">Estudiantes</a></li>
         <li class="active"><a ui-sref="admin.mentors">Mentores</a></li>
         <li class="active"><a ui-sref="admin.teams">Equipos</a></li>
-        <li class="active"><a ui-sref="admin.stages">Etapas del concurso</a></li>
+        <li class="active"><a ui-sref="admin.stages" ng-if="vm.userCreds.role == 5">Etapas del concurso</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a ng-click="vm.logout()"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>

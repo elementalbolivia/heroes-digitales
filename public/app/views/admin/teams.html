@@ -22,7 +22,7 @@
 										<th class="text-center">Tiene mentor</th>
                     <th class="text-center">Mentor</th>
 										<th class="text-center">Estudiantes</th>
-                    <th class="text-center">Eliminar</th>
+                    <th class="text-center" ng-if="vm.userCreds.role == 5">Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -45,7 +45,7 @@
                         </tr>
                       </table>
                     </td>
-                    <td><button class="btn btn-danger btn-sm" ng-click="vm.deleteTeam(team.id)"><i class="fa fa-times"></i></button></td>
+                    <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-danger btn-sm" ng-click="vm.deleteTeam(team.id)"><i class="fa fa-times"></i></button></td>
 									</tr>
 								</tbody>
 							</table>

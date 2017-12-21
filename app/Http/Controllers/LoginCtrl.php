@@ -100,7 +100,9 @@ class LoginCtrl extends Controller
             // Juez
         }else if($roleId == 4){
             // Experto
-        }else{
+        }else if($roleId == 5){
+            $temp['path'] = 'admin';
+        }else if($roleId == 6){
             $temp['path'] = 'admin';
         }
         return $temp;

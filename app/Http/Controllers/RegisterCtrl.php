@@ -27,19 +27,19 @@ class RegisterCtrl extends Controller
 	use UserTrait;
 	public function newAdmin(){
         $userData = [
-            'correo'            => 'admin@gmail.com',
+            'correo'            => 'diegohd@gmail.com',
             'password'          => Hash::make('admin'),
-            'nombres'           => 'Daniella',
-            'apellidos'         => 'Garcia',
+            'nombres'           => 'Diego',
+            'apellidos'         => 'Bravo',
             'fecha_nacimiento'  => '1986-08-11',
             'celular'           => 7012312,
             'ciudad_id'         => 1,
-            'genero_id'         => 1,
+            'genero_id'         => 2,
         ];
         $user = Usuario::create($userData);
         $role = [
             'usuario_id'    => $user->id,
-            'rol_id'        => 5,
+            'rol_id'        => 6,
         ];
     	$userHasRole = UsuarioTieneRol::create($role);
         $user->admin()->create([]);
