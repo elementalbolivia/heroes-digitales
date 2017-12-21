@@ -13,19 +13,19 @@
 						</div>
 						<div class="col-xs-12">
 						<p style="padding:5px;"></p>
-							<div ng-if="vm.teamData.is_full">
+							<div ng-if="vm.teamData.is_full_students && vm.teamData.is_full_mentors">
 								<div class="alert alert-warning text-center"><strong>El equipo esta lleno</strong></div>
 							</div>
-							<div ng-if="vm.teamData.has_mentor && !vm.userCreds.hasTeam">
-								<div class="alert alert-warning text-center"><strong>El equipo ya tiene un mentor</strong></div>
+							<div ng-if="vm.teamData.is_full_mentors && !vm.userCreds.hasTeam">
+								<div class="alert alert-warning text-center"><strong>El equipo ya tiene mentores</strong></div>
 							</div>
-							<div ng-if="!vm.teamData.is_full && !vm.hasTeam && vm.userCreds.role == 1">
+							<div ng-if="!vm.teamData.is_full_students && !vm.hasTeam && vm.userCreds.role == 1">
 								<div class="alert alert-info text-center"><strong>El equipo aún no tiene 4 estudiantes, únete</strong></div>
 								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
 								<div class="alert alert-info text-center" ng-if="vm.userHasSentReq"><strong>Tu solicitud fue enviada</strong></div>
 							</div>
-							<div ng-if="!vm.teamData.is_full && !vm.hasTeam && vm.userCreds.role == 2 && !vm.teamData.has_mentor">
-								<div class="alert alert-info text-center"><strong>El equipo aún no tiene mentor, únete</strong></div>
+							<div ng-if="!vm.teamData.is_full_mentors && !vm.hasTeam && vm.userCreds.role == 2">
+								<div class="alert alert-info text-center"><strong>El equipo aún no tiene dos mentores, únete</strong></div>
 								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
 								<span class="alert alert-default" ng-if="!vm.userHasSentReq">Tu solicitud fue enviada</span>
 							</div>
@@ -70,7 +70,7 @@
 							  		<tbody>
 							  			<tr ng-repeat="member in vm.teamData.members">
 							  				<td>
-							  					<img ng-if="!member.image" src="/app/images/users/default-user.png" style="margin:auto;" class="img-responsive img-circle">
+							  					<img ng-if="!member.image" src="/app/images/users/default-user.png" style="margin:auto;width:50px;height:50px;" class="img-responsive img-circle">
 												<img ng-if="member.image" ng-src="/app/images/users/{{member.image}}" style="width:50px;height:50px;" class="img-circle" alt="">
 							  				</td>
 							  				<td>{{ member.names + ' ' + member.lastnames }}</td>
