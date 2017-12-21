@@ -45,6 +45,7 @@
 							<p><strong>Ciudad:</strong> {{ vm.userData.city.nombre }}</p>
 							<p><strong>Zona: </strong>{{ vm.userData.zone }}</p>
 							<p ng-if="vm.userCreds.role == 1"><strong>Colegio:</strong> {{ vm.userData.student.school }}</p>
+							<p ng-if="vm.userCreds.role == 1"><strong>División:</strong> {{ vm.userData.student.division }}</p>
 							<p ng-if="vm.userCreds.role == 2"><strong>Puesto de trabajo:</strong> {{vm.userData.mentor.job }}</p>
 							<p ng-if="vm.userCreds.role == 2"><strong>Profesión:</strong> {{vm.userData.mentor.profession }}</p>
 							<button class="btn btn-link pull-right" ui-sref="user.my-profile.edit"><i class="fa fa-pencil-square-o fa-2x"></i></button>
