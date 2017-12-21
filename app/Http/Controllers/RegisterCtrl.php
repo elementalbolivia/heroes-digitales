@@ -60,12 +60,19 @@ class RegisterCtrl extends Controller
     			]);
     		}
     		$res = (object) null;
-    		$userData = [
+				$fecha_nac = $request->birthDate['year'] . '-'. $request->birthDate['month'] . '-' . $request->birthDate['day'];
+				if(!UserTrait::isDivisionAvailable($fecha_nac)){
+					$res->success = false;
+					$res->msg = 'Su edad supera los límites para ser registrarse como estudiante, por favor regístrese como mentor';
+					$res->code = 'MENTOR';
+					return response()->json($res);
+				}
+				$userData = [
 	    		'correo'			=> $request->email,
 	    		'password'			=> Hash::make($request->password),
 	    		'nombres'			=> $request->names,
 	    		'apellidos'			=> $request->lastnames,
-	    		'fecha_nacimiento'	=> $request->birthDate['year'] . '-'. $request->birthDate['month'] . '-' . $request->birthDate['day'],
+	    		'fecha_nacimiento'	=> $fecha_nac,
 	    		'celular'			=> $request->cellphone,
 	    		'ciudad_id'			=> $request->cityId,
 	    		'genero_id'			=> $request->genreId,
