@@ -30,6 +30,7 @@ class TeamCtrl extends Controller
     		return response()->json($res);
     	}catch(\Exception $e){
     		$res->success = false;
+				$res->err = $e->getMessage();
     		$res->msg = 'Hubo un error al cargar los equipos, inténtelo nuevamente';
     		return response()->json($res);
     	}
