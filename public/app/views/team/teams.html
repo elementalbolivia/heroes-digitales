@@ -48,9 +48,9 @@
 								<span class="label label-default">División: {{ team.division.nombre }}</span>
 								<span class="label label-info category-label" ng-if="team.category != null">Categoría: {{ team.category.nombre }}</span>
 								<span class="label label-success city-label">Ciudad: {{ team.city.nombre }}</span>
-								<span class="label label-primary" ng-if="!team.is_full">Necesita miembros</span>
-								<span class="label label-primary" ng-if="!team.is_full && !team.has_mentor">Necesita mentor</span>
-								<span class="label label-default" ng-if="team.is_full">Equipo lleno</span>
+								<span class="label label-primary" ng-if="!team.is_full_students">Necesita miembros</span>
+								<span class="label label-primary" ng-if="!team.is_full_mentors">Necesita mentor</span>
+								<span class="label label-default" ng-if="team.is_full_students && team.is_full_mentors">Equipo lleno</span>
 							</div>
 							<button class="btn btn-primary btn-lg btn-block" ui-sref="user.team-profile({id: team.id})">Ver perfil</button>
 						</div>
