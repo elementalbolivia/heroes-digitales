@@ -12,6 +12,7 @@
 			withTeam: true,
 			skills: ['AppInventor', 'Java', 'Android', 'Diseño', 'Documentación', 'Emprendimiento'],
 		};
+		vm.isLoading = true;
 		// Methods
 		vm.getMentors = getMentors;
 		vm.updateFilter = updateFilter;
@@ -19,12 +20,15 @@
 		function getMentors(){
 			Mentor.getMentors().then(function(data){
 				if(data.success){
+					vm.isLoading = false;					
 					vm.mentors = data.mentors;
 				}else{
+					vm.isLoading = false;					
 					alert(data.msg);
 				}
 			}, function(err){
-
+				vm.isLoading = false;					
+				alert('Hubo un error al obtener a los mentores, inténtelo nuevmante');
 			});
 		};
 		function updateFilter(type, arg){

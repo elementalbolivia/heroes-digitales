@@ -12,6 +12,7 @@
 			cities: ['La Paz', 'El Alto'],
 			withTeam: true,
 		};
+		vm.isLoading = true;
 		// Methods
 		vm.getStudents = getStudents;
 		vm.updateFilter = updateFilter;
@@ -20,12 +21,15 @@
 			Student.getStudents().then(function(data){
 				if(data.success){
 					console.log(data);
+					vm.isLoading = false;
 					vm.students = data.students;
 				}else{
+					vm.isLoading = false;
 					alert(data.msg);
 				}
 			}, function(err){
-
+				vm.isLoading = false;
+				alert('Hubo un error al cargar los datos de los estudiantes, inténtelo nuevamente');
 			});
 		};
 		function updateFilter(type, arg){

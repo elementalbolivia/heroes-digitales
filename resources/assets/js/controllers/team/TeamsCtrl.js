@@ -20,17 +20,21 @@
 		// Methods
 		vm.getTeams = getTeams;
 		vm.updateFilter = updateFilter;
+		vm.isLoading = true;
 		// Methods implementation
 		function getTeams(){
 			Team.getTeams().then(function(data){
 				if(data.success){
 					console.log(data);
+					vm.isLoading = false;
 					vm.teams = data.teams;
 				}else{
 					alert(data.msg);
+					vm.isLoading = false;					
 				}
 			}, function(err){
-
+				vm.isLoading = false;
+				alert('Hubo un error al obtener a los equipos, inténtelo nuevamente');
 			});
 		};
 		function updateFilter(type, arg){

@@ -34,8 +34,10 @@
 		</div>
 		<div class="col-xs-12 col-sm-9">
 			<h1 class="title-white-bg text-center"> MENTORES</h1>
-
-			<div class="row display-flex">
+			<div class="col-xs-12" ng-if="vm.isLoading">
+				<h1 class="text-center" style="font-size:75px;color:#229ed7"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
+			</div>
+			<div class="row display-flex" ng-if="!vm.isLoading">
 				<div class="col-xs-12 col-md-4" ng-repeat="mentor in vm.mentors | MentorFilter : vm.filters.cities : vm.filters.withTeam : vm.filters.skills track by $index">
 					<div class="panel panel-default">
 						<div class="panel-heading">
