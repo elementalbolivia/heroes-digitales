@@ -112,10 +112,8 @@ trait TeamTrait{
 					$counterMentor++;
 				}
 			}
-			if($counterStudents >= 4 && $counterMentor >= 2)
-				$teamData['is_full'] = true;
-			else
-				$teamData['is_full'] = false;
+			$teamData['is_full_students'] = $counterStudents >= 4 ? true : false;
+			$teamData['is_full_mentors'] = $counterMentors >= 2 ? true : false;
 		}
 		$teamData['has_mentor'] = isset($teamData['has_mentor']) ? true : false;
 		return $teamData;
