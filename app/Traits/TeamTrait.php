@@ -81,7 +81,6 @@ trait TeamTrait{
 			if($member->aprobado == 1){
 				$isStudent = $member->estudiante_id != NULL ? true : false;
 				if($isStudent){
-					$counterStudents++;
 					$userMember = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
 					$teamData['members']['students'][] = [
 						'names'			=> $userMember->nombres,
@@ -95,9 +94,9 @@ trait TeamTrait{
 						'created_at'	=> $member->fecha_creacion,
 						'image'			=> $userMember->image != NULL ? $userMember->image->nombre_archivo : NULL,
 					];
+					$counterStudents++;
 				}else{
 					$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
-					$counterMentor++;
 					$teamData['has_mentor'] = true;
 					$teamData['members']['mentors'][] = [
 						'names'			=> $userMember->nombres,
@@ -110,6 +109,7 @@ trait TeamTrait{
 						'created_at'	=> $member->fecha_creacion,
 						'image'			=> $userMember->image != NULL ? $userMember->image->nombre_archivo : NULL,
 					];
+					$counterMentor++;
 				}
 			}
 			if($counterStudents >= 4 && $counterMentor >= 2)
