@@ -61,7 +61,7 @@ class RegisterCtrl extends Controller
     		}
     		$res = (object) null;
 				$fecha_nac = $request->birthDate['year'] . '-'. $request->birthDate['month'] . '-' . $request->birthDate['day'];
-				if(!UserTrait::isDivisionAvailable($fecha_nac)){
+				if($request->type == 'student' && !UserTrait::isDivisionAvailable($fecha_nac)){
 					$res->success = false;
 					$res->msg = 'Su edad supera los límites para ser registrarse como estudiante, por favor regístrese como mentor';
 					$res->code = 'MENTOR';
