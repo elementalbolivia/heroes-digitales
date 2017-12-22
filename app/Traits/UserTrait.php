@@ -204,11 +204,16 @@ trait UserTrait{
 		// TODO
 		$student = $user->student;
 		$studentData = [];
-		$studentData['authorization'] = $student->responsable != NULL ? [
-					'id'		=> $student->responsable->id,
-					'signature'	=> $student->responsable->firma,
-					'active'	=> $student->responsable->activo == 0 ? false : true,
-				] : false;
+		$parent = $student->parentSignature();
+		if($parent != null){
+			$studentData['authorization'] = [
+				'id'		=> $parent->id,
+				'signature'	=> $parent->firma,
+				'active'	=> $parent->activo == 0 ? false : true,
+			];
+		}else{
+			$studentData['authorization'] = false;
+		}
 		$studentData['school'] = $student->colegio != NULL ? $student->colegio : NULL;
 		$studentData['division'] = self::division($user);
 		return $studentData;

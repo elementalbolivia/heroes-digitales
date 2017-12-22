@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Colegio;
+use DB;
 
 class Estudiante extends Model
 {
@@ -30,5 +31,11 @@ class Estudiante extends Model
     public function invitationsToTeam(){
         return $this->belongsToMany('App\Models\Equipo', 'invitaciones_equipo', 'estudiante_id', 'equipo_id')
                 ->withPivot('id', 'activo', 'confirmacion', 'fecha_creacion', 'fecha_actualizacion');
+    }
+    public function parentSignature(){
+      return DB::table('responsable')
+              ->where('estudiante_id', '=', $this->id)
+              ->where('activo', '=', 1)
+              ->first();
     }
 }
