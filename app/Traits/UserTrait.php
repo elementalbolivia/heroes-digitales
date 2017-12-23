@@ -144,14 +144,18 @@ trait UserTrait{
 		$teamData['team']['created_at'] 	= $team->fecha_creacion;
 		$teamData['team']['division'] 	= $team->division($team->division_id);
 		$teamData['team']['city'] 		= $team->city($team->ciudad_id);
+		$counterMentor = 0;
+		$counterStudents = 0;
 		foreach ($team->members as $member) {
 			$isStudent = $member->estudiante_id != NULL ? true : false;
 			if($isStudent){
 				$userMember = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
 				$roleId = $member->estudiante_id;
+				$counterStudents++;
 			}else{
 				$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
 				$roleId = $member->mentor_id;
+				$counterMentor++;
 			}
 			if($member->aprobado == 1 && $mTeam->equipo_id == $member->equipo_id){
 				$teamData['team']['members'][] = [
@@ -176,7 +180,10 @@ trait UserTrait{
 				];
 			}
 		}
-		$teamData['team']['is_full'] = count($teamData['team']['members']) == 5 ? true : false;
+		$teamData['team']['is_full'] = $counterStudents >= 4 && $counterMentor >= 2 ? true : false;
+		$teamData['team']['is_full_students'] = $counterStudents >= 4 ? true : false;
+		$teamData['team']['is_full_mentors'] = $counterMentor >= 2 ? true : false;
+
 		return $teamData['team'];
 	}
 	private static function invitations($user, $role){
