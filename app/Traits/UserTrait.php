@@ -148,16 +148,16 @@ trait UserTrait{
 		$counterStudents = 0;
 		foreach ($team->members as $member) {
 			$isStudent = $member->estudiante_id != NULL ? true : false;
-			if($isStudent){
-				$userMember = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
-				$roleId = $member->estudiante_id;
-				$counterStudents++;
-			}else{
-				$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
-				$roleId = $member->mentor_id;
-				$counterMentor++;
-			}
-			if($member->aprobado == 1 && $mTeam->equipo_id == $member->equipo_id){
+			if($member->aprobado == 1 && $member->activo == 1 && $mTeam->equipo_id == $member->equipo_id){
+				if($isStudent){
+					$userMember = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
+					$roleId = $member->estudiante_id;
+					$counterStudents++;
+				}else{
+					$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
+					$roleId = $member->mentor_id;
+					$counterMentor++;
+				}
 				$teamData['team']['members'][] = [
 					'names'			=> $userMember->nombres,
 					'lastnames'		=> $userMember->apellidos,
