@@ -40,12 +40,13 @@ trait UserTrait{
 										&& $userData[0]['terms_use'] ? true : false;
 			$userData[0]['invitations'] = self::invitations($userData[1], $userData[0]['role_id']);
 			$mTeam = DB::table('estudiante_mentor_tiene_equipo')
-						->select('equipo_id')
+						->select('equipo_id', 'lider_equipo')
 						->where([['estudiante_id', '=', $userData[1]->student->id],
 								 ['aprobado', '=', 1]])
 						->first();
 			$userData[0]['has_team'] = $mTeam == NULL ? false : true;
 			if($mTeam != null){
+				$userData[0]['is_leader'] = $mTeam->lider_equipo == 1 ? true : false;
 				$userData[0]['team'] = self::teamUserData($mTeam);
 				$userData[0]['team']['invitations_sent'] = [];
 				$invitations = $userData[1]->invitationsSended($mTeam->equipo_id);
@@ -53,13 +54,14 @@ trait UserTrait{
 					$invUser = $invitation->estudiante_id != null ?
 												 Estudiante::find($invitation->estudiante_id)->user :
 												 Mentor::find($invitation->mentor_id)->user ;
-			  	$userData[0]['team']['invitations_sent'][] = [
-																												'invitation_id'		=> $invitation->id,
-																												'names'	=> $invUser->nombres,
-																												'lastnames' => $invUser->apellidos,
-																												'type'	=> $invitation->estudiante_id != null ? 'Estudiante' : 'Mentor',
-																												'sent_at'	=> $invitation->fecha_creacion,
-																											];
+			  	$userData[0]['team']['invitations_sent'][] =
+											[
+												'invitation_id'		=> $invitation->id,
+												'names'	=> $invUser->nombres,
+												'lastnames' => $invUser->apellidos,
+												'type'	=> $invitation->estudiante_id != null ? 'Estudiante' : 'Mentor',
+												'sent_at'	=> $invitation->fecha_creacion,
+											];
 			  }
 				$userData[0]['team']['invitations_sent'] = count($userData[0]['team']['invitations_sent']) == 0 ? false : $userData[0]['team']['invitations_sent'];
 			}
@@ -76,8 +78,10 @@ trait UserTrait{
 								 ['aprobado', '=', 1]])
 						->first();
 			$userData[0]['has_team'] = $mTeam == NULL ? false : true;
-			if($mTeam != null)
+			if($mTeam != null){
+				$userData[0]['is_leader'] = true;
 				$userData[0]['team'] = self::teamUserData($mTeam);
+			}
 		}else if($userData[0]['role_id'] == 3){
 			$userData[0]['judge'] = self::judgeData($userData[1]);
 		}else if($userData[0]['role_id'] == 4){

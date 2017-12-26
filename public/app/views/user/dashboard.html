@@ -158,8 +158,8 @@
 					  				<td ng-if="member.is_student"> Estudiante </td>
 					  				<td ng-if="!member.is_student"> Mentor</td>
 					  				<td>{{ member.created_at | date:'dd-mm-YYYY' }}</td>
-					  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmRequest(member.request_id, true)" ng-disabled="!vm.userCreds.isLeader">Aprobar</button> </td>
-					  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmRequest(member.request_id, false)" ng-disabled="!vm.userCreds.isLeader">Rechazar</button> </td>
+					  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmRequest(member.request_id, true)" ng-disabled="!vm.userData.is_leader">Aprobar</button> </td>
+					  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmRequest(member.request_id, false)" ng-disabled="!vm.userData.is_leader">Rechazar</button> </td>
 					  			</tr>
 					  		</tbody>
 					  	</table>
