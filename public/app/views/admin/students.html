@@ -5,11 +5,40 @@
     </div>
   </div>
   <div class="row" ng-if="!vm.isLoading">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-sm-12" style="padding-bottom:30px;">
+      <h2 class="text-center">Filtros</h2>
+      <div class="col-xs-12 col-sm-4">
+        <div>
+          <h4>Ciudad</h4>
+          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('cities', 'La Paz')"> La Paz <br />
+          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('cities', 'El Alto')"> El Alto
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div>
+          <h4>Género</h4>
+          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('gender', 'Femenino')"> Femenino <br />
+          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('gender', 'Masculino')"> Masculino
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div>
+          <h4>Estudiantes</h4>
+          <input type="radio"  ng-value="true"  ng-model="vm.filters.withTeam"> Con equipo <br />
+          <input type="radio"  ng-value="false" ng-model="vm.filters.withTeam"> Sin equipo
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12">
 			<div class="panel-group">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3>Estudiantes</h3>
+              <h3>Estudiantes</h3>
+            <!-- <div class="col-xs-12">
+      				División
+      				<input type="checkbox" ng-model=""> Senior
+      				<input type="checkbox" ng-model=""> Junior
+      			</div> -->
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive">
@@ -27,7 +56,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="student in vm.students">
+									<tr ng-repeat="student in vm.students | StudentFilter:vm.filters.cities:vm.filters.withTeam:vm.filters.gender track by $index">
 										<td class="text-center">{{ student.names + ' ' + student.lastnames }}</td>
 										<td class="text-center">{{ student.email }}</td>
 										<td class="text-center">{{ student.cellphone }}</td>

@@ -1,58 +1,100 @@
 <div class="container-fluid">
-  <div class="row" ng-if="vm.isLoading">
-    <div class="col-xs-12">
-      <h1 class="text-center" style="font-size:75px"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
-    </div>
-  </div>
   <div class="row">
-    <div class="col-xs-12">
-			<div class="panel-group">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3>Equipos</h3>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th class="text-center">Nombre</th>
-										<th class="text-center">Categoría</th>
-										<th class="text-center">División</th>
-										<th class="text-center">Tiene mentor</th>
-                    <th class="text-center">Mentor</th>
-										<th class="text-center">Estudiantes</th>
-                    <th class="text-center" ng-if="vm.userCreds.role == 5">Eliminar</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="team in vm.teams">
-										<td class="text-center">{{ team.team_name }}</td>
-										<td class="text-center">{{ team.category.nombre }}</td>
-										<td class="text-center">{{ team.division.nombre }}</td>
-										<td class="text-center">{{ team.has_mentor ? 'Sí' : 'No' }}</td>
-                    <td>
-                      <table>
-                        <tr ng-repeat="member in team.members.mentors">
-                          <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
-                        </tr>
-                      </table>
-                    </td>
-                    <td>
-                      <table>
-                        <tr ng-repeat="member in team.members.students">
-                          <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
-                        </tr>
-                      </table>
-                    </td>
-                    <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-danger btn-sm" ng-click="vm.deleteTeam(team.id)"><i class="fa fa-times"></i></button></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="col-xs-12 col-sm-3">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-blue">
+            <div class="panel-heading">
+              <h2 class="subtitle text-center">Filtros</h2>
+            </div>
+            <div class="panel-body">
+              <div>
+                <h4>Ciudad</h4>
+                <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('cities', 'La Paz')"> La Paz <br />
+                <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('cities', 'El Alto')"> El Alto
+              </div>
+              <div>
+                <h4>División</h4>
+                <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('divisions', 'Junior (de 10 a 14 años)')"> Junior <br />
+                <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('divisions', 'Senior (de 15 a 18 años)')"> Senior
+              </div>
+              <div>
+                <h4>Categoría</h4>
+                <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('categories', 'Educación')">Educación <br />
+                <input type="checkbox" ng-checked="false" ng-click="vm.updateFilter('categories', 'Violencia contra la niñez')">Violencia contra la niñez<br />
+                <input type="checkbox" ng-checked="false" ng-click="vm.updateFilter('categories', 'Bienestar y salud')"> Bienestar y salud<br />
+              </div>
+              <div>
+                <h4>Equipos que</h4>
+                <input type="radio" ng-value="true" ng-model="vm.filters.teamThat.requestMembers"> Necesitan participantes <br />
+                <input type="radio" ng-value="false" ng-model="vm.filters.teamThat.requestMembers"> No necesitan más participantes <br />
+                <input type="radio" ng-value="true" ng-model="vm.filters.teamThat.requestMentors"> Necesitan mentor <br />
+                <input type="radio" ng-value="false" ng-model="vm.filters.teamThat.requestMentors"> No necesitan mentor <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-9">
+      <div class="row" ng-if="vm.isLoading">
+        <div class="col-xs-12">
+          <h1 class="text-center" style="font-size:75px"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3>Equipos</h3>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Categoría</th>
+                        <th class="text-center">División</th>
+                        <th class="text-center">Ciudad</th>
+                        <th class="text-center">Tiene mentor</th>
+                        <th class="text-center">Mentor</th>
+                        <th class="text-center">Estudiantes</th>
+                        <th class="text-center" ng-if="vm.userCreds.role == 5">Eliminar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="team in vm.teams | TeamFilter: vm.filters.cities : vm.filters.divisions : vm.filters.categories : vm.filters.teamThat.requestMembers : vm.filters.teamThat.requestMentors">
+                        <td class="text-center">{{ team.team_name }}</td>
+                        <td class="text-center">{{ team.category.nombre }}</td>
+                        <td class="text-center">{{ team.division.nombre }}</td>
+                        <td class="text-center">{{ team.city.nombre }}</td>
+                        <td class="text-center">{{ team.has_mentor ? 'Sí' : 'No' }}</td>
+                        <td>
+                          <table>
+                            <tr ng-repeat="member in team.members.mentors">
+                              <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td>
+                          <table>
+                            <tr ng-repeat="member in team.members.students">
+                              <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-danger btn-sm" ng-click="vm.deleteTeam(team.id)"><i class="fa fa-times"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
