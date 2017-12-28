@@ -36,9 +36,9 @@ class StudentCtrl extends Controller
         $res = (object) null;
         try{
             foreach (Estudiante::all() as $student) {
-                if($student->user->activo == 1){
-                    $students[] = UserTrait::userData($student->user->id);
-                }
+                // if($student->user->activo == 1){
+                $students[] = UserTrait::userData($student->user->id);
+                // }
             }
             $res->success = true;
             $res->students = $students;
