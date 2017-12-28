@@ -28,6 +28,24 @@ class MenthorCtrl extends Controller
             return response()->json($res);
         }
 	}
+	public function indexAdmin(){
+		$mentors = [];
+        $res = (object) null;
+        try{
+            foreach (Usuario::all() as $user) {
+                if($user->role($user->id)->rol_id == 2){
+                    $mentors[] = UserTrait::userData($user->id);
+                }
+            }
+            $res->success = true;
+            $res->mentors = $mentors;
+            return response()->json($res);
+        }catch(\Exception $e){
+            $res->success = false;
+            $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
+            return response()->json($res);
+        }
+	}
     public function edit(Request $request, $id){
     	$res = (object) null;
     	$data = (object) $request->only(['names', 'lastnames', 'cellphone', 'city', 'mentor', 'zone', 'bio', 'skills']);
