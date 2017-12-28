@@ -113,4 +113,20 @@ class UserCtrl extends Controller
 				return response()->json($res);
 			}
 		}
+		public function setActive(Request $request){
+			$res = (object) null;
+			try{
+				$user = Usuario::find($request->uid);
+				$user->activo = $request->action;
+				$user->save();
+				$res->success = true;
+				$res->msg = 'El usuario fue actualizado con éxito';
+				return response()->json($res);
+			}catch(Exception $e){
+				$res->success = false;
+				$res->err = $e->getMessage();
+				$res->msg = 'Hubo un error al actualizar al usuario, inténtelo nuevamente';
+				return response()->json($res);
+			}
+		}
 }

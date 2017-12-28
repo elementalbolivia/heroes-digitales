@@ -17,10 +17,15 @@ class ResetPasswordCtrl extends Controller
     	$res = (object) null;
     	try{
         $user = Usuario::where('correo', $request->email)->first();
-    		if($user == NULL OR $user->activo != 1){
+    		if($user == NULL){
     			$res->success = false;
     			$res->msg = 'El correo electrónico no existe, intente con uno válido';
-    		}else{
+					return response()->json($res);
+    		}else if($user->activo != 1){
+					$res->success = false;
+    			$res->msg = 'Debe verificar su cuenta, antes de poder reestablecer su contraseña';
+					return response()->json($res);
+				}else{
 		    	EmailTrait::authEmail($request->email);
 		    	$res->success = true;
 		    	$res->msg = 'Por favor ingrese a su correo electrónico, para reestablecer su contraseña';
