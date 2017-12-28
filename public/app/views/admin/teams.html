@@ -18,7 +18,7 @@
                 <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('divisions', 'Junior (de 10 a 14 años)')"> Junior <br />
                 <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('divisions', 'Senior (de 15 a 18 años)')"> Senior
               </div>
-              <div>
+              <!-- <div>
                 <h4>Categoría</h4>
                 <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('categories', 'Educación')">Educación <br />
                 <input type="checkbox" ng-checked="false" ng-click="vm.updateFilter('categories', 'Violencia contra la niñez')">Violencia contra la niñez<br />
@@ -30,7 +30,7 @@
                 <input type="radio" ng-value="false" ng-model="vm.filters.teamThat.requestMembers"> No necesitan más participantes <br />
                 <input type="radio" ng-value="true" ng-model="vm.filters.teamThat.requestMentors"> Necesitan mentor <br />
                 <input type="radio" ng-value="false" ng-model="vm.filters.teamThat.requestMentors"> No necesitan mentor <br />
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="team in vm.teams | TeamFilter: vm.filters.cities : vm.filters.divisions : vm.filters.categories : vm.filters.teamThat.requestMembers : vm.filters.teamThat.requestMentors">
+                      <tr ng-repeat="team in vm.teams | TeamAdminFilter: vm.filters.cities : vm.filters.divisions">
                         <td class="text-center">{{ team.team_name }}</td>
                         <td class="text-center">{{ team.category.nombre }}</td>
                         <td class="text-center">{{ team.division.nombre }}</td>
