@@ -220,6 +220,7 @@ trait UserTrait{
 			$studentData['authorization'] = [
 				'id'		=> $parent->id,
 				'signature'	=> $parent->firma,
+				'mail'			=> $parent->correo_electronico,
 				'active'	=> $parent->activo == 0 ? false : true,
 			];
 		}else{
