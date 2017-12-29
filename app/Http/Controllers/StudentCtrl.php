@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Estudiante;
+use App\Models\Responsable;
 use DB;
 
 use App\Traits\UserTrait as UserTrait;
@@ -65,4 +66,108 @@ class StudentCtrl extends Controller
     		return response()->json($res);
     	}
     }
+		public function getParents($id){
+			$res = (object) null;
+			try{
+				$parent = DB::table('usuario')
+								->join('estudiante', 'usuario.id', '=', 'estudiante.usuario_id')
+								->join('responsable', 'estudiante.id', '=', 'responsable.estudiante_id')
+	              ->select('responsable.*', 'usuario.nombres', 'usuario.apellidos', 'usuario.id as uid')
+	              ->where('usuario.id', '=', $id)
+	              ->first();
+				if($parent == NULL){
+					$user = DB::table('usuario')
+											->select('nombres', 'apellidos', 'id as uid')
+											->where('usuario.id', '=', $id)
+											->first();
+					$res->student_names = $user->nombres;
+					$res->student_lastnames = $user->apellidos;
+					$res->student_id = $user->uid;
+					$res->msg = 'La autorización no ha sido enviada al padre/tutor';
+					$res->code = 'NONE';
+				}else{
+					$res->parents = $parent;
+					$res->student_names = $parent->nombres;
+					$res->student_lastnames = $parent->apellidos;
+					$res->student_id = $parent->uid;
+					$res->code = 'WAITING';
+				}
+				$res->success = true;
+				return response()->json($res);
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al obtener los datos del responsable';
+				$res->err = $e->getMessage();
+				return response()->json($res);
+			}
+		}
+		public function authParent(Request $request){
+			$res = (object) null;
+			try{
+				$responsable = Responsable::find($request->id);
+				$responsable->firma_padre = $request->signature;
+				$responsable->activo = true;
+				$responsable->save();
+				$res->success = true;
+				$res->msg = 'Se actualizo la autorización del estudiante';
+				return response()->json($res);
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al actualizar la autorización del estudiante';
+				return response()->json($res);
+			}
+		}
+		// public function index($page){
+		//     $QT_PAGE = 15;
+		//     $PAGE = $page;
+		//     $TOTAL = DB::table('estudiante')
+		//                 ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
+		//                 ->where('usuario.activo', '=', '1')
+		//                 ->count();
+		//     $TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
+		//     $dbStudents = DB::table('estudiante')
+		//                   ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
+		//                   ->where('usuario.activo', '=', '1')
+		//                   ->skip($PAGE - 1)
+		//                   ->take($QT_PAGE)
+		//                   ->get();
+		//     $students = [];
+		//     $res = (object) null;
+		//     try{
+		//         foreach ($dbStudents as $student) {
+		//           $students[] = UserTrait::userData($student->usuario_id);
+		//         }
+		//         $res->success = true;
+		//         $res->students = $students;
+		//         $res->pages = $TOTAL_PAGES;
+		//         return response()->json($res);
+		//     }catch(\Exception $e){
+		//         $res->success = false;
+		//         $res->err = $e->getMessage();
+		//         $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
+		//         return response()->json($res);
+		//     }
+		// }
+		// public function indexAdmin(){
+		//     $dbStudents = DB::table('estudiante')
+		//                   ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
+		//                   ->where('usuario.activo', '=', '1')
+		//                   ->get();
+		//     $students = [];
+		//     $res = (object) null;
+		//     try{
+		//         foreach ($dbStudents as $student) {
+		//           $students[] = UserTrait::userData($student->usuario_id);
+		//         }
+		//         $res->success = true;
+		//         $res->students = $students;
+		//         $res->pages = $TOTAL_PAGES;
+		//         return response()->json($res);
+		//     }catch(\Exception $e){
+		//         $res->success = false;
+		//         $res->err = $e->getMessage();
+		//         $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
+		//         return response()->json($res);
+		//     }
+		// }
 }
