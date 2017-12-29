@@ -5,6 +5,12 @@
     </div>
   </div>
   <div class="row">
+    <div class="col-xs-12" style="padding-top:20px;padding-bottom:20px">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control" placeholder="Buscar mentor" ng-model="vm.mentorFilter">
+      </div>
+    </div>
     <div class="col-xs-12">
 			<div class="panel-group">
 				<div class="panel panel-default">
@@ -29,7 +35,7 @@
 									</tr>
 								</thead>
                 <tbody>
-									<tr ng-repeat="mentor in vm.mentors">
+									<tr ng-repeat="mentor in vm.mentors | filter:vm.mentorFilter">
 										<td class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</td>
 										<td class="text-center">{{ mentor.email }}</td>
 										<td class="text-center">{{ mentor.cellphone }}</td>
