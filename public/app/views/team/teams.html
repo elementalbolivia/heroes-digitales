@@ -34,15 +34,18 @@
 		</div>
 		<div class="col-xs-12 col-sm-9">
 			<h1 class="title-white-bg text-center"> EQUIPOS</h1>
-			<!-- <div class="col-xs-12" style="padding-top:20px;padding-bottom:20px">
-				<input type="text" class="form-control" placeholder="Buscar equipo" ng-model="team.team_name">
-			</div> -->
+			<div class="col-xs-12" style="padding-top:20px;padding-bottom:20px">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-search"></i></span>
+					<input type="text" class="form-control" placeholder="Buscar equipo" ng-model="vm.teamFilter">
+				</div>
+			</div>
 			<div class="col-xs-12" ng-if="vm.isLoading">
 				<h1 class="text-center" style="font-size:75px;color:#229ed7"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
 			</div>
 			<div class="col-xs-12">
 				<div class="row display-flex" ng-if="!vm.isLoading">
-					<div class="col-xs-12 col-sm-4" ng-repeat="team in vm.teams | TeamFilter: vm.filters.cities : vm.filters.divisions : vm.filters.categories : vm.filters.teamThat.requestMembers : vm.filters.teamThat.requestMentors">
+					<div class="col-xs-12 col-sm-4" ng-repeat="team in vm.teams | TeamFilter: vm.filters.cities : vm.filters.divisions : vm.filters.categories : vm.filters.teamThat.requestMembers : vm.filters.teamThat.requestMentors | filter:vm.teamFilter">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<img ng-if="team.img == null" src="/app/images/teams/default-team.jpg" style="margin:auto;" class="img-responsive" alt="">

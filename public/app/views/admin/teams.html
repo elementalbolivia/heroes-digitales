@@ -43,12 +43,17 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-xs-12" style="padding-top:20px;padding-bottom:20px">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Buscar equipo" ng-model="vm.teamFilter">
+          </div>
+        </div>
         <div class="col-xs-12">
           <div class="panel-group">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3>Equipos</h3>
-
                 <h3 class="right">Total: {{ filtered.length }}</h3>
               </div>
               <div class="panel-body">
@@ -67,7 +72,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="team in filtered = (vm.teams | TeamAdminFilter: vm.filters.cities : vm.filters.divisions)">
+                      <tr ng-repeat="team in filtered = (vm.teams | TeamAdminFilter: vm.filters.cities : vm.filters.divisions | filter:vm.teamFilter)">
                         <td class="text-center">{{ team.team_name }}</td>
                         <td class="text-center">{{ team.category.nombre }}</td>
                         <td class="text-center">{{ team.division.nombre }}</td>
