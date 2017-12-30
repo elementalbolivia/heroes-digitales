@@ -34,8 +34,7 @@ trait UserTrait{
 		if($userData[0]['role_id'] == 1){
 			$userData[0]['student'] = self::studentData($userData[1]);
 			$userData[0]['has_team'] = isset($userData[0]['student']['has_team']) ? $userData[0]['student']['has_team'] : false;
-			$userData[0]['min_fields'] = $userData[0]['student']['authorization']['active']
-										&& $userData[0]['image']
+			$userData[0]['min_fields'] = $userData[0]['image']
 										&& $userData[0]['bio']
 										&& $userData[0]['terms_use'] ? true : false;
 			$userData[0]['invitations'] = self::invitations($userData[1], $userData[0]['role_id']);
@@ -215,17 +214,17 @@ trait UserTrait{
 		// TODO
 		$student = $user->student;
 		$studentData = [];
-		$parent = $student->parentSignature();
-		if($parent != null){
-			$studentData['authorization'] = [
-				'id'		=> $parent->id,
-				'signature'	=> $parent->firma,
-				'mail'			=> $parent->correo_electronico,
-				'active'	=> $parent->activo == 0 ? false : true,
-			];
-		}else{
-			$studentData['authorization'] = false;
-		}
+		// $parent = $student->parentSignature();
+		// if($parent != null){
+		// 	$studentData['authorization'] = [
+		// 		'id'		=> $parent->id,
+		// 		'signature'	=> $parent->firma,
+		// 		'mail'			=> $parent->correo_electronico,
+		// 		'active'	=> $parent->activo == 0 ? false : true,
+		// 	];
+		// }else{
+		// 	$studentData['authorization'] = false;
+		// }
 		$studentData['school'] = $student->colegio != NULL ? $student->colegio : NULL;
 		$studentData['division'] = self::division($user);
 		return $studentData;
