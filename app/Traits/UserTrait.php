@@ -214,17 +214,17 @@ trait UserTrait{
 		// TODO
 		$student = $user->student;
 		$studentData = [];
-		// $parent = $student->parentSignature();
-		// if($parent != null){
-		// 	$studentData['authorization'] = [
-		// 		'id'		=> $parent->id,
-		// 		'signature'	=> $parent->firma,
-		// 		'mail'			=> $parent->correo_electronico,
-		// 		'active'	=> $parent->activo == 0 ? false : true,
-		// 	];
-		// }else{
-		// 	$studentData['authorization'] = false;
-		// }
+		$parent = $student->parentSignature();
+		if($parent != null){
+			$studentData['authorization'] = [
+				'id'		=> $parent->id,
+				'signature'	=> $parent->firma,
+				'mail'			=> $parent->correo_electronico,
+				'active'	=> $parent->activo == 0 ? false : true,
+			];
+		}else{
+			$studentData['authorization'] = false;
+		}
 		$studentData['school'] = $student->colegio != NULL ? $student->colegio : NULL;
 		$studentData['division'] = self::division($user);
 		return $studentData;
