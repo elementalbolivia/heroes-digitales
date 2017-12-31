@@ -106,7 +106,18 @@ class TeamCtrl extends Controller
         $res = (object) null;
         try{
             $member = EstudianteMentorTieneEquipo::find($request->reqId);
-            $isStudent = $member->estudiante_id != NULL ? true : false;
+            // $isStudent = $member->estudiante_id != NULL ? true : false;
+						// $type = $isStudent ? 'student' : 'mentor';
+						// $userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
+						// $isMember = DB::table('estudiante_mentor_tiene_equipo')
+			      //             ->where($type, $userId)
+			      //             ->where('aprobado', 1)
+			      //             ->first() != null;
+						// if($isMember){
+						// 	$res->success = false;
+						// 	$res->msg = 'Usted pertenece a un equipo actualmente';
+						// 	return response()->json($res);
+						// }
             if($isStudent){
                 DB::table('estudiante_mentor_tiene_equipo')
                 ->where('estudiante_id', '=', $member->estudiante_id)
@@ -231,6 +242,41 @@ class TeamCtrl extends Controller
         $res = (object) null;
         $invitation = InvitacionesEquipo::find($request->invitationId);
         try{
+						$isStudent = $invitation->estudiante_id != NULL ? true : false;
+						// $type = $isStudent ? 'student' : 'mentor';
+						// $userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
+						// $isMember = DB::table('estudiante_mentor_tiene_equipo')
+						// 						->where($type, $userId)
+						// 						->where('aprobado', 1)
+						// 						->first() != null;
+						// if($isMember){
+						// 	$res->success = false;
+						// 	$res->msg = 'Usted pertenece a un equipo actualmente';
+						// 	return response()->json($res);
+						// }
+						if($isStudent){
+							$studentMembers = DB::table('estudiante_mentor_tiene_equipo')
+																->where('equipo_id', '=', $request->teamId)
+																->where('aprobado', '=', 1)
+																->whereNotNull('estudiante_id')
+																->count();
+						  if($studentMembers >= 4){
+								$res->success = false;
+								$res->msg = 'El equipo está lleno, tiene 4 estudiantes, únete a otro';
+								return response()->json($res);
+							}
+						}else{
+							$mentorMembers = DB::table('estudiante_mentor_tiene_equipo')
+																->where('equipo_id', '=', $request->teamId)
+																->where('aprobado', '=', 1)
+																->whereNotNull('mentor_id')
+																->count();
+							if($mentorMembers >= 2){
+								$res->success = false;
+								$res->msg = 'El equipo está lleno, tiene 2 mentores, únete a otro';
+								return response()->json($res);
+							}
+						}
             if(!$request->accept){
                 $invitation->activo = false;
                 $invitation->save();
@@ -267,8 +313,22 @@ class TeamCtrl extends Controller
     }
 		public function confirmEmailInvitation($invitationId, $token, $teamid, $bool){
         $res = (object) null;
+				// Confirmar que el usuario tiene el estado activo
+				// Confirmar que el equipo no esta lleno
         $invitation = InvitacionesEquipo::find($invitationId);
         try{
+						// $isStudent = $invitation->estudiante_id != NULL ? true : false;
+						// $type = $isStudent ? 'student' : 'mentor';
+						// $userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
+						// $isMember = DB::table('estudiante_mentor_tiene_equipo')
+						// 						->where($type, $userId)
+						// 						->where('aprobado', 1)
+						// 						->first() != null;
+						// if($isMember){
+						// 	$res->success = false;
+						// 	$res->msg = 'Usted pertenece a un equipo actualmente';
+						// 	return response()->json($res);
+						// }
 						if($invitation->token != $token || $invitation->activo == 0){
 							return redirect(config('constants.STATE.LOCAL_URL'));
 						}
@@ -294,6 +354,7 @@ class TeamCtrl extends Controller
             $invitation->confirmacion = true;
             $invitation->save();
             $member['aprobado'] = true;
+						$member['activo'] = false;
             EstudianteMentorTieneEquipo::create($member);
 						return redirect(config('constants.STATE.LOCAL_URL') . 'invitacion-aceptada');
         }catch(\Exception $e){
