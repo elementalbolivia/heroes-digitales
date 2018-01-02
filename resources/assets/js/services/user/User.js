@@ -119,6 +119,17 @@
 					return response.data;
 				});
 				return promise;
+			},
+			confirmUser: function(data){
+				var promise = $http({
+					method: 'PUT',
+					url: AUTH_URL + 'user-active/',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
 			}
 		};
 	};

@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('index');
 });
@@ -64,6 +63,10 @@ Route::prefix('api/v1/auth')->group(function(){
 	]);
   Route::post('user/email-invitation', [
 		'uses'			=> 'UserCtrl@sendEmailInvitation',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::put('user-active', [
+		'uses'			=> 'UserCtrl@setActive',
 		'middleware'	=> 'jwt.auth'
 	]);
 	Route::get('divisions', [
@@ -162,12 +165,28 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'TeamCtrl@confirmInvitation',
 		'middleware'	=> 'jwt.auth'
 	]);
-	Route::get('students', [
+	Route::get('students/{page}', [
 		'uses'	=> 'StudentCtrl@index',
 		'middleware'	=> 'jwt.auth'
 	]);
-	Route::get('mentors', [
+  Route::get('students-admin/{num}', [
+		'uses'	=> 'StudentCtrl@indexAdmin',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::get('student-parents/{id}', [
+		'uses'	=> 'StudentCtrl@getParents',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::put('student/parents-auth-admin', [
+		'uses'	=> 'StudentCtrl@authParent',
+		'middleware'	=> 'jwt.auth'
+	]);
+	Route::get('mentors/{page}', [
 		'uses'	=> 'MenthorCtrl@index',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::get('mentors-admin/{num}', [
+		'uses'	=> 'MenthorCtrl@indexAdmin',
 		'middleware'	=> 'jwt.auth'
 	]);
   Route::get('stages/{id}', [

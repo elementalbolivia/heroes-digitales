@@ -387,6 +387,13 @@ body, html {
 	color: #843534;
 	font-size: 20px;
 }
+.link-field-opt:link,
+.link-field-opt:visited,
+.link-field-opt:hover,
+.link-field-opt:active{
+	color: #ffbb33;
+	font-size: 20px;
+}
 .social-network:link,
 .social-network:visited,
 .social-network:hover,

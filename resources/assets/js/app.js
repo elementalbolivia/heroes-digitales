@@ -204,7 +204,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('user.students', {
-			url: '/estudiantes',
+			url: '/estudiantes/pagina/:num',
 			views: {
 				'user-content@': {
 					templateUrl: '/app/views/student/students.html',
@@ -258,7 +258,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('user.mentors', {
-			url: '/mentores',
+			url: '/mentores/pagina/:num',
 			views: {
 				'user-content@': {
 					templateUrl: '/app/views/mentor/mentors.html',
@@ -313,7 +313,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('admin.students', {
-			url: '/estudiantes',
+			url: '/estudiantes/pagina/:num',
 			views: {
 				'admin-content@':{
 						templateUrl: '/app/views/admin/students.html',
@@ -322,7 +322,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('admin.mentors', {
-			url: '/mentores',
+			url: '/mentores/pagina/:num',
 			views: {
 				'admin-content@':{
 						templateUrl: '/app/views/admin/mentors.html',

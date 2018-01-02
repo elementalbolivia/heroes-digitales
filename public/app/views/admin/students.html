@@ -26,6 +26,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
+                    <th class="text-center">#</th>
 										<th class="text-center">Nombre</th>
 										<th class="text-center">Correo electrónico</th>
 										<th class="text-center">Celular</th>
@@ -40,6 +41,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="student in vm.students | filter:vm.studentFilter">
+                    <td class="text-center">{{ $index + 1 }}</td>
 										<td class="text-center">{{ student.names + ' ' + student.lastnames }}</td>
 										<td class="text-center">{{ student.email }}</td>
 										<td class="text-center">{{ student.cellphone }}</td>
@@ -53,7 +55,6 @@
                       <button type="button" ng-if="!student.is_active" class="btn btn-sm btn-success" ng-click="vm.approve(student.id, true)">Aprobar</button>
                     </td>
                     <td class="text-center" ng-if="vm.userCreds.role == 5">
-                      <!-- <button type="button" ng-if="!student.student.authorization" class="btn btn-sm btn-danger" ><i class="fa fa-times"></i></button> -->
                       <button type="button" ng-if="student.student.authorization.signature == null" class="btn btn-sm btn-warning" data-target="#authParent" data-toggle="modal" ng-click="vm.getStudent(student.id)"><i class="fa fa-clock-o fa-2x"></i></button>
                       <strong ng-if="student.student.authorization.active" class="text-success" >Autorizado <i class="fa fa-check"></i></strong>
                     </td>
@@ -65,6 +66,13 @@
 				</div>
 			</div>
 		</div>
+    <div class="col-xs-12">
+      <ul class="pagination">
+        <li ng-repeat="page in vm.pagination" ng-class="page == vm.currentPage ? 'active' : 'none'">
+          <a href="#" ui-sref="admin.students({num: page})">{{ page }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 <div id="authParent" class="modal fade" role="dialog">

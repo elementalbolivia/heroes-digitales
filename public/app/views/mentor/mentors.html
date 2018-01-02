@@ -13,8 +13,8 @@
 					</div>
 					<div>
 						<h4>Mentores</h4>
-						<input type="radio" ng-model="vm.filters.withTeam" ng-value="true" selected> Con equipo <br />
-						<input type="radio" ng-model="vm.filters.withTeam" ng-value="false" > Sin equipo
+						<input type="radio" ng-model="vm.filters.withTeam" ng-checked="false" > Con equipo <br />
+						<input type="radio" ng-model="vm.filters.withTeam" ng-checked="true" > Sin equipo
 					</div>
 					<div>
 						<h4>Habilidad</h4>
@@ -68,6 +68,14 @@
 					</div>
 				</div>
 			</div>
+
+		</div>
+		<div class="col-xs-12">
+			<ul class="pagination">
+				<li ng-repeat="page in vm.pagination" ng-class="page == vm.currentPage ? 'active' : 'none'">
+					<a href="#" ui-sref="user.students({num: page})">{{ page }}</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>

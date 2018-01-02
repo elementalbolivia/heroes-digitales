@@ -200,12 +200,15 @@
 				vm.emailInvitation.state.msg = 'Debes ingresar un correo electrónico';
 				return;
 			}
-			for (var i = 0; i < vm.userData.team.members.length; i++) {
-				if( type == "mentor" && !vm.userData.team.members[i].is_student){
-					vm.emailInvitation.state.success = true;
-					vm.emailInvitation.state.msg = 'Tú equipo ya tiene un mentor';
-					return;
-				}
+			if(type == 'mentor' && vm.userData.team.is_full_mentors){
+				vm.emailInvitation.state.success = true;
+				vm.emailInvitation.state.msg = 'Tú equipo ya tiene 2 mentores';
+				return;
+			}
+			if(type == 'student' && vm.userData.team.is_full_students){
+				vm.emailInvitation.state.success = true;
+				vm.emailInvitation.state.msg = 'Tú equipo ya tiene 4 estudiantes';
+				return;
 			}
 			vm.emailInvitation.state.isLoading = true;
 			User.sendEmailInvitation(vm.emailInvitation).then(function(data){
