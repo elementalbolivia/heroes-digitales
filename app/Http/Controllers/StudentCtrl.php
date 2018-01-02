@@ -45,49 +45,33 @@ class StudentCtrl extends Controller
 		        return response()->json($res);
 		    }
 		}
-		// public function indexAdmin(){
-		//     $dbStudents = DB::table('estudiante')
-		//                   ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-		//                   ->where('usuario.activo', '=', '1')
-		//                   ->get();
-		//     $students = [];
-		//     $res = (object) null;
-		//     try{
-		//         foreach ($dbStudents as $student) {
-		//           $students[] = UserTrait::userData($student->usuario_id);
-		//         }
-		//         $res->success = true;
-		//         $res->students = $students;
-		//         $res->pages = $TOTAL_PAGES;
-		//         return response()->json($res);
-		//     }catch(\Exception $e){
-		//         $res->success = false;
-		//         $res->err = $e->getMessage();
-		//         $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
-		//         return response()->json($res);
-		//     }
-		// }
 		public function indexAdmin($page){
 			$QT_PAGE = 25;
 	    $PAGE = $page;
-	    $TOTAL = DB::table('estudiante')
-	                ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-	                ->count();
-	    $TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
-	    $dbStudents = DB::table('estudiante')
-	                  ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-	                  ->skip(($PAGE - 1) * $QT_PAGE)
-	                  ->take($QT_PAGE)
-	                  ->get();
-	    $students = [];
-	    $res = (object) null;
-	    try{
+			$res = (object) null;
+			try{
+			    // $TOTAL = DB::table('estudiante')
+			    //             ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
+			    //             ->count();
+					// var_dump($TOTAL);
+			    // $TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
+			    $dbStudents = DB::table('estudiante')
+			                  ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
+			                  // ->skip(($PAGE - 1) * $QT_PAGE)
+			                  // ->take($QT_PAGE)
+			                  ->get();
+					// var_dump(count($dbStudents));
+					// var_dump(($PAGE - 1) * $QT_PAGE);
+			    $students = [];
 	        foreach ($dbStudents as $student) {
+						// if($student->correo == 'yaecastedo@gmail.com')
+							// var_dump(UserTrait::userData($student->usuario_id));
+						// var_dump($count);
 	          $students[] = UserTrait::userData($student->usuario_id);
 	        }
 	        $res->success = true;
 	        $res->students = $students;
-	        $res->pages = $TOTAL_PAGES;
+	        // $res->pages = $TOTAL_PAGES;
 	        return response()->json($res);
 	    }catch(\Exception $e){
 	        $res->success = false;
