@@ -149,7 +149,7 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'TeamCtrl@requestJoin',
 		'middleware'	=> 'jwt.auth'
 	]);
-	Route::put('team/member', [
+	Route::post('team/member/request', [
 		'uses'	=> 'TeamCtrl@confirmRequestToJoin',
 		'middleware'	=> 'jwt.auth'
 	]);
