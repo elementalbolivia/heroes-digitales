@@ -22,6 +22,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
+                    <th class="text-center">#</th>
                     <th class="text-center">Nombre</th>
 										<th class="text-center">Correo electrónico</th>
 										<th class="text-center">Celular</th>
@@ -36,6 +37,7 @@
 								</thead>
                 <tbody>
 									<tr ng-repeat="mentor in vm.mentors | filter:vm.mentorFilter">
+                    <td class="text-center">{{$index + 1}}</td>
 										<td class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</td>
 										<td class="text-center">{{ mentor.email }}</td>
 										<td class="text-center">{{ mentor.cellphone }}</td>
@@ -57,5 +59,12 @@
 				</div>
 			</div>
 		</div>
+    <div class="col-xs-12">
+      <ul class="pagination">
+        <li ng-repeat="page in vm.pagination" ng-class="page == vm.currentPage ? 'active' : 'none'">
+          <a href="#" ui-sref="admin.mentors({num: page})">{{ page }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

@@ -10,6 +10,18 @@
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
 		vm.teams = [];
+		vm.filters = {
+			cities: ['La Paz', 'El Alto'],
+			divisions: ['Junior (de 10 a 14 años)', 'Senior (de 15 a 18 años)'],
+			categories: ['Educación'],
+			teamThat: {
+				requestMembers: true,
+				requestMentors: true,
+			},
+		};
+		// Methods
+		vm.updateFilter = updateFilter;
+
 		vm.isLoading = true;
 		// Methods
 		vm.getTeams = getTeams;
@@ -57,6 +69,14 @@
 					}
 				});
 		}
+		function updateFilter(type, arg){
+			var index = vm.filters[type].indexOf(arg);
+			if(index == -1){
+				vm.filters[type].push(arg);
+			}else{
+				vm.filters[type].splice(index, 1);
+			}
+		};
 		// Methods self invoking
 		vm.getTeams();
 	};

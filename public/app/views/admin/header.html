@@ -13,8 +13,8 @@
         <li class="active"><a ui-sref="admin">Inicio</a></li>
         <li class="active"><a ui-sref="admin.judges">Jueces</a></li>
         <li class="active"><a ui-sref="admin.experts">Expertos</a></li>
-        <li class="active"><a ui-sref="admin.students">Estudiantes</a></li>
-        <li class="active"><a ui-sref="admin.mentors">Mentores</a></li>
+        <li class="active"><a ui-sref="admin.students({num: 1})">Estudiantes</a></li>
+        <li class="active"><a ui-sref="admin.mentors({num: 1})">Mentores</a></li>
         <li class="active"><a ui-sref="admin.teams">Equipos</a></li>
         <li class="active"><a ui-sref="admin.stages" ng-if="vm.userCreds.role == 5">Etapas del concurso</a></li>
       </ul>

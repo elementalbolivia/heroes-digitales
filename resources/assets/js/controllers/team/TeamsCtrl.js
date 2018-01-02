@@ -10,8 +10,8 @@
 		vm.teams = [];
 		vm.filters = {
 			cities: ['La Paz', 'El Alto'],
-			divisions: ['Junior', 'Senior'],
-			categories: ['Violencia contra la niñez', 'Bienestar y salud', 'Educación'],
+			divisions: ['Junior (de 10 a 14 años)', 'Senior (de 15 a 18 años)'],
+			categories: ['Educación'],
 			teamThat: {
 				requestMembers: true,
 				requestMentors: true,
@@ -30,7 +30,7 @@
 					vm.teams = data.teams;
 				}else{
 					alert(data.msg);
-					vm.isLoading = false;					
+					vm.isLoading = false;
 				}
 			}, function(err){
 				vm.isLoading = false;
