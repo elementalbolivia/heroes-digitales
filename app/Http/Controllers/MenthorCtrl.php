@@ -41,16 +41,16 @@ class MenthorCtrl extends Controller
         }
 	}
 	public function indexAdmin($page){
-		$QT_PAGE = 25;
-		$PAGE = $page;
-		$TOTAL = DB::table('mentor')
-								->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
-								->count();
-		$TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
+		// $QT_PAGE = 25;
+		// $PAGE = $page;
+		// $TOTAL = DB::table('mentor')
+		// 						->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
+		// 						->count();
+		// $TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
 		$dbMentors = DB::table('mentor')
 									->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
-									->skip( ($PAGE - 1) * $QT_PAGE )
-									->take($QT_PAGE)
+									// ->skip( ($PAGE - 1) * $QT_PAGE )
+									// ->take($QT_PAGE)
 									->get();
 		$mentors = [];
 		$res = (object) null;
@@ -60,7 +60,7 @@ class MenthorCtrl extends Controller
 				}
 				$res->success = true;
 				$res->mentors = $mentors;
-				$res->pages = $TOTAL_PAGES;
+				// $res->pages = $TOTAL_PAGES;
 				return response()->json($res);
 		}catch(\Exception $e){
 				$res->success = false;
