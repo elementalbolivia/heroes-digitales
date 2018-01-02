@@ -18,7 +18,9 @@
 				var promise = $http({
 					method: 'GET',
 					url: AUTH_URL + 'students/'+page,
-					params: {token: Auth.getSession().token }
+					params: {
+						token: Auth.getSession().token
+					}
 				}).then(function(response){
 					return response.data;
 				});

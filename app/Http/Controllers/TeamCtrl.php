@@ -106,7 +106,7 @@ class TeamCtrl extends Controller
         $res = (object) null;
         try{
             $member = EstudianteMentorTieneEquipo::find($request->reqId);
-            // $isStudent = $member->estudiante_id != NULL ? true : false;
+            $isStudent = $member->estudiante_id != NULL ? true : false;
 						// $type = $isStudent ? 'student' : 'mentor';
 						// $userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
 						// $isMember = DB::table('estudiante_mentor_tiene_equipo')
@@ -139,6 +139,8 @@ class TeamCtrl extends Controller
         }catch(\Exception $e){
             $res->success = false;
             $res->msg = 'Hubo un error, inténtelo nuevamente';
+						$res->err = $e->getMessage();
+						return response()->json($res);
         }
     }
 		public function deleteMembership($mid, $invid){

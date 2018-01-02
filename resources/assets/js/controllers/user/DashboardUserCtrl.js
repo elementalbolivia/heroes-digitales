@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('DashboardUserCtrl',['User', 'Auth', 'Team', 'Stage', 'LxNotificationService', DashboardUserCtrl]);
+		.controller('DashboardUserCtrl',['$scope', 'User', 'Auth', 'Team', 'Stage', 'LxNotificationService', DashboardUserCtrl]);
 
-	function DashboardUserCtrl(User, Auth, Team, Stage, LxNotificationService){
+	function DashboardUserCtrl($scope, User, Auth, Team, Stage, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
@@ -78,6 +78,8 @@
 				Team.confirmRequestToJoin({reqId: reqId, accept: bool}).then(function(data){
 					if(data.success){
 						LxNotificationService.success('El participante fue adicionado a tu equipo');
+						vm.students = [];
+						vm.mentors = [];
 						vm.getUserData();
 					}else{
 						LxNotificationService.warning(data.msg);
@@ -170,14 +172,16 @@
 						if (answer){
 							Team.deleteMembership(memberShipId, invId).then(function(data){
 								if(data.success){
-									console.log(data);
+									var toPop = 0;
 									for (var i = 0; i < vm.userData.team.members.length; i++) {
 										if(vm.userData.team.members[i].membership_id == memberShipId){
-											userData.team.members.slice(i, 1);
-											LxNotificationService.success('El miembro fue eliminado');
-											return;
+											toPop = i;
+											break;
 										}
 									}
+									vm.userData.team.members.splice(toPop, 1);
+									LxNotificationService.success('El miembro fue eliminado');
+									return;
 								}else{
 									LxNotificationService.warning(data.msg);
 								}

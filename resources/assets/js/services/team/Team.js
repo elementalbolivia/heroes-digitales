@@ -80,8 +80,8 @@
 			},
 			confirmRequestToJoin: function(data){
 				var promise = $http({
-					method: 'PUT',
-					url: AUTH_URL + 'team/member',
+					method: 'POST',
+					url: AUTH_URL + 'team/member/request',
 					params: {token: Auth.getSession().token },
 					data: data
 				}).then(function(response){

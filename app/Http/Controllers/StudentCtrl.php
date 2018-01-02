@@ -13,7 +13,6 @@ use App\Traits\UserTrait as UserTrait;
 class StudentCtrl extends Controller
 {
 	use UserTrait;
-    //
 		public function index($page){
 		    $QT_PAGE = 15;
 		    $PAGE = $page;
