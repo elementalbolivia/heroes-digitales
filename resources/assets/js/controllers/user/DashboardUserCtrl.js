@@ -172,16 +172,10 @@
 						if (answer){
 							Team.deleteMembership(memberShipId, invId).then(function(data){
 								if(data.success){
-									var toPop = 0;
-									for (var i = 0; i < vm.userData.team.members.length; i++) {
-										if(vm.userData.team.members[i].membership_id == memberShipId){
-											toPop = i;
-											break;
-										}
-									}
-									vm.userData.team.members.splice(toPop, 1);
+									vm.students = [];
+									vm.mentors = [];
+									vm.getUserData();
 									LxNotificationService.success('El miembro fue eliminado');
-									return;
 								}else{
 									LxNotificationService.warning(data.msg);
 								}
