@@ -160,7 +160,7 @@ trait TeamTrait{
 					}else{
 						$leader = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
 					}
-					EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
+					// EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
 				}
 			}
 			return true;
