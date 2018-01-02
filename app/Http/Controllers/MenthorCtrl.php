@@ -32,6 +32,7 @@ class MenthorCtrl extends Controller
             }
             $res->success = true;
             $res->mentors = $mentors;
+						$res->pages = $TOTAL_PAGES;
             return response()->json($res);
         }catch(\Exception $e){
             $res->success = false;

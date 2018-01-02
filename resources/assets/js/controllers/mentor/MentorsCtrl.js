@@ -26,6 +26,7 @@
 					vm.isLoading = false;
 					vm.mentors = data.mentors;
 					vm.total = data.pages;
+					console.log(data.pages);
 					for (var i = 0; i < data.pages; i++) {
 						vm.pagination.push(i + 1);
 					}
