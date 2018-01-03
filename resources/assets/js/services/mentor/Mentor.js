@@ -4,11 +4,16 @@
 		.factory('Mentor',['$http', 'Auth', 'PUBLIC_URL', 'AUTH_URL', Mentor]);
 	function Mentor($http, Auth, PUBLIC_URL, AUTH_URL){
 		return{
-			getMentors: function(page){
+			getMentors: function(page, filters){
 				var promise = $http({
 					method: 'GET',
 					url: AUTH_URL + 'mentors/'+page,
-					params: {token: Auth.getSession().token }
+					params: {
+						mentorName: filters.mentorName,
+						city: JSON.stringify(filters.city),
+						withTeam: filters.withTeam,
+						token: Auth.getSession().token,
+					 }
 				}).then(function(response){
 					return response.data;
 				});

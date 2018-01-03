@@ -258,7 +258,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('user.mentors', {
-			url: '/mentores/pagina/:num',
+			url: '/mentores/pagina/:num/:cities/:wteam/:mentor',
 			views: {
 				'user-content@': {
 					templateUrl: '/app/views/mentor/mentors.html',

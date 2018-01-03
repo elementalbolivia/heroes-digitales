@@ -10,20 +10,13 @@ use DB;
 class MenthorCtrl extends Controller
 {
 	use UserTrait;
-	public function index($page){
+	public function index(Request $request, $page){
 		$QT_PAGE = 15;
 		$PAGE = $page;
-		$TOTAL = DB::table('mentor')
-								->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
-								->where('usuario.activo', '=', 1)
-								->count();
+		$query = $this->queryReq($request, $PAGE, $QT_PAGE);
+		$dbMentors = $query->rows;
+		$TOTAL = $query->total;
 		$TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
-		$dbMentors = DB::table('mentor')
-									->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
-									->where('usuario.activo', '=', 1)
-									->skip(($PAGE - 1) * $QT_PAGE)
-									->take($QT_PAGE)
-									->get();
 		$mentors = [];
 		$res = (object) null;
         try{
@@ -85,4 +78,126 @@ class MenthorCtrl extends Controller
     		return response()->json($res);
     	}
     }
+		private function queryReq($request, $page, $quantityPerPage = 15){
+			$match = (object) null;
+			$QT_PAGE = $quantityPerPage;
+			$PAGE = $page;
+			$cities = json_decode($request->city);
+			$mentorName = $request->mentorName;
+			$withTeam = $request->withTeam == "true" ? true : false;
+			if($mentorName != "" || isset($mentorName)){
+				$match->rows = DB::table('usuario')
+							 ->join('mentor', function($join){
+								 $join->on('usuario.id', '=', 'mentor.usuario_id');
+							 })
+							 ->where('usuario.nombres', 'like', '%'. $mentorName .'%')
+							 ->orWhere('usuario.apellidos', 'like', '%'.$mentorName.'%')
+							 ->skip(($PAGE - 1) * $QT_PAGE)
+							 ->take($QT_PAGE)
+							 ->get();
+				 $match->total =  DB::table('usuario')
+							 ->join('mentor', function($join){
+								 $join->on('usuario.id', '=', 'mentor.usuario_id');
+							 })
+							 ->where('usuario.nombres', 'like', '%'. $mentorName .'%')
+							 ->orWhere('usuario.apellidos', 'like', '%'.$mentorName.'%')
+							 ->count();
+				 return $match;
+			}
+			if(count($cities) > 0 )
+				if($cities[0] == "")
+					unset($cities[0]);
+			if(count($cities) != 0 && $withTeam){
+				 $match->rows = DB::table('usuario')
+								->join('mentor', function($join) use ($cities) {
+									$join->on('usuario.id', '=', 'mentor.usuario_id');
+								})
+								->join('estudiante_mentor_tiene_equipo', function($join){
+									$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+								})
+								->where([
+									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+									'estudiante_mentor_tiene_equipo.activo'		=> 1
+								])
+								->whereIn('ciudad_id', $cities)
+								->skip(($PAGE - 1) * $QT_PAGE)
+								->take($QT_PAGE)
+								->get();
+					$match->total =  DB::table('usuario')
+								->join('mentor', function($join) use ($cities) {
+									$join->on('usuario.id', '=', 'mentor.usuario_id');
+								})
+								->join('estudiante_mentor_tiene_equipo', function($join){
+									$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+								})
+								->where([
+									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+									'estudiante_mentor_tiene_equipo.activo'		=> 1
+								])
+								->whereIn('ciudad_id', $cities)
+ 								->count();
+			}else if(count($cities) != 0 && !$withTeam){
+				$match->rows = DB::table('usuario')
+									->join('mentor', function($join) use ($cities){
+										$join->on('usuario.id', '=', 'mentor.usuario_id');
+									})
+									->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+										$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+								})
+								->whereIn('usuario.ciudad_id', $cities)
+								->whereNull('estudiante_mentor_tiene_equipo.mentor_id')
+								->skip(($PAGE - 1) * $QT_PAGE)
+								->take($QT_PAGE)
+								->get();
+				$match->total = DB::table('usuario')
+									->join('mentor', function($join) use ($cities){
+										$join->on('usuario.id', '=', 'mentor.usuario_id');
+									})
+									->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+										$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+								})
+								->whereIn('usuario.ciudad_id', $cities)
+								->whereNull('estudiante_mentor_tiene_equipo.mentor_id')
+								->count();
+			}else if(count($cities) == 0){
+				if(!$withTeam){
+					$match->rows = DB::table('mentor')
+										->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+											$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+									})
+									->whereNull('estudiante_mentor_tiene_equipo.mentor_id')
+									->skip(($PAGE - 1) * $QT_PAGE)
+									->take($QT_PAGE)
+									->get();
+					$match->total = DB::table('mentor')
+										->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+											$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+									})
+									->whereNull('estudiante_mentor_tiene_equipo.mentor_id')
+									->count();
+				}else{
+					$match->rows = DB::table('mentor')
+ 								->join('estudiante_mentor_tiene_equipo', function($join){
+ 									$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+ 								})
+ 								->where([
+ 									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+ 									'estudiante_mentor_tiene_equipo.activo'		=> 1
+ 								])
+ 								->skip(($PAGE - 1) * $QT_PAGE)
+ 								->take($QT_PAGE)
+ 								->get();
+ 					$match->total =  DB::table('mentor')
+ 								->join('estudiante_mentor_tiene_equipo', function($join){
+ 									$join->on('mentor.id', '=', 'estudiante_mentor_tiene_equipo.mentor_id');
+ 								})
+ 								->where([
+ 									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+ 									'estudiante_mentor_tiene_equipo.activo'		=> 1
+ 								])
+								->count();
+				}
+			}
+			return $match;
+		}
 }
