@@ -107,35 +107,40 @@ class TeamCtrl extends Controller
         try{
             $member = EstudianteMentorTieneEquipo::find($request->reqId);
             $isStudent = $member->estudiante_id != NULL ? true : false;
-						// $type = $isStudent ? 'student' : 'mentor';
-						// $userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
-						// $isMember = DB::table('estudiante_mentor_tiene_equipo')
-			      //             ->where($type, $userId)
-			      //             ->where('aprobado', 1)
-			      //             ->first() != null;
-						// if($isMember){
-						// 	$res->success = false;
-						// 	$res->msg = 'Usted pertenece a un equipo actualmente';
-						// 	return response()->json($res);
-						// }
-            if($isStudent){
-                DB::table('estudiante_mentor_tiene_equipo')
-                ->where('estudiante_id', '=', $member->estudiante_id)
-                ->update(['activo'  => 0]);
-            }else{
-                DB::table('estudiante_mentor_tiene_equipo')
-                ->where('mentor_id', '=', $member->mentor_id)
-                ->update(['activo'  => 0]);
-            }
-            if($request->accept){
-                $member->aprobado = true;
-                $member->activo = true;
-            }else{
-                $member->activo = false;
-            }
-            $member->save();
-            $res->success = true;
-            return response()->json($res);
+						$type = $isStudent ? 'estudiante_id' : 'mentor_id';
+						$userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
+						$isMember = DB::table('estudiante_mentor_tiene_equipo')
+			                  ->where($type, $userId)
+			                  ->where('aprobado', 1)
+			                  ->first() != null;
+						$r = $this->isTeamFull($isStudent, $member->equipo_id, 'REQUEST');
+						if(!$r->isFull){
+							if($isMember){
+								$res->success = false;
+								$res->msg = 'Usted pertenece a un equipo actualmente';
+								return response()->json($res);
+							}
+	            if($isStudent){
+	                DB::table('estudiante_mentor_tiene_equipo')
+	                ->where('estudiante_id', '=', $member->estudiante_id)
+	                ->update(['activo'  => 0]);
+	            }else{
+	                DB::table('estudiante_mentor_tiene_equipo')
+	                ->where('mentor_id', '=', $member->mentor_id)
+	                ->update(['activo'  => 0]);
+	            }
+	            if($request->accept){
+	                $member->aprobado = true;
+	                $member->activo = true;
+	            }else{
+	                $member->activo = false;
+	            }
+	            $member->save();
+	            $res->success = true;
+	            return response()->json($res);
+						}else{
+							return response()->json($r);
+						}
         }catch(\Exception $e){
             $res->success = false;
             $res->msg = 'Hubo un error, inténtelo nuevamente';
@@ -166,7 +171,7 @@ class TeamCtrl extends Controller
     }
     public function requestJoin(Request $request){
         // Verificar que el estudiante no pertenece a ningun otro equipo ya
-        $res  = (object) null;
+				$res  = (object) null;
         try{
 						// Verificar edad del usuario en base a la division del equipo
 						// si es que estos concuerdan
@@ -194,32 +199,38 @@ class TeamCtrl extends Controller
     public function sendInvitation(Request $request){
         $res = (object) null;
         $user = Usuario::find($request->uid);
-        try{
-						$verify = UserTrait::verifyAge($request->uid, $request->teamId, 'INVITATION');
-						if($verify['success']){
-							$invitation = [
-	                'equipo_id'     => $request->teamId,
-	                'mentor_id'     => NULL,
-	                'estudiante_id' => NULL,
-									'token'					=> md5(date('YmdHis')) . md5($request->teamId),
-	            ];
-	            if($request->role == 1)
-	                $invitation['estudiante_id'] = $user->student->id;
-	            else
-	                $invitation['mentor_id'] = $user->mentor->id;
-	            InvitacionesEquipo::create($invitation);
-							$res->success = true;
-						}else{
-							$res->success = $verify['success'];
-							$res->msg = $verify['msg'];
-						}
-            return response()->json($res);
-        }catch(\Exception $e){
-            $res->success = false;
-						$res->err = $e->getMessage();
-            $res->msg = 'Hubo un error al enviar la invitación';
-            return response()->json($res);
-        }
+				$isStudent = $user->student->id != NULL ? true : false;
+				$r = $this->isTeamFull($isStudent, $request->teamId, 'INVITATION');
+				if(!$r->isFull){
+					try{
+							$verify = UserTrait::verifyAge($request->uid, $request->teamId, 'INVITATION');
+							if($verify['success']){
+								$invitation = [
+		                'equipo_id'     => $request->teamId,
+		                'mentor_id'     => NULL,
+		                'estudiante_id' => NULL,
+										'token'					=> md5(date('YmdHis')) . md5($request->teamId),
+		            ];
+		            if($request->role == 1)
+		                $invitation['estudiante_id'] = $user->student->id;
+		            else
+		                $invitation['mentor_id'] = $user->mentor->id;
+		            InvitacionesEquipo::create($invitation);
+								$res->success = true;
+							}else{
+								$res->success = $verify['success'];
+								$res->msg = $verify['msg'];
+							}
+	            return response()->json($res);
+	        }catch(\Exception $e){
+	            $res->success = false;
+							$res->err = $e->getMessage();
+	            $res->msg = 'Hubo un error al enviar la invitación';
+	            return response()->json($res);
+	        }
+				}else{
+					return response()->json($r);
+				}
     }
     public function hasRequestSentTo($teamId, $uid, $role){
         // Buscar los ids de los estudiantes o mentores, a los que se les ha mandado una invitacion para formar parte del equipo, para inhabilitar el boton de invitacion
@@ -227,9 +238,15 @@ class TeamCtrl extends Controller
         try{
             $user = Usuario::find($uid);
             if($role == 1){
-                $hasRequest = EstudianteMentorTieneEquipo::where([['equipo_id', '=', $teamId], ['estudiante_id', '=', $user->student->id], ['activo', '=', 1] ])->first();
+                $hasRequest = EstudianteMentorTieneEquipo::where(
+									[['equipo_id', '=', $teamId],
+									 ['estudiante_id', '=', $user->student->id],
+									 ['activo', '=', 1] ])->first();
             }else if($role == 2){
-                $hasRequest = EstudianteMentorTieneEquipo::where([['equipo_id', '=', $teamId], ['mentor_id', '=', $user->mentor->id], ['activo', '=', 1] ])->first();
+                $hasRequest = EstudianteMentorTieneEquipo::where(
+									[['equipo_id', '=', $teamId],
+									 ['mentor_id', '=', $user->mentor->id],
+									 ['activo', '=', 1] ])->first();
             }
             $res->success = true;
             $res->isSent = $hasRequest == NULL ? false : true;
@@ -245,71 +262,54 @@ class TeamCtrl extends Controller
         $invitation = InvitacionesEquipo::find($request->invitationId);
         try{
 						$isStudent = $invitation->estudiante_id != NULL ? true : false;
-						// $type = $isStudent ? 'student' : 'mentor';
-						// $userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
-						// $isMember = DB::table('estudiante_mentor_tiene_equipo')
-						// 						->where($type, $userId)
-						// 						->where('aprobado', 1)
-						// 						->first() != null;
-						// if($isMember){
-						// 	$res->success = false;
-						// 	$res->msg = 'Usted pertenece a un equipo actualmente';
-						// 	return response()->json($res);
-						// }
-						if($isStudent){
-							$studentMembers = DB::table('estudiante_mentor_tiene_equipo')
-																->where('equipo_id', '=', $request->teamId)
-																->where('aprobado', '=', 1)
-																->whereNotNull('estudiante_id')
-																->count();
-						  if($studentMembers >= 4){
-								$res->success = false;
-								$res->msg = 'El equipo está lleno, tiene 4 estudiantes, únete a otro';
-								return response()->json($res);
-							}
-						}else{
-							$mentorMembers = DB::table('estudiante_mentor_tiene_equipo')
-																->where('equipo_id', '=', $request->teamId)
-																->where('aprobado', '=', 1)
-																->whereNotNull('mentor_id')
-																->count();
-							if($mentorMembers >= 2){
-								$res->success = false;
-								$res->msg = 'El equipo está lleno, tiene 2 mentores, únete a otro';
-								return response()->json($res);
-							}
+						$type = $isStudent ? 'estudiante_id' : 'mentor_id';
+						$userId = $isStudent ? $invitation->estudiante_id : $member->mentor_id;
+						$isMember = DB::table('estudiante_mentor_tiene_equipo')
+												->where($type, $userId)
+												->where('aprobado', 1)
+												->first() != null;
+						if($isMember){
+							$res->success = false;
+							$res->msg = 'Usted pertenece a un equipo actualmente';
+							return response()->json($res);
 						}
-            if(!$request->accept){
-                $invitation->activo = false;
-                $invitation->save();
-                $res->success = true;
-                $res->msg = 'La invitación fue rechazada con éxito';
-                return response()->json($res);
-            }
-            $member = [
-                'equipo_id'     => $request->teamId,
-                'mentor_id'     => NULL,
-                'estudiante_id' => NULL,
-            ];
-            if($invitation->estudiante_id != NULL){
-                $user = Estudiante::find($invitation->estudiante_id);
-                $member['estudiante_id'] = $user->id;
-                $member['lider_equipo'] = false;
-            }else{
-                $user = Mentor::find($invitation->mentor_id);
-                $member['mentor_id'] = $user->id;
-                $member['lider_equipo'] = true;
-            }
-            $invitation->confirmacion = true;
-            $invitation->save();
-            $member['aprobado'] = true;
-            EstudianteMentorTieneEquipo::create($member);
-            $res->success = true;
-						$res->team_id = $request->teamId;
-            return response()->json($res);
+						$r = $this->isTeamFull($isStudent, $request->teamId, 'REQUEST');
+						if(!$r->isFull){
+							if(!$request->accept){
+	                $invitation->activo = false;
+	                $invitation->save();
+	                $res->success = true;
+	                $res->msg = 'La invitación fue rechazada con éxito';
+	                return response()->json($res);
+	            }
+	            $member = [
+	                'equipo_id'     => $request->teamId,
+	                'mentor_id'     => NULL,
+	                'estudiante_id' => NULL,
+	            ];
+	            if($invitation->estudiante_id != NULL){
+	                $user = Estudiante::find($invitation->estudiante_id);
+	                $member['estudiante_id'] = $user->id;
+	                $member['lider_equipo'] = false;
+	            }else{
+	                $user = Mentor::find($invitation->mentor_id);
+	                $member['mentor_id'] = $user->id;
+	                $member['lider_equipo'] = true;
+	            }
+	            $invitation->confirmacion = true;
+	            $invitation->save();
+	            $member['aprobado'] = true;
+	            EstudianteMentorTieneEquipo::create($member);
+	            $res->success = true;
+							$res->team_id = $request->teamId;
+	            return response()->json($res);
+						}else{
+							return response()->json($r);
+						}
         }catch(\Exception $e){
             $res->success = false;
             $res->msg = 'Hubo un error al rechazar la invitación';
+						$res->err = $e->getMessage();
             return response()->json($res);
         }
     }
@@ -390,5 +390,35 @@ class TeamCtrl extends Controller
 				$res->err = $e->getMessage();
 				return response()->json($res);
 			}
+		}
+		private function isTeamFull($isStudent, $teamId, $TYPE){
+			$res = (object) null;
+			if($isStudent){
+				$studentMembers = DB::table('estudiante_mentor_tiene_equipo')
+													->where('equipo_id', '=', $teamId)
+													->where('aprobado', '=', 1)
+													->whereNotNull('estudiante_id')
+													->count();
+				if($studentMembers >= 4){
+					$res->isFull = true;
+					$res->success = false;
+					$res->msg =  $TYPE == 'INVITATION' ? 'Tu equipo ya tiene 4 estudiantes' : 'El equipo está lleno, tiene 4 estudiantes, únete a otro';
+					return $res;
+				}
+			}else{
+				$mentorMembers = DB::table('estudiante_mentor_tiene_equipo')
+													->where('equipo_id', '=', $teamId)
+													->where('aprobado', '=', 1)
+													->whereNotNull('mentor_id')
+													->count();
+				if($mentorMembers >= 2){
+					$res->isFull = true;
+					$res->success = false;
+					$res->msg = $TYPE == 'INVITATION' ? 'Tu equipo ya tiene 2 mentores' : 'El equipo está lleno, tiene 2 mentores, únete a otro';
+					return $res;
+				}
+			}
+			$res->isFull = false;
+			return $res;
 		}
 }

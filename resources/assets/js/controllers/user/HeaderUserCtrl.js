@@ -9,6 +9,7 @@
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.hasMinFields = vm.userCreds.minFields;
+		console.log(vm.hasMinFields);
 		// Methods
 		vm.logout = logout;
 

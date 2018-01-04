@@ -32,14 +32,14 @@ trait TeamTrait{
 		$teamData['category'] 	= $team->project->category($team->project->categoria_id);
 		$teamData['city'] 		= $team->city($team->ciudad_id);
 		foreach ($team->members as $member) {
-			if($member->aprobado == 1){
+			if($member->aprobado == 1 and $member->activo == 1){
 				$isStudent = $member->estudiante_id != NULL ? true : false;
 				if($isStudent){
 					$counterStudents++;
 					$userMember = Usuario::find(Estudiante::find($member->estudiante_id)->usuario_id);
 				}else{
-					$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
 					$counterMentor++;
+					$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
 					$teamData['has_mentor'] = true;
 				}
 				$teamData['members'][] = [
