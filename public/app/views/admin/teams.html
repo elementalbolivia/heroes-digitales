@@ -80,15 +80,15 @@
                         <td class="text-center">{{ team.has_mentor ? 'Sí' : 'No' }}</td>
                         <td>
                           <table>
-                            <tr ng-repeat="member in team.members.mentors">
-                              <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
+                            <tr ng-repeat="member in team.members.mentors track by $index">
+                              <td> <strong>{{ $index + 1 }}</strong>. {{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
                             </tr>
                           </table>
                         </td>
                         <td>
                           <table>
-                            <tr ng-repeat="member in team.members.students">
-                              <td>{{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
+                            <tr ng-repeat="member in team.members.students track by $index">
+                              <td><strong>{{ $index + 1 }}</strong>.  {{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
                             </tr>
                           </table>
                         </td>

@@ -115,6 +115,8 @@ trait TeamTrait{
 		$teamData['has_mentor'] = isset($teamData['has_mentor']) ? true : false;
 		$teamData['is_full_students'] = $counterStudents >= 4 ? true : false;
 		$teamData['is_full_mentors'] = $counterMentor >= 2 ? true : false;
+		$teamData['num_students'] = $counterStudents;
+		$teamData['num_mentors'] = $counterMentor;
 		return $teamData;
 	}
 	public static function updateImg($Storage, $request, $id){
