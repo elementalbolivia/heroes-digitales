@@ -152,6 +152,7 @@ class StudentCtrl extends Controller
 							 ->join('estudiante', function($join){
 								 $join->on('usuario.id', '=', 'estudiante.usuario_id');
 							 })
+							 ->where('usuario.activo', '=', 1)
 							 ->where('usuario.nombres', 'like', '%'. $studentName .'%')
 							 ->orWhere('usuario.apellidos', 'like', '%'.$studentName.'%')
 							 ->skip(($PAGE - 1) * $QT_PAGE)
@@ -161,6 +162,7 @@ class StudentCtrl extends Controller
 							 ->join('estudiante', function($join){
 								 $join->on('usuario.id', '=', 'estudiante.usuario_id');
 							 })
+							 ->where('usuario.activo', '=', 1)
 							 ->where('usuario.nombres', 'like', '%'. $studentName .'%')
 							 ->orWhere('usuario.apellidos', 'like', '%'.$studentName.'%')
 							 ->count();
@@ -184,6 +186,7 @@ class StudentCtrl extends Controller
 									'estudiante_mentor_tiene_equipo.aprobado' => 1,
 									'estudiante_mentor_tiene_equipo.activo'		=> 1
 								])
+								->where('usuario.activo', '=', 1)
 								->whereIn('usuario.ciudad_id', $cities)
 								->skip(($PAGE - 1) * $QT_PAGE)
 								->take($QT_PAGE)
@@ -195,6 +198,7 @@ class StudentCtrl extends Controller
 								->join('estudiante_mentor_tiene_equipo', function($join){
 									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
 								})
+								->where('usuario.activo', '=', 1)
 								->where([
 									'estudiante_mentor_tiene_equipo.aprobado' => 1,
 									'estudiante_mentor_tiene_equipo.activo'		=> 1
@@ -209,6 +213,7 @@ class StudentCtrl extends Controller
 									->leftJoin('estudiante_mentor_tiene_equipo', function($join){
 										$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
 								})
+								->where('usuario.activo', '=', 1)
 								->whereIn('usuario.ciudad_id', $cities)
 								->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
 								->skip(($PAGE - 1) * $QT_PAGE)
@@ -221,30 +226,43 @@ class StudentCtrl extends Controller
 									->leftJoin('estudiante_mentor_tiene_equipo', function($join){
 										$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
 								})
+								->where('usuario.activo', '=', 1)
 								->whereIn('usuario.ciudad_id', $cities)
 								->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
 								->count();
 			}else if(count($cities) == 0){
 				if(!$withTeam){
-					$match->rows = DB::table('estudiante')
+					$match->rows = DB::table('usuario')
+										->join('estudiante', function($join){
+											$join->on('usuario.id', '=', 'estudiante.usuario_id');
+										})
 										->leftJoin('estudiante_mentor_tiene_equipo', function($join){
 											$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
 									})
+									->where('usuario.activo', '=', 1)
 									->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
 									->skip(($PAGE - 1) * $QT_PAGE)
 									->take($QT_PAGE)
 									->get();
-					$match->total = DB::table('estudiante')
+					$match->total = DB::table('usuario')
+										->join('estudiante', function($join){
+											$join->on('usuario.id', '=', 'estudiante.usuario_id');
+										})
 										->leftJoin('estudiante_mentor_tiene_equipo', function($join){
 											$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
 									})
+									->where('usuario.activo', '=', 1)
 									->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
 									->count();
 				}else{
-					$match->rows = DB::table('estudiante')
+					$match->rows = DB::table('usuario')
+								->join('estudiante', function($join){
+										$join->on('usuario.id', '=', 'estudiante.usuario_id');
+								})
  								->join('estudiante_mentor_tiene_equipo', function($join){
  									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
  								})
+								->where('usuario.activo', '=', 1)
  								->where([
  									'estudiante_mentor_tiene_equipo.aprobado' => 1,
  									'estudiante_mentor_tiene_equipo.activo'		=> 1
@@ -252,10 +270,14 @@ class StudentCtrl extends Controller
  								->skip(($PAGE - 1) * $QT_PAGE)
  								->take($QT_PAGE)
  								->get();
- 					$match->total =  DB::table('estudiante')
+ 					$match->total = DB::table('usuario')
+								->join('estudiante', function($join){
+										$join->on('usuario.id', '=', 'estudiante.usuario_id');
+								})
  								->join('estudiante_mentor_tiene_equipo', function($join){
  									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
  								})
+								->where('usuario.activo', '=', 1)
  								->where([
  									'estudiante_mentor_tiene_equipo.aprobado' => 1,
  									'estudiante_mentor_tiene_equipo.activo'		=> 1
