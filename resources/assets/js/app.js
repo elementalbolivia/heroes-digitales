@@ -386,12 +386,10 @@ angular.module('heroesDigitalesApp', [
     var $state = trans.router.stateService;
     var AuthService = trans.injector().get('Auth');
 		var role = AuthService.getSession() != null ? AuthService.getSession().role : false;
+		console.log(role);
     if(!AuthService.isAuth()){
     	return $state.target('home');
-    }else if(role != null){
-			if(role != 5 || role == 6)
-				return $state.target('home');
-		}
+    }
   });
   $transitions.onStart({to : 'home.**'}, function(trans){
     var $state = trans.router.stateService;
