@@ -14,11 +14,16 @@
 				});
 				return promise;
 			},
-			getStudentsPage: function(page){
+			getStudentsPage: function(page, filters){
+				console.log(filters)
 				var promise = $http({
 					method: 'GET',
 					url: AUTH_URL + 'students/'+page,
 					params: {
+						withTeam: filters.withTeam,
+						gender: JSON.stringify(filters.gender),
+						city: JSON.stringify(filters.cities),
+						studentName: filters.studentName,
 						token: Auth.getSession().token
 					}
 				}).then(function(response){
