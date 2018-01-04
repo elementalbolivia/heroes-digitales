@@ -204,7 +204,7 @@ angular.module('heroesDigitalesApp', [
 			}
 		})
 		.state('user.students', {
-			url: '/estudiantes/pagina/:num',
+			url: '/estudiantes/pagina/:num/:city/:gender/:wteam/:studentName',
 			views: {
 				'user-content@': {
 					templateUrl: '/app/views/student/students.html',
@@ -376,6 +376,7 @@ angular.module('heroesDigitalesApp', [
   $transitions.onStart({to : 'user.**'}, function(trans){
     var $state = trans.router.stateService;
     var AuthService = trans.injector().get('Auth');
+		var role = AuthService.getSession().role;
     if(!AuthService.isAuth()){
     	// $window.location.href ='http://localhost:8000';
     	return $state.target('home');
@@ -384,15 +385,17 @@ angular.module('heroesDigitalesApp', [
 	$transitions.onStart({to : 'admin.**'}, function(trans){
     var $state = trans.router.stateService;
     var AuthService = trans.injector().get('Auth');
+		var role = AuthService.getSession() != null ? AuthService.getSession().role : false;
     if(!AuthService.isAuth()){
-    	// $window.location.href ='http://localhost:8000';
     	return $state.target('home');
-    }
+    }else if(role != null){
+			if(role != 5 || role == 6)
+				return $state.target('home');
+		}
   });
   $transitions.onStart({to : 'home.**'}, function(trans){
     var $state = trans.router.stateService;
     var AuthService = trans.injector().get('Auth');
-		console.log(AuthService.getSession());
     if(AuthService.isAuth() && AuthService.getSession().role != 5){
     	// $window.location.href ='http://localhost:8000';
     	return $state.target('user');

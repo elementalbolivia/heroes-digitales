@@ -13,20 +13,13 @@ use App\Traits\UserTrait as UserTrait;
 class StudentCtrl extends Controller
 {
 	use UserTrait;
-		public function index($page){
+		public function index(Request $request, $page){
 		    $QT_PAGE = 15;
 		    $PAGE = $page;
-		    $TOTAL = DB::table('estudiante')
-		                ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-		                ->where('usuario.activo', '=', '1')
-		                ->count();
-		    $TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
-		    $dbStudents = DB::table('estudiante')
-		                  ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-		                  ->where('usuario.activo', '=', '1')
-		                  ->skip(($PAGE - 1) * $QT_PAGE)
-		                  ->take($QT_PAGE)
-		                  ->get();
+				$query = $this->queryStudentsFilter($request, $PAGE, $QT_PAGE);
+				$dbStudents = $query->rows;
+				$TOTAL = $query->total;
+				$TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
 		    $students = [];
 		    $res = (object) null;
 		    try{
@@ -146,57 +139,130 @@ class StudentCtrl extends Controller
 				return response()->json($res);
 			}
 		}
-		// public function index($page){
-		//     $QT_PAGE = 15;
-		//     $PAGE = $page;
-		//     $TOTAL = DB::table('estudiante')
-		//                 ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-		//                 ->where('usuario.activo', '=', '1')
-		//                 ->count();
-		//     $TOTAL_PAGES = ceil($TOTAL / $QT_PAGE);
-		//     $dbStudents = DB::table('estudiante')
-		//                   ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-		//                   ->where('usuario.activo', '=', '1')
-		//                   ->skip($PAGE - 1)
-		//                   ->take($QT_PAGE)
-		//                   ->get();
-		//     $students = [];
-		//     $res = (object) null;
-		//     try{
-		//         foreach ($dbStudents as $student) {
-		//           $students[] = UserTrait::userData($student->usuario_id);
-		//         }
-		//         $res->success = true;
-		//         $res->students = $students;
-		//         $res->pages = $TOTAL_PAGES;
-		//         return response()->json($res);
-		//     }catch(\Exception $e){
-		//         $res->success = false;
-		//         $res->err = $e->getMessage();
-		//         $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
-		//         return response()->json($res);
-		//     }
-		// }
-		// public function indexAdmin(){
-		//     $dbStudents = DB::table('estudiante')
-		//                   ->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
-		//                   ->where('usuario.activo', '=', '1')
-		//                   ->get();
-		//     $students = [];
-		//     $res = (object) null;
-		//     try{
-		//         foreach ($dbStudents as $student) {
-		//           $students[] = UserTrait::userData($student->usuario_id);
-		//         }
-		//         $res->success = true;
-		//         $res->students = $students;
-		//         $res->pages = $TOTAL_PAGES;
-		//         return response()->json($res);
-		//     }catch(\Exception $e){
-		//         $res->success = false;
-		//         $res->err = $e->getMessage();
-		//         $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
-		//         return response()->json($res);
-		//     }
-		// }
+		private function queryStudentsFilter($request, $page, $quantityPerPage = 15){
+			$match = (object) null;
+			$QT_PAGE = $quantityPerPage;
+			$PAGE = $page;
+			$cities = json_decode($request->city);
+			$gender = json_decode($request->gender);
+			$studentName = $request->studentName;
+			$withTeam = $request->withTeam == "true" ? true : false;
+			if($studentName != "" || isset($studentName)){
+				$match->rows = DB::table('usuario')
+							 ->join('estudiante', function($join){
+								 $join->on('usuario.id', '=', 'estudiante.usuario_id');
+							 })
+							 ->where('usuario.nombres', 'like', '%'. $studentName .'%')
+							 ->orWhere('usuario.apellidos', 'like', '%'.$studentName.'%')
+							 ->skip(($PAGE - 1) * $QT_PAGE)
+							 ->take($QT_PAGE)
+							 ->get();
+				 $match->total =  DB::table('usuario')
+							 ->join('estudiante', function($join){
+								 $join->on('usuario.id', '=', 'estudiante.usuario_id');
+							 })
+							 ->where('usuario.nombres', 'like', '%'. $studentName .'%')
+							 ->orWhere('usuario.apellidos', 'like', '%'.$studentName.'%')
+							 ->count();
+				 return $match;
+			}
+			if(count($cities) > 0 )
+				if($cities[0] == "")
+					unset($cities[0]);
+			if(count($gender) > 0 )
+				if($gender[0] == "")
+					unset($gender[0]);
+			if(count($cities) != 0 && $withTeam){
+				 $match->rows = DB::table('usuario')
+								->join('estudiante', function($join) {
+									$join->on('usuario.id', '=', 'estudiante.usuario_id');
+								})
+								->join('estudiante_mentor_tiene_equipo', function($join){
+									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+								})
+								->where([
+									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+									'estudiante_mentor_tiene_equipo.activo'		=> 1
+								])
+								->whereIn('usuario.ciudad_id', $cities)
+								->skip(($PAGE - 1) * $QT_PAGE)
+								->take($QT_PAGE)
+								->get();
+					$match->total =  DB::table('usuario')
+								->join('estudiante', function($join) use ($cities) {
+									$join->on('usuario.id', '=', 'estudiante.usuario_id');
+								})
+								->join('estudiante_mentor_tiene_equipo', function($join){
+									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+								})
+								->where([
+									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+									'estudiante_mentor_tiene_equipo.activo'		=> 1
+								])
+								->whereIn('usuario.ciudad_id', $cities)
+ 								->count();
+			}else if(count($cities) != 0 && !$withTeam){
+				$match->rows = DB::table('usuario')
+									->join('estudiante', function($join){
+										$join->on('usuario.id', '=', 'estudiante.usuario_id');
+									})
+									->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+										$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+								})
+								->whereIn('usuario.ciudad_id', $cities)
+								->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
+								->skip(($PAGE - 1) * $QT_PAGE)
+								->take($QT_PAGE)
+								->get();
+				$match->total = DB::table('usuario')
+									->join('estudiante', function($join){
+										$join->on('usuario.id', '=', 'estudiante.usuario_id');
+									})
+									->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+										$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+								})
+								->whereIn('usuario.ciudad_id', $cities)
+								->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
+								->count();
+			}else if(count($cities) == 0){
+				if(!$withTeam){
+					$match->rows = DB::table('estudiante')
+										->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+											$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+									})
+									->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
+									->skip(($PAGE - 1) * $QT_PAGE)
+									->take($QT_PAGE)
+									->get();
+					$match->total = DB::table('estudiante')
+										->leftJoin('estudiante_mentor_tiene_equipo', function($join){
+											$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+									})
+									->whereNull('estudiante_mentor_tiene_equipo.estudiante_id')
+									->count();
+				}else{
+					$match->rows = DB::table('estudiante')
+ 								->join('estudiante_mentor_tiene_equipo', function($join){
+ 									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+ 								})
+ 								->where([
+ 									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+ 									'estudiante_mentor_tiene_equipo.activo'		=> 1
+ 								])
+ 								->skip(($PAGE - 1) * $QT_PAGE)
+ 								->take($QT_PAGE)
+ 								->get();
+ 					$match->total =  DB::table('estudiante')
+ 								->join('estudiante_mentor_tiene_equipo', function($join){
+ 									$join->on('estudiante.id', '=', 'estudiante_mentor_tiene_equipo.estudiante_id');
+ 								})
+ 								->where([
+ 									'estudiante_mentor_tiene_equipo.aprobado' => 1,
+ 									'estudiante_mentor_tiene_equipo.activo'		=> 1
+ 								])
+								->count();
+				}
+			}
+			return $match;
+		}
 }

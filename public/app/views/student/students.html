@@ -8,19 +8,19 @@
 				<div class="panel-body">
 					<div>
 						<h4>Ciudad</h4>
-						<input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('cities', 'La Paz')"> La Paz <br />
-						<input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('cities', 'El Alto')"> El Alto
+						<input type="checkbox" ng-checked="vm.filters.cities.indexOf('1') != -1" ng-click="vm.updateFilter('cities', '1')"> La Paz <br />
+						<input type="checkbox" ng-checked="vm.filters.cities.indexOf('2') != -1" ng-click="vm.updateFilter('cities', '2')"> El Alto
 					</div>
 					<div>
 						<h4>Estudiantes</h4>
-						<input type="radio" ng-model="vm.filters.withTeam" ng-value="true" > Con equipo <br />
-						<input type="radio" ng-model="vm.filters.withTeam" ng-value="false" selected> Sin equipo
+						<input type="radio" ng-model="vm.filters.withTeam" ng-click="vm.updateFilter('withTeam', true)" ng-value="true" > Con equipo <br />
+						<input type="radio" ng-model="vm.filters.withTeam" ng-click="vm.updateFilter('withTeam', false)" ng-value="false" selected> Sin equipo
 					</div>
-	        <div>
+	        <!-- <div>
 	          <h4>Género</h4>
-	          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('gender', 'Femenino')"> Femenino <br />
-	          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('gender', 'Masculino')"> Masculino
-	        </div>
+	          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('gender', '1')"> Femenino <br />
+	          <input type="checkbox" ng-checked="true" ng-click="vm.updateFilter('gender', '2')"> Masculino
+	        </div> -->
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 			<div class="col-xs-12" style="padding-top:20px;padding-bottom:20px">
 	      <div class="input-group">
 	        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-	        <input type="text" class="form-control" placeholder="Buscar estudiante" ng-model="vm.studentFilter">
+	        <input type="text" class="form-control" ng-keyup="vm.updateFilter('TEXT', false)" placeholder="Buscar estudiante por nombre o apellido" ng-model="vm.filters.studentName">
 	      </div>
 	    </div>
 			<h1 class="text-center title-white-bg"> ESTUDIANTES</h1>
@@ -37,7 +37,7 @@
 				<h1 class="text-center" style="font-size:75px;color:#229ed7"><i class="fa fa-circle-o-notch fa-spin" ></i></h1>
 			</div>
 			<div class="row display-flex" ng-if="!vm.isLoading">
-				<div class="col-xs-12 col-sm-4 " ng-repeat="student in vm.students | StudentFilter:vm.filters.cities:vm.filters.withTeam:vm.filters.gender | filter:vm.studentFilter track by $index" >
+				<div class="col-xs-12 col-sm-4 " ng-repeat="student in vm.students track by $index" >
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<img ng-if="!student.image" src="/app/images/users/default-user.png" style="margin:auto;" class="img-responsive" alt="">
@@ -56,13 +56,13 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-xs-12">
+			<div class="col-xs-12">
 				<ul class="pagination">
-				  <li ng-repeat="page in vm.pagination" ng-class="page == vm.currentPage ? 'active' : 'none'">
-						<a href="#" ui-sref="user.students({num: page})">{{ page }}</a>
+				  <li ng-repeat="page in vm.pagination track by $index" ng-class="page == vm.currentPage ? 'active' : 'none'">
+						<a href="#" ui-sref="user.students({num: page, city: vm.filters.cities, gender: vm.filters.gender, wteam: vm.filters.withTeam, studentName: vm.filters.studentName})">{{ page }}</a>
 					</li>
 				</ul>
-			</div> -->
+			</div>
 		</div>
 
 	</div>
