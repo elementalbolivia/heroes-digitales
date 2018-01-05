@@ -278,7 +278,7 @@ class TeamCtrl extends Controller
         try{
 						$isStudent = $invitation->estudiante_id != NULL ? true : false;
 						$type = $isStudent ? 'estudiante_id' : 'mentor_id';
-						$userId = $isStudent ? $invitation->estudiante_id : $member->mentor_id;
+						$userId = $isStudent ? $invitation->estudiante_id : $invitation->mentor_id;
 						$isMember = DB::table('estudiante_mentor_tiene_equipo')
 												->where($type, $userId)
 												->where('aprobado', 1)
