@@ -111,7 +111,7 @@ class TeamCtrl extends Controller
 						$userId = $isStudent ? $member->estudiante_id : $member->mentor_id;
 						$isMember = DB::table('estudiante_mentor_tiene_equipo')
 			                  ->where($type, $userId)
-			                  ->where('aprobado', 1)
+												->where('aprobado', 1)
 			                  ->first() != null;
 						$r = $this->isTeamFull($isStudent, $member->equipo_id, 'REQUEST');
 						if(!$r->isFull){
@@ -120,14 +120,29 @@ class TeamCtrl extends Controller
 								$res->msg = 'Usted pertenece a un equipo actualmente';
 								return response()->json($res);
 							}
+							// BORRAR TODAS LAS INVITACIONES ENVIADAS AL USUARIO
 	            if($isStudent){
+								 //Inhabilitar las solicitudes de los estudiantes realizada
+								 // a un equipo
 	                DB::table('estudiante_mentor_tiene_equipo')
 	                ->where('estudiante_id', '=', $member->estudiante_id)
 	                ->update(['activo'  => 0]);
+									// Inhabilitar las invitaciones realizadas por el equipo
+									// al estudiante
+									DB::table('invitaciones_equipo')
+										->where('estudiante_id', '=', $member->estudiante_id)
+										->update(['activo' => 0]);
 	            }else{
+									//Inhabilitar las solicitudes de los mentores realizadas
+									// a un equipo
 	                DB::table('estudiante_mentor_tiene_equipo')
 	                ->where('mentor_id', '=', $member->mentor_id)
 	                ->update(['activo'  => 0]);
+									// Inhabilitar las invitaciones realizadas por el equipo
+									// al mentor
+									DB::table('invitaciones_equipo')
+										->where('mentor_id', '=', $member->mentor_id)
+										->update(['activo' => 0]);
 	            }
 	            if($request->accept){
 	                $member->aprobado = true;
@@ -263,7 +278,7 @@ class TeamCtrl extends Controller
         try{
 						$isStudent = $invitation->estudiante_id != NULL ? true : false;
 						$type = $isStudent ? 'estudiante_id' : 'mentor_id';
-						$userId = $isStudent ? $invitation->estudiante_id : $member->mentor_id;
+						$userId = $isStudent ? $invitation->estudiante_id : $invitation->mentor_id;
 						$isMember = DB::table('estudiante_mentor_tiene_equipo')
 												->where($type, $userId)
 												->where('aprobado', 1)
