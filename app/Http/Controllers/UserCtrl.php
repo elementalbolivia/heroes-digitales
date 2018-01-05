@@ -88,7 +88,7 @@ class UserCtrl extends Controller
             $invitation = InvitacionesEquipo::create($newInvitation);
 						$acceptUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/' .$team->id. '/ACCEPT';
 						$refuseUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/'. $team->id .'/REFUSE';
-						EmailTrait::sendInvitationEmail($request->mail, $team->nombre_equipo, $acceptUrl, $refuseUrl);
+						// EmailTrait::sendInvitationEmail($request->mail, $team->nombre_equipo, $acceptUrl, $refuseUrl);
 						$res->success = true;
 						$res->title = 'Invitación enviada';
 						$res->msg = 'El ' . $type . ' ' . $invited->correo . ' ya tiene una cuenta en la plataforma. Se le envió una notificación por email para pueda aceptar la invitación a unirse a tu equipo.';
@@ -100,7 +100,7 @@ class UserCtrl extends Controller
 						// Enviar invitacion mediante mail
 						$leader = Usuario::find($request->leaderId);
 						$registerUrl = config('constants.STATE.LOCAL_URL') . 'registro/' . $request->type . '/invitacion/' . $request->teamId;
-						EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
+						// EmailTrait::invitationEmail($request->mail, $leader->nombres . ' ' . $leader->apellidos, $team->nombre_equipo, $registerUrl);
 						$res->action = 'SEND_EMAIL';
 						$res->success = true;
 						$res->title = 'Invitación enviada!';
@@ -109,6 +109,7 @@ class UserCtrl extends Controller
 					}
 			}catch(\Exception $e){
 				$res->success = false;
+				$res->err =  $e->getMessage();
 				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente';
 				return response()->json($res);
 			}
