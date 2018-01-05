@@ -67,6 +67,12 @@ class RegisterCtrl extends Controller
 					$res->code = 'MENTOR';
 					return response()->json($res);
 				}
+				if($request->type == 'mentor' && ($fecha_nac >= '1999-08-01')){
+					$res->success = false;
+					$res->msg = 'Su edad no es apta para registrarse como mentor, por favor regístrese como estudiante';
+					$res->code = 'STUDENT';
+					return response()->json($res);
+				}
 				$userData = [
 	    		'correo'			=> $request->email,
 	    		'password'			=> Hash::make($request->password),
