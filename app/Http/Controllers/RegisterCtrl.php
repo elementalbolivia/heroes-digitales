@@ -167,6 +167,7 @@ class RegisterCtrl extends Controller
     	}catch (\Exception $e){
     		DB::rollBack();
     		return response()->json([
+					'err'	=> $e->getMessage(),
 	    		'success' => false,
 	    		'msg' => 'Hubo un error al realizar su registro, inténtelo nuevamente.',
 		    ]);
