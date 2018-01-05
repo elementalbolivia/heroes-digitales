@@ -143,6 +143,7 @@ class TeamCtrl extends Controller
 									DB::table('invitaciones_equipo')
 										->where('mentor_id', '=', $member->mentor_id)
 										->update(['activo' => 0]);
+									$member->lider_equipo = true;
 	            }
 	            if($request->accept){
 	                $member->aprobado = true;
