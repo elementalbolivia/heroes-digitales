@@ -98,7 +98,7 @@
 				  	</div>
 						<button class="btn btn-success btn-sm" data-toggle="collapse" data-target="#inviteStudents">Invitar a estudiantes</button>
 						<div id="inviteStudents" class="collapse">
-							<button class="btn btn-sm btn-link" ui-sref="user.students({num: 1})">Buscar estudiantes registrados</button>
+							<button class="btn btn-sm btn-link" ui-sref="user.students({num: 1, city: [1, 2], gender: [1, 2], wteam: false, studentName: ''})">Buscar estudiantes registrados</button>
 							<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#mailStudent"  ng-click="vm.clearFields()">Invitar por email</button>
 						</div>
 						<h3>Mentor</h3>
@@ -130,7 +130,7 @@
 				  	</div>
 						<button class="btn btn-success btn-sm" data-toggle="collapse" data-target="#inviteMenthor">Invitar a mentor</button>
 						<div id="inviteMenthor" class="collapse">
-							<button class="btn btn-sm btn-link" ui-sref="user.mentors({num: 1})">Buscar mentores registrados</button>
+							<button class="btn btn-sm btn-link" ui-sref="user.mentors({num: 1, cities: [1, 2], wteam: false, mentor: ''})">Buscar mentores registrados</button>
 							<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#mailMenthor" ng-click="vm.clearFields()"> Invitar por email</button>
 						</div>
 						<br/>
