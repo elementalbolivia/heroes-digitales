@@ -79,7 +79,7 @@ class RegisterCtrl extends Controller
 					return response()->json($res);
 				}
 				$userData = [
-	    		'correo'			=> $request->email,
+	    		'correo'			=> strtolower($request->email),
 	    		'password'			=> Hash::make($request->password),
 	    		'nombres'			=> $request->names,
 	    		'apellidos'			=> $request->lastnames,
