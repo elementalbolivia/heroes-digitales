@@ -215,7 +215,7 @@ class TeamCtrl extends Controller
     public function sendInvitation(Request $request){
         $res = (object) null;
         $user = Usuario::find($request->uid);
-				$isStudent = $user->student->id != NULL ? true : false;
+				$isStudent = $user->student != NULL ? true : false;
 				$r = $this->isTeamFull($isStudent, $request->teamId, 'INVITATION');
 				if(!$r->isFull){
 					try{
