@@ -51,15 +51,20 @@ class RegisterCtrl extends Controller
 	 */
     public function create(Request $request){
     	DB::beginTransaction();
+			$res = (object) null;
+			$now = date('Y-m-d H:i:s');
     	try{
+				if($now > '2018-06-01 23:59:59'){
+					$res->success = false;
+					$res->msg = 'El período de inscripciones ha finalizado, lo sentimos, intente inscribirse nuevamente el siguiente año';
+					return response()->json($res);
+				}
     		if(Usuario::where('correo', $request->email)
     				->first() != null){
-    			return response()->json([
-    				'success'	=> false,
-    				'msg'		=> 'Esta cuenta existe actualmente, intente con una nueva'
-    			]);
+					$res->success = false;
+					$res->msg = 'Esta cuenta existe actualmente, intente con una nueva';
+    			return response()->json($res);
     		}
-    		$res = (object) null;
 				$fecha_nac = $request->birthDate['year'] . '-'. $request->birthDate['month'] . '-' . $request->birthDate['day'];
 				if($request->type == 'student' && !UserTrait::isDivisionAvailable($fecha_nac)){
 					$res->success = false;
