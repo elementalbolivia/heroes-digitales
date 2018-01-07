@@ -54,7 +54,7 @@ class RegisterCtrl extends Controller
 			$res = (object) null;
 			$now = date('Y-m-d H:i:s');
     	try{
-				if($now > '2018-06-01 23:59:59'){
+				if($now > '2018-01-06 23:59:59'){
 					$res->success = false;
 					$res->msg = 'El período de inscripciones ha finalizado, lo sentimos, intente inscribirse nuevamente el siguiente año';
 					return response()->json($res);
