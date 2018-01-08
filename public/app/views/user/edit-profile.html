@@ -116,7 +116,8 @@
 							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 								<label id="correo" class=" col-xs-12">Escribe una breve biografía sobre ti</label>
 								<div class="col-xs-12">
-									<textarea rows="5" ng-model="vm.userData.bio" class="form-control"></textarea>
+									<textarea rows="5" ng-model="vm.userData.bio" class="form-control" ng-keyup="vm.validateChars(vm.userData.bio)"></textarea>
+									<p class="text-right" style="margin-top:10px;">Caracteres disponibles: {{vm.userData.bio.length }} / 2000</p>
 								</div>
 							</div>
 						</div>
