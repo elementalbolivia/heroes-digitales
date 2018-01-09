@@ -63,6 +63,11 @@ trait TeamTrait{
 		$teamData = [];
 		$counterStudents = 0;
 		$counterMentor = 0;
+		// Init counters
+		$counterMentorsLP = 0;
+		$counterMentorsEA = 0;
+		$counterStudentsLP = 0;
+		$counterStudentsEA = 0;
 		$team = Equipo::find($id);
 		$teamData['id'] 			= $team->id;
 		$teamData['team_name'] 		= $team->nombre_equipo;
@@ -94,6 +99,11 @@ trait TeamTrait{
 						'image'			=> $userMember->image != NULL ? $userMember->image->nombre_archivo : NULL,
 					];
 					$counterStudents++;
+					if($userMember->ciudad_id == 1)
+						$counterStudentsLP++;
+					else
+						$counterStudentsEA++;
+
 				}else{
 					$userMember = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
 					$teamData['has_mentor'] = true;
@@ -110,6 +120,11 @@ trait TeamTrait{
 						'image'			=> $userMember->image != NULL ? $userMember->image->nombre_archivo : NULL,
 					];
 					$counterMentor++;
+					if($userMember->ciudad_id == 1){
+						$counterMentorsLP++;
+					}else{
+						$counterMentorsEA++;
+					}
 				}
 			}
 		}
@@ -118,6 +133,12 @@ trait TeamTrait{
 		$teamData['is_full_mentors'] = $counterMentor >= 2 ? true : false;
 		$teamData['num_students'] = $counterStudents;
 		$teamData['num_mentors'] = $counterMentor;
+		//Counters
+		$teamData['num_mentors_ea'] = $counterMentorsEA;
+		$teamData['num_students_ea'] = $counterStudentsEA;
+		$teamData['num_mentors_lp'] = $counterMentorsLP;
+		$teamData['num_students_lp'] = $counterStudentsLP;
+
 		return $teamData;
 	}
 	public static function updateImg($Storage, $request, $id){

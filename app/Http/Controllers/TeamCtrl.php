@@ -37,13 +37,26 @@ class TeamCtrl extends Controller
     }
 		public function indexAdmin(){
     	$teams = [];
+			$totalMentorsLP = 0;
+			$totalMentorsEA = 0;
+			$totalStudentsLP = 0;
+			$totalStudentsEA = 0;
     	$res = (object) null;
     	try{
 	    	foreach (Equipo::where('activo', '=', 1)->get() as $team) {
-	    		$teams[] = TeamTrait::teamInfoAdmin($team->id);
-	       	}
-	       	$res->success = true;
-	       	$res->teams = $teams;
+	    		$teamInfo = TeamTrait::teamInfoAdmin($team->id);
+					$totalMentorsEA  +=  $teamInfo['num_mentors_ea'] ;
+					$totalMentorsLP  +=  $teamInfo['num_mentors_lp'] ;
+					$totalStudentsEA +=  $teamInfo['num_students_ea'];
+					$totalStudentsLP +=  $teamInfo['num_students_lp'];
+					$teams[] = $teamInfo;
+       	}
+       	$res->success = true;
+       	$res->teams = $teams;
+				$res->totalMentorsLP  = $totalMentorsLP;
+				$res->totalMentorsEA  = $totalMentorsEA;
+				$res->totalStudentsLP = $totalStudentsLP;
+				$res->totalStudentsEA = $totalStudentsEA;
     		return response()->json($res);
     	}catch(\Exception $e){
 				$res->err = $e->getMessage();
