@@ -81,14 +81,14 @@
                         <td>
                           <table>
                             <tr ng-repeat="member in team.members.mentors track by $index">
-                              <td> <strong>{{ $index + 1 }}</strong>. {{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
+                              <td> <strong>{{ $index + 1 }}</strong>. {{ member.names + ' ' + member.lastnames }} ({{ member.gender }}, {{ member.city }})</td>
                             </tr>
                           </table>
                         </td>
                         <td>
                           <table>
                             <tr ng-repeat="member in team.members.students track by $index">
-                              <td><strong>{{ $index + 1 }}</strong>.  {{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
+                              <td><strong>{{ $index + 1 }}</strong>.  {{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}, {{ member.city }}) </td>
                             </tr>
                           </table>
                         </td>
