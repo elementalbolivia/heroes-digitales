@@ -85,6 +85,7 @@ trait TeamTrait{
 						'lastnames'		=> $userMember->apellidos,
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
 						'division'	=> UserTrait::division($userMember),
+						'city'	=> $userMember->ciudad_id == 1 ? 'La Paz' : 'El Alto',
 						'user_id'		=> $userMember->id,
 						'is_student'	=> $isStudent,
 						'is_leader'		=> $member->lider_equipo == 1 ? true : false,
@@ -100,6 +101,7 @@ trait TeamTrait{
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
+						'city'	=> $userMember->ciudad_id == 1 ? 'La Paz' : 'El Alto',
 						'user_id'		=> $userMember->id,
 						'is_student'	=> $isStudent,
 						'is_leader'		=> $member->lider_equipo == 1 ? true : false,
@@ -110,7 +112,6 @@ trait TeamTrait{
 					$counterMentor++;
 				}
 			}
-
 		}
 		$teamData['has_mentor'] = isset($teamData['has_mentor']) ? true : false;
 		$teamData['is_full_students'] = $counterStudents >= 4 ? true : false;
