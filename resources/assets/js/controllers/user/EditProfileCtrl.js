@@ -24,6 +24,7 @@
 		vm.getSkills = getSkills;
 		vm.getExpertises = getExpertises;
 		vm.update = update;
+		vm.validateChars = validateChars;
 		var validateRequired = validateRequired;
 		// Methods implementation
 		function getUserData(){
@@ -119,6 +120,12 @@
 				// todo
 			}
 			return true;
+		}
+		function validateChars(bioText){
+			if(bioText.length > 2000){
+				vm.userData.bio = vm.userData.bio.substr(0, 2000);
+				return;
+			}
 		}
 		// Methods self invoking
 		getUserData();

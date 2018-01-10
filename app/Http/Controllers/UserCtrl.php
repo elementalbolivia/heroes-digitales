@@ -11,6 +11,7 @@ use App\Models\InvitacionesEquipo;
 
 use App\Traits\UserTrait as UserTrait;
 use Storage;
+use Hash;
 
 class UserCtrl extends Controller
 {
@@ -111,6 +112,27 @@ class UserCtrl extends Controller
 				$res->success = false;
 				$res->err =  $e->getMessage();
 				$res->msg = 'Hubo un error al enviar la invitación, inténtelo nuevamente';
+				return response()->json($res);
+			}
+		}
+		public function updatePassword(Request $request, $uid){
+			$res = (object) null;
+			try{
+				$user = Usuario::find($uid);
+				if(Hash::check($request->newPassword, $user->password)){
+					$res->success = false;
+					$res->msg = 'Debe escoger una contraseña distinta a la anterior';
+				}else{
+					$newPass = Hash::make($request->newPassword);
+					$user->password = $newPass;
+					$user->save();
+					$res->success = true;
+					$res->msg = 'Su contraseña fue actualizada con éxito';
+				}
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al actualizar su contraseña';
+			}finally{
 				return response()->json($res);
 			}
 		}

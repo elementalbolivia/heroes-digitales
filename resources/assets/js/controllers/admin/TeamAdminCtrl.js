@@ -10,6 +10,12 @@
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
 		vm.teams = [];
+		vm.counters = {
+			mentorsEA: 0,
+			mentorsLP: 0,
+			studentsEA: 0,
+			studentsLP: 0,
+		};
 		vm.filters = {
 			cities: ['La Paz', 'El Alto'],
 			divisions: ['Junior (de 10 a 14 años)', 'Senior (de 15 a 18 años)'],
@@ -33,6 +39,10 @@
 					console.log(data);
 					vm.isLoading = false;
 					vm.teams = data.teams;
+					vm.counters.mentorsEA = data.totalMentorsEA;
+					vm.counters.mentorsLP = data.totalMentorsLP;
+					vm.counters.studentsEA = data.totalStudentsEA;
+					vm.counters.studentsLP = data.totalStudentsLP;
 				}else{
 					LxNotificationService.warn(data.msg);
 				}

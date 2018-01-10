@@ -61,6 +61,10 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'			=> 'DashboardCtrl@userInfo',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::put('user/password/{uid}', [
+		'uses'			=> 'UserCtrl@updatePassword',
+		// 'middleware'	=> 'jwt.auth'
+	]);
   Route::post('user/email-invitation', [
 		'uses'			=> 'UserCtrl@sendEmailInvitation',
 		'middleware'	=> 'jwt.auth'

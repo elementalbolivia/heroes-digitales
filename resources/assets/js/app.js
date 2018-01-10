@@ -339,6 +339,15 @@ angular.module('heroesDigitalesApp', [
 				},
 			}
 		})
+		.state('admin.register', {
+			url: '/registro',
+			views: {
+				'admin-content@':{
+						templateUrl: '/app/views/admin/register.html',
+						controller: 'RegisterAdminCtrl as vm'
+				},
+			}
+		})
 		.state('admin.stages', {
 			url: '/etapas',
 			views: {
