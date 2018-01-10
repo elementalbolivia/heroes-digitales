@@ -1,0 +1,205 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<h1 class="text-center" style="margin-top:50px;">Registra a un participante como {{ vm.typeParams.title }}</h1>
+      <div >
+        <label for="type" style="margin-right:10px;">Escoge el tipo de registro a realizar </label>
+        <input type="radio" ng-model="vm.typeReg" ng-change="vm.setRegProps(vm.typeReg)" value="student"> Estudiante
+        <input type="radio" ng-model="vm.typeReg" ng-change="vm.setRegProps(vm.typeReg)" value="mentor" > Mentor
+      </div>
+      <h2 class="text-center" style="font-size:20px;">Todos los campos con <span style="color:red">*</span> son requeridos</h2>
+			<form class="form-horizontal" name="registerForm" ng-submit="vm.sendRegistration()">
+	    		<div class="form-group">
+	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+	    				<label for="nombre" class="col-xs-12 col-sm-12 ">Nombre(s) <span style="color:red">*</span></label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="nombre" ng-model="vm.dataRegister.names"  placeholder="P.ej.: Pablo" class="form-control" required>
+					    </div>
+	    			</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="apat" class=" col-xs-12 ">Apellido(s) <span style="color:red">*</span></label>
+					    <div class="col-xs-12 col-sm-12">
+					      <input type="text" id="apat" ng-model="vm.dataRegister.lastnames" class="form-control" placeholder="P.ej.: Jordan" class="form-control" required>
+					    </div>
+					</div>
+				</div>
+	    		<div class="form-group">
+	    			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+		    			<label for="birthDate" class="col-xs-12 ">
+		    				Fecha de nacimiento <span style="color:red">*</span>
+		    			</label>
+                  <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
+                    <select id="dia" class="form-control" ng-options="day for day in vm.dates.days" ng-model="vm.dataRegister.birthDate.day" required></select>
+                  </div>
+                  <div class="col-xs-12 col-sm-3" style="margin-top:10px;">
+                    <select id="mes" ng-model="vm.dataRegister.birthDate.month" class="form-control">
+                          <option ng-repeat="month in vm.dates.months">{{ month }}</option>
+                    </select>
+                  </div>
+                  <div class="col-xs-12 col-sm-4" style="margin-top:10px;">
+                    <select id="anio" ng-model="vm.dataRegister.birthDate.year" class="form-control">
+                          <option ng-repeat="year in vm.dates.years">{{ year }}</option>
+                    </select>
+                  </div>
+		    			</div>
+        	</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label class=" col-xs-12 ">Número celular <span style="color:red">*</span></label>
+						<div class="col-xs-12 col-sm-6">
+							<input type="text" id="cel" class="form-control" ng-model="vm.dataRegister.cellphone" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2" lx-tooltip-position="top" lx-tooltip="En la primera versión del concurso, se aceptarán únicamente postulaciones de La Paz y El Alto">
+						<label class=" col-xs-12" >Ciudad <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.cityId" id="city" class="form-control" ng-options="city.id as city.label for city in vm.cities"></select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label for="zone" class=" col-xs-12">Zona <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<input type="text" id="zone" ng-model="vm.dataRegister.zone" class="form-control" required/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" ng-if="vm.typeReg == 'student'">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label class=" col-xs-12">Colegio <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<input type="text" id="school" ng-model="vm.dataRegister.school" class="form-control" />
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="sex" class=" col-xs-12">Género <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<select ng-model="vm.dataRegister.genreId" class="form-control" ng-options="genre.id as genre.label for genre in vm.genres"></select>
+						</div>
+					</div>
+				</div>
+				<!-- Fields only available for menthors, judges, experts -->
+				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'mentor' || vm.typeReg == 'expert'">
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label class=" col-xs-12">Organización </label>
+							<div class="col-xs-12">
+								<input type="text" id="org" class="form-control" ng-model="vm.dataRegister.org" placeholder="">
+								<p style="padding:3px;"></p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label class=" col-xs-12">Cargo </label>
+							<div class="col-xs-12">
+								<input type="text" id="job" class="form-control" ng-model="vm.dataRegister.job">
+								<p style="padding:3px;"></p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label class=" col-xs-12">Profesión <span style="color:red">*</span></label>
+							<div class="col-xs-12">
+								<input ng-model="vm.dataRegister.profession" id="prof" class="form-control"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Field available only for judges and experts -->
+				<div ng-if="vm.typeReg == 'judge' || vm.typeReg == 'expert'">
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label class=" col-xs-12">Tamaño de polera <span style="color:red">*</span></label>
+							<div class="col-xs-12">
+								<select ng-model="vm.dataRegister.shirtId" id="shirt" class="form-control" ng-options="shirt.id as shirt.label for shirt in vm.shirts"></select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+							<label for="sn" class=" col-xs-12" >Enlace de su perfil en Facebook o LinkedIn <span style="color:red">*</span></label>
+							<div class="col-xs-12">
+								<input type="text" id="sn" class="form-control" data-toggle="tooltip" title="Revisaremos su red social, para corroborar la información" ng-change="vm.validateSocialNetwork(vm.dataRegister.socialNetwork)" ng-model="vm.dataRegister.socialNetwork" placeholder="P.ej.: https://www.linkedin.com/in/mark-zuckerberg-92b2077" >
+								<p style="padding:3px;"></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label id="cv" class=" col-xs-12">Curriculum vitae <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<button type="button" ngf-select class="btn btn-primary btn-lg" ng-model="vm.dataRegister.cv" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="5MB"><i class="fa fa-file-pdf-o"></i> Subir curriculum</button>
+							<p style="padding:3px;"></p>
+							<p>{{ vm.dataRegister.cv.name }}</p>
+						</div>
+						<div class="col-xs-12 alert alert-info">
+							<strong>El documento que suba debe tener un tamaño máximo de 10MB y estar en formato PDF</strong>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label class=" col-xs-12">Correo electrónico <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<input type="email" id="correo" class="form-control" ng-model="vm.dataRegister.email" placeholder="P.ej.: tuemail@gmail.com" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label class=" col-xs-12">Escriba su contraseña <span style="color:red">*</span></label>
+						<div class="col-xs-12">
+							<input type="password" id="pass" class="form-control" ng-model="vm.dataRegister.password" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+						<label class=" col-xs-12 col-sm-12">Escriba nuevamente su contraseña</label>
+						<div class="col-xs-12">
+							<input type="password" id="retype" class="form-control" ng-model="vm.dataRegister.retype" required>
+							<p style="padding:3px;"></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					<div class="alert alert-danger msg-alert" ng-if="vm.isNotRegistered.state"><strong> {{vm.isNotRegistered.msg}}</strong></div>
+			        <button type="submit" class="btn btn-success btn-lg pull-right" ng-disabled="vm.isNotRegistered.isLoading"><i ng-class="!vm.isNotRegistered.isLoading ? 'fa fa-check-circle-o' : 'fa fa-circle-o-notch fa-spin'"></i> Crear cuenta</button>
+			        <button class="btn btn-default btn-lg pull-right" ui-sref="home"><i class="fa fa-arrow-left"></i>Volver al inicio</button>
+				</div>
+		      </form>
+		</div>
+	</div>
+</div>
+<p style="padding:20px;"></p>
+<div id="registerSend" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title text-center"><strong>Felicidades</strong></h3>
+      </div>
+      <div class="modal-body">
+        <p>Felicitaciones, su registro fue completado con éxito,
+					revisaremos su solicitud para que pueda formar parte del equipo.
+					Le enviaremos un correo de confirmación</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.returnHome()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/app/js/bootstrap-init.js"></script>

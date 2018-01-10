@@ -195,11 +195,11 @@
 				vm.isNotRegistered.msg = 'Debe introducir una fecha de nacimiento';
 				return;
 			}
-			if(!isStudent($stateParams.type, vm.dataRegister.birthDate.year)){
-				vm.isNotRegistered.state = true;
-				vm.isNotRegistered.msg = 'Los estudiantes deben tener entre 10 y 18 años';
-				return;
-			}
+			// if(!isStudent($stateParams.type, vm.dataRegister.birthDate.year)){
+			// 	vm.isNotRegistered.state = true;
+			// 	vm.isNotRegistered.msg = 'Los estudiantes deben tener entre 10 y 18 años';
+			// 	return;
+			// }
 			if(!validatePhone(vm.dataRegister.cellphone)){
 				vm.isNotRegistered.state = true;
 				vm.isNotRegistered.msg = 'Debe introducir un número de teléfono';
