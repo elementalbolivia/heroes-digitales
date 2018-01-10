@@ -176,30 +176,10 @@
 				<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 					<div class="alert alert-danger msg-alert" ng-if="vm.isNotRegistered.state"><strong> {{vm.isNotRegistered.msg}}</strong></div>
 			        <button type="submit" class="btn btn-success btn-lg pull-right" ng-disabled="vm.isNotRegistered.isLoading"><i ng-class="!vm.isNotRegistered.isLoading ? 'fa fa-check-circle-o' : 'fa fa-circle-o-notch fa-spin'"></i> Crear cuenta</button>
-			        <button class="btn btn-default btn-lg pull-right" ui-sref="home"><i class="fa fa-arrow-left"></i>Volver al inicio</button>
 				</div>
 		      </form>
 		</div>
 	</div>
 </div>
 <p style="padding:20px;"></p>
-<div id="registerSend" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title text-center"><strong>Felicidades</strong></h3>
-      </div>
-      <div class="modal-body">
-        <p>Felicitaciones, su registro fue completado con éxito,
-					revisaremos su solicitud para que pueda formar parte del equipo.
-					Le enviaremos un correo de confirmación</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.returnHome()">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
 <script src="/app/js/bootstrap-init.js"></script>
