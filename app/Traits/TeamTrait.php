@@ -88,6 +88,7 @@ trait TeamTrait{
 					$teamData['members']['students'][] = [
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
+						'age'		=> $userMember->getAge(),
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
 						'division'	=> UserTrait::division($userMember),
 						'city'	=> $userMember->ciudad_id == 1 ? 'La Paz' : 'El Alto',

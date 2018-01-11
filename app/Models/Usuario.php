@@ -10,6 +10,7 @@ use App\Models\Genero;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
 use DB;
+use Carbon\Carbon;
 
 class Usuario extends Model implements AuthenticatableContract
 {
@@ -64,6 +65,10 @@ class Usuario extends Model implements AuthenticatableContract
     }
     public function zone(){
         return $this->hasOne('App\Models\Zona', 'usuario_id');
+    }
+
+    public function getAge(){
+      return Carbon::parse($this->fecha_nacimiento)->diff(Carbon::now())->format('%y años');
     }
     // Obtener invitacion de un usuario mediante su id y el del equipo, que siga activo como 1
     public function getInvitation($isStudent, $uId, $tId){
