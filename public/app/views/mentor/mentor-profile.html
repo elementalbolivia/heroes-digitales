@@ -15,14 +15,14 @@
 							</div>
 							<div ng-if="!vm.mentorData.has_team && !vm.isMemberInvited && vm.authParams.role == 1">
 								<div class="alert alert-success text-center"><strong>El mentor no pertenece a un equipo, invítalo</strong></div>
-								<button class="btn btn-info btn-block pull-right" ng-click="vm.inviteToTeam(vm.mentorData.id)" ng-disabled="vm.uploadInvitation.isLoading"><i ng-class="!vm.uploadInvitation.isLoading ? '' : 'fa fa-circle-o-notch fa-spin'"></i> Invitar a equipo</button>
+								<button class="btn btn-info btn-block pull-right" ng-click="vm.inviteToTeam(vm.mentorData.id)" ng-disabled="vm.uploadInvitation.isLoading || true"><i ng-class="!vm.uploadInvitation.isLoading ? '' : 'fa fa-circle-o-notch fa-spin'"></i> Invitar a equipo</button>
 							</div>
 							<div ng-if="vm.authParams.hasTeam && vm.authParams.role == 2">
 								<div class="alert alert-success text-center"><strong>Ya eres mentor de un equipo</strong></div>
 							</div>
 							<div ng-if="vm.isMemberInvited && !vm.mentorData.has_team">
 								<div class="alert alert-success text-center"><strong>Ya enviaste una invitación al mentor</strong></div>
-								<button class="btn btn-warning btn-block" ng-disabled="!vm.authParams.isLeader" ng-click="vm.cancelInvitation()"><i class="fa fa-times"></i> Cancelar invitación</button>
+								<button class="btn btn-warning btn-block" ng-disabled="!vm.authParams.isLeader || true" ng-click="vm.cancelInvitation()"><i class="fa fa-times"></i> Cancelar invitación</button>
 							</div>
 						</div>
 					</div>

@@ -62,8 +62,8 @@
 						<p ng-if="!vm.userData.min_fields">Para poder crear o unirte a un equipo, sigue los pasos de la sección a la izquierda <i class="fa fa-arrow-left"></i></p>
 						<p ng-if="vm.userData.min_fields">Aún no registraste un equipo. Crea uno! </p>
 						<div class="col-xs-12" ng-if="!vm.userData.has_team">
-				  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.create-team"> Crear equipo</button>
-				  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields" ui-sref="user.teams"> Únete a un equipo</button>
+				  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields || true" ui-sref="user.create-team"> Crear equipo</button>
+				  		<button class="btn btn-primary btn-primary-btn-lg" ng-disabled="!vm.userData.min_fields || true" ui-sref="user.teams"> Únete a un equipo</button>
 				  	</div>
 				  </div>
 				  <div class="panel-body" ng-if="vm.userData.has_team">
@@ -91,7 +91,7 @@
 					  				<td ng-if="member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.student-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
 										<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
 					  				<td><button class="btn btn-danger btn-sm" ng-click="vm.deleteMembership(member.membership_id, member.invitation.id)"
-											 	ng-disabled="((!vm.userCreds.isLeader) && (member.user_id != vm.userData.id)) || member.is_leader"><i class="fa fa-times-circle"></i></button></td>
+											 	ng-disabled="((!vm.userCreds.isLeader) && (member.user_id != vm.userData.id)) || member.is_leader || true"><i class="fa fa-times-circle"></i></button></td>
 					  			</tr>
 					  		</tbody>
 					  	</table>
@@ -123,7 +123,7 @@
 					  				<td ng-if="member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.student-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
 										<td ng-if="!member.is_student"> <button class="btn btn-primary btn-sm"  ui-sref="user.mentor-profile({id: member.user_id})"><i class="fa fa-eye"></i></button> </td>
 					  				<td><button class="btn btn-danger btn-sm" ng-click="vm.deleteMembership(member.membership_id, member.invitation.id)"
-											 	ng-disabled="((!vm.userCreds.isLeader) && (member.user_id != vm.userData.id)) || member.is_leader"><i class="fa fa-times-circle"></i></button></td>
+											 	ng-disabled="((!vm.userCreds.isLeader) && (member.user_id != vm.userData.id)) || member.is_leader || true"><i class="fa fa-times-circle"></i></button></td>
 					  			</tr>
 					  		</tbody>
 					  	</table>
@@ -158,8 +158,8 @@
 					  				<td ng-if="member.is_student"> Estudiante </td>
 					  				<td ng-if="!member.is_student"> Mentor</td>
 					  				<td>{{ member.created_at | date:'dd-mm-YYYY' }}</td>
-					  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmRequest(member.request_id, true)" ng-disabled="!vm.userData.is_leader ||  (member.is_student && vm.userData.team.is_full_students) || (!member.is_student && vm.userData.team.is_full_mentors) ">Aprobar</button> </td>
-					  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmRequest(member.request_id, false)" ng-disabled="!vm.userData.is_leader ||  (member.is_student && vm.userData.team.is_full_students) || (!member.is_student && vm.userData.team.is_full_mentors)">Rechazar</button> </td>
+					  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmRequest(member.request_id, true)" ng-disabled="!vm.userData.is_leader ||  (member.is_student && vm.userData.team.is_full_students) || (!member.is_student && vm.userData.team.is_full_mentors)  || true">Aprobar</button> </td>
+					  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmRequest(member.request_id, false)" ng-disabled="!vm.userData.is_leader ||  (member.is_student && vm.userData.team.is_full_students) || (!member.is_student && vm.userData.team.is_full_mentors) || true">Rechazar</button> </td>
 					  			</tr>
 					  		</tbody>
 					  	</table>
@@ -183,8 +183,8 @@
 					  			<tr ng-repeat="invitation in vm.userData.invitations">
 					  				<td>{{ invitation.team_name }}</td>
 					  				<td>{{ invitation.created_at | date:'dd-mm-YYYY' }}</td>
-					  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, true)" ng-disabled="!vm.userData.min_fields">Aceptar</button> </td>
-					  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, false)" ng-disabled="!vm.userData.min_fields">Rechazar</button> </td>
+					  				<td><button class="btn btn-primary btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, true)" ng-disabled="!vm.userData.min_fields  || true">Aceptar</button> </td>
+					  				<td><button class="btn btn-warning btn-sm" ng-click="vm.confirmInvitation(invitation.invitation_id, invitation.team_id, false)" ng-disabled="!vm.userData.min_fields || true">Rechazar</button> </td>
 					  			</tr>
 					  		</tbody>
 					  	</table>
@@ -210,7 +210,7 @@
 					  				<td>{{ invitation.sent_at | date:'dd-mm-YYYY' }}</td>
 										<td>{{ invitation.type }}</td>
 										<td>Pendiente</td>
-										<td><button type="button" class="btn btn-warning btn-sm" ng-click="vm.cancelInvitation(invitation.invitation_id)"><i class="fa fa-times"></i></button></td>
+										<td><button type="button" class="btn btn-warning btn-sm" ng-click="vm.cancelInvitation(invitation.invitation_id)" ng-disable="true"><i class="fa fa-times"></i></button></td>
 					  			</tr>
 					  		</tbody>
 					  	</table>

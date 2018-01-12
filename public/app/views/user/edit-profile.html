@@ -148,7 +148,7 @@
 			<div class="alert alert-danger" ng-if="vm.updateSuccess.state">
 				<strong>{{ vm.updateSuccess.msg }}</strong>
 			</div>
-			<button ng-click="vm.update()" class="btn btn-info btn-lg pull-right">Realizar cambios</button>
+			<button ng-click="vm.update()" class="btn btn-info btn-lg pull-right" ng-disabled="true">Realizar cambios</button>
 			<button ui-sref="user.my-profile" class="btn btn-default btn-lg pull-right"><i class="fa fa-arrow-left"></i> Volver</button>
 		</div>
 	</div>
