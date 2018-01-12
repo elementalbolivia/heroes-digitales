@@ -21,12 +21,12 @@
 							</div>
 							<div ng-if="!vm.teamData.is_full_students && !vm.hasTeam && vm.userCreds.role == 1">
 								<div class="alert alert-info text-center"><strong>El equipo aún no tiene 4 estudiantes, únete</strong></div>
-								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
+								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || true" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
 								<div class="alert alert-info text-center" ng-if="vm.userHasSentReq"><strong>Tu solicitud fue enviada</strong></div>
 							</div>
 							<div ng-if="!vm.teamData.is_full_mentors && !vm.hasTeam && vm.userCreds.role == 2">
 								<div class="alert alert-info text-center"><strong>El equipo aún no tiene dos mentores, únete</strong></div>
-								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
+								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || true" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
 								<span class="alert alert-default" ng-if="!vm.userHasSentReq">Tu solicitud fue enviada</span>
 							</div>
 							<div class="alert alert-warning text-center" ng-if="!vm.uploadRequest.success"><strong> {{vm.uploadRequest.msg}}</strong></div>

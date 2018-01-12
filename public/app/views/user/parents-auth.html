@@ -15,7 +15,7 @@
 								<input type="text" class="form-control" ng-model="vm.parents.signature" style="margin-bottom:10px;" required>
 								<p class="text-center"><strong>Correo electrónico del padre/apoderado</strong></p>
 								<input type="email" class="form-control" ng-model="vm.parents.email" style="margin-bottom:10px;" required>
-								<button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="authForm.$invalid || vm.sended.isLoading">Enviar autorización al email</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="authForm.$invalid || vm.sended.isLoading || true">Enviar autorización al email</button>
 							</form>
 						</div>
 					</div>
