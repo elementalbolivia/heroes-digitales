@@ -17,6 +17,9 @@
 		vm.total = 0;
 		vm.pagination = [];
 		vm.currentPage = $stateParams.num;
+		vm.filters = {
+			withTeam: 'ALL',
+		}
 		// Methods implementation
 		function getMentors(){
 			Mentor.getMentorsAdmin(vm.currentPage).then(function(data){
