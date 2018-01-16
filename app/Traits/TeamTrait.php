@@ -90,6 +90,7 @@ trait TeamTrait{
 						'lastnames'		=> $userMember->apellidos,
 						'age'		=> $userMember->getAge(),
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
+						'birth_date'		=> $userMember->fecha_nacimiento,
 						'division'	=> UserTrait::division($userMember),
 						'city'	=> $userMember->ciudad_id == 1 ? 'La Paz' : 'El Alto',
 						'user_id'		=> $userMember->id,
@@ -185,7 +186,7 @@ trait TeamTrait{
 					}else{
 						$leader = Usuario::find(Mentor::find($member->mentor_id)->usuario_id);
 					}
-					// EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
+					EmailTrait::requestEmail($user->nombres . ' ' . $user->apellidos, $leader->correo);
 				}
 			}
 			return true;
