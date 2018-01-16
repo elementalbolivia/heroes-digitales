@@ -15,11 +15,11 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
               <h3>Estudiantes</h3>
-            <!-- <div class="col-xs-12">
-      				División
-      				<input type="checkbox" ng-model=""> Senior
-      				<input type="checkbox" ng-model=""> Junior
-      			</div> -->
+            <div class="col-xs-12">
+              <input type="radio" ng-model="vm.filters.withTeam" value="ALL">     <span  style="margin-right:10px;"> Todos </span>
+      				<input type="radio" ng-model="vm.filters.withTeam" ng-value="true"> <span  style="margin-right:10px;">Con equipo</span>
+      				<input type="radio" ng-model="vm.filters.withTeam" ng-value="false"><span  style="margin-right:10px;"> Sin equipo</span>
+      			</div>
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive">
@@ -40,7 +40,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="student in vm.students | filter:vm.studentFilter">
+									<tr ng-repeat="student in vm.students | StudentAdminFilter:vm.filters.withTeam | filter:vm.studentFilter">
                     <td class="text-center">{{ $index + 1 }}</td>
 										<td class="text-center">{{ student.names + ' ' + student.lastnames }}</td>
 										<td class="text-center">{{ student.email }}</td>

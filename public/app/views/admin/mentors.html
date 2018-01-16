@@ -16,6 +16,11 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3>Mentores</h3>
+            <div class="col-xs-12">
+              <input type="radio" ng-model="vm.filters.withTeam" value="ALL">     <span  style="margin-right:10px;"> Todos </span>
+      				<input type="radio" ng-model="vm.filters.withTeam" ng-value="true"> <span  style="margin-right:10px;">Con equipo</span>
+      				<input type="radio" ng-model="vm.filters.withTeam" ng-value="false"><span  style="margin-right:10px;"> Sin equipo</span>
+      			</div>
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive">
@@ -36,7 +41,7 @@
 									</tr>
 								</thead>
                 <tbody>
-									<tr ng-repeat="mentor in vm.mentors | filter:vm.mentorFilter">
+									<tr ng-repeat="mentor in vm.mentors | MentorAdminFilter:vm.filters.withTeam | filter:vm.mentorFilter">
                     <td class="text-center">{{$index + 1}}</td>
 										<td class="text-center">{{ mentor.names + ' ' + mentor.lastnames }}</td>
 										<td class="text-center">{{ mentor.email }}</td>
