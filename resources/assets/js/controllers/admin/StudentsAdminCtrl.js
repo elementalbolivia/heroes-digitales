@@ -29,7 +29,7 @@
 		vm.filters = {
 			cities: ['La Paz', 'El Alto'],
 			gender: ['Femenino', 'Masculino'],
-			withTeam: true,
+			withTeam: 'ALL',
 		};
 		vm.total = 0;
 		vm.pagination = [];
@@ -81,6 +81,11 @@
 			});
 		};
 		function updateFilter(type, arg){
+			console.log(type, arg);
+			if(type == 'TEAM'){
+				vm.filters.withTeam = arg;
+				return;
+			}
 			var index = vm.filters[type].indexOf(arg);
 			if(index == -1){
 				vm.filters[type].push(arg);
