@@ -37,6 +37,7 @@
 										<th class="text-center">Trabajo</th>
 										<th class="text-center">Profesión</th>
                     <th class="text-center">Lugar de trabajo</th>
+                    <th class="text-center">Equipo</th>
                     <th class="text-center" ng-if="vm.userCreds.role == 5">Aprobar inicio de sesión</th>
 									</tr>
 								</thead>
@@ -52,6 +53,7 @@
 										<td class="text-center">{{ mentor.mentor.job }}</td>
                     <td class="text-center">{{ mentor.mentor.profession }}</td>
 										<td class="text-center">{{ mentor.mentor.work_place }}</td>
+                    <td class="text-center" ng-class="mentor.team == null ? 'bg-warning' : 'bg-success'">{{ mentor.team == null ? 'Sin equipo' :  mentor.team.team_name }}</td>
                     <td class="text-center" ng-if="vm.userCreds.role == 5">
                       <button type="button" ng-if="mentor.is_active" class="btn btn-sm btn-danger"   ng-click="vm.approve(mentor.id, false)">Eliminar</button>
                       <button type="button" ng-if="!mentor.is_active" class="btn btn-sm btn-success" ng-click="vm.approve(mentor.id, true)">Aprobar</button>
