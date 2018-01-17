@@ -116,6 +116,8 @@ trait TeamTrait{
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
+						'age'		=> $userMember->getAge(),
+						'birth_date'		=> $userMember->fecha_nacimiento,
 						'city'	=> $userMember->ciudad_id == 1 ? 'La Paz' : 'El Alto',
 						'user_id'		=> $userMember->id,
 						'is_student'	=> $isStudent,
