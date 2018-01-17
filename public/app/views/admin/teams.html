@@ -92,6 +92,11 @@
                         <td class="text-center">{{ team.has_mentor ? 'Sí' : 'No' }}</td>
                         <td>
                           <table>
+                            <tr>
+                              <th class="text-center">Nombres</th>
+                              <th class="text-center">Edad</th>
+                              <th class="text-center">Ciudad</th>
+                            </tr>
                             <tr ng-repeat="member in team.members.mentors track by $index" style="border-bottom:1px solid black;">
                               <td> <strong>{{ $index + 1 }}</strong>. {{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
                               <td style="width:150px;" class="text-center">
@@ -104,6 +109,11 @@
                         </td>
                         <td>
                           <table>
+                            <tr>
+                              <th class="text-center">Nombres</th>
+                              <th class="text-center">Edad</th>
+                              <th class="text-center">Ciudad</th>
+                            </tr>
                             <tr ng-repeat="member in team.members.students track by $index" style="border-bottom:1px solid black;">
                               <td><strong>{{ $index + 1 }}</strong>.  {{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
                               <td style="width:150px;" class="text-center">
