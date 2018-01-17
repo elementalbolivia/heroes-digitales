@@ -80,6 +80,9 @@ trait TeamTrait{
 		$teamData['division'] 	= $team->division($team->division_id);
 		$teamData['category'] 	= $team->project->category($team->project->categoria_id);
 		$teamData['city'] 		= $team->city($team->ciudad_id);
+		$teamData['members']['mentors'] = [];
+			$teamData['members']['students'] = [];
+
 		foreach ($team->members as $member) {
 			if($member->aprobado == 1 and $member->activo == 1){
 				$isStudent = $member->estudiante_id != NULL ? true : false;
