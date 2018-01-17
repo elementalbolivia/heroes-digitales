@@ -82,6 +82,31 @@
                         <th class="text-center">Estudiantes</th>
                         <th class="text-center" ng-if="vm.userCreds.role == 5">Eliminar</th>
                       </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">
+                          <table>
+                            <tr style="width:150px;">
+                              <th class="text-center" style="width:100px;">Nombre</th>
+                              <th class="text-center" style="width:100px;">Edad</th>
+                              <th class="text-center" style="width:100px;">Ciudad</th>
+                            </tr>
+                          </table>
+                        </td>
+                        <td class="text-center">
+                          <table>
+                            <tr style="width:150px;">
+                              <th class="text-center" style="width:100px;">Nombre</th>
+                              <th class="text-center" style="width:100px;">Edad</th>
+                              <th class="text-center" style="width:100px;">Ciudad</th>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat="team in vm.filtered = (vm.teams.teams | TeamAdminFilter: vm.filters.cities : vm.filters.divisions | filter:vm.teamFilter)">
@@ -92,11 +117,6 @@
                         <td class="text-center">{{ team.has_mentor ? 'Sí' : 'No' }}</td>
                         <td>
                           <table>
-                            <tr>
-                              <th class="text-center">Nombres</th>
-                              <th class="text-center">Edad</th>
-                              <th class="text-center">Ciudad</th>
-                            </tr>
                             <tr ng-repeat="member in team.members.mentors track by $index" style="border-bottom:1px solid black;">
                               <td> <strong>{{ $index + 1 }}</strong>. {{ member.names + ' ' + member.lastnames }} ({{ member.gender }})</td>
                               <td style="width:150px;" class="text-center">
@@ -109,11 +129,6 @@
                         </td>
                         <td>
                           <table>
-                            <tr>
-                              <th class="text-center">Nombres</th>
-                              <th class="text-center">Edad</th>
-                              <th class="text-center">Ciudad</th>
-                            </tr>
                             <tr ng-repeat="member in team.members.students track by $index" style="border-bottom:1px solid black;">
                               <td><strong>{{ $index + 1 }}</strong>.  {{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
                               <td style="width:150px;" class="text-center">
