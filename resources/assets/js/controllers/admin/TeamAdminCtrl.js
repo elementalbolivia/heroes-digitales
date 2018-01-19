@@ -143,7 +143,7 @@
 			}
 		});
 		function downloadReport(){
-			Team.excelReport().then(function(data){
+			Team.excelReport(vm.filters.cities, vm.filters.divisions, vm.teamFilter).then(function(data){
 				if(data.succes){
 					LxNotificationService.success(data.msg);
 				}else{
