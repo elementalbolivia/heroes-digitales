@@ -454,23 +454,17 @@ class TeamCtrl extends Controller
 		public function excelReport(){
 			$res = (object) null;
 			try{
-				$NAME = date('Y-m-d H:i:s') . '-equipos';
+				$NAME = date('Y-m-d') . '-equipos';
 				$teams = [];
 				foreach (Equipo::where('activo', '=', 1)->get() as $team) {
 	    		$teamInfo = TeamTrait::teamInfoAdmin($team->id);
-					// return response()->json($teamInfo);
 					$teams[] = $teamInfo;
-					// var_dump($teams);
-					// die();
        	}
-				// return response()->json($teams);
-				// var_dump($teams);
 				Excel::create($NAME, function($excel) use($teams){
 					$excel->sheet('Equipos', function($sheet) use($teams){
-						// var_dump($teams);
 						$sheet->loadView('excel_reports.teams', ['teams' => $teams ]);
 					});
-				})->download('xlsx');
+				})->download('xls');
 				$res->success = true;
 				$res->msg = 'Descargando...';
 			}catch(\Exception $e){
