@@ -57,10 +57,15 @@
           </div>
         </div>
         <div class="col-xs-12" style="padding-top:20px;padding-bottom:20px">
-          <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Buscar equipo" ng-model="vm.teamFilter">
+          <div class="col-xs-8 col-sm-10">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              <input type="text" class="form-control" placeholder="Buscar equipo" ng-model="vm.teamFilter">
+            </div>
           </div>
+          <div class="col-xs-4 col-sm-2">
+            <a type="button" class="btn btn-sm btn-success" href="{{vm.url}}" target="_blank"><i class="fa fa-file-excel-o"></i> Reporte</a>
+          </div>    
         </div>
         <div class="col-xs-12">
           <div class="panel-group">

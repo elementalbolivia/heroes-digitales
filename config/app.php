@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth'   => Tymon\JWTAuthFacades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuthFacades\JWTFactory::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

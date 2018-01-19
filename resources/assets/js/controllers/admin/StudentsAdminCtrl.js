@@ -2,12 +2,13 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('StudentAdminCtrl',['$stateParams', 'User', 'Auth', 'Team', 'Student', 'Request', 'LxNotificationService', StudentAdminCtrl]);
+		.controller('StudentAdminCtrl',['$stateParams', 'AUTH_URL', 'User', 'Auth', 'Team', 'Student', 'Request', 'LxNotificationService', StudentAdminCtrl]);
 
-	function StudentAdminCtrl($stateParams, User, Auth, Team, Student, Request, LxNotificationService){
+	function StudentAdminCtrl($stateParams, AUTH_URL, User, Auth, Team, Student, Request, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
+		vm.url = AUTH_URL + 'students/report/excel?token=' + vm.userCreds.token;
 		vm.userData = {};
 		vm.students = [];
 		vm.isLoading = true;
@@ -40,6 +41,7 @@
 		vm.approve = approve;
 		vm.getStudent = getStudent;
 		vm.confirmParent = confirmParent;
+		vm.downloadReport = downloadReport;
 		// Methods implementation
 		function getStudents(){
 			Student.getStudentsAdmin(vm.currentPage).then(function(data){
@@ -145,6 +147,17 @@
 					}
 				}, function(err){
 					LxNotificationService.error('Hubo un error al actualizar al usuario');
+			});
+		}
+		function downloadReport(){
+			Student.excelReport().then(function(data){
+				if(data.succes){
+					LxNotificationService.success(data.msg);
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(data){
+				LxNotificationService.error('Hubo un error al descargar el reporte, revise su conexión a internet');
 			});
 		}
 		// Methods self invoking

@@ -130,7 +130,29 @@
 					return response.data;
 				});
 				return promise;
-			}
+			},
+			createTeachableCreds: function(data){
+				var promise = $http({
+					method: 'POST',
+					url: AUTH_URL + 'user/teachable',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
+			setTeachableActive: function(id, data){
+				var promise = $http({
+					method: 'PUT',
+					url: AUTH_URL + 'user/teachable/' + id,
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 		};
 	};
 })();

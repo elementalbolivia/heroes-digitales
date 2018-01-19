@@ -71,7 +71,17 @@
 					return response.data;
 				});
 				return promise;
-			}
+			},
+			excelReport: function(){
+				var promise = $http({
+					method: 'GET',
+					url: AUTH_URL + 'students/report/excel',
+					params: {token: Auth.getSession().token },
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 		};
 	};
 })();

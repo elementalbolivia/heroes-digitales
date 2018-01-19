@@ -7,7 +7,7 @@ use App\Models\Usuario;
 use App\Models\Estudiante;
 use App\Models\Responsable;
 use DB;
-
+use Excel;
 use App\Traits\UserTrait as UserTrait;
 
 class StudentCtrl extends Controller
@@ -286,5 +286,32 @@ class StudentCtrl extends Controller
 				}
 			}
 			return $match;
+		}
+
+		public function excelReport(){
+			$res = (object) null;
+			try{
+				$NAME = date('Y-m-d H:i:s') . '-estudiantes';
+				$dbStudents = DB::table('estudiante')
+											->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
+											->get();
+				$students = [];
+				foreach ($dbStudents as $student) {
+					$students[] = UserTrait::userData($student->usuario_id);
+				}
+				// var_dump($students);
+				Excel::create($NAME, function($excel) use($students){
+					$excel->sheet('Estudiantes', function($sheet) use($students){
+						$sheet->loadView('excel_reports.students', ['students' => $students]);
+					});
+				})->download('xlsx');
+				$res->success = true;
+				$res->msg = 'Descargando...';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al descargar y generar el reporte';
+			}finally{
+				return reponse()->json($res);
+			}
 		}
 }
