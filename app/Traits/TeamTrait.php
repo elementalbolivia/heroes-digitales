@@ -198,6 +198,58 @@ trait TeamTrait{
 		}else{
 			return false;
 		}
-
+	}
+	public static function queryTeams($cities, $divisions, $teamName){
+		$match = (object) null;
+		$citiesIds = [];
+		$divisionsIds = [];
+		foreach ($cities as $city) {
+			if($city == 'La Paz') $citiesIds[] = 1;
+			else $citiesIds[] = 2;
+		}
+		foreach ($divisions as $division) {
+			if(substr($division, 0, 1) == 'J') $divisionsIds[] = 1;
+			else $divisionsIds[] = 2;
+		}
+		// var_dump($citiesIds);
+		// var_dump($divisionsIds);
+		// die();
+		// $QT_PAGE = $quantityPerPage;
+		// $PAGE = $page;
+		// $withTeam = $request->withTeam == "true" ? true : false;
+		if($teamName !== NULL || isset($teamName)){
+			$match->rows = DB::table('equipo')
+						 ->select('equipo.id')
+						 ->where('equipo.nombre_equipo', 'like', '%'. $teamName .'%')
+						 ->distinct('equipo.id')
+						 ->get();
+			 return $match;
+		}
+		if(count($citiesIds) !== 0 && count($divisionsIds) !== 0){
+			 $match->rows = DB::table('equipo')
+			 				->select('equipo.id')
+							->where('equipo.activo', '=', 1)
+							->whereIn('equipo.ciudad_id', $citiesIds)
+							->whereIn('equipo.division_id', $divisionsIds)
+							->get();
+		}else if(count($citiesIds) !== 0 && count($divisionsIds) === 0){
+			$match->rows = DB::table('equipo')
+						 ->select('equipo.id')
+						 ->where('equipo.activo', '=', 1)
+						 ->whereIn('equipo.ciudad_id', $citiesIds)
+						 ->get();
+		}else if(count($citiesIds) === 0 && count($divisionsIds) !== 0){
+			$match->rows = DB::table('equipo')
+						 ->select('equipo.id')
+						 ->where('equipo.activo', '=', 1)
+						 ->whereIn('equipo.division_id', $divisionsIds)
+						 ->get();
+		}else if(count($citiesIds) === 0 && count($divisionsIds) === 0){
+			$match->rows = DB::table('equipo')
+						 ->select('equipo.id')
+						 ->where('equipo.activo', '=', 1)
+						 ->get();
+		}
+		return $match;
 	}
 }

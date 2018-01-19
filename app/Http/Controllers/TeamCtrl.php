@@ -451,12 +451,16 @@ class TeamCtrl extends Controller
 			$res->isFull = false;
 			return $res;
 		}
-		public function excelReport(){
+		public function excelReport(Request $request){
 			$res = (object) null;
+			$cities = json_decode($request->cities);
+			$divisions = json_decode($request->divisions);
+			$teamName = $request->teamname;
 			try{
 				$NAME = date('Y-m-d') . '-equipos';
 				$teams = [];
-				foreach (Equipo::where('activo', '=', 1)->get() as $team) {
+				$queryTeams = TeamTrait::queryTeams($cities, $divisions, $teamName);
+				foreach ($queryTeams->rows as $team) {
 	    		$teamInfo = TeamTrait::teamInfoAdmin($team->id);
 					$teams[] = $teamInfo;
        	}
