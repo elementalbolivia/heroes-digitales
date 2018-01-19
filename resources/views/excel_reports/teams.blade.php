@@ -26,7 +26,7 @@
       <td></td>
       <th align="center" width="15">Nombre</th>
       <th align="center" width="15">Edad</th>
-      <th align="center" width="15">Fecha de nacimiento</th>
+      <th align="center" width="17">Fecha de nacimiento</th>
       <th align="center" width="15">Ciudad</th>
     </tr>
     @foreach ($teams as $team)
@@ -48,6 +48,7 @@
         </td>
         <td width="30">
           <table>
+            <td></td>
             @foreach ($team['members']['mentors'] as $mentor)
             <tr>
               <td>
