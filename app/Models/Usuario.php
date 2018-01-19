@@ -112,4 +112,7 @@ class Usuario extends Model implements AuthenticatableContract
                   ->where('confirmacion', 0)
                   ->get();
     }
+    public function teacheable(){
+      return $this->hasOne('App\Models\TeacheableUsuario', 'usuario_id');
+    }
 }

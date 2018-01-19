@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\UserTrait;
 use App\Models\Usuario;
 use DB;
+use Excel;
 
 class MenthorCtrl extends Controller
 {
@@ -221,5 +222,32 @@ class MenthorCtrl extends Controller
 				}
 			}
 			return $match;
+		}
+		public function excelReport(){
+			$res = (object) null;
+			try{
+				$NAME = date('Y-m-d H:i:s') . '-mentores';
+				$dbMentors = DB::table('mentor')
+											->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
+											->get();
+				$mentors = [];
+				foreach ($dbMentors as $mentor) {
+					$mentors[] = UserTrait::userData($mentor->usuario_id);
+				}
+				// var_dump($students);
+				Excel::create($NAME, function($excel) use($mentors){
+					$excel->sheet('Mentores', function($sheet) use($mentors){
+						$sheet->loadView('excel_reports.mentors', ['mentors' => $mentors]);
+					});
+				})->download('xlsx');
+				$res->success = true;
+				$res->msg = 'Descargando...';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al descargar y generar el reporte';
+				$res->err = $e->getMessage();
+			}finally{
+				return response()->json($res);
+			}
 		}
 }

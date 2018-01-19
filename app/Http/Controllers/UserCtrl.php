@@ -8,6 +8,7 @@ use App\Traits\EmailTrait;
 use App\Models\Equipo;
 use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
+use App\Models\TeacheableUsuario;
 
 use App\Traits\UserTrait as UserTrait;
 use Storage;
@@ -89,7 +90,7 @@ class UserCtrl extends Controller
             $invitation = InvitacionesEquipo::create($newInvitation);
 						$acceptUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/' .$team->id. '/ACCEPT';
 						$refuseUrl = config('constants.API.LOCAL_URL') . 'confirm-invitation/' . $invitation->id . '/' . $invitation->token .'/team/'. $team->id .'/REFUSE';
-						// EmailTrait::sendInvitationEmail($request->mail, $team->nombre_equipo, $acceptUrl, $refuseUrl);
+						EmailTrait::sendInvitationEmail($request->mail, $team->nombre_equipo, $acceptUrl, $refuseUrl);
 						$res->success = true;
 						$res->title = 'Invitación enviada';
 						$res->msg = 'El ' . $type . ' ' . $invited->correo . ' ya tiene una cuenta en la plataforma. Se le envió una notificación por email para pueda aceptar la invitación a unirse a tu equipo.';
@@ -149,6 +150,40 @@ class UserCtrl extends Controller
 				$res->success = false;
 				$res->err = $e->getMessage();
 				$res->msg = 'Hubo un error al actualizar al usuario, inténtelo nuevamente';
+				return response()->json($res);
+			}
+		}
+		public function setTeachableCreds(Request $request){
+			$res = (object) null;
+			try{
+				$user = Usuario::find($request->id);
+				// $teachablePassword = UserTrait::createPassword($user);
+				$teachableData = [
+					'usuario_id'	=> $user->id,
+				];
+				$teachableCreds = TeacheableUsuario::create($teachableData);
+				$res->success = true;
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al redirigirlo';
+				$res->err = $e->getMessage();
+			}finally{
+				return response()->json($res);
+			}
+		}
+		public function setTeachableActive(Request $request, $t_id){
+			$res = (object) null;
+			try{
+				$teachable = TeacheableUsuario::find($t_id);
+				$teachable->activo = $request->active;
+				$teachable->save();
+				$res->success = true;
+				$res->msg = 'Cuenta verificada con éxito';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al verificar la cuenta';
+				$res->err = $e->getMessage();
+			}finally{
 				return response()->json($res);
 			}
 		}

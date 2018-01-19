@@ -33,6 +33,7 @@ trait UserTrait{
 		// Informacion especifica por rol de usuario
 		if($userData[0]['role_id'] == 1){
 			$userData[0]['student'] = self::studentData($userData[1]);
+			$userData[0]['teacheable'] = $userData[1]->teacheable;
 			$userData[0]['has_team'] = isset($userData[0]['student']['has_team']) ? $userData[0]['student']['has_team'] : false;
 			$userData[0]['min_fields'] = $userData[0]['image']
 										&& $userData[0]['bio']
@@ -66,6 +67,7 @@ trait UserTrait{
 			}
 		}else if($userData[0]['role_id'] == 2){
 			$userData[0]['mentor'] = self::mentorData($userData[1]);
+			$userData[0]['teacheable'] = $userData[1]->teacheable;
 			$userData[0]['has_team'] = isset($userData[0]['mentor']['has_team']) ? $userData[0]['mentor']['has_team'] : false;
 			$userData[0]['min_fields'] = $userData[0]['image']
 										&& $userData[0]['bio']
@@ -413,5 +415,21 @@ trait UserTrait{
 			return true;
 		else
 			return false;
+	}
+	public static function createPassword($user, $randomChars = 4){
+		$MAIL = strtolower($user->correo);
+		$NAME = strtolower(str_replace(' ', '', $user->nombres) );
+		$PASS_LEN = 8;
+		$RANDOMIZED = [];
+		$F_HALF = substr($NAME, 0, $PASS_LEN / 2);
+		$MAIL_USER = explode('@', $MAIL)[0];
+		for ($i=0; $i < $randomChars; $i++) {
+			$chose = rand(0, strlen($MAIL_USER));
+			$RANDOMIZED[] = substr($MAIL_USER, $chose, 1);
+		}
+		$password = $F_HALF . join('', $RANDOMIZED);
+		if(strlen($password) !== 8)
+			return self::createPassword($user, $randomChars + 1);
+		return $password;
 	}
 }

@@ -2,13 +2,14 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('TeamAdminCtrl',['$scope', '$timeout', 'User', 'Auth', 'Team', 'LxNotificationService', TeamAdminCtrl]);
+		.controller('TeamAdminCtrl',['$scope', 'AUTH_URL', '$timeout', 'User', 'Auth', 'Team', 'LxNotificationService', TeamAdminCtrl]);
 
-	function TeamAdminCtrl($scope, $timeout, User, Auth, Team, LxNotificationService){
+	function TeamAdminCtrl($scope, AUTH_URL, $timeout, User, Auth, Team, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
 		vm.userData = {};
+		vm.url = AUTH_URL + 'teams/report/excel?token=' + vm.userCreds.token;
 		vm.teams = {
 			teams: [],
 			update: 'none',
@@ -36,6 +37,7 @@
 		var fireWatch = fireWatch;
 		vm.updateFilter = updateFilter;
 		vm.getTeams = getTeams;
+		vm.downloadReport = downloadReport;
 		vm.deleteTeam = deleteTeam;
 		// Methods implementation
 		function getTeams(){
@@ -140,6 +142,17 @@
 				console.warn(err);
 			}
 		});
+		function downloadReport(){
+			Team.excelReport().then(function(data){
+				if(data.succes){
+					LxNotificationService.success(data.msg);
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(data){
+				LxNotificationService.error('Hubo un error al descargar el reporte, revise su conexión a internet');
+			});
+		}
 		// Methods self invoking
 		vm.getTeams();
 	};

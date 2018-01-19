@@ -2,12 +2,13 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('MentorAdminCtrl',['$stateParams', 'User', 'Auth', 'Team', 'Mentor', 'Request', 'LxNotificationService', MentorAdminCtrl]);
+		.controller('MentorAdminCtrl',['$stateParams', 'AUTH_URL', 'User', 'Auth', 'Team', 'Mentor', 'Request', 'LxNotificationService', MentorAdminCtrl]);
 
-	function MentorAdminCtrl($stateParams, User, Auth, Team, Mentor, Request, LxNotificationService){
+	function MentorAdminCtrl($stateParams, AUTH_URL, User, Auth, Team, Mentor, Request, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
+		vm.url = AUTH_URL + 'mentors/report/excel?token=' + vm.userCreds.token;
 		vm.userData = {};
 		vm.mentors = [];
 		vm.isLoading = true;
@@ -17,6 +18,7 @@
 		vm.total = 0;
 		vm.pagination = [];
 		vm.currentPage = $stateParams.num;
+		vm.downloadReport = downloadReport;
 		vm.filters = {
 			withTeam: 'ALL',
 		}
@@ -64,6 +66,17 @@
 				}else{
 					return;
 				}
+			});
+		}
+		function downloadReport(){
+			Mentor.excelReport().then(function(data){
+				if(data.succes){
+					LxNotificationService.success(data.msg);
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(data){
+				LxNotificationService.error('Hubo un error al descargar el reporte, revise su conexión a internet');
 			});
 		}
 		// Methods self invoking

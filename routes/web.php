@@ -73,6 +73,14 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'			=> 'UserCtrl@setActive',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::post('user/teachable', [
+		'uses'			=> 'UserCtrl@setTeachableCreds',
+		'middleware'	=> 'jwt.auth'
+	]);
+  Route::put('user/teachable/{teachable_id}', [
+		'uses'			=> 'UserCtrl@setTeachableActive',
+		'middleware'	=> 'jwt.auth'
+	]);
 	Route::get('divisions', [
 		'uses'			=> 'DivisionCtrl@index',
 		'middleware'	=> 'jwt.auth'
@@ -229,6 +237,18 @@ Route::prefix('api/v1/auth')->group(function(){
 		'uses'	=> 'RequestCtrl@accept',
 		'middleware'	=> 'jwt.auth'
 	]);
+  Route::get('students/report/excel', [
+    'uses'	=> 'StudentCtrl@excelReport',
+		'middleware'	=> 'jwt.auth'
+  ]);
+  Route::get('mentors/report/excel', [
+    'uses'	=> 'MenthorCtrl@excelReport',
+		'middleware'	=> 'jwt.auth'
+  ]);
+  Route::get('teams/report/excel', [
+    'uses'	=> 'TeamCtrl@excelReport',
+		'middleware'	=> 'jwt.auth'
+  ]);
 });
 
 
