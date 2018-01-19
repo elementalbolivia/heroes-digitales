@@ -291,7 +291,7 @@ class StudentCtrl extends Controller
 		public function excelReport(){
 			$res = (object) null;
 			try{
-				$NAME = date('Y-m-d H:i:s') . '-estudiantes';
+				$NAME = date('Y-m-d') . '-estudiantes';
 				$dbStudents = DB::table('estudiante')
 											->join('usuario', 'estudiante.usuario_id', '=', 'usuario.id')
 											->get();
@@ -299,12 +299,11 @@ class StudentCtrl extends Controller
 				foreach ($dbStudents as $student) {
 					$students[] = UserTrait::userData($student->usuario_id);
 				}
-				// var_dump($students);
 				Excel::create($NAME, function($excel) use($students){
 					$excel->sheet('Estudiantes', function($sheet) use($students){
 						$sheet->loadView('excel_reports.students', ['students' => $students]);
 					});
-				})->download('xlsx');
+				})->download('xls');
 				$res->success = true;
 				$res->msg = 'Descargando...';
 			}catch(\Exception $e){

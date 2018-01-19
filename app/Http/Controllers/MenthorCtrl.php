@@ -226,7 +226,7 @@ class MenthorCtrl extends Controller
 		public function excelReport(){
 			$res = (object) null;
 			try{
-				$NAME = date('Y-m-d H:i:s') . '-mentores';
+				$NAME = date('Y-m-d') . '-mentores';
 				$dbMentors = DB::table('mentor')
 											->join('usuario', 'mentor.usuario_id', '=', 'usuario.id')
 											->get();
@@ -234,12 +234,11 @@ class MenthorCtrl extends Controller
 				foreach ($dbMentors as $mentor) {
 					$mentors[] = UserTrait::userData($mentor->usuario_id);
 				}
-				// var_dump($students);
 				Excel::create($NAME, function($excel) use($mentors){
 					$excel->sheet('Mentores', function($sheet) use($mentors){
 						$sheet->loadView('excel_reports.mentors', ['mentors' => $mentors]);
 					});
-				})->download('xlsx');
+				})->download('xls');
 				$res->success = true;
 				$res->msg = 'Descargando...';
 			}catch(\Exception $e){
