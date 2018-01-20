@@ -47,13 +47,13 @@
               </div>
           </div>
         </div>
-        <div ng-if="vm.loginState.isNotLogged" class="alert alert-danger">
+        <div ng-if="vm.loginState.isNotLogged" class="alert alert-danger text-center">
           <strong>{{ vm.loginState.msg }}</strong>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-link" ui-sref="home.forgot-password" data-dismiss="modal">Olvidaste tu contraseña?</button>
+        <button type="button" class="btn btn-link" ui-sref="home.forgot-password" data-dismiss="modal">¿Olvidaste tu contraseña?</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button type="submit" ng-disabled="loginForm.$invalid || vm.loginState.isLoading" class="btn btn-success"><i ng-class="!vm.loginState.isLoading ? 'fa fa-sign-in' : 'fa fa-circle-o-notch fa-spin'"></i> Inicia sesión</button>
       </div>
