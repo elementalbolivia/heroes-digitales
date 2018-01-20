@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('DashboardUserCtrl',['$scope', 'User', 'Auth', 'Team', 'Stage', 'LxNotificationService', DashboardUserCtrl]);
+		.controller('DashboardUserCtrl',['$scope', '$window', '$timeout', '$state', 'User', 'Auth', 'Team', 'Stage', 'LxNotificationService', DashboardUserCtrl]);
 
-	function DashboardUserCtrl($scope, User, Auth, Team, Stage, LxNotificationService){
+	function DashboardUserCtrl($scope, $window, $timeout, $state, User, Auth, Team, Stage, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
@@ -36,6 +36,7 @@
 		vm.clearFields = clearFields;
 		vm.getStages = getStages;
 		vm.cancelInvitation = cancelInvitation;
+		vm.setActiveTeachable = setActiveTeachable;
 		// Methods implementation
 		function getStages(){
 			Stage.getStages().then(function(data){
@@ -55,6 +56,8 @@
 					vm.isUserDataLoaded = true;
 					console.log(data.user)
 					vm.userData = data.user;
+					if( (vm.userCreds.role == 1 || vm.userCreds.role == 2) && data.user.teacheable == null )
+						$('#teacheableModal').modal({display: 'show', backdrop: 'static', keyboard: false});
 					vm.userData.invitations = angular.equals(data.user.invitations, []) ? false : data.user.invitations;
 					if(vm.userData.has_team){
 						for (var i = 0; i < vm.userData.team.members.length; i++) {
@@ -251,6 +254,17 @@
 			}, function(err){
 				LxNotificationService.error('Hubo un error en el servidor, revise su conexión a internet');
 			});
+		}
+		function setActiveTeachable(){
+			User.createTeachableCreds({id: vm.userCreds.id}).then(function(data){
+				if(data.success){
+					$('#teacheableModal').modal('hide');
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(data){
+				LxNotificationService.error('Hubo un error al crear su crendencial, verifique su conexión a internet');
+			})
 		}
 		// Methods self invoking
 		getUserData();
