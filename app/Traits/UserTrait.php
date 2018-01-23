@@ -39,11 +39,13 @@ trait UserTrait{
 										&& $userData[0]['bio']
 										&& $userData[0]['terms_use'] ? true : false;
 			$userData[0]['invitations'] = self::invitations($userData[1], $userData[0]['role_id']);
-			$mTeam = DB::table('estudiante_mentor_tiene_equipo')
-						->select('equipo_id', 'lider_equipo')
-						->where([['estudiante_id', '=', $userData[1]->student->id],
-								 ['aprobado', '=', 1]])
-						->first();
+			$mTeam = DB::table('equipo')
+								->join('estudiante_mentor_tiene_equipo', 'equipo.id', '=', 'estudiante_mentor_tiene_equipo.equipo_id')
+								->where([['estudiante_mentor_tiene_equipo.estudiante_id', '=', $userData[1]->student->id],
+												 ['equipo.activo', '=', 1],
+												 ['estudiante_mentor_tiene_equipo.aprobado', '=', 1],
+												 ['estudiante_mentor_tiene_equipo.activo', '=', 1]])
+								->first();
 			$userData[0]['has_team'] = $mTeam == NULL ? false : true;
 			if($mTeam != null){
 				$userData[0]['is_leader'] = $mTeam->lider_equipo == 1 ? true : false;
@@ -73,11 +75,13 @@ trait UserTrait{
 										&& $userData[0]['bio']
 										&& $userData[0]['terms_use'] ? true : false;
 			$userData[0]['invitations'] = self::invitations($userData[1], $userData[0]['role_id']);
-			$mTeam = DB::table('estudiante_mentor_tiene_equipo')
-						->select('equipo_id')
-						->where([['mentor_id', '=', $userData[1]->mentor->id],
-								 ['aprobado', '=', 1]])
-						->first();
+			$mTeam = DB::table('equipo')
+								->join('estudiante_mentor_tiene_equipo', 'equipo.id', '=', 'estudiante_mentor_tiene_equipo.equipo_id')
+								->where([['estudiante_mentor_tiene_equipo.mentor_id', '=', $userData[1]->mentor->id],
+												 ['equipo.activo', '=', 1],
+												 ['estudiante_mentor_tiene_equipo.aprobado', '=', 1],
+												 ['estudiante_mentor_tiene_equipo.activo', '=', 1]])
+								->first();
 			$userData[0]['has_team'] = $mTeam == NULL ? false : true;
 			if($mTeam != null){
 				$userData[0]['is_leader'] = true;
