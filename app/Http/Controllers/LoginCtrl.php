@@ -43,12 +43,14 @@ class LoginCtrl extends Controller
 	            // something went wrong whilst attempting to encode the token
 	            return response()->json(['success' => false, 'msg' => 'Hubo un error al crear sus credenciales, inténtelo nuevamente', 'error' => 'could_not_create_token']);
 	        }
-            $role = $user->role($user->id)->rol_id;
-            // $token= $userId;
-            // Enviar a ruta que procese los datos de autenticacion
-            // del usuario, y luego lo envie al dashboard
-			$res = $this->getCredsPerUser($user, $token, $role);
-            return response()->json($res);
+          $role = $user->role($user->id)->rol_id;
+          // $token= $userId;
+          // Enviar a ruta que procese los datos de autenticacion
+          // del usuario, y luego lo envie al dashboard
+    			$res = $this->getCredsPerUser($user, $token, $role);
+          if( ($role == 1 || $role == 2) && (!$res['has_team'] || $res['has_team'] == NULL) )
+            return response()->json(['success' => false, 'msg' => 'Lo sentimos, no puedes acceder debido a que no lograste completar tu equipo a tiempo, te esperamos en una siguiente versión', 'error' => 'contest_timeout']);
+          return response()->json($res);
     	}else{
     		return response()->json([
     			'success'	=> false,
@@ -82,9 +84,12 @@ class LoginCtrl extends Controller
             // Mentor o estudiante
             $id = $roleId == 1 ? $user->student->id : $user->mentor->id;
             $field = $roleId == 1 ? 'estudiante_id' : 'mentor_id';
-            $team = DB::table('estudiante_mentor_tiene_equipo')
-                      ->where([[$field, '=', $id],
-                               ['aprobado', '=', 1]])
+            $team = DB::table('equipo')
+                      ->join('estudiante_mentor_tiene_equipo', 'equipo.id', '=', 'estudiante_mentor_tiene_equipo.equipo_id')
+                      ->where([['estudiante_mentor_tiene_equipo' . '.'. $field, '=', $id],
+                               ['equipo.activo', '=', 1],
+                               ['estudiante_mentor_tiene_equipo.aprobado', '=', 1],
+                               ['estudiante_mentor_tiene_equipo.activo', '=', 1]])
                       ->first();
             if($team != NULL){
                 $temp['team_id'] = $team != NULL ? $team->equipo_id : false;
