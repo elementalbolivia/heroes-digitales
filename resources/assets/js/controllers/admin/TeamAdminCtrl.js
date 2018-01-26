@@ -21,6 +21,30 @@
 			studentsLP: 0,
 			teamsLP: 0,
 			teamsEA: 0,
+			studentsFem: 0,
+			studentsMas: 0,
+			mentorsFem: 0,
+			mentorsMas: 0,
+		};
+		vm.chart = {
+			labels:{
+				 teams: ['Total equipos',
+								 'Equipos La Paz',
+								 'Equipos El Alto',],
+				 students: ['Estudiantes La Paz',
+									 'Estudiantes El Alto',
+									 'Estudiantes Mujeres',
+								 	 'Estudiantes Hombres',],
+				 mentors: ['Mentores La Paz',
+							 	 'Mentores El Alto',
+							 	 'Mentores Mujeres',
+							   'Mentores Hombres'],
+			 },
+			data: {
+				teams: Array(3).fill(0),
+				students: Array(4).fill(0),
+				mentors: Array(4).fill(0),
+			},
 		};
 		vm.filters = {
 			cities: ['La Paz', 'El Alto'],
@@ -109,6 +133,10 @@
 				studentsLP: 0,
 				teamsLP: 0,
 				teamsEA: 0,
+				studentsFem: 0,
+				studentsMas: 0,
+				mentorsFem: 0,
+				mentorsMas: 0,
 			};
 			// console.log(filtered);
 			for (var j = 0; j < filtered.length; j++) {
@@ -120,14 +148,36 @@
 				for (var i = 0; i < students.length; i++) {
 					if(students[i].city == 'La Paz') counters['studentsLP'] += 1;
 					else counters['studentsEA'] += 1;
+					if(students[i].gender == 'Masculino') counters['studentsMas'] += 1;
+					else counters['studentsFem'] += 1;
 				}
 				for (var i = 0; i < mentors.length; i++) {
 					if(mentors[i].city == 'La Paz') counters['mentorsLP'] += 1;
 					else counters['mentorsEA'] += 1;
+					if(mentors[i].gender == 'Masculino') counters['mentorsMas'] += 1;
+					else counters['mentorsFem'] += 1;
 				}
 			}
-			// console.log(counters);
 			vm.counters = counters;
+			vm.chart.data = {
+				teams: [
+					counters.teamsLP + counters.teamsEA,
+					counters.teamsLP,
+					counters.teamsEA,
+				],
+				students: [
+					counters.studentsLP,
+					counters.studentsEA,
+					counters.studentsFem,
+					counters.studentsMas,
+				],
+				mentors: [
+					counters.mentorsLP,
+					counters.mentorsEA,
+					counters.mentorsFem,
+					counters.mentorsMas,
+				]
+			};
 			return;
 		}
 

@@ -131,10 +131,10 @@
 				});
 				return promise;
 			},
-			excelReport: function(){
+			excelReport: function(cities, divisions, teamName){
 				var promise = $http({
 					method: 'GET',
-					url: AUTH_URL + 'teams/report/excel',
+					url: AUTH_URL + 'teams/report/excel/' + cities + '/' + divisions +'/' + teamName,
 					params: {token: Auth.getSession().token },
 				}).then(function(response){
 					return response.data;

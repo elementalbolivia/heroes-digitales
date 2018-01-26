@@ -6,6 +6,7 @@ angular.module('heroesDigitalesApp', [
 	'ngFileUpload',
 	'angular-locker',
 	'lumx',
+	'chart.js'
 ])
 .constant('PUBLIC_URL', 'http://localhost:8000/api/v1/')
 .constant('AUTH_URL', 'http://localhost:8000/api/v1/auth/')
