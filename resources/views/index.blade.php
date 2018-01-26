@@ -26,6 +26,7 @@
 <!-- JS script to load gif -->
 <script src="/app/js/loader.js"></script>
 <!-- Bower dependencies -->
+<script src="/bower_components/chart.js/dist/Chart.min.js"></script>
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/velocity/velocity.min.js"></script>
 <script src="/bower_components/moment/min/moment-with-locales.min.js"></script>
@@ -38,6 +39,7 @@
 <script src="/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="/bower_components/angular-locker/dist/angular-locker.min.js"></script>
+<script src="/bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
 <!-- Angular Script dependencies -->
 <!-- App -->
 <script src="/app/js/app.min.js"></script>
