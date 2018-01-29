@@ -9,51 +9,68 @@
 	<div class="row row-content row-dashboard" ng-if="vm.isUserDataLoaded">
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
-				<div class="panel panel-default">
-					<img src="/app/images/app-arts/user/bienvenido.png" class="img-dashboard-welcome" alt="Bienvenido">
-				  <div class="panel-body">
+				<div class="col-xs-12">
+					<div class="panel panel-default">
+						<img src="/app/images/app-arts/user/bienvenido.png" class="img-dashboard-welcome" alt="Bienvenido">
+					  <div class="panel-body">
 
-					<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
-					<ol style="padding:10px;">
-						<!-- Código de honor -->
-						<li ng-if="!vm.userData.terms_use" class="text-danger" style="font-size:20px;"><a href="#" ui-sref="user.terms-use" class="link-field-req"> <i class="fa fa-times-circle-o text-danger "></i> Leer y firmar el código de honor para participantes. </a></li>
-						<li ng-if="vm.userData.terms_use" class="text-success field-required"> <i class="fa fa-check-circle-o "></i> Leer y firmar el código de honor para {{ vm.userData.role_id == 1 ? 'estudiantes' : 'mentores' }} </li>
-						<!-- Autorización -->
-						<div ng-if="vm.userCreds.role == 1">
-							<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization.active" style="font-size:20px;color:#ffbb33"><a href="#" class="link-field-opt"><i class="fa fa-exclamation-circle "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a></li>
-							<li ng-if="vm.userData.student.authorization.active" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</li>
-						</div>
-						<li ui-sref="user.my-profile" ng-if="!vm.userData.image" class="text-danger" style="font-size:20px;">
-						<a href="#" class="link-field-req"> <i class="fa fa-times-circle-o"></i> Subir una foto de perfil.</a>
-						</li>
-						<li class="text-success field-required" ng-if="vm.userData.image">
-						<i class="fa fa-check-circle-o "></i> Subir una foto de perfil.
-						</li>
-						<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio" class="text-danger" style="font-size:20px;">
-						<a href="#" class="link-field-req"><i class="fa fa-times-circle-o"></i> Subir una biografía corta a tu perfil. </a>
-						</li>
-						<li class="text-success field-required" ng-if="vm.userData.bio">
-						<i class="fa fa-check-circle-o "></i> Subir una biografía corta a tu perfil.
-						</li>
-						<li ng-if="!vm.userData.has_team" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Crea o únete a un equipo </li>
-						<li ng-if="vm.userData.has_team" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Crea o únete a un equipo </li>
-						<li ng-if="!vm.userData.team.has_menthor" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Invita a un mentor</li>
-						<li ng-if="vm.userData.team.has_menthor"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Invita a un mentor </li>
-					</ol>
-				  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
-				  		<p>
-				  			<strong>Atención:</strong>
-				  			Todavía no has completado todos los pasos para habilitarte en el concurso.
-				  		</p>
-				  	</div>
-				  	<div ng-if="vm.userData.min_fields" class="alert alert-success">
-				  		<p>
-				  			<strong>FELICITACIONES:</strong>
-				  			Has completado los pasos para poder concursar ahora crea o únete a un equipo
-				  		</p>
-				  	</div>
-				  </div>
+						<p>Bienvenido al concurso Héroes Digitales! Para poder crear o unirte a un equipo necesitas completar los siguientes pasos:</p>
+						<ol style="padding:10px;">
+							<!-- Código de honor -->
+							<li ng-if="!vm.userData.terms_use" class="text-danger" style="font-size:20px;"><a href="#" ui-sref="user.terms-use" class="link-field-req"> <i class="fa fa-times-circle-o text-danger "></i> Leer y firmar el código de honor para participantes. </a></li>
+							<li ng-if="vm.userData.terms_use" class="text-success field-required"> <i class="fa fa-check-circle-o "></i> Leer y firmar el código de honor para {{ vm.userData.role_id == 1 ? 'estudiantes' : 'mentores' }} </li>
+							<!-- Autorización -->
+							<div ng-if="vm.userCreds.role == 1">
+								<li ui-sref="user.parents-auth" ng-if="!vm.userData.student.authorization.active" style="font-size:20px;color:#ffbb33"><a href="#" class="link-field-opt"><i class="fa fa-exclamation-circle "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</a></li>
+								<li ng-if="vm.userData.student.authorization.active" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Pedir a tu papá, mamá o apoderado que lea y firme la autorización de participación.</li>
+							</div>
+							<li ui-sref="user.my-profile" ng-if="!vm.userData.image" class="text-danger" style="font-size:20px;">
+							<a href="#" class="link-field-req"> <i class="fa fa-times-circle-o"></i> Subir una foto de perfil.</a>
+							</li>
+							<li class="text-success field-required" ng-if="vm.userData.image">
+							<i class="fa fa-check-circle-o "></i> Subir una foto de perfil.
+							</li>
+							<li ui-sref="user.my-profile.edit" ng-if="!vm.userData.bio" class="text-danger" style="font-size:20px;">
+							<a href="#" class="link-field-req"><i class="fa fa-times-circle-o"></i> Subir una biografía corta a tu perfil. </a>
+							</li>
+							<li class="text-success field-required" ng-if="vm.userData.bio">
+							<i class="fa fa-check-circle-o "></i> Subir una biografía corta a tu perfil.
+							</li>
+							<li ng-if="!vm.userData.has_team" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Crea o únete a un equipo </li>
+							<li ng-if="vm.userData.has_team" class="text-success field-required"><i class="fa fa-check-circle-o "></i> Crea o únete a un equipo </li>
+							<li ng-if="!vm.userData.team.has_menthor" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Invita a un mentor</li>
+							<li ng-if="vm.userData.team.has_menthor"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Invita a un mentor </li>
+						</ol>
+					  	<div ng-if="!vm.userData.min_fields" class="alert alert-danger">
+					  		<p>
+					  			<strong>Atención:</strong>
+					  			Todavía no has completado todos los pasos para habilitarte en el concurso.
+					  		</p>
+					  	</div>
+					  	<div ng-if="vm.userData.min_fields" class="alert alert-success">
+					  		<p>
+					  			<strong>FELICITACIONES:</strong>
+					  			Has completado los pasos para poder concursar ahora crea o únete a un equipo
+					  		</p>
+					  	</div>
+					  </div>
+					</div>
 				</div>
+				<div class="col-xs-12">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background:#229ED7;">
+								<h2 class="text-center title" >Escuela - Héroes Digitales</h2>
+							</div>
+							<div class="panel-body">
+									<img src="/app/images/app-arts/logo.png" style="margin:auto;width:350px;height:auto;" alt="heroes-digitales">
+									<p style="padding:15px;"></p>
+									<p style="font-size:18px;" class="text-justify"> Para iniciar tu capacitación, regístrate en la Plataforma de Aprendizaje usando tú <strong>correo electrónico ({{ vm.userData.email }}) y contraseña actuales</strong>. </br>
+										Si tienes alguna consulta, escriba al <strong>69912525</strong> </p>
+									 <a type="button" class="btn btn-block btn-success" href="https://escuela.heroesdigitales.org/" target="_blank"><strong style="font-size:17px;" ><i class="fa fa-graduation-cap"></i> Ir a la Plataforma de Aprendizaje</strong></a>
+							</div>
+						</div>
+				</div>
+
 			</div>
 			<div class="col-xs-12 col-sm-6">
 				<div class="panel panel-default">
@@ -137,22 +154,6 @@
 						<br/>
 						<button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#deleteTeam">Eliminar equipo</button>
 				  </div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-				<div class="panel panel-default">
-					<div class="panel-heading" style="background:#229ED7;">
-						<h2 class="text-center title" >Escuela - Héroes Digitales</h2>
-					</div>
-					<div class="panel-body">
-							<img src="/app/images/app-arts/logo.png" style="margin:auto;width:350px;height:auto;" alt="heroes-digitales">
-							<p style="padding:15px;"></p>
-							<p style="font-size:18px;" class="text-justify"> Para iniciar tu capacitación, regístrate en la Plataforma de Aprendizaje usando tú <strong>correo electrónico ({{ vm.userData.email }}) y contraseña actuales</strong>. </br>
-								Si tienes alguna consulta, escriba al <strong>69912525</strong> </p>
-							 <a type="button" class="btn btn-block btn-success" href="https://escuela.heroesdigitales.org/" target="_blank"><strong style="font-size:17px;" ><i class="fa fa-graduation-cap"></i> Ir a la Plataforma de Aprendizaje</strong></a>
-					</div>
 				</div>
 			</div>
 		</div>
