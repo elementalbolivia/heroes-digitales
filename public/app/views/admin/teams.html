@@ -132,10 +132,11 @@
                         </td>
                         <td class="text-center">
                           <table>
-                            <tr style="width:150px;">
+                            <tr style="width:200px;">
                               <th class="text-center" style="width:100px;">Nombre</th>
                               <th class="text-center" style="width:100px;">Edad</th>
                               <th class="text-center" style="width:100px;">Ciudad</th>
+                              <th class="text-center" style="width:100px;">Colegio</th>
                             </tr>
                           </table>
                         </td>
@@ -156,7 +157,7 @@
                                   {{ member.age }} </br>
                                   {{ member.birth_date }}
                               </td>
-                              <td style="width:150px;"> {{member.city}} </td>
+                              <td style="width:150px;" class="text-center"> {{member.city}} </td>
                             </tr>
                           </table>
                         </td>
@@ -164,11 +165,12 @@
                           <table>
                             <tr ng-repeat="member in team.members.students track by $index" style="border-bottom:1px solid black;">
                               <td><strong>{{ $index + 1 }}</strong>.  {{ member.names + ' ' + member.lastnames }} ({{ member.gender }} - {{ member.division }}) </td>
-                              <td style="width:150px;" class="text-center">
+                              <td style="width:120px;" class="text-center">
                                   {{ member.age }} </br>
                                   {{ member.birth_date }}
                               </td>
-                              <td>{{member.city}}</td>
+                              <td style="width:60px;" class="text-center">{{member.city}}</td>
+                              <td style="width:100px;" class="text-center">{{member.school}}</td>
                             </tr>
                           </table>
                         </td>
