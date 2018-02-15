@@ -76,7 +76,7 @@
 					// vm.counters.studentsEA = data.totalStudentsEA;
 					// vm.counters.studentsLP = data.totalStudentsLP;
 				}else{
-					LxNotificationService.warn(data.msg);
+					LxNotificationService.warning(data.msg);
 				}
 			}, function(err){
 				LxNotificationService.error(err);
