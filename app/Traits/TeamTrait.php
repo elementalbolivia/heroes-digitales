@@ -91,7 +91,7 @@ trait TeamTrait{
 					$teamData['members']['students'][] = [
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
-						'school'		=> $userMember->student->colegio != NULL ? $userMember->student->colegio : 'Sin colegio',
+						// 'school'		=> $userMember->student->colegio != NULL ? $userMember->student->colegio : 'Sin colegio',
 						'age'		=> $userMember->getAge(),
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
 						'birth_date'		=> $userMember->fecha_nacimiento,
