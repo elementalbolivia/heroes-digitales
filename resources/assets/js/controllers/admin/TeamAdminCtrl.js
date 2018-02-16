@@ -47,7 +47,7 @@
 			},
 		};
 		vm.filters = {
-			cities: ['La Paz', 'El Alto'],
+			cities: ['La Paz', 'El Alto', 'Pando', 'Cochabamba'],
 			divisions: ['Junior (de 10 a 14 años)', 'Senior (de 15 a 18 años)'],
 			categories: ['Educación'],
 			teamThat: {
