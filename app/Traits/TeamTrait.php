@@ -81,8 +81,7 @@ trait TeamTrait{
 		$teamData['category'] 	= $team->project->category($team->project->categoria_id);
 		$teamData['city'] 		= $team->city($team->ciudad_id);
 		$teamData['members']['mentors'] = [];
-			$teamData['members']['students'] = [];
-
+		$teamData['members']['students'] = [];
 		foreach ($team->members as $member) {
 			if($member->aprobado == 1 and $member->activo == 1){
 				$isStudent = $member->estudiante_id != NULL ? true : false;
@@ -91,7 +90,7 @@ trait TeamTrait{
 					$teamData['members']['students'][] = [
 						'names'			=> $userMember->nombres,
 						'lastnames'		=> $userMember->apellidos,
-						// 'school'		=> $userMember->student->colegio != NULL ? $userMember->student->colegio : 'Sin colegio',
+						'school'		=> $userMember->student->colegio != NULL ? $userMember->student->colegio : 'Sin colegio',
 						'age'		=> $userMember->getAge(),
 						'gender'		=> $userMember->genero_id == 1 ? 'Femenino' : 'Masculino',
 						'birth_date'		=> $userMember->fecha_nacimiento,
