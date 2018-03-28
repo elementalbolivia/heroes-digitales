@@ -32,7 +32,7 @@
 										<td>{{ expert.expert.work_place }}</td>
 										<td>{{ expert.city.nombre }}</td>
 										<td><a class="btn btn-info btn-block" ng-href="/app/images/curriculums/{{expert.expert.cv}}" target="_blank" download> Ver CV</a></td>
-                    <td> <a ng-href="{{ judge.judge.social_network }}" target="_blank" class="btn btn-link">Ver <i class="fa fa-eye"></i></a> </td>
+                    <td> <a ng-href="{{ expert.expert.social_network }}" target="_blank" class="btn btn-link">Ver <i class="fa fa-eye"></i></a> </td>
                     <td>
 											<button class="btn btn-success" ng-click="vm.processRequest(expert.id, true)">Aprobar</button>
 											<button class="btn btn-danger" ng-click="vm.processRequest(expert.id, false)">Rechazar</button>

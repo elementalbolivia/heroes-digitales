@@ -3,7 +3,9 @@
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<h1 class="text-center" style="margin-top:50px;">Regístrate como {{ vm.typeParams.title }}</h1>
 			<h2 class="text-center" style="font-size:20px;">Todos los campos con <span style="color:red">*</span> son requeridos</h2>
-			<h2 class="text-center" style="font-size:18px;background:#ff6347;color:white;padding:20px;font-size:30px;">
+			<h2 class="text-center"
+					style="font-size:18px;background:#ff6347;color:white;padding:20px;font-size:30px;"
+					ng-if="vm.typeReg != 'expert'">
 				<!-- <strong>Para ser estudiante debe haber nacido entre el 01 de agosto de 1999 y el 01 de agosto de 2008</strong> -->
 				<span >LAS INSCRIPCIONES SE CERRARON EL 6 DE ENERO, MUCHAS GRACIAS</strong>
 			</h2>
@@ -133,7 +135,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+					<!-- <div class="col-xs-12 col-sm-8 col-sm-offset-2">
 						<label id="cv" class=" col-xs-12">Curriculum vitae <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<button type="button" ngf-select class="btn btn-primary btn-lg" ng-model="vm.dataRegister.cv" ngf-pattern="'.pdf'" ngf-accept="'.pdf'" ngf-max-size="5MB"><i class="fa fa-file-pdf-o"></i> Subir curriculum</button>
@@ -143,7 +145,7 @@
 						<div class="col-xs-12 alert alert-info">
 							<strong>El documento que suba debe tener un tamaño máximo de 10MB y estar en formato PDF</strong>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
@@ -165,7 +167,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-						<label class=" col-xs-12 col-sm-12">Escriba nuevamente su contraseña</label>
+						<label class=" col-xs-12 col-sm-12">Escriba nuevamente su contraseña <span style="color:red">*</span></label>
 						<div class="col-xs-12">
 							<input type="password" id="retype" class="form-control" ng-model="vm.dataRegister.retype" required>
 							<p style="padding:3px;"></p>
