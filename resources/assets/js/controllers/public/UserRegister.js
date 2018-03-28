@@ -206,8 +206,7 @@
 				return;
 			}
 			if((vm.typeReg == 'judge' || vm.typeReg == 'expert')
-					&& (!vm.validateSocialNetwork(vm.dataRegister.socialNetwork)
-					|| !validateCV(vm.dataRegister.cv))) return;
+					&& (!vm.validateSocialNetwork(vm.dataRegister.socialNetwork))) return;
 			if(!retypePassword(vm.dataRegister.password, vm.dataRegister.retype)) return;
 			vm.isNotRegistered.state = false;
 			vm.isNotRegistered.isLoading = true;

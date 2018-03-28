@@ -55,7 +55,7 @@ class RegisterCtrl extends Controller
 			$now = date('Y-m-d H:i:s');
     	try{
 				if($request->from !== 'admin'){
-					if($now > '2018-01-06 23:59:59'){
+					if($now > '2018-01-06 23:59:59' && $request->type != 'expert'){
 						$res->success = false;
 						$res->msg = 'El período de inscripciones ha finalizado, lo sentimos, intente inscribirse nuevamente el siguiente año';
 						return response()->json($res);
@@ -110,7 +110,8 @@ class RegisterCtrl extends Controller
 					'red_social_url' => isset($request->socialNetwork) ? $request->socialNetwork : NULL,
 	    	];
 	    	if ($request->type != 'student'){
-	    		$role['rol_id'] = $this->insertUser($request->type, $user, $proffesionalData, $request->file('cv'));
+					// deleted cv file option 
+	    		$role['rol_id'] = $this->insertUser($request->type, $user, $proffesionalData );
 	    	}else{
 	    		unset($proffesionalData);
 	    		$role['rol_id'] = 1;
@@ -158,8 +159,8 @@ class RegisterCtrl extends Controller
 							$invitation->save();
 						}
 					}
-		    	// Mail::to($request->email)
-	    		// 	->send(new Registration($request->names, $request->lastnames, $verifUrl, 'USER_MENTOR'));
+		    	Mail::to($request->email)
+	    			->send(new Registration($request->names, $request->lastnames, $verifUrl, 'USER_MENTOR'));
 				$res->emailSended = 'SENDED';
 				$res->success = true;
 				$res->msg = 'Su registro fue completado con éxito, ingrese a su cuenta';
@@ -179,7 +180,7 @@ class RegisterCtrl extends Controller
 		    ]);
     	}
     }
-    private function insertUser($role, Usuario $user, $proffesionalData, $file){
+    private function insertUser($role, Usuario $user, $proffesionalData){
     	// Verificar rol del usuario
     	if($role == 'mentor'){
     		$roleId = 2;
@@ -187,13 +188,13 @@ class RegisterCtrl extends Controller
     	}else if($role == 'judge' || $role == 'expert'){
     		// Si el usuario es un juez o experto, debe subir su CV
     		$roleId = $role == 'judge' ? 3 : 4;
-    		$cvName = md5(date('YmdHis'))
-    				  . md5($user->id)
-    				  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-	    	Storage::disk('uploads')
-	    			->put('curriculums/'.$cvName,
-	    			  file_get_contents($file->getRealPath()));
-    		$proffesionalData['cv'] = $cvName;
+    		// $cvName = md5(date('YmdHis'))
+    		// 		  . md5($user->id)
+    		// 		  . '.' . pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+	    	// Storage::disk('uploads')
+	    	// 		->put('curriculums/'.$cvName,
+	    	// 		  file_get_contents($file->getRealPath()));
+    		// $proffesionalData['cv'] = $cvName;
 
     		if($roleId == 3)
     			$user->judge()->create(['tamano_polera_id' => $proffesionalData['tamano_polera']]);

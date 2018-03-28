@@ -1,35 +1,57 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
-			<div class="panel-group">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<div ng-if="vm.userImg.newImg == null">
-								<img ng-if="!vm.userData.image" src="/app/images/users/default-user.png" style="margin:auto;" alt="">
-								<img ng-if="vm.userData.image" ng-src="/app/images/users/{{vm.userData.image.name}}" style="margin:auto;" alt="">
+			<div class="col-xs-12">
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+								<div ng-if="vm.userImg.newImg == null">
+									<img ng-if="!vm.userData.image" src="/app/images/users/default-user.png" style="margin:auto;" alt="">
+									<img ng-if="vm.userData.image" ng-src="/app/images/users/{{vm.userData.image.name}}" style="margin:auto;" alt="">
+								</div>
+								<img ng-if="vm.userImg.newImg != null" ngf-src="vm.userImg.newImg" style="margin:auto;" alt="">
 							</div>
-							<img ng-if="vm.userImg.newImg != null" ngf-src="vm.userImg.newImg" style="margin:auto;" alt="">
-						</div>
-						<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-						<p style="padding:5px;"></p>
-							<button ng-if="vm.userImg.newImg != null" class="btn btn-info pull-right" ng-model="vm.userImg.newImg" ng-click="vm.updateImg()"> Guardar</button>
-							<label class="btn btn-primary btn-file">
-								Subir imagen <input type="file"
-												ngf-select ngf-pattern="'.jpg,.gif,.png'"
-												ngf-accept="'.jpg,.gif,.png'"
-												ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}"
-												style="display:none;"
-												class="show-errors file-upload"
-												ng-model="vm.userImg.newImg"/>
-							</label>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-sm-offset-3">
-							<button class="btn btn-info btn-block" style="margin: 10px 0px;" ui-sref="user"><fa class="fa fa-arrow-left"></fa> Volver</button>
+							<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+							<p style="padding:5px;"></p>
+								<button ng-if="vm.userImg.newImg != null" class="btn btn-info pull-right" ng-model="vm.userImg.newImg" ng-click="vm.updateImg()"> Guardar</button>
+								<label class="btn btn-primary btn-file">
+									Subir imagen <input type="file"
+													ngf-select ngf-pattern="'.jpg,.gif,.png'"
+													ngf-accept="'.jpg,.gif,.png'"
+													ngf-resize="{width: 250, height: 250, quality: .8, centerCrop: true}"
+													style="display:none;"
+													class="show-errors file-upload"
+													ng-model="vm.userImg.newImg"/>
+								</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+								<button class="btn btn-info btn-block" style="margin: 10px 0px;" ui-sref="user"><fa class="fa fa-arrow-left"></fa> Volver</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- <div class="col-xs-12">
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<img src="/app/images/app-arts/teachable.jpg" style="margin:auto;height:150px;width:auto;" alt="teacheable">
+							<h5 class="title-white-bg"> Cuenta Teachable</h5>
+						</div>
+						<div class="panel-body">
+							<p><strong>Correo electrónico:</strong> {{ vm.userData.email }}</p>
+							<p><strong>Contraseña generada:</strong> {{ vm.userData.teacheable.password }}</p>
+							<p><strong>Estado: </strong>
+								<span ng-class="(vm.userData.teacheable.activo == 0 || vm.userData.teacheable == null) ? 'text-warning' : 'text-success'">
+									{{ (vm.userData.teacheable.activo == 0 || vm.userData.teacheable == null) ? 'Su cuenta en Teachable aún no ha sido creada por el equipo de Héroes Digitales, espere a que le notifiquemos del cambio' : 'Su cuenta en Teachable ha sido creada por el equipo de Héroes Digitales, por favor revise su correo electrónico para confirmar su cuenta.'  }}
+								</span>
+							</p>
+
+						</div>
+					</div>
+				</div>
+			</div> -->
 		</div>
 		<div class="col-xs-12 col-sm-6">
 			<div class="panel-group">
