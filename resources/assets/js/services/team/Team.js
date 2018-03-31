@@ -141,6 +141,50 @@
 				});
 				return promise;
 			},
+			uploadVideo: function(data){
+				var promise = $http({
+					method: 'POST',
+					url: AUTH_URL + 'project/video',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
+			updateVideo: function(data, id){
+				var promise = $http({
+					method: 'PUT',
+					url: AUTH_URL + 'project/video/' + id + '/edit',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
+			uploadAppDoc: function(data){
+				var promise = Upload.upload({
+					method: 'POST',
+					url: AUTH_URL + 'project/app-doc',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
+			uploadAppApk: function(data){
+				var promise = Upload.upload({
+					method: 'POST',
+					url: AUTH_URL + 'project/app-apk',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 		};
 	};
 })();

@@ -25,6 +25,7 @@
     <div ui-view="admin-footer"></div>
 <!-- JS script to load gif -->
 <script src="/app/js/loader.js"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 <!-- Bower dependencies -->
 <script src="/app/js/main.min.js"></script>
 <!-- Angular Script dependencies -->

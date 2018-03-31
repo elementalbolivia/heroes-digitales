@@ -30,6 +30,7 @@ const bower_components = [
   bower_path + 'ng-file-upload/ng-file-upload-shim.js',
   bower_path + 'angular-locker/dist/angular-locker.js',
   bower_path + 'angular-chart.js/dist/angular-chart.js',
+  bower_path + 'angular-youtube-mb/dist/angular-youtube-embed.min.js',
 ];
 
 mix.styles(['public/app/styles/style.css',

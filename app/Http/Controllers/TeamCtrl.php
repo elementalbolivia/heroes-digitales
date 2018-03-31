@@ -11,13 +11,14 @@ use App\Models\Mentor;
 use App\Models\Estudiante;
 use App\Traits\UserTrait;
 use App\Traits\TeamTrait;
+use App\Models\VideoProyecto;
+use App\Models\Proyecto;
 use DB;
 use Storage;
 use Excel;
 
 class TeamCtrl extends Controller
 {
-		use TeamTrait;
 		use UserTrait;
     public function index(){
     	$teams = [];
@@ -395,7 +396,74 @@ class TeamCtrl extends Controller
             return response()->json($res);
         }
     }
-
+		public function uploadVideo(Request $request){
+			$res = (object) null;
+			try{
+				$team = Equipo::find($request->teamId);
+				$video = [
+					'proyecto_id' => $team->project->id,
+					'youtube_url'	=> $request->ytUrl,
+					'es_demo' 		=> $request->type == 'DEMO'	? 1 : 0,
+					'es_equipo'		=> $request->type != 'DEMO' ? 1 : 0,
+				];
+				VideoProyecto::create($video);
+				$res->success = true;
+				$res->msg = 'Video ' . $request->type . ' fue subido éxitosamente';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al subir su video';
+				$res->err = $e->getMessage();
+			}finally{
+				return response()->json($res);
+			}
+		}
+		public function updateVideo(Request $request, $idVideo){
+			$res = (object) null;
+			try{
+				$video = VideoProyecto::find($idVideo);
+				$video->youtube_url = $request->ytUrl;
+				$video->save();
+				$res->success = true;
+				$res->msg = 'Video ' . $request->type . ' fue actualizado';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al actualizar su video';
+			}finally{
+				return response()->json($res);
+			}
+		}
+		public function uploadAppDoc(Request $request){
+			$res = (object) null;
+			try{
+				$file = $request->file('appDoc');
+				$doc = TeamTrait::uploadAppDoc($file, $request->teamId);
+				$res->success = true;
+				$res->docName = $doc;
+				$res->msg = 'Archivo subido éxitosamente';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al subir su archivo';
+				$res->err = $e->getMessage();
+			}finally{
+				return response()->json($res);
+			}
+		}
+		public function uploadAppApk(Request $request){
+			$res = (object) null;
+			try{
+				$file = $request->file('appApk');
+				$doc = TeamTrait::uploadApk($file, $request->teamId);
+				$res->success = true;
+				$res->docName = $doc;
+				$res->msg = 'APK subida éxitosamente';
+			}catch(\Exception $e){
+				$res->success = false;
+				$res->msg = 'Hubo un error al subir su APK';
+				$res->err = $e->getMessage();
+			}finally{
+				return response()->json($res);
+			}
+		}
 		public function deleteTeam($idTeam){
 			$res = (object) null;
 			DB::beginTransaction();

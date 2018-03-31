@@ -10,6 +10,7 @@ use App\Models\EstudianteMentorTieneEquipo;
 use App\Models\InvitacionesEquipo;
 use App\Traits\EmailTrait;
 use DB;
+use Storage;
 
 date_default_timezone_set('America/La_Paz');
 
@@ -24,10 +25,12 @@ trait TeamTrait{
 		$teamData['team_name'] 		= $team->nombre_equipo;
 		$teamData['project_name'] 	= $team->project->nombre_proyecto;
 		$teamData['project_desc'] 	= $team->project->descripcion;
-		$teamData['business'] 		= $team->modelo_negocio_archivo;
+		$teamData['app_doc'] 		= 	$team->project->resumen_archivo;
+		$teamData['app_apk'] 		= $team->project->codigo_fuente_archivo;
 		$teamData['img']	 		= $team->imagen;
 		$teamData['is_aproved'] 	= $team->project->proyecto_aprobado == 1 ? true : false;
 		$teamData['created_at'] 	= $team->fecha_creacion;
+		$teamData['youtube_videos'] = self::getVideos($team->project);
 		$teamData['division'] 	= $team->division($team->division_id);
 		$teamData['category'] 	= $team->project->category($team->project->categoria_id);
 		$teamData['city'] 		= $team->city($team->ciudad_id);
@@ -148,14 +151,76 @@ trait TeamTrait{
 
 		return $teamData;
 	}
+	public static function getVideos($Project){
+		$videos = [];
+		foreach ($Project->videoProyecto as $video) {
+			$videos[] = [
+				'id' => $video->id,
+				'youtube_url' => $video->youtube_url,
+				'is_demo'		=> $video->es_demo,
+				'is_team'		=> $video->es_equipo,
+			];
+		}
+		if (empty($videos)){
+			$videos = [
+				['id' => null, 'youtube_url' => '', 'is_demo' => true, 'is_team' => false],
+				['id'	=> null, 'youtube_url' => '', 'is_demo' => false, 'is_team' => true],
+			];
+		}else if(count($videos) == 1){
+			if($videos[0]['is_team']){
+				$is_demo = array(['id' => null, 'youtube_url' => '', 'is_demo' => true, 'is_team' => false]);
+				array_splice($videos, 0, 0, $is_demo);
+			}else{
+				$is_demo = ['id' => null, 'youtube_url' => '', 'is_demo' => false, 'is_team' => true];
+				array_push($videos, $is_demo);
+			}
+		}else{
+			if($videos[0]['is_team']){
+				// swap
+				$temp = $videos[1]; //demo
+				$videos[1] = $videos[0]; // team
+				$videos[0] = $temp;
+			}
+		}
+		return $videos;
+	}
 	public static function updateImg($Storage, $request, $id){
 		$team = Equipo::find($id);
 		$img = md5(date('YmdHis')).md5($id).'.jpg';
-        $team->imagen = $img;
-        $team->save();
-        $Storage::disk('uploads')
-            ->put('teams/'.$img, file_get_contents($request->file('newImg')->getRealPath()));
-        return $img;
+    $team->imagen = $img;
+    $team->save();
+    $Storage::disk('uploads')
+        ->put('teams/'.$img, file_get_contents($request->file('newImg')->getRealPath()));
+    return $img;
+	}
+	public static function uploadAppDoc($file, $teamId){
+		$team = Equipo::findOrFail($teamId);
+		$project = $team->project;
+		$name = 'resumen_app_'
+						. md5(date('YmdHis'))
+						. md5($project->id)
+						. '.'
+						. pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+
+    Storage::disk('uploads')
+        ->put('doc_apps/'.$name, file_get_contents($file->getRealPath()));
+		$project->resumen_archivo = $name;
+		$project->save();
+    return $name;
+	}
+	public static function uploadApk($file, $teamId){
+		$team = Equipo::findOrFail($teamId);
+		$project = $team->project;
+		$apk = '@pp'
+						. md5(date('YmdHis'))
+						. md5($project->id)
+						. '.'
+						. pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+    Storage::disk('uploads')
+        ->put('apps_apks/'.$apk, file_get_contents($file->getRealPath()));
+		$project->codigo_fuente_archivo = $apk;
+		$project->save();
+    return $apk;
 	}
 	public static function requestJoinTeam($idUser, $idTeam, $role){
 		// Verificar que no existan registros dobles de un mismo equipo y usuario
