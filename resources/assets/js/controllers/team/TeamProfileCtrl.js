@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('TeamProfileCtrl',['$stateParams', 'User', 'Team', 'Auth', 'LxNotificationService', TeamProfileCtrl]);
+		.controller('TeamProfileCtrl',['$stateParams', '$timeout', 'User', 'Team', 'Auth', 'LxNotificationService', TeamProfileCtrl]);
 
-	function TeamProfileCtrl($stateParams, User, Team, Auth, LxNotificationService){
+	function TeamProfileCtrl($stateParams, $timeout, User, Team, Auth, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.teamData = {};
@@ -27,6 +27,24 @@
 			msg: '',
 			success: true,
 		};
+		vm.youtubeUrls = {
+			demo: {
+				url: '',
+				type: 'DEMO'
+			},
+			team: {
+				url: '',
+				type: 'EQUIPO'
+			}
+		};
+		vm.appDoc = {
+			file: null,
+		};
+		vm.appApk = {
+			file: null,
+			progress: 0,
+			state: false,
+		};
 		vm.userHasSentReq = false;
 		// Methods
 		vm.getTeamData = getTeamData;
@@ -34,12 +52,25 @@
 		vm.updateTeamImg = updateTeamImg;
 		vm.joinTeam = joinTeam;
 		vm.requestHasSent = requestHasSent;
+		vm.uploadVideo = uploadVideo;
+		vm.uploadAppDoc = uploadAppDoc;
+		vm.uploadAppApk = uploadAppApk;
 		// Methods implementation
 		function getTeamData(id){
 			Team.getTeam(id).then(function(data){
 				if(data.success){
 					console.log(data.team);
 					vm.teamData = data.team;
+					vm.youtubeUrls = {
+						demo: {
+							url: data.team.youtube_videos[0].youtube_url,
+							type: 'DEMO'
+						},
+						team: {
+							url: data.team.youtube_videos[1].youtube_url,
+							type: 'EQUIPO'
+						}
+					};
 				}else{
 					console.warn(data.msg);
 				}
@@ -88,14 +119,91 @@
 		};
 		function requestHasSent(){
 			User.requestHasSent($stateParams.id, vm.userCreds.id, vm.userCreds.role).then(function(data){
-				console.log(vm.userHasSentReq);
-
 				if(data.success)
 					vm.userHasSentReq = data.isSent;
 				else
 					LxNotificationService.warning(data.msg);
 			}, function(err){
 				LxNotificationService.error('Hubo un error en el servidor');
+			});
+		}
+		function uploadVideo(id, url, type){
+			var ytPath = /https:\/\/www.youtube.com/g;
+			if( !ytPath.test(url) ){
+				LxNotificationService.warning('Debe subir una URL de Youtube');
+				return;
+			}
+			if(id === null || typeof id === 'undefined'){
+				Team.uploadVideo({teamId: vm.userCreds.teamId, type: type, ytUrl: url}).then(function(data){
+					if(data.success){
+						LxNotificationService.success(data.msg);
+						if(type == 'DEMO') vm.teamData.youtube_videos[0].youtube_url = url;
+						else vm.teamData.youtube_videos[1].youtube_url = url;
+					}else{
+						LxNotificationService.warning(data.msg);
+					}
+				}, function(err){
+					LxNotificationService.error('Hubo un error al subir su video')
+				});
+			}else{
+				Team.updateVideo({type: type, ytUrl: url}, id).then(function(data){
+					if(data.success){
+						LxNotificationService.success(data.msg);
+						if(type == 'DEMO') vm.teamData.youtube_videos[0].youtube_url = url;
+						else vm.teamData.youtube_videos[1].youtube_url = url;
+					}else{
+						LxNotificationService.warning(data.msg);
+					}
+				}, function(err){
+					LxNotificationService.error('Hubo un error al subir su video')
+				});
+			}
+		}
+		function uploadAppDoc(){
+			if(angular.equals(vm.appDoc.file, {}) ||  vm.appDoc.file === null){
+				LxNotificationService.warning('Debe subir un archivo');
+				return;
+			}
+			Team.uploadAppDoc({appDoc: vm.appDoc.file, teamId: vm.userCreds.teamId}).then(function(data){
+				if(data.success){
+					LxNotificationService.success(data.msg);
+					vm.teamData.app_doc = data.docName;
+					vm.appDoc.file = null;
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(err){
+				LxNotificationService.error('Hubo un error al subir su documento');
+			});
+		}
+		function uploadAppApk(){
+			if(angular.equals(vm.appApk.file, {}) ||  vm.appApk.file === null){
+				LxNotificationService.warning('Debe subir un archivo');
+				return;
+			}
+			vm.appApk.state = true;
+			Team.uploadAppApk({appApk: vm.appApk.file, teamId: vm.userCreds.teamId}).then(function(data){
+				if(data.success){
+					vm.appApk = {
+						file: null,
+						progress: 0,
+						state: false,
+					};
+					vm.teamData.app_apk = data.docName;
+					LxNotificationService.success(data.msg);
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(err){
+				LxNotificationService.error('Hubo un error al subir su documento');
+				vm.appApk = {
+					file: null,
+					progress: 0,
+					state: false,
+				};
+			}, function(evt){
+				// console.log(parseInt(100.0 * evt.loaded / evt.total))
+				vm.appApk.progress = parseInt(100.0 * evt.loaded / evt.total);
 			});
 		}
 		// Methods self invoking

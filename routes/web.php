@@ -249,6 +249,22 @@ Route::prefix('api/v1/auth')->group(function(){
     'uses'	=> 'TeamCtrl@excelReport',
 		'middleware'	=> 'jwt.auth'
   ]);
+  Route::post('project/video', [
+    'uses'  => 'TeamCtrl@uploadVideo',
+    'middleware'  => 'jwt.auth'
+  ]);
+  Route::put('project/video/{idVideo}/edit', [
+    'uses'  => 'TeamCtrl@updateVideo',
+    'middleware'  => 'jwt.auth'
+  ]);
+  Route::post('project/app-doc',[
+    'uses'  => 'TeamCtrl@uploadAppDoc',
+    'middleware'  => 'jwt.auth'
+  ]);
+  Route::post('project/app-apk',[
+    'uses'  => 'TeamCtrl@uploadAppApk',
+    'middleware'  => 'jwt.auth'
+  ]);
 });
 
 

@@ -13,10 +13,12 @@ use App\Models\Zona;
 use App\Models\MentorTieneHabilidad;
 use Carbon\Carbon;
 use DB;
+use App\Traits\TeamTrait;
 
 date_default_timezone_set('America/La_Paz');
 
 trait UserTrait{
+	use TeamTrait;
 	// ################################
 	// #######  MAIN USER DATA   ######
 	// ################################
@@ -148,6 +150,11 @@ trait UserTrait{
 		$teamData['team']['team_name'] 		= $team->nombre_equipo;
 		$teamData['team']['project_name'] 	= $team->project->nombre_proyecto;
 		$teamData['team']['project_desc'] 	= $team->project->descripcion;
+		$teamData['team']['project_doc'] 	= $team->project->resumen_archivo;
+		$teamData['team']['project_apk'] 	= $team->project->codigo_fuente_archivo;
+		$teamVideos = TeamTrait::getVideos($team->project);
+		$teamData['team']['project_demo_app'] 	= $teamVideos[0];
+		$teamData['team']['project_pitch'] 	= $teamVideos[1];
 		$teamData['team']['business'] 	= $team->modelo_negocio_archivo;
 		$teamData['team']['is_aproved'] 	= $team->project->proyecto_aprobado == 1 ? true : false;
 		$teamData['team']['created_at'] 	= $team->fecha_creacion;

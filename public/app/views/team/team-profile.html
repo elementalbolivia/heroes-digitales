@@ -1,46 +1,125 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-xs-12 col-sm-6">
-			<div class="panel-group">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-							<div ng-if="vm.teamImg.newImg == null">
-								<img ng-if="!vm.teamData.img" src="/app/images/teams/default-team.jpg" style="margin:auto;width:200px;height:200px;" class="img-responsive" >
-								<img ng-if="vm.teamData.img" ng-src="/app/images/teams/{{vm.teamData.img}}" style="margin:auto;" style="width:200px;height:200px;" class="img-responsive" alt="">
+			<div class="col-xs-12">
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+								<div ng-if="vm.teamImg.newImg == null">
+									<img ng-if="!vm.teamData.img" src="/app/images/teams/default-team.jpg" style="margin:auto;width:200px;height:200px;" class="img-responsive" >
+									<img ng-if="vm.teamData.img" ng-src="app/images/teams/{{vm.teamData.img}}" style="margin:auto;" style="width:200px;height:200px;" class="img-responsive" alt="">
+								</div>
+								<img ng-if="vm.teamImg.newImg != null" ngf-src="vm.teamImg.newImg" style="margin:auto;" alt="">
 							</div>
-							<img ng-if="vm.teamImg.newImg != null" ngf-src="vm.teamImg.newImg" style="margin:auto;" alt="">
+							<div class="col-xs-12">
+							<p style="padding:5px;"></p>
+								<div ng-if="vm.teamData.is_full_students">
+									<div class="alert alert-warning text-center"><strong>El equipo ya tiene 4 estudiantes</strong></div>
+								</div>
+								<div ng-if="vm.teamData.is_full_mentors && !vm.userCreds.hasTeam">
+									<div class="alert alert-warning text-center"><strong>El equipo ya tiene 2 mentores</strong></div>
+								</div>
+								<div ng-if="!vm.teamData.is_full_students && !vm.hasTeam && vm.userCreds.role == 1">
+									<div class="alert alert-info text-center"><strong>El equipo aún no tiene 4 estudiantes, únete</strong></div>
+									<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || true" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
+									<div class="alert alert-info text-center" ng-if="vm.userHasSentReq"><strong>Tu solicitud fue enviada</strong></div>
+								</div>
+								<div ng-if="!vm.teamData.is_full_mentors && !vm.hasTeam && vm.userCreds.role == 2">
+									<div class="alert alert-info text-center"><strong>El equipo aún no tiene dos mentores, únete</strong></div>
+									<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || true" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
+									<span class="alert alert-default" ng-if="!vm.userHasSentReq">Tu solicitud fue enviada</span>
+								</div>
+								<div class="alert alert-warning text-center" ng-if="!vm.uploadRequest.success"><strong> {{vm.uploadRequest.msg}}</strong></div>
+								<div class="alert alert-warning text-center" ng-if="vm.hasTeam && !vm.isMTeam.state"><strong> Ya tienes un equipo</strong></div>
+								<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" class="col-xs-12 col-sm-6 col-sm-offset-3">
+									<button ng-if="vm.teamImg.newImg != null" class="btn btn-info pull-right" ng-click="vm.updateTeamImg()"> Guardar</button>
+									<label class="btn btn-primary btn-file">
+										Subir imagen <input type="file"
+										 				ngf-select ngf-pattern="'.jpg,.gif,.png'"
+														ngf-accept="'.jpg,.gif,.png'"
+														ngf-resize="{width: 250, height: 250, quality: .8}"
+														style="display:none;" class="show-errors file-upload"
+														ng-model="vm.teamImg.newImg" />
+									</label>
+								</div>
+							</div>
 						</div>
-						<div class="col-xs-12">
-						<p style="padding:5px;"></p>
-							<div ng-if="vm.teamData.is_full_students">
-								<div class="alert alert-warning text-center"><strong>El equipo ya tiene 4 estudiantes</strong></div>
+					</div>
+				</div>
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-body">
+						<p>Para poder competir en la etapa final de Héroes Digitales, debes subir los siguientes archivos:</p>
+						<ol style="padding: 20px;">
+							<li ng-if="!vm.teamData.youtube_videos[0].id" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Video demo app</li>
+							<li ng-if="vm.teamData.youtube_videos[0].id"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Video demo app </li>
+							<li ng-if="!vm.teamData.youtube_videos[1].id" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Video pitch de negocios</li>
+							<li ng-if="vm.teamData.youtube_videos[1].id"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Video pitch de negocios </li>
+							<li ng-if="!vm.teamData.app_doc" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Documento PDF de proyecto</li>
+							<li ng-if="vm.teamData.app_doc"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Documento PDF de proyecto </li>
+							<li ng-if="!vm.teamData.app_apk" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Archivo APK de proyecto</li>
+							<li ng-if="vm.teamData.app_apk"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Archivo APK de proyecto </li>
+						</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div ng-if="vm.isMTeam.state">
+				<div class="col-xs-12">
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-head">
+								<h2 class="title-white-bg text-center">Subir videos </h2>
 							</div>
-							<div ng-if="vm.teamData.is_full_mentors && !vm.userCreds.hasTeam">
-								<div class="alert alert-warning text-center"><strong>El equipo ya tiene 2 mentores</strong></div>
-							</div>
-							<div ng-if="!vm.teamData.is_full_students && !vm.hasTeam && vm.userCreds.role == 1">
-								<div class="alert alert-info text-center"><strong>El equipo aún no tiene 4 estudiantes, únete</strong></div>
-								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || true" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
-								<div class="alert alert-info text-center" ng-if="vm.userHasSentReq"><strong>Tu solicitud fue enviada</strong></div>
-							</div>
-							<div ng-if="!vm.teamData.is_full_mentors && !vm.hasTeam && vm.userCreds.role == 2">
-								<div class="alert alert-info text-center"><strong>El equipo aún no tiene dos mentores, únete</strong></div>
-								<button class="btn btn-primary btn-block" ng-click="vm.joinTeam(vm.teamData.id)" ng-disabled="vm.uploadRequest.isLoading || true" ng-if="!vm.userHasSentReq"> Solicitar unirme al equipo</button>
-								<span class="alert alert-default" ng-if="!vm.userHasSentReq">Tu solicitud fue enviada</span>
-							</div>
-							<div class="alert alert-warning text-center" ng-if="!vm.uploadRequest.success"><strong> {{vm.uploadRequest.msg}}</strong></div>
-							<div class="alert alert-warning text-center" ng-if="vm.hasTeam && !vm.isMTeam.state"><strong> Ya tienes un equipo</strong></div>
-							<div ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" class="col-xs-12 col-sm-6 col-sm-offset-3">
-								<button ng-if="vm.teamImg.newImg != null" class="btn btn-info pull-right" ng-click="vm.updateTeamImg()"> Guardar</button>
-								<label class="btn btn-primary btn-file">
-									Subir imagen <input type="file"
-									 				ngf-select ngf-pattern="'.jpg,.gif,.png'"
-													ngf-accept="'.jpg,.gif,.png'"
-													ngf-resize="{width: 250, height: 250, quality: .8}"
-													style="display:none;" class="show-errors file-upload"
-													ng-model="vm.teamImg.newImg" />
-								</label>
+							<div class="panel-body">
+								<div class="col-xs-12">
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-head">
+												<h2 class="title-white-bg text-center"> Demo App <i class="fa fa-youtube" style="color:#ff0000"></i></h2>
+											</div>
+											<div class="panel-body">
+													<youtube-video class="embed-responsive-item"
+														video-url="vm.teamData.youtube_videos[0].youtube_url"
+														player-width="'100%'"
+														player-height="'300px'"></youtube-video>
+													<input class="form-control"
+													placeholder="Copiar y pegar URL de Youtube como: https://www.youtube.com/watch?v=54jHqhulFj8"
+													style="margin-top:15px;"
+													ng-model="vm.youtubeUrls.demo.url">
+													<button type="button"
+														class="btn btn-sm pull-right btn-primary"
+														style="margin-top:5px;"
+														ng-click="vm.uploadVideo(vm.teamData.youtube_videos[0].id, vm.youtubeUrls.demo.url, 'DEMO')">Subir URL</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-head">
+												<h2 class="title-white-bg text-center"> Pitch de negocios <i class="fa fa-video-camera" style="color:#45668e"></i></h2>
+											</div>
+											<div class="panel-body">
+												<youtube-video class="embed-responsive-item"
+													video-url="vm.teamData.youtube_videos[1].youtube_url"
+													player-width="'100%'"
+													player-height="'300px'"></youtube-video>
+													<input class="form-control"
+													placeholder="Copiar y pegar URL de Youtube como: https://www.youtube.com/watch?v=54jHqhulFj8"
+													style="margin-top:15px;"
+													ng-model="vm.youtubeUrls.team.url"
+													>
+												<button type="button"
+													class="btn btn-sm pull-right btn-primary"
+													style="margin-top:5px;"
+													ng-click="vm.uploadVideo(vm.teamData.youtube_videos[1].id, vm.youtubeUrls.team.url, 'TEAM')">Subir URL</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -48,39 +127,129 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6">
-			<div class="panel-group">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<button class="btn btn-primary btn-md pull-right" ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" ui-sref="user.team-profile.edit({leaderId: vm.isMTeam.uid})">Editar equipo</button>
-						<h1 class="title-white-bg">{{ vm.teamData.team_name }}</h1>
-						<div class="col-xs-12">
-							<div class="col-xs-4" ng-if="vm.teamData.category == null"><p><strong>Categoría:</strong> El equipo no tiene categoría<p></div>
-							<div class="col-xs-4" ng-if="vm.teamData.category != null"><p><strong>Categoría:</strong> {{ vm.teamData.category.nombre }}<p></div>
-							<div class="col-xs-4"><p><strong>División:</strong> {{ vm.teamData.division.nombre }}</p></div>
-							<div class="col-xs-4"><p><strong>Ciudad:  </strong>{{ vm.teamData.city.nombre }}</p></div>
+			<!-- Box info team -->
+			<div class="col-xs-12">
+				<div class="panel-group">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<button class="btn btn-primary btn-md pull-right" ng-if="vm.isMTeam.isLeader && vm.isMTeam.state" ui-sref="user.team-profile.edit({leaderId: vm.isMTeam.uid})">Editar equipo</button>
+							<h1 class="title-white-bg">{{ vm.teamData.team_name }}</h1>
+							<div class="col-xs-12">
+								<div class="col-xs-4" ng-if="vm.teamData.category == null"><p><strong>Categoría:</strong> El equipo no tiene categoría<p></div>
+								<div class="col-xs-4" ng-if="vm.teamData.category != null"><p><strong>Categoría:</strong> {{ vm.teamData.category.nombre }}<p></div>
+								<div class="col-xs-4"><p><strong>División:</strong> {{ vm.teamData.division.nombre }}</p></div>
+								<div class="col-xs-4"><p><strong>Ciudad:  </strong>{{ vm.teamData.city.nombre }}</p></div>
+							</div>
+							<div class="col-xs-12 col-sm-12">
+								<h2 ng-if="vm.teamData.project_name != null" class="subtitle-white-bg">Proyecto: {{ vm.teamData.project_name }}</h2>
+								<p ng-if="vm.teamData.project_desc != null">Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
+							</div>
+							<div class="col-xs-12">
+								<h4>Miembros</h4>
+							  	<div class="table-responsive">
+							  		<table class="table table-striped">
+								  		<tbody>
+								  			<tr ng-repeat="member in vm.teamData.members">
+								  				<td>
+								  					<img ng-if="!member.image" src="/app/images/users/default-user.png" style="margin:auto;width:50px;height:50px;" class="img-responsive img-circle">
+													<img ng-if="member.image" ng-src="/app/images/users/{{member.image}}" style="width:50px;height:50px;" class="img-circle" alt="">
+								  				</td>
+								  				<td>{{ member.names + ' ' + member.lastnames }}</td>
+								  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
+								  				<td ng-if="!member.is_student"> Mentor (líder)</td>
+								  				<td>
+								  			</tr>
+								  		</tbody>
+								  	</table>
+							  	</div>
+							</div>
 						</div>
-						<div class="col-xs-12 col-sm-12">
-							<h2 ng-if="vm.teamData.project_name != null" class="subtitle-white-bg">Proyecto: {{ vm.teamData.project_name }}</h2>
-							<p ng-if="vm.teamData.project_desc != null">Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
+					</div>
+				</div>
+			</div>
+			<!-- Box to upload pdf and apk -->
+			<div ng-if="vm.isMTeam.state">
+				<div class="col-xs-12 col-sm-6">
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-head">
+								<h2 class="title-white-bg text-center">Subir documento <i class="fa fa-file-pdf-o"></i></h2>
+							</div>
+							<div class="panel-body">
+									<div class="col-xs-12 ">
+										<a ng-if="vm.teamData.app_doc" target="_blank" href="/app/images/doc_apps/{{vm.teamData.app_doc}}" class="btn btn-success btn-block"><i class="fa fa-download"></i> Descargar</a>
+										<div ng-if="!vm.teamData.app_doc" style="margin-bottom:20px;margin-top:20px;font-size:18px">
+											<strong > {{ vm.appDoc.file == null ? 'No subiste tu documento aún' : vm.appDoc.file.name }} </strong>
+										</div>
+									</div>
+									<div class="col-xs-12">
+										<button
+										 	ng-if="vm.appDoc.file == null"
+											type="button"
+											ngf-select
+											class="btn btn-primary btn-block"
+											ng-model="vm.appDoc.file"
+											ngf-pattern="'.pdf'" ngf-accept="'.pdf'"
+											ng-click="vm.teamData.app_doc = null"
+											ngf-max-size="10MB"><i class="fa fa-file-pdf-o"></i> Buscar documento</button>
+										<button
+											ng-if="vm.appDoc.file != null"
+											class="btn btn-success btn-block"
+											ng-click="vm.uploadAppDoc()"
+											>
+											<i class="fa fa-upload"></i> Subir documento
+										</button>
+										<p style="padding:5px;"></p>
+									</div>
+									<div class="col-xs-12 alert alert-info">
+										<strong>El documento que suba debe tener un tamaño máximo de 10MB y estar en formato PDF</strong>
+									</div>
+							</div>
 						</div>
-						<div class="col-xs-12">
-							<h4>Miembros</h4>
-						  	<div class="table-responsive">
-						  		<table class="table table-striped">
-							  		<tbody>
-							  			<tr ng-repeat="member in vm.teamData.members">
-							  				<td>
-							  					<img ng-if="!member.image" src="/app/images/users/default-user.png" style="margin:auto;width:50px;height:50px;" class="img-responsive img-circle">
-												<img ng-if="member.image" ng-src="/app/images/users/{{member.image}}" style="width:50px;height:50px;" class="img-circle" alt="">
-							  				</td>
-							  				<td>{{ member.names + ' ' + member.lastnames }}</td>
-							  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
-							  				<td ng-if="!member.is_student"> Mentor (líder)</td>
-							  				<td>
-							  			</tr>
-							  		</tbody>
-							  	</table>
-						  	</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6">
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-head">
+								<h2 class="title-white-bg text-center"> Subir aplicación <i class="fa fa-android" style="color:#A4C639"></i></h2>
+							</div>
+							<div class="panel-body">
+								<div class="col-xs-12 ">
+									<a ng-if="vm.teamData.app_apk" target="_blank" href="/app/images/apps_apks/{{vm.teamData.app_apk}}" class="btn btn-success btn-block"><i class="fa fa-download"></i> Descargar</a>
+									<div ng-if="!vm.teamData.app_apk" style="margin-bottom:20px;margin-top:20px;font-size:18px">
+										<strong > {{ vm.appApk.file == null ? 'No subiste tu aplicación aún' : vm.appApk.file.name }} </strong>
+									</div>
+									<div class="progress" ng-if="vm.appApk.state">
+									  <div class="progress-bar" role="progressbar" aria-valuenow="{{vm.appApk.progress}}"
+									  aria-valuemin="0" aria-valuemax="100" style="width:{{vm.appApk.progress}}%">
+									    {{ vm.appApk.progress }}%
+									  </div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<button
+										ng-if="vm.appApk.file == null"
+										type="button"
+										ngf-select
+										class="btn btn-primary btn-block"
+										ng-model="vm.appApk.file"
+										ngf-pattern="'.apk'" ngf-accept="'.apk'"
+										ng-click="vm.teamData.app_apk = null"
+										ngf-max-size="100MB"><i class="fa fa-mobile"></i> Buscar APK</button>
+									<button
+										ng-if="vm.appApk.file != null"
+										class="btn btn-success btn-block"
+										ng-click="vm.uploadAppApk()"
+										>
+										<i class="fa fa-upload"></i> Subir APK
+									</button>
+									<p style="padding:5px;"></p>
+								</div>
+								<div class="col-xs-12 alert alert-info">
+									<strong>El archivo que suba debe tener un tamaño máximo de 100MB y tener formato APK</strong>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
