@@ -197,7 +197,7 @@
 											class="btn btn-success btn-block"
 											ng-click="vm.uploadAppDoc()"
 											>
-											<i class="fa fa-upload"></i> Subir documento
+											<i ng-class="vm.appDoc.state ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-upload'"></i> Subir documento
 										</button>
 										<p style="padding:5px;"></p>
 									</div>

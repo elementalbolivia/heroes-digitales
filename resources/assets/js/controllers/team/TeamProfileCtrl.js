@@ -39,6 +39,7 @@
 		};
 		vm.appDoc = {
 			file: null,
+			state: false,
 		};
 		vm.appApk = {
 			file: null,
@@ -160,11 +161,13 @@
 			}
 		}
 		function uploadAppDoc(){
+			vm.appDoc.state = true;
 			if(angular.equals(vm.appDoc.file, {}) ||  vm.appDoc.file === null){
 				LxNotificationService.warning('Debe subir un archivo');
 				return;
 			}
 			Team.uploadAppDoc({appDoc: vm.appDoc.file, teamId: vm.userCreds.teamId}).then(function(data){
+				vm.appDoc.state = false;
 				if(data.success){
 					LxNotificationService.success(data.msg);
 					vm.teamData.app_doc = data.docName;
@@ -173,6 +176,7 @@
 					LxNotificationService.warning(data.msg);
 				}
 			}, function(err){
+				vm.appDoc.state = false;
 				LxNotificationService.error('Hubo un error al subir su documento');
 			});
 		}
