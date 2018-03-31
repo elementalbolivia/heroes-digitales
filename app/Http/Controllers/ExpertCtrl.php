@@ -25,7 +25,8 @@ class ExpertCtrl extends Controller
             return response()->json($res);
         }catch(\Exception $e){
             $res->success = false;
-            $res->msg = 'Hubo un error al cargar los datos de los estudiantes';
+            $res->msg = 'Hubo un error al cargar los datos de los expertos';
+            $res->err = $e->getMessage();
             return response()->json($res);
         }
 	}
