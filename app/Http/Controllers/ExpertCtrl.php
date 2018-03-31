@@ -10,7 +10,7 @@ use DB;
 
 class ExpertCtrl extends Controller
 {
-    use UserTrait;
+  use UserTrait;
 	public function index(){
 		$experts = [];
         $res = (object) null;
