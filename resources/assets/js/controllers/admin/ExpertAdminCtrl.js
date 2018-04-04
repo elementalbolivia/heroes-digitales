@@ -13,6 +13,10 @@
 		// Methods
 		vm.getExperts = getExperts;
 		vm.processRequest = processRequest;
+		vm.assignRandom = assignRandom;
+		vm.assignTeams = {
+			state: false,
+		};
 		// Methods implementation
 		function getExperts(){
 			Expert.getExperts().then(function(data){
@@ -50,6 +54,20 @@
 				}
 			});
 		};
+		function assignRandom(){
+			vm.assignTeams.state = true;
+			Expert.assignRandomTeams().then(function(data){
+				vm.assignTeams.state = false;
+				if(data.success){
+					LxNotificationService.success(data.msg);
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(err){
+				vm.assignTeams.state = false;
+				LxNotificationService.error();
+			});
+		}
 		// Methods self invoking
 		vm.getExperts();
 	};

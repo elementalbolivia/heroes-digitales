@@ -265,6 +265,14 @@ Route::prefix('api/v1/auth')->group(function(){
     'uses'  => 'TeamCtrl@uploadAppApk',
     'middleware'  => 'jwt.auth'
   ]);
+  Route::get('expert/assignation', [
+		'uses'	=> 'ExpertCtrl@expertAssign',
+    'middleware'  => 'jwt.auth'
+	]);
+  Route::post('expert/team/assignation', [
+		'uses'	=> 'ExpertCtrl@assignToTeam',
+    'middleware'  => 'jwt.auth'
+	]);
 });
 
 

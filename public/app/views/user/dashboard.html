@@ -6,8 +6,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- STUDENTS/MENTORS VIEW  -->
 	<div class="row row-content row-dashboard" ng-if="vm.isUserDataLoaded">
-		<div class="row">
+		<div class="row" ng-if="vm.userCreds.role == 1 || vm.userCreds.role == 2">
 			<div class="col-xs-12 col-sm-6">
 				<div class="col-xs-12">
 					<div class="panel panel-default">
@@ -265,26 +266,141 @@
 			</div>
 		</div> -->
 	</div>
-		<div class="row" style="background:#fff;">
-			<div class="col-xs-12">
-				<h1 class="text-center title-white-bg">CRONOGRAMA</h1>
-				<ul class="timeline">
-		        <li ng-class=" $index % 2 == 0 ? '' : 'timeline-inverted' " ng-repeat="stage in vm.stages track by $index">
-		          <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
-		          <div class="timeline-panel">
-		            <div class="timeline-heading">
-		              <h4 class="timeline-title">{{ stage.label }}</h4>
-									<p><small class="text-muted"><i class="fa fa-calendar-o"></i> Fecha inicio: {{ stage.begin_date | date: 'd-M-y' }}</small></p>
-		              <p><small class="text-muted"><i class="fa fa-calendar-times-o"></i> Fecha fin: {{ stage.end_date | date: 'd-M-y' }}</small></p>
-		            </div>
-		            <div class="timeline-body">
-		              <p>{{ stage.desc }}</p>
-		            </div>
-		          </div>
-		        </li>
-		    </ul>
-			</div>
+	<div class="row" ng-if="vm.userCreds.role == 4">
+				<div class="col-xs-12" ng-if="vm.userData.expert.teams_to_evaluate.length == 0">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background:#229ED7;">
+								<h2 class="text-center title" >Aún no tiene asignado ningún equipo</h2>
+							</div>
+							<div class="panel-body">
+									<img src="/app/images/app-arts/logo.png" style="margin:auto;width:350px;height:auto;" alt="heroes-digitales">
+									<p style="padding:15px;"></p>
+									<p style="font-size:18px;" class="text-center"> Si desea que se le asigne equipos para evaluar, escriba al <strong>69912525</strong> </p>
+							</div>
+						</div>
+				</div>
+				<div class="col-xs-12 col-sm-6" ng-if="vm.userData.expert.teams_to_evaluate.length > 0" ng-repeat="team in vm.userData.expert.teams_to_evaluate">
+					<div class="col-xs-12">
+						<div class="panel-group">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<!-- NAME OF TEAM -->
+									<h1 class="title-white-bg"><a ui-sref="user.team-profile({id: team.id})"> {{ team.team_name }} </a></h1>
+								</div>
+								<div class="panel-body">
+									<div class="col-xs-12" style="padding:20px;">
+										<img ng-if="!team.img" src="/app/images/teams/default-team.jpg" style="margin:auto;width:200px;height:200px;" class="img-responsive" >
+										<img ng-if="team.img" ng-src="app/images/teams/{{team.img}}" style="margin:auto;" style="width:200px;height:200px;" class="img-responsive" alt="">
+									</div>
+									<div class="panel panel-default">
+
+										<div class="panel-body">
+											<div class="col-xs-12">
+												<div class="col-xs-4" ng-if="team.category == null"><p><strong>Categoría:</strong> El equipo no tiene categoría<p></div>
+												<div class="col-xs-4" ng-if="team.category != null"><p><strong>Categoría:</strong> {{ team.category.nombre }}<p></div>
+												<div class="col-xs-4"><p><strong>División:</strong> {{ team.division.nombre }}</p></div>
+												<div class="col-xs-4"><p><strong>Ciudad:  </strong>{{ team.city.nombre }}</p></div>
+											</div>
+											<div class="col-xs-12 col-sm-12">
+												<h2 ng-if="team.project_name != null" class="subtitle-white-bg">Proyecto: {{ team.project_name }}</h2>
+												<p ng-if="team.project_desc != null">Descripción del proyecto: {{ team.project_desc }}</p>
+											</div>
+											<div class="col-xs-12">
+												<h4>Miembros</h4>
+											  	<div class="table-responsive">
+											  		<table class="table table-striped">
+												  		<tbody>
+												  			<tr ng-repeat="member in team.members">
+												  				<td>
+												  					<img ng-if="!member.image" src="/app/images/users/default-user.png" style="margin:auto;width:50px;height:50px;" class="img-responsive img-circle">
+																	<img ng-if="member.image" ng-src="/app/images/users/{{member.image}}" style="width:50px;height:50px;" class="img-circle" alt="">
+												  				</td>
+												  				<td>{{ member.names + ' ' + member.lastnames }}</td>
+												  				<td ng-if="member.is_student"> Estudiante <span ng-if="member.is_leader">(líder)</span> </td>
+												  				<td ng-if="!member.is_student"> Mentor (líder)</td>
+												  				<td>
+												  			</tr>
+												  		</tbody>
+												  	</table>
+											  	</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12" style="margin-top:20px;">
+										<p>Para poder competir en la etapa final de Héroes Digitales, debes subir los siguientes archivos:</p>
+										<ol style="padding: 20px;">
+											<li ng-if="!team.youtube_videos[0].id" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Video demo app</li>
+											<li ng-if="team.youtube_videos[0].id"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Video demo app </li>
+											<li ng-if="!team.youtube_videos[1].id" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Video pitch de negocios</li>
+											<li ng-if="team.youtube_videos[1].id"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Video pitch de negocios </li>
+											<li ng-if="!team.app_doc" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Documento PDF de proyecto</li>
+											<li ng-if="team.app_doc"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Documento PDF de proyecto </li>
+											<li ng-if="!team.app_apk" class="text-danger" style="font-size:20px;"><i class="fa fa-times-circle-o "></i> Archivo APK de proyecto</li>
+											<li ng-if="team.app_apk"  class="text-success field-required"><i class="fa fa-check-circle-o"></i> Archivo APK de proyecto </li>
+										</ol>
+									</div>
+									<div class="col-xs-12">
+										<h3 class="title-white-bg text-center"> Demo app <i class="fa fa-youtube" style="color:#FF0000"></i></h2>
+										<div class="text-center" ng-if="!team.youtube_videos[0].id" style="margin-bottom:20px;margin-top:20px;font-size:18px">
+											<strong  > El equipo no subió su video demostrativo de la aplicación </strong>
+										</div>
+										<youtube-video class="embed-responsive-item"
+											video-url="team.youtube_videos[0].youtube_url"
+											player-width="'100%'"
+											player-height="'300px'"></youtube-video>
+									</div>
+									<div class="col-xs-12">
+										<h2 class="title-white-bg text-center"> Pitch de negocios <i class="fa fa-video-camera" style="color:#45668e"></i></h2>
+										<div class="text-center" ng-if="!team.youtube_videos[1].id" style="margin-bottom:20px;margin-top:20px;font-size:18px">
+										<strong>El equipo no subió su video Pitch de Negocios</strong>
+										</div>
+										<youtube-video class="embed-responsive-item"
+											video-url="team.youtube_videos[1].youtube_url"
+											player-width="'100%'"
+											player-height="'300px'"></youtube-video>
+									</div>
+									<div class="col-xs-12 ">
+										<h2 class="title-white-bg text-center"> Documento de equipo <i class="fa fa-file-pdf-o" style="color:#000000"></i></h2>
+										<a ng-if="team.app_doc" target="_blank" href="/app/images/doc_apps/{{team.app_doc}}" class="btn btn-success btn-block"><i class="fa fa-download"></i> Descargar</a>
+										<div class="text-center" ng-if="!team.app_doc" style="margin-bottom:20px;margin-top:20px;font-size:18px">
+											<strong  > {{ vm.appDoc.file == null ? 'El equipo no subió su documento aún' : vm.appDoc.file.name }} </strong>
+										</div>
+									</div>
+									<div class="col-xs-12 ">
+										<h2 class="title-white-bg text-center"> Aplicación de equipo <i class="fa fa-android" style="color:#A4C639"></i></h2>
+										<a ng-if="team.app_apk" target="_blank" href="/app/images/apps_apks/{{team.app_apk}}" class="btn btn-success btn-block"><i class="fa fa-download"></i> Descargar</a>
+										<div class="text-center" ng-if="!team.app_apk" style="margin-bottom:20px;margin-top:20px;font-size:18px">
+											<strong > {{ vm.appDoc.file == null ? 'El equipo no subió su APK aún' : vm.appDoc.file.name }} </strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	</div>
+	<!-- CRONOGRAM -->
+	<div class="row" style="background:#fff;">
+		<div class="col-xs-12">
+			<h1 class="text-center title-white-bg">CRONOGRAMA</h1>
+			<ul class="timeline">
+	        <li ng-class=" $index % 2 == 0 ? '' : 'timeline-inverted' " ng-repeat="stage in vm.stages track by $index">
+	          <div class="timeline-badge success"><i class="glyphicon glyphicon-check"></i></div>
+	          <div class="timeline-panel">
+	            <div class="timeline-heading">
+	              <h4 class="timeline-title">{{ stage.label }}</h4>
+								<p><small class="text-muted"><i class="fa fa-calendar-o"></i> Fecha inicio: {{ stage.begin_date | date: 'd-M-y' }}</small></p>
+	              <p><small class="text-muted"><i class="fa fa-calendar-times-o"></i> Fecha fin: {{ stage.end_date | date: 'd-M-y' }}</small></p>
+	            </div>
+	            <div class="timeline-body">
+	              <p>{{ stage.desc }}</p>
+	            </div>
+	          </div>
+	        </li>
+	    </ul>
 		</div>
+	</div>
+	</div>
 	<div id="deleteTeam" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 	    <!-- Modal content-->

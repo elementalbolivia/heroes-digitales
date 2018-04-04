@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-		.controller('TeamAdminCtrl',['$scope', 'AUTH_URL', '$timeout', 'User', 'Auth', 'Team', 'LxNotificationService', TeamAdminCtrl]);
+		.controller('TeamAdminCtrl',['$scope', 'AUTH_URL', '$timeout', 'User', 'Auth', 'Team', 'Expert', 'LxNotificationService', TeamAdminCtrl]);
 
-	function TeamAdminCtrl($scope, AUTH_URL, $timeout, User, Auth, Team, LxNotificationService){
+	function TeamAdminCtrl($scope, AUTH_URL, $timeout, User, Auth, Team, Expert, LxNotificationService){
 		var vm = this;
 		// Props
 		vm.userCreds = Auth.getSession();
@@ -55,7 +55,22 @@
 				requestMentors: true,
 			},
 		};
+		vm.experts = [];
 		vm.isLoading = true;
+		vm.assignExpert = {
+			team: {
+				id: null,
+				name: '',
+			},
+			expert: {
+				id: null
+			},
+			action: {
+				isLoading: false,
+				msg: '',
+				state: false
+			},
+		};
 		// Methods
 		var updateCounters = updateCounters;
 		var fireWatch = fireWatch;
@@ -63,6 +78,9 @@
 		vm.getTeams = getTeams;
 		vm.downloadReport = downloadReport;
 		vm.deleteTeam = deleteTeam;
+		vm.getExperts = getExperts;
+		vm.selectTeam = selectTeam;
+		vm.assignExpertToTeam = assignExpertToTeam;
 		// Methods implementation
 		function getTeams(){
 			Team.getTeamsAdmin().then(function(data){
@@ -203,7 +221,70 @@
 				LxNotificationService.error('Hubo un error al descargar el reporte, revise su conexión a internet');
 			});
 		}
+		function getExperts(){
+			Expert.getExperts().then(function(data){
+				if(data.success){
+					console.log(data);
+					vm.experts = data.experts;
+				}else{
+					LxNotificationService.warning(data.msg);
+				}
+			}, function(err){
+				LxNotificationService.error('Hubo un error en el servidor');
+			});
+		}
+		function selectTeam(id, name){
+			vm.assignExpert.team = {
+				id: id,
+				name: name
+			};
+			return;
+		}
+		function assignExpertToTeam(){
+			var form = vm.assignExpert;
+			form.action.isLoading = true;
+			if(form.expert.id == null){
+				form.action.msg = 'Debes seleccionar a un experto';
+				form.action.state = true;
+				form.action.isLoading = false;
+				return;
+			}
+			form.action.state = false;
+			var toSend = {
+				teamId: form.team.id,
+				expertId: form.expert.id,
+			};
+			Expert.assignExpertToTeam(toSend).then(function(data){
+				form.action.isLoading = false;
+				if(data.success){
+					vm.assignExpert = {
+						team: {
+							id: null,
+							name: '',
+						},
+						expert: {
+							id: null
+						},
+						action: {
+							isLoading: false,
+							msg: '',
+							state: false
+						},
+					};
+					$('#selectExpert').modal('hide');
+					LxNotificationService.success(data.msg);
+				}else{
+					form.action.state = true;
+					form.action.msg = data.msg;
+				}
+			}, function(err){
+				form.action.isLoading = false;
+				form.action.state = true;
+				form.action.msg = 'Hubo un error en el servidor';
+			});
+		}
 		// Methods self invoking
 		vm.getTeams();
+		vm.getExperts();
 	};
 })();

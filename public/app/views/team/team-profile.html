@@ -65,33 +65,37 @@
 					</div>
 				</div>
 			</div>
-			<div ng-if="vm.isMTeam.state">
+			<div ng-if="vm.isMTeam.state || vm.userCreds.role == 4">
 				<div class="col-xs-12">
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-head">
-								<h2 class="title-white-bg text-center">Subir videos </h2>
+								<h3 class="title-white-bg text-center">
+									{{ vm.userCreds.role != 4 ? 'Subir videos' : 'Ver videos' }}
+								</h3>
 							</div>
 							<div class="panel-body">
 								<div class="col-xs-12">
 									<div class="panel-group">
 										<div class="panel panel-default">
 											<div class="panel-head">
-												<h2 class="title-white-bg text-center"> Demo App <i class="fa fa-youtube" style="color:#ff0000"></i></h2>
+												<h4 class="title-white-bg text-center"> Demo App <i class="fa fa-youtube" style="color:#ff0000"></i></h4>
 											</div>
 											<div class="panel-body">
 													<youtube-video class="embed-responsive-item"
 														video-url="vm.teamData.youtube_videos[0].youtube_url"
 														player-width="'100%'"
 														player-height="'300px'"></youtube-video>
-													<input class="form-control"
-													placeholder="Copiar y pegar URL de Youtube como: https://www.youtube.com/watch?v=54jHqhulFj8"
-													style="margin-top:15px;"
-													ng-model="vm.youtubeUrls.demo.url">
-													<button type="button"
-														class="btn btn-sm pull-right btn-primary"
-														style="margin-top:5px;"
-														ng-click="vm.uploadVideo(vm.teamData.youtube_videos[0].id, vm.youtubeUrls.demo.url, 'DEMO')">Subir URL</button>
+													<div ng-if="vm.userCreds.role != 4">
+														<input class="form-control"
+														placeholder="Copiar y pegar URL de Youtube como: https://www.youtube.com/watch?v=54jHqhulFj8"
+														style="margin-top:15px;"
+														ng-model="vm.youtubeUrls.demo.url">
+														<button type="button"
+															class="btn btn-sm pull-right btn-primary"
+															style="margin-top:5px;"
+															ng-click="vm.uploadVideo(vm.teamData.youtube_videos[0].id, vm.youtubeUrls.demo.url, 'DEMO')">Subir URL</button>
+													</div>
 											</div>
 										</div>
 									</div>
@@ -100,13 +104,14 @@
 									<div class="panel-group">
 										<div class="panel panel-default">
 											<div class="panel-head">
-												<h2 class="title-white-bg text-center"> Pitch de negocios <i class="fa fa-video-camera" style="color:#45668e"></i></h2>
+												<h4 class="title-white-bg text-center"> Pitch de negocios <i class="fa fa-video-camera" style="color:#45668e"></i></h4>
 											</div>
 											<div class="panel-body">
 												<youtube-video class="embed-responsive-item"
 													video-url="vm.teamData.youtube_videos[1].youtube_url"
 													player-width="'100%'"
 													player-height="'300px'"></youtube-video>
+												<div ng-if="vm.userCreds.role != 4">
 													<input class="form-control"
 													placeholder="Copiar y pegar URL de Youtube como: https://www.youtube.com/watch?v=54jHqhulFj8"
 													style="margin-top:15px;"
@@ -116,6 +121,7 @@
 													class="btn btn-sm pull-right btn-primary"
 													style="margin-top:5px;"
 													ng-click="vm.uploadVideo(vm.teamData.youtube_videos[1].id, vm.youtubeUrls.team.url, 'TEAM')">Subir URL</button>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -141,7 +147,7 @@
 								<div class="col-xs-4"><p><strong>Ciudad:  </strong>{{ vm.teamData.city.nombre }}</p></div>
 							</div>
 							<div class="col-xs-12 col-sm-12">
-								<h2 ng-if="vm.teamData.project_name != null" class="subtitle-white-bg">Proyecto: {{ vm.teamData.project_name }}</h2>
+								<h3 ng-if="vm.teamData.project_name != null" class="subtitle-white-bg">Proyecto: {{ vm.teamData.project_name }}</h3>
 								<p ng-if="vm.teamData.project_desc != null">Descripción del proyecto: {{ vm.teamData.project_desc }}</p>
 							</div>
 							<div class="col-xs-12">
@@ -168,12 +174,12 @@
 				</div>
 			</div>
 			<!-- Box to upload pdf and apk -->
-			<div ng-if="vm.isMTeam.state">
+			<div ng-if="vm.isMTeam.state || vm.userCreds.role == 4">
 				<div class="col-xs-12 col-sm-6">
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-head">
-								<h2 class="title-white-bg text-center">Subir documento <i class="fa fa-file-pdf-o"></i></h2>
+								<h4 class="title-white-bg text-center">Subir documento <i class="fa fa-file-pdf-o"></i></h4>
 							</div>
 							<div class="panel-body">
 									<div class="col-xs-12 ">
@@ -184,7 +190,7 @@
 									</div>
 									<div class="col-xs-12">
 										<button
-										 	ng-if="vm.appDoc.file == null"
+										 	ng-if="vm.appDoc.file == null && vm.userCreds.role != 4"
 											type="button"
 											ngf-select
 											class="btn btn-primary btn-block"
@@ -212,7 +218,7 @@
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-head">
-								<h2 class="title-white-bg text-center"> Subir aplicación <i class="fa fa-android" style="color:#A4C639"></i></h2>
+								<h4 class="title-white-bg text-center"> Subir aplicación <i class="fa fa-android" style="color:#A4C639"></i></h4>
 							</div>
 							<div class="panel-body">
 								<div class="col-xs-12 ">
@@ -229,7 +235,7 @@
 								</div>
 								<div class="col-xs-12">
 									<button
-										ng-if="vm.appApk.file == null"
+										ng-if="vm.appApk.file == null && vm.userCreds.role != 4"
 										type="button"
 										ngf-select
 										class="btn btn-primary btn-block"

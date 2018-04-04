@@ -82,7 +82,7 @@
 				vm.updateSuccess.msg = 'No puedes dejar los campos con * en vacío';
 				return;
 			}
-			if(vm.userCreds.role == 1){
+			if(vm.userCreds.role == 1 || vm.userCreds.role == 4){
 				User.updateStudent(vm.userData, vm.userData.id).then(function(data){
 					if(data.success){
 						$state.go('user.my-profile');

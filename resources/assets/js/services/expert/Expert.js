@@ -14,6 +14,27 @@
 				});
 				return promise;
 			},
+			assignRandomTeams: function(){
+				var promise = $http({
+					method: 'GET',
+					url: AUTH_URL + 'expert/assignation',
+					params: {token: Auth.getSession().token }
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+		  },
+			assignExpertToTeam: function(data){
+				var promise = $http({
+					method: 'POST',
+					url: AUTH_URL + 'expert/team/assignation',
+					params: {token: Auth.getSession().token },
+					data: data
+				}).then(function(response){
+					return response.data;
+				});
+				return promise;
+			},
 		};
 	};
 })();

@@ -115,4 +115,9 @@ class Usuario extends Model implements AuthenticatableContract
     public function teacheable(){
       return $this->hasOne('App\Models\TeacheableUsuario', 'usuario_id');
     }
+
+    // accesors
+    public function getFullNameAttribute(){
+      return ucfirst($this->nombres) . ' ' . ucfirst($this->apellidos);
+    }
 }
