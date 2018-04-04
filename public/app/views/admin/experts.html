@@ -1,5 +1,10 @@
 <div class="container-fluid">
   <div class="row">
+    <!-- <button
+      ng-click="vm.assignRandom()"
+      style="margin-bottom:30px;margin-right:20px;"
+      class="btn btn-primary pull-right btn-sm">
+        <i ng-class="!vm.assignTeams.state ? 'fa fa-random' : 'fa fa-circle-o-notch fa-spin'"></i> Asignar expertos a equipos</button> -->
     <div class="col-xs-12">
 			<div class="panel-group">
 				<div class="panel panel-default">
@@ -27,7 +32,7 @@
 										<td>{{ expert.names + ' ' + expert.lastnames }}</td>
 										<td>{{ expert.created_at }}</td>
 										<td>{{ expert.expert.work_place }}</td>
-										<td>{{ expert.expert.profession.nombre }}</td>
+										<td>{{ expert.expert.profession }}</td>
 										<td>{{ expert.expert.work_place }}</td>
 										<td>{{ expert.city.nombre }}</td>
                     <td> <a ng-href="{{ expert.expert.social_network }}" target="_blank" class="btn btn-link">Ver <i class="fa fa-eye"></i></a> </td>

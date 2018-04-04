@@ -60,7 +60,7 @@ class LoginCtrl extends Controller
         // all good so return the token
    	}
     /**
-     * [getCookies description]
+     * [getCredsPerUser description]
      * @param  [type] $res    [description]
      * @param  [type] $user   [description]
      * @param  [type] $roleId [description]
@@ -101,10 +101,9 @@ class LoginCtrl extends Controller
                 $temp['is_leader'] = NULL;
             }
             $temp['path'] = 'user';
-        }else if($roleId == 3){
-            // Juez
         }else if($roleId == 4){
-            // Experto
+            
+            $temp['path'] = 'expert';
         }else if($roleId == 5){
             $temp['path'] = 'admin';
         }else if($roleId == 6){

@@ -212,6 +212,6 @@
 		}
 		// Methods self invoking
 		getTeamData($stateParams.id);
-		vm.requestHasSent();
+		if (vm.userCreds.role == 1 || vm.userCreds.role == 2) vm.requestHasSent();
 	};
 })();

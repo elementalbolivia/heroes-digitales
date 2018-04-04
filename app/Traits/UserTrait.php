@@ -32,6 +32,7 @@ trait UserTrait{
 	public static function userData($uid){
 		$userData = [];
 		$userData = self::basicUserInfo($uid);
+		// var_dump($userData);
 		// Informacion especifica por rol de usuario
 		if($userData[0]['role_id'] == 1){
 			$userData[0]['student'] = self::studentData($userData[1]);
@@ -89,8 +90,6 @@ trait UserTrait{
 				$userData[0]['is_leader'] = true;
 				$userData[0]['team'] = self::teamUserData($mTeam);
 			}
-		}else if($userData[0]['role_id'] == 3){
-			$userData[0]['judge'] = self::judgeData($userData[1]);
 		}else if($userData[0]['role_id'] == 4){
 			$userData[0]['expert'] = self::expertData($userData[1]);
 		}else{
@@ -116,6 +115,7 @@ trait UserTrait{
 		$userData['id'] 		= $user->id;
 		$userData['names'] 		= $user->nombres;
 		$userData['lastnames'] 	= $user->apellidos;
+		$userData['full_name'] 	= $user->full_name;
 		$userData['email']		= $user->correo;
 		$userData['gender'] 	= $user->genero_id == 1 ? 'Femenino' : 'Masculino';
 		$userData['cellphone'] 	= $user->celular;
@@ -268,26 +268,38 @@ trait UserTrait{
 		// TODO
 		$expert = $user->expert;
 		$expertData = [];
+		$expertData['id'] = $expert->id;
 		$expertData['job'] = $user->proffesionalData->trabajo;
 		$expertData['profession'] = $user->proffesionalData->profesion;
 		$expertData['work_place'] = $user->proffesionalData->organizacion;
-		$expertData['cv'] = storage_path().'/app/public/curriculums/' . $user->proffesionalData->cv;
-		$expertData['cv'] = storage_path().'/app/public/curriculums/' . $user->proffesionalData->cv;
 		$expertData['social_network'] = $user->proffesionalData->red_social_url;
+		$teams = DB::table('experto')
+										->join('experto_evalua_equipo', 'experto.id', '=', 'experto_evalua_equipo.experto_id')
+										->select('experto_evalua_equipo.equipo_id')
+										->take(8)
+										->where('experto.id', '=', $user->expert->id)
+										->get();
+		foreach ($teams as $team) {
+			$expertData['teams_to_evaluate'][] = TeamTrait::teamInfo($team->equipo_id);
+		}
+		if(empty($expertData['teams_to_evaluate'])){
+			$expertData['teams_to_evaluate'] = [];
+		}
+
 		return $expertData;
 	}
-	private static function judgeData($user){
-		// TODO
-		$judgeData = $user->expert;
-		$judgeData = [];
-		$judgeData['job'] = $user->proffesionalData->trabajo;
-		$judgeData['profession'] = $user->proffesionalData->profesion;
-		$judgeData['work_place'] = $user->proffesionalData->organizacion;
-		$judgeData['cv'] = $user->proffesionalData->cv;
-		$judgeData['social_network'] = $user->proffesionalData->red_social_url;
-
-		return $judgeData;
-	}
+	// private static function judgeData($user){
+	// 	// TODO
+	// 	$judgeData = $user->expert;
+	// 	$judgeData = [];
+	// 	$judgeData['job'] = $user->proffesionalData->trabajo;
+	// 	$judgeData['profession'] = $user->proffesionalData->profesion;
+	// 	$judgeData['work_place'] = $user->proffesionalData->organizacion;
+	// 	$judgeData['cv'] = $user->proffesionalData->cv;
+	// 	$judgeData['social_network'] = $user->proffesionalData->red_social_url;
+	//
+	// 	return $judgeData;
+	// }
 	// ################################
 	// #######  USER UPDATES     ######
 	// ################################
@@ -321,10 +333,6 @@ trait UserTrait{
 			self::updateStudent($user, $data);
 		}else if($user->role($user->id)->rol_id == 2){
 			self::updateMenthor($user, $data);
-		}else if($user->role($user->id)->rol_id == 3){
-			self::updateStudent($user, $data);
-		}else if($user->role($user->id)->rol_id == 4){
-			self::updateStudent($user, $data);
 		}
 	}
 	private static function updateStudent($user, $data){

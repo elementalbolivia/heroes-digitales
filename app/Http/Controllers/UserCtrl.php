@@ -17,7 +17,6 @@ use Hash;
 class UserCtrl extends Controller
 {
 	use UserTrait;
-	use EmailTrait;
     public function updateImg(Request $request, $id){
     	$res = (object) null;
 			try{

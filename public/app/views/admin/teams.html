@@ -116,6 +116,7 @@
                         <th class="text-center">Mentor</th>
                         <th class="text-center">Estudiantes</th>
                         <th class="text-center" ng-if="vm.userCreds.role == 5">Eliminar</th>
+                        <th class="text-center" ng-if="vm.userCreds.role == 5">Añadir experto</th>
                       </tr>
                       <tr>
                         <td></td>
@@ -177,6 +178,7 @@
                           </table>
                         </td>
                         <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-danger btn-sm" ng-click="vm.deleteTeam(team.id)"><i class="fa fa-times"></i></button></td>
+                        <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-info btn-sm" ng-click="vm.selectTeam(team.id, team.team_name)" data-target="#selectExpert" data-toggle="modal"><i class="fa fa-user"></i></button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -187,5 +189,43 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div id="selectExpert" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title text-center">Asignar experto a equipo <br> {{ vm.assignExpert.team.name }}</h2>
+      </div>
+      <form class="form-horizontal" name="loginForm" ng-submit="vm.assignExpertToTeam()">
+      <div class="modal-body">
+          <div class="form-group">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+              <label for="selectexpert" class="col-xs-12 col-sm-12 ">Lista de expertos</label>
+              <div class="col-xs-12 col-sm-12">
+                <select id="selectexpert"
+                  ng-options="expert.expert.id as expert.full_name for expert in vm.experts"
+                  ng-model="vm.assignExpert.expert.id"
+                  class="form-control" ></select>
+              </div>
+            </div>
+        </div>
+        <div class="alert alert-danger text-center"
+          ng-if="vm.assignExpert.action.state">
+          <strong>{{ vm.assignExpert.action.msg }}</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="submit"
+          ng-disabled="vm.assignExpert.action.isLoading"
+          class="btn btn-success">
+            <i ng-class="!vm.assignExpert.action.isLoading ? 'fa fa-user' : 'fa fa-circle-o-notch fa-spin'"></i> Asignar experto
+          </button>
+      </div>
+    </div>
+    </form>
   </div>
 </div>
