@@ -317,4 +317,8 @@ trait TeamTrait{
 		}
 		return $match;
 	}
+	public static function isDeadlineOut(){
+		$date = date('Y-m-d H:i:s');
+		return $date > '2018-04-06 16:59:59';
+	}
 }
