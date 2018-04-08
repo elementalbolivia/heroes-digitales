@@ -399,11 +399,11 @@ class TeamCtrl extends Controller
 		public function uploadVideo(Request $request){
 			$res = (object) null;
 			try{
-				if (TeamTrait::isDeadlineOut()){
-					$res->success= false;
-					$res->msg = 'La fecha límite para subir tu video ha expirado';
-					return response()->json($res);
-				}
+				// if (TeamTrait::isDeadlineOut()){
+				// 	$res->success= false;
+				// 	$res->msg = 'La fecha límite para subir tu video ha expirado';
+				// 	return response()->json($res);
+				// }
 				$team = Equipo::find($request->teamId);
 				$video = [
 					'proyecto_id' => $team->project->id,
@@ -425,11 +425,11 @@ class TeamCtrl extends Controller
 		public function updateVideo(Request $request, $idVideo){
 			$res = (object) null;
 			try{
-				if (TeamTrait::isDeadlineOut()){
-					$res->success= false;
-					$res->msg = 'La fecha límite para subir tu video ha expirado';
-					return response()->json($res);
-				}
+				// if (TeamTrait::isDeadlineOut()){
+				// 	$res->success= false;
+				// 	$res->msg = 'La fecha límite para subir tu video ha expirado';
+				// 	return response()->json($res);
+				// }
 				$video = VideoProyecto::find($idVideo);
 				$video->youtube_url = $request->ytUrl;
 				$video->save();
@@ -445,11 +445,11 @@ class TeamCtrl extends Controller
 		public function uploadAppDoc(Request $request){
 			$res = (object) null;
 			try{
-				if (TeamTrait::isDeadlineOut()){
-					$res->success= false;
-					$res->msg = 'La fecha límite para subir tu video ha expirado';
-					return response()->json($res);
-				}
+				// if (TeamTrait::isDeadlineOut()){
+				// 	$res->success= false;
+				// 	$res->msg = 'La fecha límite para subir tu video ha expirado';
+				// 	return response()->json($res);
+				// }
 				$file = $request->file('appDoc');
 				$doc = TeamTrait::uploadAppDoc($file, $request->teamId);
 				$res->success = true;
@@ -466,11 +466,11 @@ class TeamCtrl extends Controller
 		public function uploadAppApk(Request $request){
 			$res = (object) null;
 			try{
-				if (TeamTrait::isDeadlineOut()){
-					$res->success= false;
-					$res->msg = 'La fecha límite para subir tu video ha expirado';
-					return response()->json($res);
-				}
+				// if (TeamTrait::isDeadlineOut()){
+				// 	$res->success= false;
+				// 	$res->msg = 'La fecha límite para subir tu video ha expirado';
+				// 	return response()->json($res);
+				// }
 				$file = $request->file('appApk');
 				$doc = TeamTrait::uploadApk($file, $request->teamId);
 				$res->success = true;
