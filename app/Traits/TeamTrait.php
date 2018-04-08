@@ -319,6 +319,6 @@ trait TeamTrait{
 	}
 	public static function isDeadlineOut(){
 		$date = date('Y-m-d H:i:s');
-		return $date > '2018-04-06 23:59:59';
+		return $date > '2018-04-08 23:59:59';
 	}
 }
