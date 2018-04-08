@@ -75,6 +75,7 @@ class TeamCtrl extends Controller
     		return response()->json($res);
     	}catch(\Exception $e){
     		$res->success = false;
+				$res->$e = $e->getMessage();
     		$res->msg = 'Hubo un error al cargar los equipos, inténtelo nuevamente';
     		return response()->json($res);
     	}
@@ -411,9 +412,10 @@ class TeamCtrl extends Controller
 					'es_demo' 		=> $request->type == 'DEMO'	? 1 : 0,
 					'es_equipo'		=> $request->type != 'DEMO' ? 1 : 0,
 				];
-				VideoProyecto::create($video);
+				$newVid = VideoProyecto::create($video);
 				$res->success = true;
 				$res->msg = 'Video ' . $request->type . ' fue subido éxitosamente';
+				$res->videoId = $newVid->id;
 			}catch(\Exception $e){
 				$res->success = false;
 				$res->msg = 'Hubo un error al subir su video';

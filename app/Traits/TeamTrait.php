@@ -153,14 +153,8 @@ trait TeamTrait{
 	}
 	public static function getVideos($Project){
 		$videos = [];
-		foreach ($Project->videoProyecto as $video) {
-			$videos[] = [
-				'id' => $video->id,
-				'youtube_url' => $video->youtube_url,
-				'is_demo'		=> $video->es_demo,
-				'is_team'		=> $video->es_equipo,
-			];
-		}
+		$videos[] = $Project->getPitch();
+		$videos[] = $Project->getDemo();
 		if (empty($videos)){
 			$videos = [
 				['id' => null, 'youtube_url' => '', 'is_demo' => true, 'is_team' => false],

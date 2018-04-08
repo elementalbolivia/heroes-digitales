@@ -138,8 +138,14 @@
 				Team.uploadVideo({teamId: vm.userCreds.teamId, type: type, ytUrl: url}).then(function(data){
 					if(data.success){
 						LxNotificationService.success(data.msg);
-						if(type == 'DEMO') vm.teamData.youtube_videos[0].youtube_url = url;
-						else vm.teamData.youtube_videos[1].youtube_url = url;
+						if(type == 'DEMO'){
+							 vm.teamData.youtube_videos[0].youtube_url = url;
+							 vm.teamData.youtube_videos[0].id = data.videoId;
+						 }
+						else{
+							 vm.teamData.youtube_videos[1].youtube_url = url;
+							 vm.teamData.youtube_videos[1].id = data.videoId;
+						 }
 					}else{
 						LxNotificationService.warning(data.msg);
 					}
