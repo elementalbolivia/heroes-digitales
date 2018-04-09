@@ -2,9 +2,9 @@
 	'use strict';
 
 	angular.module('heroesDigitalesApp')
-	.controller('UserRegisterCtrl', ['$stateParams', '$state', '$timeout', 'City', 'Shirt', 'Genre', 'Register', 'LxNotificationService', UserRegisterCtrl]);
+	.controller('UserRegisterCtrl', ['$window', '$stateParams', '$state', '$timeout', 'Auth', 'City', 'Shirt', 'Genre', 'Register', 'LxNotificationService', UserRegisterCtrl]);
 
-	function UserRegisterCtrl($stateParams, $state, $timeout, City, Shirt, Genre, Register, LxNotificationService){
+	function UserRegisterCtrl($window, $stateParams, $state, $timeout, Auth, City, Shirt, Genre, Register, LxNotificationService){
 		var vm = this;
 		// Methods
 		vm.getCities = getCities;
@@ -213,10 +213,28 @@
 			// Validar que el retype es igual al password
 			Register.register(vm.dataRegister).then(function(data){
 				if(data.success){
-					if(data.emailSended == 'NOT_SENDED')
-						$('#registerSend').modal('show');
-					else
+					if(data.emailSended == 'NOT_SENDED'){
+						var creds = {
+							email: vm.dataRegister.email,
+							password: vm.dataRegister.password,
+						};
+						Auth.login(creds).then(function(data){
+							if(data.success){
+								$timeout(function(){
+									$window.location.href = data.path;
+								}, 1000);
+								Auth.setSession(data.uid, data.rid, data.username,
+															data.token, data.min_fields, data.has_team,
+															data.team_id, data.is_leader);
+							}else{
+								LxNotificationService.warning(data.msg);
+							}
+						}, function(err){
+							LxNotificationService.error('Hubo un error al iniciar sesión, revise su conexión a internet e inténtelo nuevamente');
+						});
+					}else{
 						$state.go('home.success-register');
+					}
 				}else{
 					vm.isNotRegistered.state = true;
 					vm.isNotRegistered.isLoading = false;

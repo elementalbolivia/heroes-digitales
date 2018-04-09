@@ -1,8 +1,8 @@
 (function(){
 	"use strict";
 	angular.module('heroesDigitalesApp')
-    .controller('LoginCtrl', ['$state', '$timeout', '$anchorScroll', '$location', 'Auth', LoginCtrl]);
-	function LoginCtrl($state, $timeout, $anchorScroll, $location, Auth){
+    .controller('LoginCtrl', ['$window', '$state', '$timeout', '$anchorScroll', '$location', 'Auth', LoginCtrl]);
+	function LoginCtrl($window, $state, $timeout, $anchorScroll, $location, Auth){
 		var vm = this;
 		// Props
 		vm.creds = {
@@ -24,12 +24,12 @@
 			Auth.login(vm.creds).then(function(data){
 				if(data.success){
 					$timeout(function(){
-						$state.go(data.path);
+						if(data.rid != 4) $state.go(data.path);
+						else $window.location.href = data.path;
 					}, 1000);
 					Auth.setSession(data.uid, data.rid, data.username,
 												data.token, data.min_fields, data.has_team,
 											 	data.team_id, data.is_leader);
-					// console.log(Auth.getSession());
 					$("#login").modal("hide");
 				}else{
 					vm.loginState.isNotLogged = true;
