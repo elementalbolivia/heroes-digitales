@@ -58,11 +58,12 @@ class ExpertCtrl extends Controller
   public function assignToTeam(Request $request){
     $res = (object) null;
     try{
-      $isTeamWithExpert = ExpertoEvaluaEquipo::where('equipo_id', '=', $request->teamId)
-                                ->first();
-      if($isTeamWithExpert != NULL){
+      $isTeamWithExpert = DB::table('experto_evalua_equipo')
+                          ->where('equipo_id', '=', $request->teamId)
+                          ->count();
+      if($isTeamWithExpert >= 2){
         $res->success = false;
-        $res->msg = 'El equipo tiene asignado a un experto';
+        $res->msg = 'El equipo tiene asignados 2 expertos';
         return response()->json($res);
       }
       $data = [
