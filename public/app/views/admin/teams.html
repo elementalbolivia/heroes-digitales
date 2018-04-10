@@ -117,6 +117,7 @@
                         <th class="text-center">Estudiantes</th>
                         <th class="text-center" ng-if="vm.userCreds.role == 5">Eliminar</th>
                         <th class="text-center" ng-if="vm.userCreds.role == 5">Añadir experto</th>
+                        <th class="text-center">Docs. subidos</th>
                       </tr>
                       <tr>
                         <td></td>
@@ -179,6 +180,18 @@
                         </td>
                         <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-danger btn-sm" ng-click="vm.deleteTeam(team.id)"><i class="fa fa-times"></i></button></td>
                         <td><button type="button" ng-if="vm.userCreds.role == 5" class="btn btn-info btn-sm" ng-click="vm.selectTeam(team.id, team.team_name)" data-target="#selectExpert" data-toggle="modal"><i class="fa fa-user"></i></button></td>
+                        <td>
+                          <ol style="padding: 20px;">
+              							<li ng-if="!team.youtube_videos[0].id" class="text-danger" ><i class="fa fa-times-circle-o "></i> Video demo app</li>
+              							<li ng-if="team.youtube_videos[0].id"  class="text-success "><i class="fa fa-check-circle-o"></i> Video demo app </li>
+              							<li ng-if="!team.youtube_videos[1].id" class="text-danger" ><i class="fa fa-times-circle-o "></i> Video pitch de negocios</li>
+              							<li ng-if="team.youtube_videos[1].id"  class="text-success "><i class="fa fa-check-circle-o"></i> Video pitch de negocios </li>
+              							<li ng-if="!team.app_doc" class="text-danger"><i class="fa fa-times-circle-o "></i> Documento PDF de proyecto</li>
+              							<li ng-if="team.app_doc"  class="text-success "><i class="fa fa-check-circle-o"></i> Documento PDF de proyecto </li>
+              							<li ng-if="!team.app_apk" class="text-danger" ><i class="fa fa-times-circle-o "></i> Archivo APK de proyecto</li>
+              							<li ng-if="team.app_apk"  class="text-success "><i class="fa fa-check-circle-o"></i> Archivo APK de proyecto </li>
+              						</ol>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

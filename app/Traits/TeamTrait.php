@@ -82,6 +82,9 @@ trait TeamTrait{
 		$teamData['created_at'] 	= $team->fecha_creacion;
 		$teamData['division'] 	= $team->division($team->division_id);
 		$teamData['category'] 	= $team->project->category($team->project->categoria_id);
+		$teamData['app_doc'] 		= 	$team->project->resumen_archivo;
+		$teamData['app_apk'] 		= $team->project->codigo_fuente_archivo;
+		$teamData['youtube_videos'] = self::getVideos($team->project);
 		$teamData['city'] 		= $team->city($team->ciudad_id);
 		$teamData['members']['mentors'] = [];
 		$teamData['members']['students'] = [];

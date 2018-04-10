@@ -110,14 +110,8 @@
 						console.log(teamId);
 						Team.deleteTeam(teamId).then(function(data){
 							if(data.success){
-								for (var i = 0; i < vm.teams.length; i++) {
-									if(vm.teams[i].id == teamId){
-										vm.teams.splice(i, 1);
-										console.log(i, 'Eliminado');
-										LxNotificationService.success(data.msg);
-										return;
-									}
-								}
+								LxNotificationService.success(data.msg);
+								vm.getTeams();
 							}else{
 								LxNotificationService.warning(data.msg);
 							}
